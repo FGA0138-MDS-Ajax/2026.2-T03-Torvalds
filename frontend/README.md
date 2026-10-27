@@ -1,16 +1,58 @@
-# React + Vite
+# Frontend - cAnCHA
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação frontend do Cancha, desenvolvida com React e JavaScript e configurada com Vite.
 
-Currently, two official plugins are available:
+## Pré-requisitos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Node.js e npm instalados
+- Repositório do projeto clonado
 
-## React Compiler
+## Como executar
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+No terminal, a partir da pasta raiz do repositório, entre na pasta do frontend:
 
-## Expanding the ESLint configuration
+```
+cd frontend
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Instale as dependências:
+
+```
+npm install
+```
+
+Inicie o servidor de desenvolvimento:
+
+```
+npm run dev
+```
+
+Abra no navegador o endereço informado no terminal. Geralmente é `http://localhost:5173`.
+
+Para encerrar o servidor, pressione `Ctrl+C` no terminal em que ele está rodando.
+
+## Padronização do código
+
+Para analisar o código com o ESLint:
+
+```
+npm run lint
+```
+
+Para verificar a formatação com o Prettier:
+
+```
+npm run format:check
+```
+
+Execute esses comandos dentro da pasta `frontend`.
+
+## Gerar a versão de produção
+
+Para gerar os arquivos de produção:
+
+```
+npm run build
+```
+
+Os arquivos ficam na pasta `dist`.
