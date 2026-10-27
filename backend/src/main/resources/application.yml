@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: folha-backend
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/folha}
+    username: ${DB_USER:folha}
+    password: ${DB_PASSWORD:folha}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
