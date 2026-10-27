@@ -56,3 +56,13 @@ npm run build
 ```
 
 Os arquivos ficam na pasta `dist`.
+
+## Organização do código
+
+A pasta `src` contém o código da aplicação. A organização prevista no Documento de Arquitetura agrupa o código por funcionalidade:
+
+- `features/disciplinas`: componentes e arquivos relacionados às disciplinas
+- `features/agenda`: componentes e arquivos relacionados à agenda
+- `shared/api`: código compartilhado para comunicação com o backend
+
+Esses diretórios serão criados conforme as funcionalidades forem desenvolvidas. Atualmente, a aplicação ainda não está integrada ao backend.
