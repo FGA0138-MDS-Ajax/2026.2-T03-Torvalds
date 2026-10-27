@@ -85,7 +85,7 @@ backend/
 │   │       ├── application.yml  # Configuração da aplicação
 │   │       └── db/migration/    # Migrações Flyway (schema e carga inicial de conteúdo)
 │   └── test/
-│       ├── java/com/cancha/      # Testes unitários e de integração (JUnit)
+│       ├── java/com/cancha/     # Testes unitários e de integração (JUnit)
 │       └── resources/           # Configuração dos testes
 ├── Dockerfile                   # Imagem da API (build com JDK 21, execução com JRE 21)
 ├── .env.example                 # Variáveis de ambiente do banco

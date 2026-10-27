@@ -1,4 +1,4 @@
-# Frontend - cAnCHA
+# Frontend - Cancha
 
 Aplicação frontend do Cancha, desenvolvida com React e JavaScript e configurada com Vite.
 
