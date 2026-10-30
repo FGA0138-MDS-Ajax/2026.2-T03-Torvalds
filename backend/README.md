@@ -29,7 +29,22 @@ docker compose down
 
 Os dados do banco ficam salvos entre execuções. Para apagá-los, use `docker compose down -v`.
 
-> Enquanto o módulo `auth` não for implementado, o Spring Security exige login em todos os endpoints da API (exceto `/actuator/health`) e gera uma senha no log de inicialização.
+## Acesso à API enquanto o login não existe
+
+> **Aviso para quem for implementar o módulo `auth` (login e JWT):** esta seção descreve o estado **provisório**. Quando o login estiver pronto, atualize ou apague esta seção, a observação do Swagger mais abaixo e o aviso sobre os alunos de teste.
+
+O módulo `auth` ainda não está implementado, então vale o comportamento padrão do Spring Security:
+
+- Todos os endpoints exigem login, exceto `/actuator/health`.
+- O único usuário é **`user`**, e a senha é gerada de novo a cada inicialização do backend. Ela aparece no log, na linha `Using generated security password`. Com Docker:
+
+```
+docker compose logs backend | grep "generated security password"
+```
+
+- Os **alunos de teste do seed (`aluno1@cancha.test` e `aluno2@cancha.test`) ainda não fazem login**: o Spring Security não está ligado à tabela `usuario`. Eles só existem no banco por enquanto.
+
+O que falta fazer no `auth/security` (configuração do Spring Security): carregar o usuário da tabela `usuario`, conferir a senha BCrypt, emitir e validar o JWT, e liberar `/auth/login`, `/actuator/health`, `/swagger-ui.html`, `/swagger-ui/**` e `/v3/api-docs/**` sem token.
 
 ## Como executar para desenvolver (sem container do backend)
 
@@ -61,7 +76,46 @@ Por padrão a conexão usa o banco `cancha` do `docker-compose.yml`. Para usar o
 ./mvnw test
 ```
 
-Os testes usam um banco H2 em memória (ver `src/test/resources/application.yml`) e não dependem do Docker.
+Os testes usam um banco H2 em memória (ver `src/test/resources/application.yml`) e não dependem do Docker. O Flyway roda as migrations também nos testes e o Hibernate valida as entidades contra as tabelas, então uma entidade que não bate com a migration quebra o build. O `MigracoesIntegrationTest` é o exemplo de teste de integração com o banco.
+
+## Banco de dados e dados de exemplo
+
+O esquema vem das migrations em `src/main/resources/db/migration/` (`V<n>__descricao.sql`). Depois que uma migration for mergeada, não edite o arquivo: crie uma nova com o próximo número.
+
+- `V1__base.sql`: tabelas `usuario`, `aluno`, `disciplina` e `matricula`.
+- `V2__seed_base.sql`: 2 alunos de teste, 5 disciplinas e a matrícula dos dois em todas elas.
+
+Alunos de teste (somente desenvolvimento): `aluno1@cancha.test` e `aluno2@cancha.test`, ambos com a senha `cancha-dev-123`. No banco fica só o hash BCrypt.
+
+Se você já tinha rodado uma versão antiga das migrations, o Flyway recusa o banco com erro de checksum. Apague o volume e suba de novo:
+
+```
+docker compose down -v
+docker compose up --build
+```
+
+## Documentação da API (Swagger)
+
+Com a API no ar, a documentação interativa abre em `http://localhost:8080/swagger-ui.html` e o JSON em `/v3/api-docs`.
+
+> Enquanto a configuração do Spring Security do módulo `auth` não liberar essas rotas, elas pedem login com o usuário provisório descrito em [Acesso à API enquanto o login não existe](#acesso-à-api-enquanto-o-login-não-existe).
+
+## Formato de erro
+
+Todo erro da API sai no mesmo formato (`common/exception`), com o `GlobalExceptionHandler`:
+
+```json
+{
+  "timestamp": "2026-10-30T16:58:57Z",
+  "status": 404,
+  "erro": "Not Found",
+  "mensagem": "Recurso não encontrado.",
+  "caminho": "/nada",
+  "campos": null
+}
+```
+
+`campos` só vem preenchido em erros de validação (400), com `campo` e `mensagem` de cada item inválido. Para um erro de negócio, lance `RecursoNaoEncontradoException` (404) ou crie uma exceção nova e trate-a no `GlobalExceptionHandler`. Erros inesperados viram 500 com mensagem genérica; o detalhe fica só no log.
 
 ## Estrutura
 
@@ -83,7 +137,7 @@ backend/
 │   │   │   └── CanchaApplication.java
 │   │   └── resources/
 │   │       ├── application.yml  # Configuração da aplicação
-│   │       └── db/migration/    # Migrações Flyway (schema e carga inicial de conteúdo)
+│   │       └── db/migration/    # Migrações Flyway (esquema e dados de exemplo)
 │   └── test/
 │       ├── java/com/cancha/     # Testes unitários e de integração (JUnit)
 │       └── resources/           # Configuração dos testes
