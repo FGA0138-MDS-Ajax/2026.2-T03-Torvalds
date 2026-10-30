@@ -35,7 +35,7 @@ O problema se insere no contexto acadêmico do Ensino a Distância (EaD), modali
 
 Figura 1 – Diagrama de Ishikawa do problema de navegação no EaD
 
-![Figura 1 - Diagrama de Ishikawa](figura1-ishikawa.png)
+![Figura 1 - Diagrama de Ishikawa](imagens/figura1-ishikawa.png)
 
 Fonte: elaborado pelo grupo (2026)
 
@@ -97,7 +97,7 @@ O projeto adota uma metodologia ágil, instanciada em um ciclo de vida híbrido,
 
 Figura 2 – Metodologia de desenvolvimento do projeto cAnCHA
 
-![Figura 2 - Metodologia](figura2-metodologia.png)
+![Figura 2 - Metodologia](imagens/figura2-metodologia.png)
 
 Fonte: elaborado pelo grupo (2026)
 
