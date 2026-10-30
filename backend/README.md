@@ -61,7 +61,7 @@ Por padrão a conexão usa o banco `cancha` do `docker-compose.yml`. Para usar o
 ./mvnw test
 ```
 
-Os testes usam um banco H2 em memória (ver `src/test/resources/application.yml`) e não dependem do Docker.
+Os testes usam um banco H2 em memória (ver `src/test/resources/application.yml`) e não dependem do Docker. O Flyway roda as migrations também nos testes e o Hibernate valida as entidades contra as tabelas, então uma entidade que não bate com a migration quebra o build. O `MigracoesIntegrationTest` é o exemplo de teste de integração com o banco.
 
 ## Banco de dados e dados de exemplo
 
