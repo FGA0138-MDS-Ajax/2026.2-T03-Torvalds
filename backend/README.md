@@ -63,6 +63,22 @@ Por padrão a conexão usa o banco `cancha` do `docker-compose.yml`. Para usar o
 
 Os testes usam um banco H2 em memória (ver `src/test/resources/application.yml`) e não dependem do Docker.
 
+## Banco de dados e dados de exemplo
+
+O esquema vem das migrations em `src/main/resources/db/migration/` (`V<n>__descricao.sql`). Depois que uma migration for mergeada, não edite o arquivo: crie uma nova com o próximo número.
+
+- `V1__base.sql`: tabelas `usuario`, `aluno`, `disciplina` e `matricula`.
+- `V2__seed_base.sql`: 2 alunos de teste, 5 disciplinas e a matrícula dos dois em todas elas.
+
+Alunos de teste (somente desenvolvimento): `aluno1@cancha.test` e `aluno2@cancha.test`, ambos com a senha `cancha-dev-123`. No banco fica só o hash BCrypt.
+
+Se você já tinha rodado uma versão antiga das migrations, o Flyway recusa o banco com erro de checksum. Apague o volume e suba de novo:
+
+```
+docker compose down -v
+docker compose up --build
+```
+
 ## Estrutura
 
 A organização segue o Documento de Arquitetura (Seção 2.5.2): um pacote por módulo (package-by-feature), cada um com suas camadas.
@@ -83,7 +99,7 @@ backend/
 │   │   │   └── CanchaApplication.java
 │   │   └── resources/
 │   │       ├── application.yml  # Configuração da aplicação
-│   │       └── db/migration/    # Migrações Flyway (schema e carga inicial de conteúdo)
+│   │       └── db/migration/    # Migrações Flyway (esquema e dados de exemplo)
 │   └── test/
 │       ├── java/com/cancha/     # Testes unitários e de integração (JUnit)
 │       └── resources/           # Configuração dos testes
