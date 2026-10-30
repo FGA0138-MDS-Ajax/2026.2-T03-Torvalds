@@ -1,0 +1,1158 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../atas-reuniao/ata-reuniao-1/">
+      
+      
+        <link rel="next" href="../documento-de-arquitetura/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+    
+    
+      
+        <title>Documento de Visão - Documentação</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#documento-de-visao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Documentação" class="md-header__button md-logo" aria-label="Documentação" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentação
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Documento de Visão
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Documentação" class="md-nav__button md-logo" aria-label="Documentação" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Documentação
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instruções mkdocs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Atas de Reunião
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Atas de Reunião
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../atas-reuniao/ata-reuniao-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documento de Visão
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documento de Visão
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-integrantes-do-grupo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabela - Integrantes do Grupo:
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#historico-de-revisoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Histórico de Revisões
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documento-de-arquitetura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documento de Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-integrantes-do-grupo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabela - Integrantes do Grupo:
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#historico-de-revisoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Histórico de Revisões
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="documento-de-visao">Documento de Visão</h1>
+<p><strong>VISÃO DO PRODUTO E DO PROJETO</strong></p>
+<p>Versão 1.1</p>
+<h2 id="tabela-integrantes-do-grupo">Tabela - Integrantes do Grupo:</h2>
+<table>
+<thead>
+<tr>
+<th>Mat.</th>
+<th style="text-align: left;">Nome</th>
+<th style="text-align: left;">Função (responsabilidade)</th>
+<th style="text-align: left;">Pontos de participação na elaboração</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>231036800</td>
+<td style="text-align: left;">Gustavo Linhares Lima</td>
+<td style="text-align: left;">Desenvolvedor</td>
+<td style="text-align: left;">13.5</td>
+</tr>
+<tr>
+<td>232014469</td>
+<td style="text-align: left;">Jefferson de Souza Reis</td>
+<td style="text-align: left;">Scrum Master</td>
+<td style="text-align: left;">12.5</td>
+</tr>
+<tr>
+<td>242004967</td>
+<td style="text-align: left;">Pedro Lucas Souza Silva</td>
+<td style="text-align: left;">Desenvolvedor</td>
+<td style="text-align: left;">12.5</td>
+</tr>
+<tr>
+<td>242015719</td>
+<td style="text-align: left;">Thiago Kauã de Sousa Cardoso</td>
+<td style="text-align: left;">Desenvolvedor</td>
+<td style="text-align: left;">12.5</td>
+</tr>
+<tr>
+<td>251036440</td>
+<td style="text-align: left;">Eduardo</td>
+<td style="text-align: left;">Product Owner</td>
+<td style="text-align: left;">12.5</td>
+</tr>
+<tr>
+<td>232014692</td>
+<td style="text-align: left;">João Lucas R. Cabral</td>
+<td style="text-align: left;">Designer/QA</td>
+<td style="text-align: left;">15</td>
+</tr>
+<tr>
+<td>232024554</td>
+<td style="text-align: left;">Ana Jullia B. M. Lopes</td>
+<td style="text-align: left;">Scrum Master/QA</td>
+<td style="text-align: left;">12.5</td>
+</tr>
+<tr>
+<td>241040341</td>
+<td style="text-align: left;">Pedro Henrique Galdino</td>
+<td style="text-align: left;">Desenvolvedor</td>
+<td style="text-align: left;">9</td>
+</tr>
+<tr>
+<td><strong>Total de pontos</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>(Devem fechar 100 pontos para toda a equipe.)</strong></td>
+<td style="text-align: left;"><strong>100</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="historico-de-revisoes">Histórico de Revisões</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Data</th>
+<th style="text-align: left;">Versão</th>
+<th style="text-align: left;">Descrição</th>
+<th style="text-align: left;">Autor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">30/09</td>
+<td style="text-align: left;">1.0</td>
+<td style="text-align: left;">Versão inicial do Documento de Visão.</td>
+<td style="text-align: left;">Grupo Torvalds</td>
+</tr>
+<tr>
+<td style="text-align: left;">16/10</td>
+<td style="text-align: left;">1.1</td>
+<td style="text-align: left;">Alteração do nome do produto de "Folha Digital" para "cAnCHA" e reorganização das sprints</td>
+<td style="text-align: left;">Ana Jullia</td>
+</tr>
+</tbody>
+</table>
+<h1 id="1-visao-geral-do-produto">1 VISÃO GERAL DO PRODUTO</h1>
+<h2 id="11-problema">1.1 Problema</h2>
+<p>O problema se insere no contexto acadêmico do Ensino a Distância (EaD), modalidade ofertada por instituições como a UnB e que, em 2024, passou a concentrar 50,7% das matrículas de graduação do país (INEP, 2025). Nesse cenário, a relação do aluno com o curso acontece quase toda dentro do Ambiente Virtual de Aprendizagem (AVA) e de outros sistemas acadêmicos, e é por meio deles que ele localiza conteúdos, acompanha atividades e prazos e percebe o próprio avanço. Esse público é formado por estudantes de perfis variados, incluindo candidatos de programas como o Vestibular 60+ ou usuários com baixo conhecimento de tecnologia.</p>
+<p>É justamente nessa organização que está o problema: estudantes em ambientes de EaD podem enfrentar dificuldades para localizar conteúdos, acompanhar atividades, identificar prazos e compreender seu progresso, devido à forma como as informações e interações são organizadas no ambiente. Estudantes da modalidade já apontaram dificuldades de usabilidade no AVA como fator ligado à desistência (AMBIENTES, 2025), o que revela uma oportunidade de desenvolvimento de software voltado à experiência do aluno. Para esclarecer as causas desse problema, o grupo utilizou o diagrama de Ishikawa apresentado na Figura 1.</p>
+<p>Figura 1 – Diagrama de Ishikawa do problema de navegação no EaD</p>
+<p><img alt="Figura 1 - Diagrama de Ishikawa" src="../imagens/figura1-ishikawa.png" /></p>
+<p>Fonte: elaborado pelo grupo (2026)</p>
+<p>O efeito analisado, à direita do diagrama, é o aluno de EaD que se perde na navegação e perde prazos. Na parte superior estão as causas ligadas à plataforma. Em Navegação, menus profundos e caminhos longos obrigam o aluno a atravessar vários níveis até a tarefa, e hierarquias mais profundas aumentam o risco de o usuário se perder (ZAPHIRIS; KURNIAWAN; ELLIS, 2003). Em Pendências, a ausência de uma visão única de prazos e atividades impede que o aluno saiba, de relance, o que precisa entregar. Em Sistemas, o uso de vários sistemas acadêmicos espalha essa informação entre plataformas.</p>
+<p>Na parte inferior estão as causas ligadas à rotina do aluno e ao esforço gerado. Em Aluno EaD, a dependência quase total do AVA e a ausência de apoio presencial fazem com que qualquer dificuldade na plataforma recaia diretamente sobre o estudante. Em Carga cognitiva, informações espalhadas aumentam a carga cognitiva extrínseca e reduzem a atenção disponível para aprender (COGNITIVE..., 2026). Em Acompanhamento, o controle manual e a falta de visibilidade do progresso deixam o aluno sem uma noção clara de quanto já concluiu, transferindo para ele a tarefa de organizar prazos e avanço por fora.</p>
+<p>A leitura do diagrama mostra que a maioria das causas é estrutural: não depende do esforço do aluno, e sim de como a informação é organizada. O problema se concentra, portanto, em dois gargalos: a alta profundidade de navegação (excesso de cliques) e a falta de centralização visual das pendências, dos prazos e do progresso. Por serem causas de organização da informação, a resposta mais direta é um software que reorganize essa informação a partir da perspectiva do aluno.</p>
+<p>A solução proposta é um software de visualização de tarefas e acompanhamento de atividades e prazos, com foco em diminuir a quantidade de cliques do usuário. O produto facilita a gestão de tarefas e de tempo, oferecendo uma interface intuitiva que auxilia o aluno a encontrar conteúdo, prazos e progresso usando o modelo mental de um caderno. Cada recurso responde a uma causa identificada no diagrama: o acesso direto às disciplinas reduz a profundidade de navegação; a agenda unificada de entregas centraliza pendências e prazos hoje dispersos entre sistemas; e o painel de progresso, alimentado pelas atividades que o aluno marca como concluídas, mostra quanto ele já avançou em cada disciplina e no período letivo. Com isso, espera-se que o aluno encontre o que precisa com menos passos e menos esforço, acompanhe seus prazos sem controles paralelos e tenha clareza sobre o próprio progresso.</p>
+<h2 id="12-declaracao-de-posicao-do-produto">1.2 Declaração de Posição do Produto</h2>
+<p>Quadro 1 – Declaração de posição do produto</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Para:</th>
+<th style="text-align: left;">estudantes de EaD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">Necessidade:</td>
+<td style="text-align: left;">Uma plataforma que simplifica a gestão de atividades curriculares, facilitando o acesso às tarefas, a visualização de prazos e a compreensão do progresso dos trabalhos executados (desempenho do discente ao longo do período letivo / estudo).</td>
+</tr>
+<tr>
+<td style="text-align: right;">O (nome do produto):</td>
+<td style="text-align: left;">Uma aplicação web chamada cAnCHA.</td>
+</tr>
+<tr>
+<td style="text-align: right;">Que:</td>
+<td style="text-align: left;">Organiza a vida acadêmica do aluno como um caderno físico, possui agenda unificada de entregas (estilo kanban) e painel de progresso, possui fácil acesso às disciplinas em no máximo 3 cliques.</td>
+</tr>
+<tr>
+<td style="text-align: right;">Ao contrário:</td>
+<td style="text-align: left;">Baixo rendimento escolar para pessoas com dificuldades de navegação em plataformas já existentes; dispersão de responsabilidades entre diferentes softwares (exemplo: Aprender3, SIGAA, Notion), dificultando ainda mais a jornada estudantil.</td>
+</tr>
+<tr>
+<td style="text-align: right;">Nosso produto:</td>
+<td style="text-align: left;">Modelo mental de um caderno, facilitando a compreensão do usuário e garantindo uma maior adesão ao software, proporcionando um painel centralizado na experiência do usuário (UX)</td>
+</tr>
+</tbody>
+</table>
+<p>Fonte: elaborado pelo grupo (2026)</p>
+<h2 id="13-objetivos-do-produto">1.3 Objetivos do Produto</h2>
+<p>Simplificar a gestão de atividades curriculares, facilitando o acesso do estudante a tarefas, visualização de prazos e entrega de trabalhos.</p>
+<p>Objetivos Específicos:</p>
+<ol>
+<li>Reduzir a quantidade de cliques necessários para localizar tarefas e materiais de aula;</li>
+<li>Centralizar as pendências e datas limite em um painel visual e dinâmico;</li>
+<li>Exibir indicadores de progresso por disciplina para auxiliar a gestão de tempo do discente.</li>
+</ol>
+<p>Objetivo Secundário:</p>
+<ol>
+<li>Paralelamente, a aplicação ainda permite que o usuário mantenha anotações e registros dos conteúdos assimilados.</li>
+</ol>
+<h2 id="14-tecnologias-a-serem-utilizadas">1.4 Tecnologias a Serem Utilizadas</h2>
+<p><strong>Ferramentas de Desenvolvimento e Design:</strong></p>
+<p>VSCode para codificação, Figma para prototipagem de telas e GitHub para controle de versão e integração contínua.</p>
+<p><strong>Interface/Front-end:</strong></p>
+<p>React.js para construção de interface SPA reativa focada em UX.</p>
+<p><strong>Back-end/API:</strong></p>
+<p>Node.js para gestão de usuários, tarefas e disciplinas.</p>
+<h1 id="2-visao-geral-do-projeto">2 VISÃO GERAL DO PROJETO</h1>
+<h2 id="21-ciclo-de-vida-do-projeto-de-desenvolvimento-de-software">2.1 Ciclo de vida do projeto de desenvolvimento de software</h2>
+<p>O projeto adota uma metodologia ágil, instanciada em um ciclo de vida híbrido, iterativo e incremental baseado em Scrum e Extreme Programming (XP), com sprints semanais. A Figura 2 mostra como essa escolha se desdobra em processo, procedimentos, métodos e ferramentas, seguindo o modelo apresentado acima.</p>
+<p>Figura 2 – Metodologia de desenvolvimento do projeto cAnCHA</p>
+<p><img alt="Figura 2 - Metodologia" src="../imagens/figura2-metodologia.png" /></p>
+<p>Fonte: elaborado pelo grupo (2026)</p>
+<p>A metodologia ágil foi escolhida porque o problema é de usabilidade: não basta especificar a interface antes, é preciso verificar com frequência se ela de fato reduz passos e deixa prazos e progressos claros. Uma abordagem ágil permite entregar cedo e ajustar o produto a cada validação, em vez de fixar todos os requisitos no início.</p>
+<p>Como processo, adota-se um ciclo de vida híbrido, iterativo e incremental fundamentado em Scrum e XP. Antes da primeira sprint, na fase de iniciação (pré-sprint), a primeira sprint é dedicada à definição do produto: nela a equipe mapeou o problema com o diagrama de Ishikawa, elaborou este Documento de Visão e iniciou o Product Backlog. A partir da segunda sprint, cada ciclo passa a gerar incrementos do software. A partir daí, o Scrum organiza o trabalho em sprints de uma semana, com planejamento no início e revisão e retrospectiva no fim, o que viabiliza o refinamento contínuo do backlog. Cada sprint gera um incremento funcional do software, que acrescenta valor ao produto e é avaliado ao fim da sprint. O XP complementa o Scrum com práticas técnicas que mantêm o código estável entre uma entrega e outra. A sprint semanal permite que cada ajuste de interface chegue rapidamente à validação e se encaixa no ritmo do semestre.</p>
+<p>Nos procedimentos, uma história de usuário só entra na sprint quando atende à Definição de Preparado (Definition of Ready): possui critérios de aceitação verificáveis e escopo delimitado pelo Dono do Produto, pequeno o suficiente para ser concluído em uma semana. Cada sprint começa com a seleção das histórias mais prioritárias do backlog e termina com a revisão do incremento produzido, em que o Dono do Produto, representando o aluno, valida as entregas (seção 2.2). Além dessa validação semanal, a equipe realiza testes de usabilidade com estudantes em marcos definidos do projeto, como a conclusão de uma funcionalidade principal, verificando na prática se a interface reduz os passos até a tarefa e deixa prazos e progressos claros. Ao longo da sprint, a equipe realiza reuniões semanais para acompanhar o andamento e identificar impedimentos. Uma história só é considerada concluída, conforme a Definição de Pronto (Definition of Done), quando seus testes passam na integração contínua, critério acompanhado pelo Analista de Qualidade.</p>
+<p>Os métodos adotados são as histórias de usuário, que descrevem cada funcionalidade do ponto de vista do aluno (por exemplo, ver em uma única tela todos os prazos da semana); os testes automatizados, que verificam cada funcionalidade entregue; e a integração contínua, que executa esses testes a cada alteração enviada ao repositório. A programação em pares, prática comum do XP, não foi adotada nesta versão do projeto; em seu lugar, a qualidade do código é assegurada pela revisão de código, realizada por meio das inspeções de código atribuídas ao Analista de Qualidade (seção 2.2).</p>
+<p>Quanto às ferramentas, o código é versionado no GitHub, que também concentra a integração contínua do projeto. O Product Backlog e o Sprint Backlog são gerenciados no Trello, o que dá transparência ao andamento de cada sprint, e as reuniões semanais acontecem pelo Microsoft Teams. A codificação é feita no IntelliJ IDEA ou no VS Code, a critério de cada integrante, e o design e a prototipação das telas são feitos no Figma.</p>
+<h2 id="22-organizacao-do-projeto">2.2 Organização do Projeto</h2>
+<p>Quadro 2 – Organização da equipe do projeto</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Papel</th>
+<th style="text-align: left;">Atribuições</th>
+<th style="text-align: left;">Responsável</th>
+<th style="text-align: left;">Participantes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Desenvolvedor</td>
+<td style="text-align: left;">Codificar o produto, codificar testes unitários, realizar refatoração</td>
+<td style="text-align: left;">Pedro</td>
+<td style="text-align: left;">Pedro, Thiago, Jefferson, Eduardo, Gustavo, Galdino</td>
+</tr>
+<tr>
+<td style="text-align: left;">Designer</td>
+<td style="text-align: left;">Desenvolvimento do Frontend da aplicação, responsável pela experiência de usuários e parte visual do projeto.</td>
+<td style="text-align: left;">João Lucas</td>
+<td style="text-align: left;">João Lucas, Galdino</td>
+</tr>
+<tr>
+<td style="text-align: left;">Scrum Master</td>
+<td style="text-align: left;">Gerenciamento de Backlogs do projeto</td>
+<td style="text-align: left;">Ana Jullia</td>
+<td style="text-align: left;">João Lucas, Ana Jullia</td>
+</tr>
+<tr>
+<td style="text-align: left;">Dono do Produto</td>
+<td style="text-align: left;">Atualizar o escopo do produto, organizar o escopo das sprints, validar as entregas</td>
+<td style="text-align: left;">Eduardo</td>
+<td style="text-align: left;">Jefferson, Eduardo</td>
+</tr>
+<tr>
+<td style="text-align: left;">Analista de Qualidade</td>
+<td style="text-align: left;">Garantir a qualidade do produto, garantir o cumprimento do conceito de pronto, realizar inspeções de código</td>
+<td style="text-align: left;">João Lucas</td>
+<td style="text-align: left;">Pedro, Ana Jullia</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cliente</td>
+<td style="text-align: left;">Apresentar as necessidades dos estudantes de EaD e participar dos testes de usabilidade</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<p>Fonte: elaborado pelo grupo (2026)</p>
+<h2 id="23-planejamento-das-fases-eou-iteracoes-do-projeto">2.3 Planejamento das Fases e/ou Iterações do Projeto</h2>
+<p>O planejamento das fases do projeto foi estruturado em Sprints semanais, alinhadas ao ciclo de vida ágil (Scrum/XP). A Tabela 1 apresenta o cronograma das iterações, especificando o período de execução, os entregáveis esperados, os papéis responsáveis e o percentual de conclusão.</p>
+<p>Este planejamento possui caráter evolutivo e será atualizado sucessivamente ao final de cada Sprint, refletindo o real andamento das entregas no repositório da equipe.</p>
+<p>Tabela 1 – Planejamento das fases e iterações do projeto</p>
+<table>
+<thead>
+<tr>
+<th>Sprint</th>
+<th>Produto (Entrega)</th>
+<th>Data Início</th>
+<th>Data Fim</th>
+<th>Entregável(eis)</th>
+<th>Responsáveis</th>
+<th>% conclusão</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sprint 1</td>
+<td>Definição do Produto</td>
+<td>16/09/2026</td>
+<td>30/09/2026</td>
+<td>Documento de Visão, Backlog inicial</td>
+<td>Todos</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>Sprint 2</td>
+<td>Documento de Arquitetura</td>
+<td>01/10/2026</td>
+<td>07/10/2026</td>
+<td>Documento de Arquitetura</td>
+<td>Todos</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>Sprint 3</td>
+<td>Apresentação</td>
+<td>08/10/2026</td>
+<td>14/10/2026</td>
+<td>Apresentação do Doc. de Visão, GQM</td>
+<td>Todos</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>Sprint 4</td>
+<td>Apresentação</td>
+<td>15/10/2026</td>
+<td>21/10/2026</td>
+<td>Apresentação do Doc. de Arquitetura, prova</td>
+<td>Todos</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>Sprint 5</td>
+<td>Prototipação Visual</td>
+<td>22/10/2026</td>
+<td>28/10/2026</td>
+<td>Protótipo no Figma</td>
+<td>DEV, QA, DES</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>Sprint 6</td>
+<td>Funcionalidades Base e Disciplinas</td>
+<td>29/10/2026</td>
+<td>04/11/2026</td>
+<td>Fundação técnica, login, telas início/ matérias, backend de disciplinas, Swagger, deploy</td>
+<td>DEV, QA, SM</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>Sprint 7</td>
+<td>Entregas, Materiais e Agenda</td>
+<td>05/11/2026</td>
+<td>11/11/2026</td>
+<td>Entregas e materiais (back + front), página da disciplina, próximas entregas, testes de aceitação, release</td>
+<td>DEV, QA, DES, PO</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>Sprint 8</td>
+<td>Ajustes pós-Ponto de Controle</td>
+<td>12/11/2026</td>
+<td>18/11/2026</td>
+<td>Correções de defeitos apontados no Ponto de Controle</td>
+<td>DEV, QA</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>Sprint 9</td>
+<td>Módulo de Anotações</td>
+<td>19/11/2026</td>
+<td>22/11/2026</td>
+<td>Módulo de anotações integrado ao backend</td>
+<td>DEV, QA</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>Sprint 10</td>
+<td>Testes e Correções</td>
+<td>23/11/2026</td>
+<td>27/11/2026</td>
+<td>Execução dos testes CT-01 a CT-09 e correção de defeitos finais</td>
+<td>DEV, QA, SM</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>Sprint 11</td>
+<td>Finalização e Entrega</td>
+<td>28/11/2026</td>
+<td>02/12/2026</td>
+<td>Execução do fluxo completo do aluno, congelamento de código e apresentação do software rodando</td>
+<td>Todos</td>
+<td>0%</td>
+</tr>
+</tbody>
+</table>
+<p>Fonte: elaborado pelo grupo (2026)</p>
+<p><em>(Aliases): PO = Product Owner; SM = Scrum Master; DEV = Desenvolvedores; DES = Designer; QA = Analista de Qualidade.</em></p>
+<h2 id="24-matriz-de-comunicacao">2.4 Matriz de Comunicação</h2>
+<p>Quadro 3 – Matriz de comunicação</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Descrição</th>
+<th style="text-align: left;">Área/Envolvidos</th>
+<th style="text-align: left;">Periodicidade</th>
+<th style="text-align: left;">Produtos Gerados</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Acompanhamento das Atividades em Andamento Acompanhamento dos Riscos, Compromissos, Ações Pendentes, Indicadores</td>
+<td style="text-align: left;">Equipe do Projeto</td>
+<td style="text-align: left;">Semanal</td>
+<td style="text-align: left;">Ata de reunião (Transcrição Teams) Relatório de situação do projeto</td>
+</tr>
+<tr>
+<td style="text-align: left;">Comunicar situação do projeto</td>
+<td style="text-align: left;">Equipe Prof/Monitor</td>
+<td style="text-align: left;">Semanal</td>
+<td style="text-align: left;">Ata de reunião, e Relatório de situação do projeto</td>
+</tr>
+<tr>
+<td style="text-align: left;">Daily: o que fiz, o que farei, impedimentos</td>
+<td style="text-align: left;">Equipe do Projeto</td>
+<td style="text-align: left;">Semanal</td>
+<td style="text-align: left;">Registro no Trello</td>
+</tr>
+</tbody>
+</table>
+<p>Fonte: elaborado pelo grupo (2026)</p>
+<h2 id="25-gerenciamento-de-riscos">2.5 Gerenciamento de Riscos</h2>
+<ul>
+<li><strong>Atraso na entrega por sobreposição com avaliações de outras disciplinas:</strong></li>
+<li>Grau de exposição: Alto;</li>
+<li>Plano de mitigação: Planejar Sprints com folga e distribuir tarefas de forma balanceada entre os integrantes;</li>
+<li>
+<p>Plano de contingência: Distribuição balanceada entre os membros, priorizando o backlog das tarefas realizadas (MoSCoW).</p>
+</li>
+<li>
+<p><strong>Dificuldade técnica com tecnologias novas para a equipe (ex.: integração Spring Boot + React):</strong></p>
+</li>
+<li>Grau de exposição: Médio;</li>
+<li>Plano de mitigação: Provas de conceito antecipadas e estudo dirigido nas primeiras sprints;</li>
+<li>
+<p>Plano de contingência: Buscar apoio de monitoria/Professor e, se necessário, simplificar o escopo técnico.</p>
+</li>
+<li>
+<p><strong>Esforço subestimado (Ex: Atraso de entrega devido à um escopo maior do que o esperado):</strong></p>
+</li>
+<li>Grau de exposição: Alto;</li>
+<li>Plano de mitigação: Estimar as histórias de usuário por meio de planning poker e acompanhar a velocidade da equipe a cada sprint, a fim de ajustar o planejamento das sprints seguintes.</li>
+<li>
+<p>Plano de contingência: Mover os itens classificados como Should e Could para sprints seguintes, a fim de priorizar a entrega dos requisitos <em>Must</em>, e registrar a alteração no planejamento das fases.</p>
+</li>
+<li>
+<p><strong>Requisitos pouco claros ou alterados durante a sprint</strong></p>
+</li>
+<li>Grau de exposição: Alto;</li>
+<li>Plano de mitigação: Definir critérios de aceitação para cada história de usuário e validar os requisitos com o Product Owner ao final de cada sprint na sprint review.</li>
+<li>Plano de contingência: Congelar o escopo da sprint em andamento e registrar as alterações no backlog do produto, para serem priorizadas para a sprint seguinte.</li>
+</ul>
+<h2 id="26-criterios-de-replanejamento">2.6 Critérios de Replanejamento</h2>
+<p>O replanejamento do projeto será acionado sempre que desvios de cronograma, problemas técnicos ou eventos imprevistos comprometerem as entregas planejadas para a sprint ou release. Abaixo estão detalhados os critérios e gatilhos de replanejamento mapeados para o projeto:</p>
+<p>1) <strong>Replanejamento por Risco de Calendário e Avaliações</strong></p>
+<p>Gatilho: Redução na disponibilidade da equipe decorrente da sobreposição com avaliações acadêmicas de outras disciplinas.</p>
+<p>Condição de Acionamento: Quando a capacidade estimada de pontos de história da equipe para a Sprint for reduzida em mais de 30% devido ao calendário de provas.</p>
+<p>Ação e Contingência: O time redistribuirá as tarefas entre os membros disponíveis e acionará o Product Owner (PO) para repactuar a Sprint. A priorização utilizará a classificação MoSCoW para congelar ou remover Histórias de Usuário Should e Could, mantendo o foco exclusivo nas histórias essenciais Must Have.</p>
+<p>2) <strong>Replanejamento por Incompatibilidade ou Bloqueio Técnico</strong></p>
+<p>Gatilho: Dificuldades na integração entre tecnologias (Spring Boot + React) ou complexidade imprevista no desenvolvimento.</p>
+<p>Condição de Acionamento: Quando um Spike técnico (investigação arquitetural curta do XP) não solucionar a dúvida tecnológica no prazo estipulado ou uma História de Usuário permanecer bloqueada por mais de 2 dias úteis.</p>
+<p>Ação e Contingência: É solicitado suporte técnico à monitoria ou ao professor. Caso o impedimento persista, os desenvolvedores explicarão as consequências técnicas ao PO para negociar o fatiamento da tarefa, a simplificação do escopo técnico ou a substituição do item por outra demanda do backlog.</p>
+<p>3) <strong>Replanejamento por Esforço Subestimado</strong></p>
+<p>Gatilho: Identificação de que o esforço necessário para concluir uma História de Usuário é significativamente superior ao estimado inicialmente, ocasionando atraso na entrega ou comprometimento das demais atividades da Sprint.</p>
+<p>Condição de Acionamento: Quando uma História de Usuário ultrapassar em 50% ou mais a estimativa de esforço definida no planejamento da Sprint, ou quando o desvio identificado indicar que a conclusão da história comprometerá a entrega dos demais itens planejados para a Sprint.</p>
+<p>Ação e Contingência: O time deverá reavaliar as estimativas das histórias restantes e comunicar o impacto ao Product Owner. Os itens classificados como Should Have e Could Have poderão ser movidos para Sprints seguintes, priorizando a conclusão dos requisitos Must Have. A alteração deverá ser registrada no planejamento das fases e considerada nas estimativas das Sprints seguintes.</p>
+<p>4) <strong>Replanejamento por Requisitos Pouco Claros ou Alterados</strong></p>
+<p>Gatilho: Identificação de ambiguidades nos requisitos, critérios de aceitação insuficientes ou alterações no escopo de uma História de Usuário durante o desenvolvimento da Sprint.</p>
+<p>Condição de Acionamento: Quando uma alteração ou esclarecimento de requisito modificar o escopo, os critérios de aceitação ou o esforço estimado de uma História de Usuário após o início da Sprint, de modo que sua implementação não possa ser concluída conforme o planejamento original.</p>
+<p>Ação e Contingência: O escopo da Sprint em andamento será congelado em relação à História de Usuário afetada, e as alterações identificadas serão registradas no Product Backlog. O Product Owner deverá priorizar as novas demandas para a Sprint seguinte, evitando alterações que comprometam o objetivo da Sprint atual.</p>
+<h1 id="3-processo-de-desenvolvimento-de-software">3 PROCESSO DE DESENVOLVIMENTO DE SOFTWARE</h1>
+<p>A equipe adota o framework Scrum como processo principal de desenvolvimento, complementado por práticas de Extreme Programming (XP) voltadas à qualidade técnica do código. Os papéis envolvidos seguem a divisão definida na Seção 2.2.</p>
+<p>O fluxo de trabalho organiza a engenharia de requisitos nas seguintes macro-atividades:</p>
+<ol>
+<li><strong>Elicitação e Descoberta:</strong> Levantamento de necessidades através de questionários e brainstormings.</li>
+<li><strong>Análise e Consenso:</strong> Refinamento de histórias e priorização técnica entre o time e o PO antes de cada Sprint Planning.</li>
+<li><strong>Declaração:</strong> Formalização de Histórias de Usuário acompanhadas de critérios de aceitação testáveis.</li>
+<li><strong>Verificação e Validação:</strong> Testes e validação contínua das entregas com foco nos atributos de qualidade do produto (usabilidade, desempenho e segurança).</li>
+</ol>
+<h1 id="4-declaracao-de-escopo-do-projeto">4 DECLARAÇÃO DE ESCOPO DO PROJETO</h1>
+<h2 id="41-backlog-do-produto">4.1 Backlog do produto</h2>
+<p>O Product Backlog do projeto cAnCHA consiste no conjunto de requisitos, funcionalidades e necessidades identificadas para o desenvolvimento do produto. Ele é utilizado como instrumento de organização e priorização do escopo, sendo refinado continuamente ao longo do desenvolvimento do projeto. A organização do backlog considera os perfis de usuários, os cenários funcionais e as histórias de usuário associadas a cada requisito.</p>
+<p>A definição e o refinamento dos requisitos são realizados de forma colaborativa entre a equipe de desenvolvimento e o Product Owner (PO). Inicialmente, as necessidades são levantadas por meio de técnicas de elicitação e, posteriormente, analisadas e refinadas para que cada requisito possua escopo delimitado e critérios de aceitação verificáveis. Essa abordagem está alinhada ao processo de desenvolvimento adotado pelo projeto, no qual as histórias de usuário são refinadas e priorizadas antes de cada Sprint Planning.</p>
+<p>Para a priorização dos requisitos, a equipe utiliza a classificação MoSCoW, dividindo-os em três categorias utilizadas no projeto: Must Have, Should Have e Could Have. A classificação possui as seguintes definições:</p>
+<ol>
+<li>Must Have: requisitos considerados essenciais para o funcionamento do produto e para o cumprimento de seus objetivos principais. A ausência desses requisitos compromete a entrega das funcionalidades fundamentais do cAnCHA.</li>
+<li>Should Have: requisitos importantes para o produto e que agregam valor significativo à experiência do usuário, mas que não impedem o funcionamento das funcionalidades essenciais caso sejam adiados para uma Sprint posterior.</li>
+<li>Could Have: requisitos desejáveis que complementam a experiência do usuário ou acrescentam funcionalidades ao produto, mas que possuem menor prioridade em relação aos requisitos Must Have e Should Have.</li>
+</ol>
+<p>A classificação dos requisitos será utilizada durante o planejamento das Sprints para auxiliar a equipe na definição do escopo de cada ciclo. Em situações de redução de capacidade ou necessidade de replanejamento, os requisitos Should Have e Could Have poderão ser deslocados para Sprints posteriores, preservando a execução dos requisitos Must Have.</p>
+<h3 id="411-elicitacao-dos-requisitos">4.1.1 Elicitação dos requisitos</h3>
+<p>A elicitação dos requisitos do cAnCHA é realizada principalmente por meio de brainstorming e questionários, técnicas utilizadas para levantar necessidades relacionadas à experiência dos estudantes de EaD e identificar funcionalidades que possam contribuir para a organização das atividades acadêmicas.</p>
+<p>O brainstorming é utilizado pela equipe para explorar ideias, identificar problemas e levantar possíveis funcionalidades para o produto de maneira colaborativa. Essa técnica contribui principalmente para a identificação inicial das necessidades e para a geração de alternativas de solução.</p>
+<p>Os questionários são utilizados para obter informações diretamente relacionadas às necessidades e dificuldades dos usuários do sistema, permitindo identificar problemas relacionados à localização de conteúdos, acompanhamento de atividades, prazos e progresso acadêmico. Essas informações servem como base para o refinamento dos requisitos e para a validação das funcionalidades propostas.</p>
+<p>Após a elicitação, os requisitos são analisados pela equipe e pelo Product Owner, sendo posteriormente formalizados como histórias de usuário acompanhadas de critérios de aceitação testáveis. Dessa forma, o backlog é mantido como um artefato evolutivo, podendo ser atualizado conforme novas necessidades sejam identificadas ou requisitos existentes sejam refinados. O detalhamento dos requisitos, suas respectivas prioridades, tipos e histórias de usuário associadas é apresentado na Seção 4.4.</p>
+<h2 id="42-perfis">4.2 Perfis</h2>
+<p>Quadro 4 – Perfis de acesso</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">Nome do perfil</th>
+<th style="text-align: left;">Características do perfil</th>
+<th style="text-align: left;">Permissões de acesso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Administrador</td>
+<td style="text-align: left;">Responsável por manter os perfis de acesso da aplicação, alterar usuários já existentes, fazer a gestão e manutenção interna do sistema.</td>
+<td style="text-align: left;">Gerenciar contas e perfis de acesso; configurar disciplinas e períodos letivos; acesso de leitura irrestrito para fins de suporte</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Aluno</td>
+<td style="text-align: left;">Estudante regularmente matriculado; usuário principal da plataforma, consome conteúdo, acompanha prazos e registra anotações</td>
+<td style="text-align: left;">Visualizar agenda e conteúdos das disciplinas em que está matriculado; registrar/editar suas próprias anotações; visualizar seu painel de progresso</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Representante Escolar</td>
+<td style="text-align: left;">Preposto da instituição de ensino responsável por publicar informações acadêmicas</td>
+<td style="text-align: left;">Adicionar, remover e editar conteúdos e atividades</td>
+</tr>
+</tbody>
+</table>
+<p>Fonte: elaborado pelo grupo (2026)</p>
+<h2 id="43-cenarios">4.3 Cenários</h2>
+<p>Quadro 5 – Cenários funcionais</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Sistema: cAnCHA – Cenários funcionais</th>
+<th style="text-align: center;"></th>
+<th style="text-align: center;"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Numeração do cenário</td>
+<td style="text-align: center;">Nome do cenário</td>
+<td style="text-align: center;">Sprints</td>
+</tr>
+<tr>
+<td style="text-align: center;">CEN-01</td>
+<td style="text-align: center;">Gestão e Visualização de Disciplinas: O Aluno acessa a plataforma e visualiza todas as matérias matriculadas em formato de fácil acesso (máximo 3 cliques).</td>
+<td style="text-align: center;">Sprint 3</td>
+</tr>
+<tr>
+<td style="text-align: center;">CEN-02</td>
+<td style="text-align: center;">Navegação e Consulta de Atividades: O aluno abre uma disciplina específica e visualiza rapidamente as tarefas, materiais em anexo e conteúdos.</td>
+<td style="text-align: center;">Sprint 4</td>
+</tr>
+<tr>
+<td style="text-align: center;">CEN-03</td>
+<td style="text-align: center;">Acompanhamento na Agenda Unificada: O Aluno acessa o painel central para verificar, em uma única visão (Kanban/Calendário), todas as datas limite e entregas pendentes</td>
+<td style="text-align: center;">Sprint 5</td>
+</tr>
+<tr>
+<td style="text-align: center;">CEN-04</td>
+<td style="text-align: center;">Controle de Progresso: O Aluno marca atividades como concluídas e o sistema atualiza visualmente a barra de progresso da respectiva disciplina e do semestre.</td>
+<td style="text-align: center;">Sprint 5, 6 e 9</td>
+</tr>
+<tr>
+<td style="text-align: center;">CEN-05</td>
+<td style="text-align: center;">Criação e Gestão de Anotações: O Aluno cria cadernos digitais vinculados às disciplinas para registrar conteúdos assimilados e anotações pessoais.</td>
+<td style="text-align: center;">Sprint 7</td>
+</tr>
+</tbody>
+</table>
+<p>Fonte: elaborado pelo grupo (2026)</p>
+<h2 id="44-tabela-de-backlog-do-produto">4.4 Tabela de Backlog do produto</h2>
+<p>Quadro 6 – Backlog do produto</p>
+<table>
+<thead>
+<tr>
+<th>Sistema: cAnCHA – Backlog do produto</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;"></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Numeração (Cenário / requisito)</td>
+<td style="text-align: left;">Sprint</td>
+<td style="text-align: left;">Nome do requisito</td>
+<td style="text-align: left;">Tipo de requisito (Funcional / não funcional)</td>
+<td style="text-align: left;">Priorização do requisito Must, Should, Could</td>
+<td style="text-align: left;">Descrição sucinta do requisito</td>
+<td>User histories (U.S.) associadas Identifique as U.S. associadas ao requisito</td>
+</tr>
+<tr>
+<td>CEN-01 / REQ-01</td>
+<td style="text-align: left;">Sprint 3</td>
+<td style="text-align: left;">Dashboard de Disciplinas</td>
+<td style="text-align: left;">Funcional</td>
+<td style="text-align: left;">Must</td>
+<td style="text-align: left;">Sistema deve exibir as disciplinas nas quais o aluno está matriculado logo na página inicial.</td>
+<td>US01: Como aluno, quero ver minhas disciplinas na tela inicial para acessá-las rapidamente.</td>
+</tr>
+<tr>
+<td>CEN-01 / REQ-02</td>
+<td style="text-align: left;">Sprint 3</td>
+<td style="text-align: left;">Navegação Rasa (Regra dos 3 Cliques)</td>
+<td style="text-align: left;">Não Funcional</td>
+<td style="text-align: left;">Must</td>
+<td style="text-align: left;">A arquitetura de informação deve permitir que qualquer conteúdo base seja acessado em até 3 cliques.</td>
+<td>US02: Como desenvolvedor, devo garantir rotas curtas para atender à regra de acessibilidade.</td>
+</tr>
+<tr>
+<td>CEN-02 / REQ-03</td>
+<td style="text-align: left;">Sprint 4</td>
+<td style="text-align: left;">Listagem de Atividades da Disciplina</td>
+<td style="text-align: left;">Funcional</td>
+<td style="text-align: left;">Must</td>
+<td style="text-align: left;">O sistema deve listar todas as atividades e conteúdos de uma disciplina ao selecioná-la.</td>
+<td>US03: Como aluno, quero clicar na disciplina e ver a lista de tarefas da semana para saber o que estudar.</td>
+</tr>
+<tr>
+<td>CEN-03 / REQ-04</td>
+<td style="text-align: left;">Sprint 5</td>
+<td style="text-align: left;">Agenda Unificada (Visão Kanban)</td>
+<td style="text-align: left;">Funcional</td>
+<td style="text-align: left;">Must</td>
+<td style="text-align: left;">O sistema deve agregar todas as pendências de todas as disciplinas em um único quadro de entregas.</td>
+<td>US04: Como aluno, quero uma visão Kanban de tarefas a fazer, em andamento e concluídas, para não perder prazos.</td>
+</tr>
+<tr>
+<td>CEN-04 / REQ-05</td>
+<td style="text-align: left;">Sprint 5</td>
+<td style="text-align: left;">Painel de Progresso Acadêmico</td>
+<td style="text-align: left;">Funcional</td>
+<td style="text-align: left;">Should</td>
+<td style="text-align: left;">O sistema deve exibir indicadores visuais (gráficos/barras) do percentual de conclusão do aluno.</td>
+<td>US05: Como aluno, quero ver uma barra de progresso por disciplina para gerenciar melhor meu tempo de estudo.</td>
+</tr>
+<tr>
+<td>CEN-05 / REQ-06</td>
+<td style="text-align: left;">Sprint7</td>
+<td style="text-align: left;">Módulo de Anotações Livres</td>
+<td style="text-align: left;">Funcional</td>
+<td style="text-align: left;">Could</td>
+<td style="text-align: left;">O sistema deve permitir criar notas em texto rico associadas a uma disciplina específica.</td>
+<td>US06: Como aluno, quero poder escrever anotações no sistema, para centralizar meus estudos na mesma plataforma.</td>
+</tr>
+<tr>
+<td>CEN-03 / REQ-07</td>
+<td style="text-align: left;">Sprint 8</td>
+<td style="text-align: left;">Integração Front-end /API (Sincronização)</td>
+<td style="text-align: left;">Não Funcional</td>
+<td style="text-align: left;">Must</td>
+<td style="text-align: left;">O Front-end em React.js deve espel</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+    
+  </body>
+</html>

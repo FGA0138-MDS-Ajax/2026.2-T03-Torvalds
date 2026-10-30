@@ -1,0 +1,812 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../documento-de-visao/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+    
+    
+      
+        <title>Documento de Arquitetura - Documentação</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#documento-de-arquitetura" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Documentação" class="md-header__button md-logo" aria-label="Documentação" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentação
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Documento de Arquitetura
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Documentação" class="md-nav__button md-logo" aria-label="Documentação" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Documentação
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instruções mkdocs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Atas de Reunião
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Atas de Reunião
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../atas-reuniao/ata-reuniao-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documento-de-visao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documento de Visão
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documento de Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documento de Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-integrantes-do-grupo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabela - Integrantes do Grupo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#historico-de-revisoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Histórico de Revisões
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tabela-integrantes-do-grupo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabela - Integrantes do Grupo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#historico-de-revisoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Histórico de Revisões
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="documento-de-arquitetura">Documento de Arquitetura</h1>
+<p>Versão 1.0</p>
+<h2 id="tabela-integrantes-do-grupo">Tabela - Integrantes do Grupo</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Matrícula</th>
+<th style="text-align: left;">Nome</th>
+<th style="text-align: left;">Função (responsabilidade)</th>
+<th style="text-align: left;">Pontos de participação na elaboração</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">232014692</td>
+<td style="text-align: left;">João Lucas R. Cabral</td>
+<td style="text-align: left;">Designer/QA</td>
+<td style="text-align: left;">20</td>
+</tr>
+<tr>
+<td style="text-align: left;">242015719</td>
+<td style="text-align: left;">Thiago Kauã de Sousa Cardoso</td>
+<td style="text-align: left;">Desenvolvedor</td>
+<td style="text-align: left;">11,5</td>
+</tr>
+<tr>
+<td style="text-align: left;">251036440</td>
+<td style="text-align: left;">Eduardo Viana Ribeiro da Silva</td>
+<td style="text-align: left;">Product Owner/ Desenvolvedor</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">232024554</td>
+<td style="text-align: left;">Ana Jullia Barbara Mendes Lopes</td>
+<td style="text-align: left;">QA/Scrum Master</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">232014469</td>
+<td style="text-align: left;">Jefferson de Souza Reis</td>
+<td style="text-align: left;">Scrum Master</td>
+<td style="text-align: left;">12,5</td>
+</tr>
+<tr>
+<td style="text-align: left;">241040341</td>
+<td style="text-align: left;">Pedro Henrique Galdino de Andrade Wollmann</td>
+<td style="text-align: left;">Desenvolvedor</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">231036800</td>
+<td style="text-align: left;">Gustavo Linhares Lima</td>
+<td style="text-align: left;">Desenvolvedor</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">242004967</td>
+<td style="text-align: left;">Pedro Lucas Souza Silva</td>
+<td style="text-align: left;">Desenvolvedor</td>
+<td style="text-align: left;">20</td>
+</tr>
+</tbody>
+</table>
+<h2 id="historico-de-revisoes">Histórico de Revisões</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Data</th>
+<th style="text-align: left;">Versão</th>
+<th style="text-align: left;">Descrição</th>
+<th style="text-align: left;">Autor(es)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">18/10/26</td>
+<td style="text-align: left;">1.1</td>
+<td style="text-align: left;">Troca do nome do App</td>
+<td style="text-align: left;">João Lucas/Ana Júlia</td>
+</tr>
+</tbody>
+</table>
+<h1 id="1-introducao">1 INTRODUÇÃO</h1>
+<h2 id="11-proposito">1.1 Propósito</h2>
+<p>Este documento descreve a arquitetura de software para a Plataforma de Ensino a Distância com foco em UX, desenvolvida pelo Grupo Torvalds no âmbito da disciplina de Métodos de Desenvolvimento de Software (MDS) no semestre de 2026.2. O objetivo é registrar e comunicar as decisões estruturais, organizacionais e tecnológicas do sistema, fornecendo um guia compreensível para desenvolvedores, testadores, PO e demais interessados no projeto.</p>
+<h2 id="12-escopo">1.2 Escopo</h2>
+<p>O detalhamento completo do escopo e requisitos encontra-se no Documento de Visão do Projeto. Em linhas gerais, o sistema consiste em uma aplicação web focada na experiência do usuário (UX) que visa resolver problemas de usabilidade no ambiente EaD, tais como a dificuldade de localização de conteúdos, acompanhamento de atividades, identificação de prazos e visualização do progresso acadêmico.</p>
+<h1 id="2-representacao-arquitetural">2 REPRESENTAÇÃO ARQUITETURAL</h1>
+<h2 id="21-definicoes">2.1 Definições</h2>
+<p>O sistema adota o estilo arquitetural Cliente-Servidor em Camadas, estruturado sob o padrão MVC (Model-View-Controller) com separação entre a aplicação frontend (Single Page Application - SPA) e o backend (API RESTful):</p>
+<ul>
+<li>Frontend (Apresentação/View): Desenvolvido em React.js, responsável pela renderização da interface e pela interatividade de baixo atrito.</li>
+<li>Backend (Lógica de Negócio e Controle/Controller e Service): Desenvolvido em Java com Spring Boot, responsável pela exposição de endpoints REST, regras de negócio e validações.</li>
+<li>Camada de Dados (Model/Persistência): Utiliza banco de dados relacional (PostgreSQL) gerenciado via Spring Data JPA / Hibernate.</li>
+</ul>
+<h2 id="22-justifique-sua-escolha">2.2 Justifique sua escolha</h2>
+<p>A escolha por uma arquitetura em camadas desacoplada (REST API + SPA) fundamenta-se nos seguintes aspectos do projeto:</p>
+<ol>
+<li>Foco em UX (Requisito Central): A adoção do React.js (SPA) permite a navegação fluida sem recarregamento de página, garantindo o cumprimento da regra dos 3 cliques e o rápido acesso visual aos prazos.</li>
+<li>Separação de Responsabilidades (Baixo Acoplamento e Alta Coesão): Conforme os princípios da disciplina, isolar a interface visual da regra de negócio simplifica a manutenção, reduz impactos em mudanças e melhora a testabilidade.</li>
+<li>Adequação à Equipe: Permite a divisão de trabalho entre membros com foco em frontend e backend, minimizando conflitos de código no repositório.</li>
+</ol>
+<h2 id="23-detalhamento">2.3 Detalhamento</h2>
+<p>A comunicação entre os componentes ocorre de forma assíncrona por meio do protocolo HTTP/HTTPS utilizando o formato JSON como contrato de interface (Figura 1).</p>
+<p>Figura 1 – Arquitetura em camadas do cAnCHA
+<img alt="Arquitetura em camadas" src="../imagens/camadas-arquitetura.png" />
+Fonte: elaborado pelo grupo (2026)</p>
+<ul>
+<li>Interfaces e Conectores: Os controllers do Spring Boot atuam como conectores que expõem endpoints REST protegidos por autenticação JWT.</li>
+</ul>
+<p><strong>Responsabilidades:</strong></p>
+<ul>
+<li>View (React): Capturar interações do usuário e exibir dados processados de forma limpa.</li>
+<li>Controller (Spring REST): Mapear requisições HTTP, validar payloads de entrada e retornar respostas com códigos de status adequados.</li>
+<li>Service (Spring): Executar cálculos de progresso acadêmico, ordenação cronológica de prazos e aplicar regras do sistema.</li>
+<li>Repository / Model (JPA &amp; Database): Garantir a persistência e integridade relacional dos dados.</li>
+</ul>
+<h2 id="24-metas-e-restricoes-arquiteturais">2.4 Metas e restrições arquiteturais</h2>
+<ul>
+<li>Desempenho: 95% das consultas ao painel de prazos e progresso devem ser respondidas em até 2,0 segundos.</li>
+<li>Usabilidade / Arquitetura de Informação: A estrutura de rotas deve garantir acesso a qualquer conteúdo principal em até 3 cliques.</li>
+<li>Padrões de API: Adoção rigorosa do padrão RESTful (utilização correta dos verbos GET, POST, PUT, PATCH, DELETE e códigos HTTP).</li>
+<li>Padrão de Codificação: Seguir o Google Java Style Guide no backend e padrões ESLint / Prettier no frontend.</li>
+<li>Segurança: Autenticação e autorização via tokens JWT com transmissão criptografada.</li>
+<li>Testabilidade: Meta de cobertura de testes unitários e de integração ≥ 80% no backend e ≥ 70% no frontend.</li>
+</ul>
+<h2 id="25-visoes">2.5 Visões</h2>
+<p>As visões a seguir comunicam a arquitetura sob quatro pontos de vista: uso (escopo do sistema), organização lógica (módulos e camadas), estrutura (classes e componentes) e implantação (ambiente de execução).</p>
+<h3 id="251-visao-uso">2.5.1 Visão uso</h3>
+<p>O Aluno consulta disciplinas, atividades, agenda e progresso e registra anotações; o Representante Escolar publica conteúdos e atividades; e o Administrador mantém contas, perfis, disciplinas e períodos. A Figura 2 apresenta o diagrama de casos de uso.</p>
+<p>Figura 2 – Diagrama de casos de uso do cAnCHA
+<img alt="Diagrama de casos de uso" src="../imagens/casos-de-uso.png" />
+Fonte: elaborado pelo grupo (2026)</p>
+<p>A funcionalidade mais complexa do ponto de vista arquitetural é marcar uma atividade como concluída e atualizar o progresso (CEN-04), pois atravessa todas as camadas: a interface, a autorização na API, a regra de negócio, a transação no banco e o recálculo dos indicadores exibidos ao aluno. A Figura 3 mostra seu diagrama de atividades.</p>
+<p>Figura 3 – Diagrama de atividades – marcar atividade como concluída e atualizar o progresso (CEN-04)
+<img alt="Diagrama de atividades" src="../imagens/atividades-cen04.png" />
+Fonte: elaborado pelo grupo (2026)</p>
+<p>Quadro 1 – Requisitos que influenciaram a arquitetura</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Requisito</th>
+<th style="text-align: left;">Decisão arquitetural motivada</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">REQ-02 – Navegação rasa (regra dos 3 cliques)</td>
+<td style="text-align: left;">SPA com roteamento no cliente, dados carregados sob demanda e dashboard de disciplinas como tela inicial.</td>
+</tr>
+<tr>
+<td style="text-align: left;">REQ-04 e REQ-05 – Agenda unificada e painel de progresso</td>
+<td style="text-align: left;">Módulos de agenda e de progresso no servidor, que agregam dados de todas as disciplinas em uma única chamada, evitando várias requisições a cada tela.</td>
+</tr>
+<tr>
+<td style="text-align: left;">REQ-07 – Integração Front-end/API</td>
+<td style="text-align: left;">API REST com contrato documentado e atualização dos dados no cliente (MR-03).</td>
+</tr>
+<tr>
+<td style="text-align: left;">Perfis do Quadro 4 (Administrador, Aluno, Representante)</td>
+<td style="text-align: left;">Autenticação por JWT e autorização por perfil em middlewares da camada de API.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Equipe de oito integrantes, sprints semanais e risco de tecnologias novas</td>
+<td style="text-align: left;">Estilo em camadas e back-end como monólito modular, com módulos independentes que podem ser desenvolvidos em paralelo.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Estratégia de testes (Seção 6)</td>
+<td style="text-align: left;">Camadas com responsabilidades isoladas, que permitem testes unitários nos services e de integração na API.</td>
+</tr>
+</tbody>
+</table>
+<p>Fonte: elaborado pelo grupo (2026)</p>
+<h3 id="252-visao-de-organizacao-logica">2.5.2 Visão de organização lógica</h3>
+<p>O sistema Folha é subdividido em módulos funcionais, cada um implementado como um pacote Java no backend (padrão package-by-feature, com Controller, Service e Repository próprios) e um módulo correspondente no frontend (pasta de feature em React). Essa organização reduz o acoplamento entre funcionalidades distintas e facilita a divisão de trabalho entre os integrantes da equipe (Seção 2.2 do Documento de Visão). A Figura 4 apresenta o diagrama de pacotes, com a organização desses módulos e suas dependências.</p>
+<p>Módulos do sistema e sua razão lógica:</p>
+<p>Quadro 2 – Módulos do sistema Folha e sua razão lógica. Fonte: elaborado pela equipe (2026).</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Pacote (Backend)</th>
+<th style="text-align: left;">Módulo (Frontend)</th>
+<th style="text-align: left;">Responsabilidade / razão lógica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">com.folha.auth</td>
+<td style="text-align: left;">features/auth</td>
+<td style="text-align: left;">Autentica o usuário (login) e emite/valida os tokens JWT, controlando os três perfis de acesso definidos no Documento de Visão (Aluno, Representante Escolar e Administrador do Sistema). Centraliza a regra de segurança para que os demais módulos não precisem reimplementá-la.</td>
+</tr>
+<tr>
+<td style="text-align: left;">com.folha.discipline</td>
+<td style="text-align: left;">features/disciplinas</td>
+<td style="text-align: left;">Gerencia as disciplinas do aluno (abas por matéria) e o Conteudo associado a elas (materiais, PDFs, links); é o módulo central da metáfora do caderno físico que dá nome ao produto. A escrita de Conteudo é reservada ao perfil Representante Escolar, hoje fora do MVP validado pela pesquisa do grupo (Seção 1.1 do Documento de Visão) — ver estratégia de provisionamento abaixo.</td>
+</tr>
+<tr>
+<td style="text-align: left;">com.folha.agenda</td>
+<td style="text-align: left;">features/agenda</td>
+<td style="text-align: left;">Consolida os prazos e entregas de todas as disciplinas em uma agenda única, em estilo kanban, atacando diretamente o problema de fragmentação de ferramentas identificado no Documento de Visão.</td>
+</tr>
+<tr>
+<td style="text-align: left;">com.folha.progress</td>
+<td style="text-align: left;">features/progresso</td>
+<td style="text-align: left;">Calcula e expõe o percentual do semestre concluído e as atividades pendentes do aluno; não possui persistência própria, pois agrega dados dos módulos discipline e agenda.</td>
+</tr>
+<tr>
+<td style="text-align: left;">com.folha.annotation</td>
+<td style="text-align: left;">features/anotacoes</td>
+<td style="text-align: left;">Mantém as anotações do aluno vinculadas a disciplinas, funcionalidade secundária de apoio definida no Documento de Visão.</td>
+</tr>
+<tr>
+<td style="text-align: left;">com.folha.notification</td>
+<td style="text-align: left;">features/notificacoes</td>
+<td style="text-align: left;">Gera e envia lembretes automáticos de prazos próximos, agregando dados do módulo agenda.</td>
+</tr>
+<tr>
+<td style="text-align: left;">com.folha.common</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">Pacote transversal com DTOs, tratamento de exceções e configuração de segurança compartilhados por todos os módulos.</td>
+</tr>
+</tbody>
+</table>
+<p>Fonte: elaborado pelo grupo (2026)</p>
+<p>Comunicação entre os módulos (interfaces): no frontend, todos os módulos de feature consomem a API REST do backend por meio de um cliente HTTP único (shared/api), responsável por anexar o token JWT a cada requisição. No backend, a comunicação entre frontend e módulos ocorre via endpoints REST (JSON sobre HTTPS), conforme detalhado na Seção 2.3. Internamente, os módulos progress e notification não acessam diretamente os repositórios de outros módulos — eles dependem apenas das classes de Service de discipline e agenda, preservando o encapsulamento: cada módulo expõe somente sua camada de Service como interface para os demais, evitando o acoplamento direto entre camadas de persistência de módulos distintos.</p>
+<p>Estratégia de provisionamento de conteúdo: Disciplina e Conteudo são modeladas como entidades persistentes desde a primeira versão da arquitetura, com Controller, Service e Repository completos em com.folha.discipline — a escrita não é um recurso remendado depois, é parte do desenho original do módulo. Como a pesquisa do grupo (Seção 1.1 do Documento de Visão) investigou exclusivamente a experiência do Aluno, o MVP popula o Conteudo exibido por meio de uma carga inicial de dados (seed/migration com Flyway), sem exigir login nem interface do Representante Escolar. Os endpoints de escrita (POST/PUT/DELETE) já estão previstos no Controller, protegidos por controle de acesso baseado em papel (Spring Security, via @PreAuthorize("hasRole('REPRESENTANTE_ESCOLAR')")); caso o escopo do projeto seja ampliado para incluir esse perfil, habilitar a publicação de conteúdo não exige qualquer alteração nas camadas de Service e Repository, apenas a liberação do fluxo de autenticação e da interface de escrita já previstos nesta arquitetura.</p>
+<p>Figura 4 – Diagrama de pacotes do sistema Folha: organização dos módulos em frontend e backend e suas dependências
+<img alt="Diagrama de pacotes" src="../imagens/diagrama-pacotes.png" />
+Fonte: elaborado pelo grupo (2026)</p>
+<h3 id="253-visao-estrutural">2.5.3 Visão estrutural</h3>
+<p>Esta seção detalha os elementos internos do sistema Folha, tanto do ponto de vista dos dados manipulados (diagrama de classes) quanto da composição em unidades executáveis e suas interfaces (diagrama de componentes).</p>
+<p>O diagrama de classes (Figura 5) representa o modelo de domínio do sistema. A classe abstrata Usuário concentra os atributos comuns de identificação e autenticação, sendo especializada (generalização) nos três perfis de acesso definidos no Documento de Visão: Aluno, RepresentanteEscolar e AdministradorSistema. Um Aluno se matricula em uma ou mais Disciplina por meio da classe de associação Matrícula, que registra o progressoPercentual individual do aluno naquela disciplina — dado consumido pelo módulo progress (Seção 2.5.2). Cada Disciplina é de responsabilidade de um RepresentanteEscolar e agrega, por composição, suas Entrega (atividades/prazos), que deixam de existir caso a disciplina seja removida. Da mesma forma, Disciplina agrega seus Conteudo (materiais de estudo, com atributos de tipo e urlOuArquivo) — classe deliberadamente separada de Entrega, já que um material de apoio não tem prazo nem status; a escrita dessa composição é protegida pelo mesmo controle de acesso por papel discutido na Seção 2.5.2 (Representante Escolar). O Aluno pode registrar Anotacao vinculadas a uma Disciplina e recebe Notificacao geradas a partir de uma Entrega próxima do prazo.</p>
+<p>Figura 5 – Diagrama de classes do domínio do sistema Folha
+<img alt="Diagrama de classes" src="../imagens/diagrama-classes.png" />
+Fonte: elaborado pelo grupo (2026)</p>
+<p>O diagrama de componentes (Figura 6) mostra a composição do sistema em unidades executáveis de alto nível e as interfaces entre elas, refletindo a arquitetura em camadas definida na Seção 2.1. O componente Frontend SPA (React) requer a interface API Folha (REST/JSON), provida pelo componente Backend API (Spring Boot), que concentra os Controllers e Services dos módulos descritos na Seção 2.5.2. O Backend API, por sua vez, requer a interface Autenticação (JWT), provida pelo componente Segurança (Spring Security + JWT), responsável por validar o token e aplicar o controle de acesso baseado em papel — por exemplo, restringir a escrita em Disciplina/Conteúdo ao perfil Representante Escolar (Seção 2.5.3) — antes que a requisição alcance os Controllers. Por fim, o Backend API requer a interface Persistência (JPA), provida pelo componente Banco de Dados (PostgreSQL), isolando as regras de negócio dos detalhes de armazenamento.</p>
+<p>Figura 6 – Diagrama de componentes do sistema Folha
+<img alt="Diagrama de componentes" src="../imagens/diagrama-componentes.png" />
+Fonte: elaborado pelo grupo (2026)</p>
+<h2 id="26-visao-de-implantacao">2.6 Visão de Implantação</h2>
+<p>O software Folha Digital será implantado em um ambiente de nuvem (Cloud Platform), garantindo que a aplicação seja acessível via internet a partir de diferentes dispositivos e navegadores, sem exigir qualquer tipo de instalação por parte do usuário. A infraestrutura de hardware em nuvem será dividida para suportar a arquitetura Cliente-Servidor em Camadas (desacoplada), separando a entrega estática da interface, o processamento de regras de negócio e a persistência de dados. Esse processo será suportado por pipelines de Integração Contínua (CI) e entrega contínua configurados diretamente no GitHub.</p>
+<p>A implantação do software será estruturada segundo as seguintes tecnologias:
+Servidor de Frontend (Apresentação): A interface da aplicação será hospedada em um servidor web ou serviço de CDN otimizado para aplicações estáticas, executando o código desenvolvido em React.js (Single Page Application - SPA). Justificativa: Essa escolha é fundamentada no foco central em UX do projeto, pois a abordagem SPA permite uma navegação fluida e sem recarregamento de páginas, sendo essencial para cumprir a regra arquitetural e de usabilidade de permitir o acesso a qualquer conteúdo principal em até 3 cliques.
+Servidor de Aplicação (Backend / API): O backend será implantado em um servidor de aplicação capaz de executar a máquina virtual Java (podendo operar tanto em ambiente Linux quanto Windows) para rodar o framework Spring Boot. Justificativa: Essa tecnologia foi escolhida por permitir a separação clara de responsabilidades (baixo acoplamento e alta coesão), garantindo a exposição segura de endpoints RESTful comunicados via JSON (HTTPS) e protegidos por autenticação de tokens JWT.
+Servidor de Banco de Dados: A persistência utilizará um servidor dedicado executando o banco de dados relacional PostgreSQL. Justificativa: A escolha por um modelo relacional garante a integridade dos vínculos entre entidades complexas do domínio (usuários, disciplinas, tarefas, entregas e progresso), sendo facilmente gerenciada e mapeada pela aplicação através das bibliotecas Spring Data JPA e Hibernate.</p>
+<h3 id="diagrama-de-implantacao">Diagrama de Implantação</h3>
+<p>Abaixo apresenta-se o diagrama de implantação ilustrando a distribuição física e topológica do sistema:</p>
+<p>Figura 7 – Diagrama de implantação da plataforma cAnCHA
+<img alt="Diagrama de implantação" src="../imagens/diagrama-implantacao.png" />
+Fonte: elaborado pelo grupo (2026)</p>
+<p>A Figura 7 ilustra a arquitetura de implantação física e lógica da plataforma Folha Digital. O ambiente é estruturado em três camadas principais: a interface do utilizador (<em>Frontend</em> em React SPA), o servidor de aplicação (<em>Backend</em> REST API em Spring Boot) e a camada de persistência de dados (PostgreSQL). As comunicações entre o dispositivo do utilizador e os serviços em nuvem são efetuadas através de conexões seguras HTTPS com autenticação via tokens JWT, garantindo a integridade e a segurança no tráfego de dados.</p>
+<h2 id="27-restricoes-adicionais">2.7 Restrições adicionais</h2>
+<h3 id="271-restricoes-negociais-e-de-acesso">2.7.1 Restrições negociais e de acesso</h3>
+<p>O sistema Folha Digital será acessível via internet, porém exige autenticação para acesso às funcionalidades, não havendo uso anônimo. A autenticação é realizada por meio de tokens JWT.
+O controle de acesso é baseado em três perfis distintos: Administrador, Aluno e Representante Escolar. Cada perfil possui permissões específicas, e as funcionalidades disponíveis devem respeitar essas restrições, evitando que um usuário realize operações que não correspondem às suas responsabilidades.</p>
+<h3 id="272-caracteristicas-de-qualidade">2.7.2 Características de qualidade</h3>
+<p>Usabilidade: é o requisito central. Como o público-alvo inclui usuários com diferentes níveis de conhecimento tecnológico, a arquitetura de informação precisa ser simples e direta. Por isso, a estrutura de rotas deve garantir acesso a qualquer conteúdo principal em até 3 cliques, reduzindo a profundidade de navegação que motivou o desenvolvimento do sistema.</p>
+<p>Desempenho: o sistema deverá garantir que 95% das consultas relacionadas aos prazos e ao painel de progresso sejam respondidas em até 2,0 segundos, proporcionando maior agilidade na consulta das informações acadêmicas.</p>
+<p>Testabilidade: como o projeto adota integração contínua e Definition of Done, a arquitetura deve permitir a realização de testes unitários, de integração e de sistema. A meta é de cobertura mínima de 80% no backend e 70% no frontend.</p>
+<p>Portabilidade: o sistema deve ser acessível a partir de diferentes dispositivos e sistemas operacionais, sem exigir instalação. O frontend deve funcionar nos principais navegadores, e o backend deve ser executável tanto em ambiente Linux quanto Windows.</p>
+<p>Segurança: a comunicação entre frontend e backend deve ocorrer via HTTPS, protegendo os dados transmitidos. A autenticação é feita por tokens JWT, que são validados a cada requisição. O acesso às funcionalidades é controlado pelo perfil do usuário, garantindo que operações restritas não sejam acessadas por quem não tem permissão.</p>
+<h3 id="273-restricoes-tecnicas">2.7.3 Restrições técnicas</h3>
+<p>O sistema adota uma arquitetura em camadas desacoplada (REST API + SPA), com frontend em React.js e backend em Java com Spring Boot, utilizando banco de dados relacional PostgreSQL. A comunicação entre os componentes ocorre via HTTP/HTTPS, com JSON como contrato de interface.
+A organização em módulos segue o padrão package-by-feature no backend e pastas de feature no frontend.</p>
+<h1 id="referencias">REFERÊNCIAS</h1>
+<p>BASS, Len; CLEMENTS, Paul; KAZMAN, Rick. <strong>Software architecture in practice</strong>. 4. ed. Boston: Addison-Wesley, 2021.</p>
+<p>META PLATFORMS. <strong>React documentation</strong>. Disponível em: https://react.dev. Acesso em: 7 out. 2026.</p>
+<p>POSTGRESQL GLOBAL DEVELOPMENT GROUP. <strong>PostgreSQL documentation</strong>. Disponível em: https://www.postgresql.org/docs/. Acesso em: 7 out. 2026.</p>
+<p>SPRING. <strong>Spring Boot reference documentation</strong>. Disponível em: https://docs.spring.io/spring-boot/. Acesso em: 7 out. 2026.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+    
+  </body>
+</html>

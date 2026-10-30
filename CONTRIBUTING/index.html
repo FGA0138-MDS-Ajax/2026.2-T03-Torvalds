@@ -1,0 +1,1752 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+    
+    
+      
+        <title>Como Trabalhamos: Guia de Contribuição - Documentação</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#como-trabalhamos-guia-de-contribuicao" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Documentação" class="md-header__button md-logo" aria-label="Documentação" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentação
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Como Trabalhamos: Guia de Contribuição
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Documentação" class="md-nav__button md-logo" aria-label="Documentação" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Documentação
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instruções mkdocs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Atas de Reunião
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Atas de Reunião
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../atas-reuniao/ata-reuniao-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documento-de-visao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documento de Visão
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documento-de-arquitetura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documento de Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sumario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sumário
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-o-fluxo-em-uma-imagem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. O fluxo em uma imagem
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Branches
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Branches">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-branches-permanentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Branches permanentes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-branches-de-trabalho-tiponumero-da-issue-assunto-curto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Branches de trabalho: tipo/numero-da-issue-assunto-curto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-ciclo-de-vida-de-uma-branch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Ciclo de vida de uma branch
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-mensagens-de-commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Mensagens de commit
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Mensagens de commit">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-formato" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Formato
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-tipos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Tipos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-evitar-preferir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Evitar / preferir
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-pull-requests-e-revisao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Pull requests e revisão
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Pull requests e revisão">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-abrindo-um-pull-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Abrindo um pull request
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-ligando-o-pull-request-a-tarefa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Ligando o pull request à tarefa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-regras-de-revisao-definition-of-done-do-pr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Regras de revisão (Definition of Done do PR)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-fazendo-o-merge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Fazendo o merge
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-nunca-fazer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 Nunca fazer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-releases-developer-main" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Releases: developer → main
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-backlog-issues-labels-e-milestones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Backlog: issues, labels e milestones
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Backlog: issues, labels e milestones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-tres-niveis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Três níveis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-o-que-vira-o-que" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 O que vira o quê
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-ver-o-quadro-sem-um-quadro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Ver o "quadro" sem um quadro
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-labels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Labels
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-a-rotina-da-sprint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. A rotina da sprint
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-como-quebrar-uma-hu-em-tarefas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Como quebrar uma HU em tarefas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-praticas-do-xp-refletidas-no-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Práticas do XP refletidas no Git
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-configuracao-do-repositorio-admins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Configuração do repositório (admins)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Configuração do repositório (admins)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-settings-general-pull-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 Settings → General → Pull Requests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-settings-rules-rulesets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 Settings → Rules → Rulesets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-arquivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4 Arquivos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-erros-comuns-e-como-evita-los" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Erros comuns e como evitá-los
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-cola-rapida" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Cola rápida
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-apendice-modelos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Apêndice: modelos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Apêndice: modelos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#githubissue_templatehistoriamd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .github/ISSUE_TEMPLATE/historia.md
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#githubissue_templatetarefamd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .github/ISSUE_TEMPLATE/tarefa.md
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#githubpull_request_templatemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .github/pull_request_template.md
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="como-trabalhamos-guia-de-contribuicao">Como Trabalhamos: Guia de Contribuição</h1>
+<p>Este documento descreve como o nosso time usa o GitHub: branches, commits, pull requests, issues e sprints. Vale para todo mundo, em toda mudança, inclusive nas pequenas.</p>
+<p>Se algo aqui não se encaixar numa situação real, não contorne em silêncio: abra uma issue propondo a mudança neste guia.</p>
+<hr />
+<h2 id="sumario">Sumário</h2>
+<ol>
+<li><a href="#1-o-fluxo-em-uma-imagem">O fluxo em uma imagem</a></li>
+<li><a href="#2-branches">Branches</a></li>
+<li><a href="#3-mensagens-de-commit">Mensagens de commit</a></li>
+<li><a href="#4-pull-requests-e-revisão">Pull requests e revisão</a></li>
+<li><a href="#5-releases-developer--main">Releases: developer → main</a></li>
+<li><a href="#6-backlog-issues-labels-e-milestones">Backlog: issues, labels e milestones</a></li>
+<li><a href="#7-a-rotina-da-sprint">A rotina da sprint</a></li>
+<li><a href="#8-como-quebrar-uma-hu-em-tarefas">Como quebrar uma HU em tarefas</a></li>
+<li><a href="#9-práticas-do-xp-refletidas-no-git">Práticas do XP refletidas no Git</a></li>
+<li><a href="#10-configuração-do-repositório-admins">Configuração do repositório (admins)</a></li>
+<li><a href="#11-erros-comuns-e-como-evitá-los">Erros comuns e como evitá-los</a></li>
+<li><a href="#12-cola-rápida">Cola rápida</a></li>
+<li><a href="#13-apêndice-modelos">Apêndice: modelos</a></li>
+</ol>
+<hr />
+<h2 id="1-o-fluxo-em-uma-imagem">1. O fluxo em uma imagem</h2>
+<pre><code> Issue (tarefa)
+     │
+     ▼
+ Branch a partir da developer ──► commits ──► push ──► Pull request para a developer
+                                                             │
+                                          revisão + aprovação (+ CI, quando existir)
+                                                             │
+                                                             ▼
+                                                Squash and merge na developer
+                                                             │
+                                          fim da sprint / antes de uma entrega
+                                                             │
+                                                             ▼
+                                     Pull request de release: developer ──► main
+                                                             │
+                                                             ▼
+                                               Tag + GitHub Release na main
+</code></pre>
+<p>A documentação segue a mesma ideia, num trilho próprio: branch a partir da <code>docs</code>, pull request para a <code>docs</code>.</p>
+<hr />
+<h2 id="2-branches">2. Branches</h2>
+<h3 id="21-branches-permanentes">2.1 Branches permanentes</h3>
+<p>Nenhuma delas recebe commit direto. Tudo entra por pull request.</p>
+<table>
+<thead>
+<tr>
+<th>Branch</th>
+<th>Para que serve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>main</code></td>
+<td>Produção. A versão estável e entregue do software. Só recebe pull requests de release vindos da <code>developer</code>.</td>
+</tr>
+<tr>
+<td><code>developer</code></td>
+<td>Integração. Toda tarefa pronta entra aqui primeiro, para que as partes sejam testadas juntas antes de uma release.</td>
+</tr>
+<tr>
+<td><code>docs</code></td>
+<td>Fonte do site de documentação (MkDocs). Branches de documentação saem daqui e voltam para cá.</td>
+</tr>
+<tr>
+<td><code>gh-pages</code></td>
+<td>O site de documentação gerado. É sobrescrita pelo pipeline de deploy, então <strong>ninguém edita à mão</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22-branches-de-trabalho-tiponumero-da-issue-assunto-curto">2.2 Branches de trabalho: <code>tipo/numero-da-issue-assunto-curto</code></h3>
+<p>Uma branch por tarefa. Vida curta: o ideal é o merge em 1 a 2 dias.</p>
+<ul>
+<li>Letras minúsculas, palavras separadas por hífen.</li>
+<li>Sem acento, sem espaço, sem nome de pessoa.</li>
+<li>Sempre com o número da issue.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Quando usar</th>
+<th>Sai de / PR para</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>feat/</code></td>
+<td>Funcionalidade nova</td>
+<td><code>developer</code></td>
+</tr>
+<tr>
+<td><code>fix/</code></td>
+<td>Correção de erro</td>
+<td><code>developer</code></td>
+</tr>
+<tr>
+<td><code>test/</code></td>
+<td>Só testes automatizados</td>
+<td><code>developer</code></td>
+</tr>
+<tr>
+<td><code>refactor/</code></td>
+<td>Mudança interna, mesmo comportamento</td>
+<td><code>developer</code></td>
+</tr>
+<tr>
+<td><code>ci/</code></td>
+<td>Workflows e automações</td>
+<td><code>developer</code></td>
+</tr>
+<tr>
+<td><code>chore/</code></td>
+<td>Dependências, configuração, manutenção</td>
+<td><code>developer</code></td>
+</tr>
+<tr>
+<td><code>docs/</code></td>
+<td>Conteúdo do site de documentação</td>
+<td><code>docs</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Bons nomes</strong></p>
+<pre><code>feat/18-validacao-email
+fix/31-produto-inexistente-404
+docs/7-visao-geral-arquitetura
+</code></pre>
+<p><strong>Nomes a evitar</strong></p>
+<table>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Problema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>usuario-patch-1</code></td>
+<td>Nome automático do editor web do GitHub; não diz nada</td>
+</tr>
+<tr>
+<td><code>backlog</code>, <code>origin</code></td>
+<td>Sem tipo; <code>origin</code> ainda se confunde com o remoto</td>
+</tr>
+<tr>
+<td><code>Teste Joao</code>, <code>ajustes-finais-v2</code></td>
+<td>Espaço, nome de pessoa, assunto vago</td>
+</tr>
+</tbody>
+</table>
+<h3 id="23-ciclo-de-vida-de-uma-branch">2.3 Ciclo de vida de uma branch</h3>
+<pre><code class="language-bash"># 1. Partir da base atualizada
+git switch developer &amp;&amp; git pull
+git switch -c feat/18-validacao-email
+
+# 2. Commitar só os seus arquivos (nada de `git add .` ou `git add -A`)
+git status
+git add src/cadastro/validacao.ts src/cadastro/validacao.test.ts
+git commit -m &quot;feat(cadastro): valida o e-mail antes de salvar (#18)&quot;
+
+# 3. Enviar e abrir o pull request no GitHub
+git push -u origin feat/18-validacao-email
+
+# 4. Depois do merge: limpar
+git switch developer &amp;&amp; git pull
+git fetch --prune
+git branch -d feat/18-validacao-email
+</code></pre>
+<p>Por que não usar <code>git add .</code>: ele leva para o commit arquivos que não são seus, pastas geradas (<code>node_modules/</code>, <code>.venv/</code>, saída de build) e segredos como o <code>.env</code>. Confira o <code>git status</code> e adicione os arquivos pelo caminho.</p>
+<p>O <code>git branch -d</code> só apaga uma branch que já foi integrada; se não for o caso, o Git avisa.</p>
+<hr />
+<h2 id="3-mensagens-de-commit">3. Mensagens de commit</h2>
+<p>Seguimos o <a href="https://www.conventionalcommits.org/pt-br/">Conventional Commits</a>, com o tipo em inglês e o resto em português.</p>
+<h3 id="31-formato">3.1 Formato</h3>
+<pre><code>tipo(escopo): descrição curta no presente (#issue)
+
+Corpo opcional: por que a mudança foi feita, em frases curtas.
+
+Co-authored-by: Nome do Par &lt;email-do-par@exemplo.com&gt;
+</code></pre>
+<ol>
+<li><strong>tipo</strong>: da tabela abaixo, em inglês.</li>
+<li><strong>escopo</strong> (opcional, mas recomendado): o módulo ou a área afetada (<code>auth</code>, <code>api</code>, <code>ui</code>, <code>db</code>…). O time usa sempre os mesmos nomes.</li>
+<li><strong>descrição</strong>: verbo na 3ª pessoa do presente ("adiciona", "corrige", "remove"), minúscula, sem ponto final, com até 72 caracteres.</li>
+<li><strong>(#issue)</strong>: o número da tarefa. Qualquer <code>#numero</code> cria o link entre o commit e a issue.</li>
+<li><strong>Trabalho em par</strong> leva a linha <code>Co-authored-by:</code> no fim, depois de uma linha em branco. Assim o GitHub mostra as duas pessoas como autoras.</li>
+</ol>
+<p><strong>Um commit = uma mudança lógica.</strong> Não misture refatoração com funcionalidade nova.</p>
+<h3 id="32-tipos">3.2 Tipos</h3>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Quando usar</th>
+<th>Exemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>feat</code></td>
+<td>Funcionalidade nova para o usuário</td>
+<td><code>feat(cadastro): valida o e-mail antes de salvar (#18)</code></td>
+</tr>
+<tr>
+<td><code>fix</code></td>
+<td>Correção de erro</td>
+<td><code>fix(api): retorna 404 quando o produto não existe (#31)</code></td>
+</tr>
+<tr>
+<td><code>test</code></td>
+<td>Só testes (o "vermelho" do TDD)</td>
+<td><code>test(carrinho): cobre o desconto acima de 100 (#25)</code></td>
+</tr>
+<tr>
+<td><code>refactor</code></td>
+<td>Mudança interna, sem mudar comportamento</td>
+<td><code>refactor(auth): extrai a validação do token para um serviço</code></td>
+</tr>
+<tr>
+<td><code>docs</code></td>
+<td>Documentação</td>
+<td><code>docs(readme): explica como rodar os testes</code></td>
+</tr>
+<tr>
+<td><code>style</code></td>
+<td>Só formatação, sem mudar lógica</td>
+<td><code>style(ui): aplica o formatador nos componentes</code></td>
+</tr>
+<tr>
+<td><code>ci</code></td>
+<td>Workflows e automações</td>
+<td><code>ci: roda o linter em todo pull request</code></td>
+</tr>
+<tr>
+<td><code>chore</code></td>
+<td>Manutenção, dependências, configuração</td>
+<td><code>chore(deps): atualiza o framework de testes</code></td>
+</tr>
+<tr>
+<td><code>perf</code></td>
+<td>Melhoria de desempenho, mesmo comportamento</td>
+<td><code>perf(busca): adiciona índice na tabela de produtos</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="33-evitar-preferir">3.3 Evitar / preferir</h3>
+<table>
+<thead>
+<tr>
+<th>Evitar</th>
+<th>Por quê</th>
+<th>Preferir</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>update cadastro</code></td>
+<td>Sem tipo, não diz o que mudou</td>
+<td><code>feat(cadastro): valida o e-mail (#18)</code></td>
+</tr>
+<tr>
+<td><code>arrumei o bug</code></td>
+<td>Passado, vago, sem issue</td>
+<td><code>fix(login): bloqueia após 5 tentativas (#22)</code></td>
+</tr>
+<tr>
+<td><code>Add files via upload</code></td>
+<td>Mensagem automática do editor web</td>
+<td>Commitar pela sua máquina, com mensagem de verdade</td>
+</tr>
+<tr>
+<td><code>feat: login + css + testes</code></td>
+<td>Três mudanças num commit só</td>
+<td><code>test(login): …</code> e depois <code>feat(login): …</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Editando pelo site do GitHub?</strong> As mesmas regras valem. Escolha "Create a new branch" (nunca commite direto), dê um nome no padrão da seção 2.2 e escreva uma mensagem de commit de verdade no lugar da padrão.</p>
+</blockquote>
+<hr />
+<h2 id="4-pull-requests-e-revisao">4. Pull requests e revisão</h2>
+<h3 id="41-abrindo-um-pull-request">4.1 Abrindo um pull request</h3>
+<ul>
+<li><strong>Confira a branch base antes de criar</strong>: <code>developer</code> para código, <code>docs</code> para documentação. Se errou: Edit → troque a base.</li>
+<li><strong>Abra cedo, como rascunho (draft).</strong> Começar uma tarefa = abrir um PR em rascunho. Isso mostra ao time que a tarefa está em andamento.</li>
+<li><strong>Título</strong> no padrão de commit: <code>feat(cadastro): valida o e-mail antes de salvar (#18)</code>. Com o squash merge, o título vira o commit na <code>developer</code>, então ele importa.</li>
+<li><strong>Preencha o template</strong> (veja o apêndice): descrição, tarefa, tipo de alteração, como testar, evidências, checklist.</li>
+<li>Quando terminar, clique em <strong>Ready for review</strong>.</li>
+</ul>
+<h3 id="42-ligando-o-pull-request-a-tarefa">4.2 Ligando o pull request à tarefa</h3>
+<p>As palavras-chave de fechamento do GitHub (<code>Closes #18</code>, <code>Fixes #18</code>) só funcionam em pull requests que apontam para a <strong>branch padrão</strong>, que é a <code>main</code>. Os PRs de tarefa apontam para a <code>developer</code>, então essas palavras são ignoradas ali. A nossa regra:</p>
+<ol>
+<li>Na descrição do PR, escreva <code>Tarefa: #18</code> (e <code>HU: #12</code>). Qualquer <code>#numero</code> cria uma referência cruzada na linha do tempo da issue.</li>
+<li>Ligue também na barra lateral direita do PR, em <strong>Development</strong>, para a issue mostrar o PR ligado.</li>
+<li><strong>Depois do merge, quem abriu o PR fecha a issue da tarefa</strong>, com um comentário como "Integrada no #45".</li>
+</ol>
+<p>Histórias de usuário nunca são fechadas por PR. Quem fecha é o Product Owner, na sprint review, depois de conferir os critérios de aceitação.</p>
+<h3 id="43-regras-de-revisao-definition-of-done-do-pr">4.3 Regras de revisão (Definition of Done do PR)</h3>
+<p>Um pull request só pode receber merge quando:</p>
+<ul>
+<li>[ ] Tem pelo menos <strong>uma aprovação</strong> de alguém que <strong>não</strong> trabalhou na tarefa (o par já revisou enquanto escrevia; a revisão do PR traz um olhar de fora).</li>
+<li>[ ] O CI está verde (quando o time tiver CI).</li>
+<li>[ ] O checklist do template está todo marcado.</li>
+<li>[ ] Todas as conversas da revisão estão resolvidas.</li>
+</ul>
+<p>PRs grandes demais para revisar com calma (algumas centenas de linhas ou mais) devem ser divididos.</p>
+<h3 id="44-fazendo-o-merge">4.4 Fazendo o merge</h3>
+<table>
+<thead>
+<tr>
+<th>Merge</th>
+<th>Método</th>
+<th>Por quê</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Branch de tarefa → <code>developer</code></td>
+<td><strong>Squash and merge</strong></td>
+<td>A tarefa inteira vira um commit limpo, com o título do PR. Os commits de rascunho continuam visíveis dentro do PR.</td>
+</tr>
+<tr>
+<td>Branch de documentação → <code>docs</code></td>
+<td><strong>Squash and merge</strong></td>
+<td>Mesmo motivo.</td>
+</tr>
+<tr>
+<td><code>developer</code> → <code>main</code> (release)</td>
+<td><strong>Create a merge commit</strong></td>
+<td>Fazer squash de uma branch permanente faz a <code>developer</code> e a <code>main</code> se afastarem e gera conflitos repetidos.</td>
+</tr>
+</tbody>
+</table>
+<p>Depois do merge: apague a branch (o GitHub pode fazer isso sozinho, veja a seção 10) e rode os comandos de limpeza da seção 2.3.</p>
+<h3 id="45-nunca-fazer">4.5 Nunca fazer</h3>
+<ul>
+<li>Commit direto na <code>main</code>, na <code>developer</code> ou na <code>docs</code>.</li>
+<li><code>git push --force</code> numa branch permanente.</li>
+<li><code>git add .</code> sem conferir o <code>git status</code>.</li>
+<li>Commitar arquivos <code>.env</code>, chaves ou senhas.</li>
+<li>Deixar branch já integrada sem apagar.</li>
+</ul>
+<hr />
+<h2 id="5-releases-developer-main">5. Releases: developer → main</h2>
+<p>No fim de uma sprint, ou antes de uma entrega ou apresentação:</p>
+<ol>
+<li>Confira se a <code>developer</code> funciona como um todo (rode o sistema, rode os testes).</li>
+<li>Abra um pull request da <code>developer</code> para a <code>main</code>, com título como <code>release: v0.3.0</code>. Liste na descrição as HUs entregues.</li>
+<li>Consiga uma aprovação e faça o merge com <strong>Create a merge commit</strong>.</li>
+<li>Crie uma tag e uma GitHub Release na <code>main</code> (<code>v0.1.0</code>, <code>v0.2.0</code>, …). O GitHub consegue gerar as notas da release a partir dos PRs integrados.</li>
+</ol>
+<hr />
+<h2 id="6-backlog-issues-labels-e-milestones">6. Backlog: issues, labels e milestones</h2>
+<p>Fazemos Scrum usando só recursos nativos do GitHub: <strong>Issues</strong> (com labels e sub-issues), <strong>Milestones</strong> e <strong>Pull Requests</strong>.</p>
+<h3 id="61-tres-niveis">6.1 Três níveis</h3>
+<pre><code>Épico (label: epico)                       Product Backlog
+  └─ História de usuário (label: historia)  Product Backlog → Sprint Backlog
+       └─ Tarefa (label: tarefa)            Sprint Backlog; feita por um par em uma sprint
+</code></pre>
+<ul>
+<li><strong>Épico</strong>: um tema grande, que não cabe numa sprint. As HUs dele são sub-issues.</li>
+<li><strong>História de usuário (HU)</strong>: "Como …, quero …, para …", com critérios de aceitação. Criada pelo template.</li>
+<li><strong>Tarefa</strong>: sub-issue de uma HU, feita por um par dentro de uma sprint, entregue por um pull request.</li>
+</ul>
+<h3 id="62-o-que-vira-o-que">6.2 O que vira o quê</h3>
+<table>
+<thead>
+<tr>
+<th>Conceito do Scrum</th>
+<th>No nosso repositório</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product Backlog</td>
+<td>Issues abertas com label <code>historia</code> e sem milestone, ordenadas pela label de prioridade</td>
+</tr>
+<tr>
+<td>Épico</td>
+<td>Issue com label <code>epico</code>; as HUs entram como sub-issues</td>
+</tr>
+<tr>
+<td>História de usuário</td>
+<td>Issue com label <code>historia</code>, criada pelo template</td>
+</tr>
+<tr>
+<td>Tarefa</td>
+<td>Sub-issue da HU, com label <code>tarefa</code> e o par nos assignees</td>
+</tr>
+<tr>
+<td>Sprint</td>
+<td>Milestone "Sprint N", com a data de fim</td>
+</tr>
+<tr>
+<td>Sprint Backlog</td>
+<td>HUs e tarefas colocadas na milestone da sprint</td>
+</tr>
+<tr>
+<td>Release</td>
+<td>Tag + GitHub Release na <code>main</code></td>
+</tr>
+<tr>
+<td>Estimativa</td>
+<td>Label <code>pontos: 1</code>, <code>2</code>, <code>3</code>, <code>5</code> ou <code>8</code> nas HUs (jogo do planejamento do XP)</td>
+</tr>
+<tr>
+<td>Burndown / velocidade</td>
+<td>Barra de progresso da milestone; velocidade = pontos das HUs fechadas na sprint</td>
+</tr>
+<tr>
+<td>Status da tarefa</td>
+<td>Estado da issue + PR ligado (filtros abaixo)</td>
+</tr>
+<tr>
+<td>Definition of Done</td>
+<td>Checklist do PR + 1 aprovação, garantidos pelas regras das branches</td>
+</tr>
+<tr>
+<td>Aceite da HU</td>
+<td>O Product Owner confere os critérios de aceitação e fecha a HU na review</td>
+</tr>
+</tbody>
+</table>
+<h3 id="63-ver-o-quadro-sem-um-quadro">6.3 Ver o "quadro" sem um quadro</h3>
+<p>A barra de busca das abas Issues e Pull requests substitui as colunas de um quadro. Vale salvar estes links no README.</p>
+<table>
+<thead>
+<tr>
+<th>Pergunta</th>
+<th>Filtro</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>O que está no Product Backlog?</td>
+<td><code>is:issue is:open label:historia no:milestone</code></td>
+</tr>
+<tr>
+<td>O que entrou nesta sprint?</td>
+<td><code>is:issue milestone:"Sprint 3"</code></td>
+</tr>
+<tr>
+<td>O que ninguém pegou?</td>
+<td><code>is:issue is:open milestone:"Sprint 3" no:assignee</code></td>
+</tr>
+<tr>
+<td>O que está em andamento?</td>
+<td><code>is:pr is:open draft:true</code></td>
+</tr>
+<tr>
+<td>O que espera revisão?</td>
+<td><code>is:pr is:open draft:false review:required</code></td>
+</tr>
+<tr>
+<td>O que é meu?</td>
+<td><code>is:issue is:open assignee:@me label:tarefa</code></td>
+</tr>
+<tr>
+<td>O que está travado?</td>
+<td><code>is:issue is:open label:bloqueada</code></td>
+</tr>
+</tbody>
+</table>
+<p>Para os filtros funcionarem, todo mundo segue três hábitos:</p>
+<ol>
+<li><strong>Pegou uma tarefa</strong> → coloca você e o seu par nos assignees.</li>
+<li><strong>Começou</strong> → abre um PR em rascunho na hora, ligado à tarefa.</li>
+<li><strong>Terminou</strong> → clica em "Ready for review". Depois do merge, fecha a tarefa.</li>
+</ol>
+<h3 id="64-labels">6.4 Labels</h3>
+<table>
+<thead>
+<tr>
+<th>Grupo</th>
+<th>Labels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tipo de item</td>
+<td><code>epico</code>, <code>historia</code>, <code>tarefa</code>, <code>bug</code></td>
+</tr>
+<tr>
+<td>Prioridade</td>
+<td><code>prioridade: alta</code>, <code>prioridade: média</code>, <code>prioridade: baixa</code> (ou MoSCoW)</td>
+</tr>
+<tr>
+<td>Estimativa</td>
+<td><code>pontos: 1</code>, <code>pontos: 2</code>, <code>pontos: 3</code>, <code>pontos: 5</code>, <code>pontos: 8</code></td>
+</tr>
+<tr>
+<td>Fluxo</td>
+<td><code>bloqueada</code></td>
+</tr>
+</tbody>
+</table>
+<p>Um item com a label errada some do filtro certo e aparece no errado, então as labels importam.</p>
+<hr />
+<h2 id="7-a-rotina-da-sprint">7. A rotina da sprint</h2>
+<table>
+<thead>
+<tr>
+<th>Evento</th>
+<th>O que acontece no GitHub</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Refinamento</strong></td>
+<td>Ajustar as HUs (critérios de aceitação, pontos, prioridade) e quebrar épicos. Uma HU está <strong>pronta</strong> para a sprint quando é pequena, independente e testável (INVEST), tem critérios de aceitação e está estimada.</td>
+</tr>
+<tr>
+<td><strong>Sprint planning</strong></td>
+<td>Criar a milestone "Sprint N" com a data de fim. Colocar nela as HUs escolhidas (limitadas pela velocidade da sprint anterior). Criar as tarefas como sub-issues e atribuir os pares.</td>
+</tr>
+<tr>
+<td><strong>Daily</strong></td>
+<td>Abrir a milestone da sprint. Impedimento vira comentário na issue e label <code>bloqueada</code>.</td>
+</tr>
+<tr>
+<td><strong>Sprint review</strong></td>
+<td>O Product Owner confere os critérios e fecha as HUs aceitas. Fazer a release <code>developer</code> → <code>main</code> e criar a tag (seção 5).</td>
+</tr>
+<tr>
+<td><strong>Retrospectiva</strong></td>
+<td>Registrar no site de documentação (pelo trilho da <code>docs</code>). Cada ação de melhoria vira uma issue.</td>
+</tr>
+<tr>
+<td><strong>Fim da sprint</strong></td>
+<td>Fechar a milestone. O que não terminou passa para a milestone seguinte.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8-como-quebrar-uma-hu-em-tarefas">8. Como quebrar uma HU em tarefas</h2>
+<p>Na planning, para cada HU, o time responde a quatro perguntas:</p>
+<ol>
+<li><strong>Qual é o resultado concreto?</strong> Algo que dá para mostrar: código, um teste, uma tela, um relatório.</li>
+<li><strong>Cabe numa sprint para um par?</strong> Se não couber, vira duas tarefas.</li>
+<li><strong>Depende de outra coisa?</strong> Anote em "Dependências" e coloque a tarefa depois dela.</li>
+<li><strong>Como saber que terminou?</strong> Critérios de pronto que outra pessoa consiga verificar: "o formulário rejeita um e-mail inválido e mostra uma mensagem", e não "funciona bem".</li>
+</ol>
+<p><strong>Regras de bolso:</strong> de 2 a 4 tarefas por HU; cada pessoa em no máximo 2 tarefas abertas ao mesmo tempo (uma como responsável, outra como par).</p>
+<p><strong>Sinais de tarefa mal definida:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Tarefa</th>
+<th>Problema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Fazer o backend"</td>
+<td>Grande demais</td>
+</tr>
+<tr>
+<td>"Estudar o framework"</td>
+<td>Sem resultado</td>
+</tr>
+<tr>
+<td>"Ajudar um colega"</td>
+<td>Sem entregável</td>
+</tr>
+<tr>
+<td>"Testes"</td>
+<td>Não diz o que é testado</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Exemplo</strong></p>
+<pre><code>HU: Cadastro com e-mail (#12)                           par
+├─ tarefa  Criar a tela do formulário de cadastro       A + B
+├─ tarefa  Validar o formato do e-mail no servidor      C + D
+├─ tarefa  Salvar o novo usuário no banco de dados      A + C
+└─ tarefa  Teste ponta a ponta do fluxo de cadastro     B + D
+</code></pre>
+<p>Título da tarefa: verbo + objeto. Cada tarefa tem exatamente uma HU como pai, nunca direto um épico, e pertence a exatamente uma sprint. Não coube? Divida.</p>
+<hr />
+<h2 id="9-praticas-do-xp-refletidas-no-git">9. Práticas do XP refletidas no Git</h2>
+<table>
+<thead>
+<tr>
+<th>Prática do XP</th>
+<th>Como aparece no repositório</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Programação em par</td>
+<td>As duas pessoas nos assignees da tarefa; <code>Co-authored-by:</code> nos commits</td>
+</tr>
+<tr>
+<td>Desenvolvimento guiado por testes (TDD)</td>
+<td>O histórico mostra: <code>test:</code> → <code>feat:</code> → <code>refactor:</code>. O CI roda os testes em todo PR.</td>
+</tr>
+<tr>
+<td>Integração contínua</td>
+<td>Branches curtas (1 a 2 dias), PRs pequenos, <code>developer</code> sempre funcionando; CI obrigatório para o merge (quando existir)</td>
+</tr>
+<tr>
+<td>Pequenas releases</td>
+<td>Uma tag por sprint, com notas da release</td>
+</tr>
+<tr>
+<td>Design simples e refatoração</td>
+<td>Refatoração em commit próprio, sem mudar comportamento; um assunto por PR</td>
+</tr>
+<tr>
+<td>Propriedade coletiva do código</td>
+<td>Qualquer pessoa pode revisar ou alterar qualquer parte; revisores em rodízio</td>
+</tr>
+<tr>
+<td>Padrão de codificação</td>
+<td>Linter e formatador (no CI); mudanças só de formatação usam <code>style:</code></td>
+</tr>
+<tr>
+<td>Jogo do planejamento</td>
+<td>Pontos como label nas HUs; a velocidade da sprint anterior limita a próxima</td>
+</tr>
+<tr>
+<td>Ritmo sustentável</td>
+<td>No máximo 2 tarefas abertas por pessoa</td>
+</tr>
+<tr>
+<td>Cliente presente</td>
+<td>O Product Owner aceita as HUs pelos critérios de aceitação, na review</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10-configuracao-do-repositorio-admins">10. Configuração do repositório (admins)</h2>
+<p>Feita uma vez, por quem administra o repositório. É isso que transforma o combinado em regra de verdade.</p>
+<h3 id="101-settings-general-pull-requests">10.1 Settings → General → Pull Requests</h3>
+<ul>
+<li>[x] Allow merge commits (usado só nas releases para a <code>main</code>)</li>
+<li>[x] Allow squash merging, com mensagem padrão: <strong>título do pull request</strong></li>
+<li>[ ] Allow rebase merging (desligado)</li>
+<li>[x] Always suggest updating pull request branches</li>
+<li>[x] Automatically delete head branches</li>
+</ul>
+<h3 id="102-settings-rules-rulesets">10.2 Settings → Rules → Rulesets</h3>
+<table>
+<thead>
+<tr>
+<th>Ruleset</th>
+<th>Alvo</th>
+<th>Regras</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Proteger main</td>
+<td><code>main</code></td>
+<td>Exigir pull request · 1 aprovação · descartar aprovações antigas quando houver commits novos · exigir conversas resolvidas · método de merge permitido: <strong>merge</strong> · bloquear force push · impedir exclusão</td>
+</tr>
+<tr>
+<td>Proteger developer</td>
+<td><code>developer</code></td>
+<td>Igual, com método de merge permitido: <strong>squash</strong></td>
+</tr>
+<tr>
+<td>Proteger docs</td>
+<td><code>docs</code></td>
+<td>Igual, com método de merge permitido: <strong>squash</strong></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Deixe a <code>gh-pages</code> <strong>sem</strong> regra de pull request: o pipeline de deploy precisa enviar para ela.</li>
+<li>Não adicione permissões de bypass: as regras valem também para os admins.</li>
+<li>Quando houver CI, adicione "Require status checks to pass" em cada ruleset.</li>
+</ul>
+<h3 id="103-issues">10.3 Issues</h3>
+<ul>
+<li>Criar as labels da seção 6.4.</li>
+<li>Criar uma milestone por sprint ("Sprint 1", "Sprint 2", …) com a data de fim.</li>
+</ul>
+<h3 id="104-arquivos">10.4 Arquivos</h3>
+<table>
+<thead>
+<tr>
+<th>Arquivo</th>
+<th>Conteúdo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CONTRIBUTING.md</code></td>
+<td>Este guia</td>
+</tr>
+<tr>
+<td><code>.github/ISSUE_TEMPLATE/historia.md</code></td>
+<td>Modelo de HU (apêndice)</td>
+</tr>
+<tr>
+<td><code>.github/ISSUE_TEMPLATE/tarefa.md</code></td>
+<td>Modelo de tarefa (apêndice)</td>
+</tr>
+<tr>
+<td><code>.github/pull_request_template.md</code></td>
+<td>Modelo de PR (apêndice)</td>
+</tr>
+<tr>
+<td><code>.gitignore</code></td>
+<td>Pastas geradas, dependências, <code>.env</code></td>
+</tr>
+</tbody>
+</table>
+<p>Opcional: uma GitHub Action que verifica se o título do PR segue o Conventional Commits (por exemplo, <code>amannn/action-semantic-pull-request</code>). Combina bem com o squash merge, já que o título vira o commit.</p>
+<hr />
+<h2 id="11-erros-comuns-e-como-evita-los">11. Erros comuns e como evitá-los</h2>
+<table>
+<thead>
+<tr>
+<th>Problema</th>
+<th>Regra que resolve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Branch com nome automático (<code>usuario-patch-1</code>)</td>
+<td>Ao editar pelo site, escolher "Create a new branch" e dar um nome no padrão</td>
+</tr>
+<tr>
+<td>Commits fora do padrão vindos do editor web</td>
+<td>Squash merge com o título do PR no padrão</td>
+</tr>
+<tr>
+<td>Branches antigas acumuladas</td>
+<td>"Automatically delete head branches" + <code>git fetch --prune</code></td>
+</tr>
+<tr>
+<td>PR aberto contra a base errada</td>
+<td>Conferir a base antes de criar; corrigir com Edit → trocar a base</td>
+</tr>
+<tr>
+<td>Arquivos de outra pessoa ou pastas geradas no commit</td>
+<td><code>git add</code> pelo caminho + um bom <code>.gitignore</code></td>
+</tr>
+<tr>
+<td>Merge sem revisão</td>
+<td>Rulesets exigindo PR e 1 aprovação desde o primeiro dia</td>
+</tr>
+<tr>
+<td>A revisão existe mas não é obrigatória, e poucas pessoas acabam aprovando e fazendo merge de tudo</td>
+<td>Exigir a aprovação nos rulesets e revezar os revisores</td>
+</tr>
+<tr>
+<td>HU fechada por engano no merge</td>
+<td>Só tarefas são ligadas a PRs; HUs são fechadas pelo Product Owner</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="12-cola-rapida">12. Cola rápida</h2>
+<p><strong>Começar uma tarefa</strong></p>
+<pre><code class="language-bash">git switch developer &amp;&amp; git pull
+git switch -c feat/18-validacao-email
+</code></pre>
+<p><strong>Atualizar a sua branch com a developer mais recente</strong></p>
+<pre><code class="language-bash">git switch developer &amp;&amp; git pull
+git switch feat/18-validacao-email
+git merge developer
+</code></pre>
+<p><strong>Commitar (em par) e enviar</strong></p>
+<pre><code class="language-bash">git status
+git add src/cadastro/validacao.ts
+git commit -m &quot;feat(cadastro): valida o e-mail antes de salvar (#18)&quot; \
+           -m &quot;Co-authored-by: Nome &lt;email@exemplo.com&gt;&quot;
+git push -u origin feat/18-validacao-email
+</code></pre>
+<p><strong>Depois do merge</strong></p>
+<pre><code class="language-bash">git switch developer &amp;&amp; git pull
+git fetch --prune
+git branch -d feat/18-validacao-email
+</code></pre>
+<p><strong>As regras em uma linha cada</strong></p>
+<ol>
+<li><code>tipo(escopo): descrição (#n)</code>, no presente.</li>
+<li>Branch <code>tipo/n-assunto</code>, curta, apagada no merge.</li>
+<li>Nada direto na <code>main</code>, na <code>developer</code> ou na <code>docs</code>: PR + 1 aprovação.</li>
+<li>Tarefas são fechadas depois do merge do PR; HUs são fechadas pelo Product Owner.</li>
+<li>Milestone = sprint; tag = release.</li>
+</ol>
+<p><strong>A sprint em uma linha</strong></p>
+<p>Refinamento (HUs + pontos) → planning (milestone + tarefas + pares) → execução (branch, TDD, PR em rascunho) → revisão (aprovação, squash) → sprint review (PO fecha as HUs, release, tag) → retrospectiva (ações viram issues).</p>
+<hr />
+<h2 id="13-apendice-modelos">13. Apêndice: modelos</h2>
+<h3 id="githubissue_templatehistoriamd"><code>.github/ISSUE_TEMPLATE/historia.md</code></h3>
+<pre><code class="language-markdown">---
+name: História de usuário
+about: Item do Product Backlog
+title: &quot;HU-XX · &quot;
+labels: historia
+---
+
+## História
+**Como** &lt;papel&gt;, **quero** &lt;ação&gt;
+**para** &lt;benefício&gt;.
+
+## Critérios de aceitação
+- [ ] Dado ..., quando ..., então ...
+- [ ] Dado ..., quando ..., então ...
+
+## Notas
+Link do protótipo, regras de negócio, dúvidas para o PO.
+
+## Rastreabilidade
+- Épico: #
+- Requisito:
+</code></pre>
+<p>Pontos e prioridade entram como labels, para os filtros funcionarem. As tarefas são criadas na planning, pela seção Sub-issues da HU.</p>
+<h3 id="githubissue_templatetarefamd"><code>.github/ISSUE_TEMPLATE/tarefa.md</code></h3>
+<pre><code class="language-markdown">---
+name: Tarefa
+about: Parte de uma HU, feita por um par em uma sprint
+title: &quot;&quot;
+labels: tarefa
+---
+
+## Descrição
+O que será feito, em uma ou duas frases.
+
+## Critérios de pronto
+- [ ] Resultado verificável
+- [ ] Testes escritos e passando
+- [ ] Evidência no PR (print, log ou saída dos testes)
+
+## Dependências
+Tarefas que precisam estar prontas antes.
+
+**HU:** #
+</code></pre>
+<h3 id="githubpull_request_templatemd"><code>.github/pull_request_template.md</code></h3>
+<pre><code class="language-markdown">## Descrição
+O que muda e por quê.
+
+## Issues
+Tarefa: #&lt;tarefa&gt;
+HU: #&lt;hu&gt;
+
+## Tipo de alteração
+- [ ] feat
+- [ ] fix
+- [ ] refactor
+- [ ] test
+- [ ] docs
+- [ ] outro
+
+## Como testar
+1.
+2.
+
+## Evidências
+Prints, logs ou saída dos testes.
+
+## Checklist (Definition of Done)
+- [ ] Título do PR no padrão `tipo(escopo): descrição (#n)`
+- [ ] A branch base está certa (`developer` para código, `docs` para documentação)
+- [ ] Tarefa ligada em Development, na barra lateral
+- [ ] Testes novos ou atualizados, passando
+- [ ] Revisei o meu próprio diff; não há arquivos estranhos
+- [ ] Documentação atualizada, quando necessário
+- [ ] Sem segredos (.env, chaves, senhas) no commit
+- [ ] Par registrado com Co-authored-by, se houve par
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+    
+  </body>
+</html>
