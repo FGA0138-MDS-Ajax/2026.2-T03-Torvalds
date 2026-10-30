@@ -54,7 +54,7 @@ A escolha por uma arquitetura em camadas desacoplada (REST API + SPA) fundamenta
 A comunicação entre os componentes ocorre de forma assíncrona por meio do protocolo HTTP/HTTPS utilizando o formato JSON como contrato de interface (Figura 1).
 
 Figura 1 – Arquitetura em camadas do cAnCHA
-![Arquitetura em camadas](camadas-arquitetura.png)
+![Arquitetura em camadas](imagens/camadas-arquitetura.png)
 Fonte: elaborado pelo grupo (2026)
 
 * Interfaces e Conectores: Os controllers do Spring Boot atuam como conectores que expõem endpoints REST protegidos por autenticação JWT.
