@@ -83,14 +83,14 @@ As visões a seguir comunicam a arquitetura sob quatro pontos de vista: uso (esc
 
 O Aluno consulta disciplinas, atividades, agenda e progresso e registra anotações; o Representante Escolar publica conteúdos e atividades; e o Administrador mantém contas, perfis, disciplinas e períodos. A Figura 2 apresenta o diagrama de casos de uso.
 
-Figura 2 – Diagrama de casos de uso do Folha Digital
-![Diagrama de casos de uso](casos-de-uso.png)
+Figura 2 – Diagrama de casos de uso do cAnCHA
+![Diagrama de casos de uso](imagens/casos-de-uso.png)
 Fonte: elaborado pelo grupo (2026)
 
 A funcionalidade mais complexa do ponto de vista arquitetural é marcar uma atividade como concluída e atualizar o progresso (CEN-04), pois atravessa todas as camadas: a interface, a autorização na API, a regra de negócio, a transação no banco e o recálculo dos indicadores exibidos ao aluno. A Figura 3 mostra seu diagrama de atividades.
 
 Figura 3 – Diagrama de atividades – marcar atividade como concluída e atualizar o progresso (CEN-04)
-![Diagrama de atividades](atividades-cen04.png)
+![Diagrama de atividades](imagens/atividades-cen04.png)
 Fonte: elaborado pelo grupo (2026)
 
 Quadro 1 – Requisitos que influenciaram a arquitetura
@@ -131,7 +131,7 @@ Comunicação entre os módulos (interfaces): no frontend, todos os módulos de 
 Estratégia de provisionamento de conteúdo: Disciplina e Conteudo são modeladas como entidades persistentes desde a primeira versão da arquitetura, com Controller, Service e Repository completos em com.folha.discipline — a escrita não é um recurso remendado depois, é parte do desenho original do módulo. Como a pesquisa do grupo (Seção 1.1 do Documento de Visão) investigou exclusivamente a experiência do Aluno, o MVP popula o Conteudo exibido por meio de uma carga inicial de dados (seed/migration com Flyway), sem exigir login nem interface do Representante Escolar. Os endpoints de escrita (POST/PUT/DELETE) já estão previstos no Controller, protegidos por controle de acesso baseado em papel (Spring Security, via @PreAuthorize("hasRole('REPRESENTANTE_ESCOLAR')")); caso o escopo do projeto seja ampliado para incluir esse perfil, habilitar a publicação de conteúdo não exige qualquer alteração nas camadas de Service e Repository, apenas a liberação do fluxo de autenticação e da interface de escrita já previstos nesta arquitetura.
 
 Figura 4 – Diagrama de pacotes do sistema Folha: organização dos módulos em frontend e backend e suas dependências
-![Diagrama de pacotes](diagrama-pacotes.png)
+![Diagrama de pacotes](imagens/diagrama-pacotes.png)
 Fonte: elaborado pelo grupo (2026)
 
 ### 2.5.3 Visão estrutural
@@ -141,13 +141,13 @@ Esta seção detalha os elementos internos do sistema Folha, tanto do ponto de v
 O diagrama de classes (Figura 5) representa o modelo de domínio do sistema. A classe abstrata Usuário concentra os atributos comuns de identificação e autenticação, sendo especializada (generalização) nos três perfis de acesso definidos no Documento de Visão: Aluno, RepresentanteEscolar e AdministradorSistema. Um Aluno se matricula em uma ou mais Disciplina por meio da classe de associação Matrícula, que registra o progressoPercentual individual do aluno naquela disciplina — dado consumido pelo módulo progress (Seção 2.5.2). Cada Disciplina é de responsabilidade de um RepresentanteEscolar e agrega, por composição, suas Entrega (atividades/prazos), que deixam de existir caso a disciplina seja removida. Da mesma forma, Disciplina agrega seus Conteudo (materiais de estudo, com atributos de tipo e urlOuArquivo) — classe deliberadamente separada de Entrega, já que um material de apoio não tem prazo nem status; a escrita dessa composição é protegida pelo mesmo controle de acesso por papel discutido na Seção 2.5.2 (Representante Escolar). O Aluno pode registrar Anotacao vinculadas a uma Disciplina e recebe Notificacao geradas a partir de uma Entrega próxima do prazo.
 
 Figura 5 – Diagrama de classes do domínio do sistema Folha
-![Diagrama de classes](diagrama-classes.png)
+![Diagrama de classes](imagens/diagrama-classes.png)
 Fonte: elaborado pelo grupo (2026)
 
 O diagrama de componentes (Figura 6) mostra a composição do sistema em unidades executáveis de alto nível e as interfaces entre elas, refletindo a arquitetura em camadas definida na Seção 2.1. O componente Frontend SPA (React) requer a interface API Folha (REST/JSON), provida pelo componente Backend API (Spring Boot), que concentra os Controllers e Services dos módulos descritos na Seção 2.5.2. O Backend API, por sua vez, requer a interface Autenticação (JWT), provida pelo componente Segurança (Spring Security + JWT), responsável por validar o token e aplicar o controle de acesso baseado em papel — por exemplo, restringir a escrita em Disciplina/Conteúdo ao perfil Representante Escolar (Seção 2.5.3) — antes que a requisição alcance os Controllers. Por fim, o Backend API requer a interface Persistência (JPA), provida pelo componente Banco de Dados (PostgreSQL), isolando as regras de negócio dos detalhes de armazenamento.
 
 Figura 6 – Diagrama de componentes do sistema Folha
-![Diagrama de componentes](diagrama-componentes.png)
+![Diagrama de componentes](imagens/diagrama-componentes.png)
 Fonte: elaborado pelo grupo (2026)
 
 ## 2.6 Visão de Implantação
@@ -164,7 +164,7 @@ Servidor de Banco de Dados: A persistência utilizará um servidor dedicado exec
 Abaixo apresenta-se o diagrama de implantação ilustrando a distribuição física e topológica do sistema:
 
 Figura 7 – Diagrama de implantação da plataforma cAnCHA
-![Diagrama de implantação](diagrama-implantacao.png)
+![Diagrama de implantação](imagens/diagrama-implantacao.png)
 Fonte: elaborado pelo grupo (2026)
 
 A Figura 7 ilustra a arquitetura de implantação física e lógica da plataforma Folha Digital. O ambiente é estruturado em três camadas principais: a interface do utilizador (*Frontend* em React SPA), o servidor de aplicação (*Backend* REST API em Spring Boot) e a camada de persistência de dados (PostgreSQL). As comunicações entre o dispositivo do utilizador e os serviços em nuvem são efetuadas através de conexões seguras HTTPS com autenticação via tokens JWT, garantindo a integridade e a segurança no tráfego de dados.
