@@ -1,10 +1,10 @@
-NGD\[Turma 3 Torvalds \- cAnCHA\]
+# Documento de Visão
 
 **VISÃO DO PRODUTO E DO PROJETO**
 
-Versão \[1.1\]
+Versão 1.1
 
-Tabela \-  Integrantes do Grupo:
+## Tabela - Integrantes do Grupo:
 
 | Mat. | Nome | Função (responsabilidade) | Pontos de participação na elaboração |
 | ----- | :---- | :---- | :---- |
@@ -16,96 +16,26 @@ Tabela \-  Integrantes do Grupo:
 | 232014692 | João Lucas R. Cabral | Designer/QA | 15 |
 | 232024554 | Ana Jullia B. M. Lopes | Scrum Master/QA | 12.5 |
 | 241040341 | Pedro Henrique Galdino | Desenvolvedor | 9 |
-|  |  |  |  |
-|  |  |  |  |
-| Total de pontos(Devem fechar 100 pontos para toda a equipe.) |  |  | 100 |
+| **Total de pontos** | | **(Devem fechar 100 pontos para toda a equipe.)** | **100** |
 
-**Histórico de Revisões**
+## Histórico de Revisões
 
 | Data | Versão | Descrição | Autor |
 | :---- | :---- | :---- | :---- |
-| **30/09** | 1.0 | Versão inicial do Documento de Visão. | Grupo Torvalds |
-| **16/10** | 1.1 | Alteração do nome do produto de “Folha Digital” para “cAnCHA” e reorganização das sprints | Ana Jullia |
-|  |  |  |  |
-|  |  |  |  |
+| 30/09 | 1.0 | Versão inicial do Documento de Visão. | Grupo Torvalds |
+| 16/10 | 1.1 | Alteração do nome do produto de "Folha Digital" para "cAnCHA" e reorganização das sprints | Ana Jullia |
 
-**SUMÁRIO**
+# 1 VISÃO GERAL DO PRODUTO
 
-**[1 VISÃO GERAL DO PRODUTO	4](#1-visão-geral-do-produto)**
-
-[1.1 Problema	4](#1.1-problema)
-
-[1.2 Declaração de Posição do Produto	6](#1.2-declaração-de-posição-do-produto)
-
-[1.3 Objetivos do Produto	7](#1.3-objetivos-do-produto)
-
-[1.4 Tecnologias a Serem Utilizadas	7](#1.4-tecnologias-a-serem-utilizadas)
-
-[**2 VISÃO GERAL DO PROJETO	8**](#2-visão-geral-do-projeto)
-
-[2.1 Ciclo de vida do projeto de desenvolvimento de software	8](#2.1-ciclo-de-vida-do-projeto-de-desenvolvimento-de-software)
-
-[2.2 Organização do Projeto	10](#2.2-organização-do-projeto)
-
-[2.3 Planejamento das Fases e/ou Iterações do Projeto	10](#2.3-planejamento-das-fases-e/ou-iterações-do-projeto)
-
-[2.4 Matriz de Comunicação	12](#2.4-matriz-de-comunicação)
-
-[2.5 Gerenciamento de Riscos	13](#2.5-gerenciamento-de-riscos)
-
-[2.6 Critérios de Replanejamento	14](#2.6-critérios-de-replanejamento)
-
-[**3 PROCESSO DE DESENVOLVIMENTO DE SOFTWARE	16**](#3-processo-de-desenvolvimento-de-software)
-
-[**4 DECLARAÇÃO DE ESCOPO DO PROJETO	17**](#4-declaração-de-escopo-do-projeto)
-
-[4.1 Backlog do produto	17](#4.1-backlog-do-produto)
-
-[4.1.1 Elicitação dos requisitos	18](#4.1.1-elicitação-dos-requisitos)
-
-[4.2 Perfis	18](#4.2-perfis)
-
-[4.3 Cenários	19](#4.3-cenários)
-
-[4.4 Tabela de Backlog do produto	20](#4.4-tabela-de-backlog-do-produto)
-
-[**5 MÉTRICAS E MEDIÇÕES	21**](#5-métricas-e-medições)
-
-[5.1 GQM de medições	21](#5.1-gqm-de-medições)
-
-[**6 TESTES DE SOFTWARE	25**](#6-testes-de-software)
-
-[6.1 Estratégia de testes	25](#6.1-estratégia-de-testes)
-
-[6.1.1 Níveis de testes	25](#6.1.1-níveis-de-testes)
-
-[6.1.2 Tipos de testes	25](#6.1.2-tipos-de-testes)
-
-[6.1.3 Ambientes de testes	26](#6.1.3-ambientes-de-testes)
-
-[6.1.4 Formas de análise dos testes	26](#6.1.4-formas-de-análise-dos-testes)
-
-[6.1.5 Resultados previstos e realizados	27](#6.1.5-resultados-previstos-e-realizados)
-
-[6.2 Roteiro de teste	27](#6.2-roteiro-de-teste)
-
-[**REFERÊNCIAS	32**](#referências)
-
-**VISÃO DO PRODUTO E PROJETO**
-
-# 
-
-# **1 VISÃO GERAL DO PRODUTO** {#1-visão-geral-do-produto}
-
-## **1.1 Problema** {#1.1-problema}
+## 1.1 Problema
 
 O problema se insere no contexto acadêmico do Ensino a Distância (EaD), modalidade ofertada por instituições como a UnB e que, em 2024, passou a concentrar 50,7% das matrículas de graduação do país (INEP, 2025). Nesse cenário, a relação do aluno com o curso acontece quase toda dentro do Ambiente Virtual de Aprendizagem (AVA) e de outros sistemas acadêmicos, e é por meio deles que ele localiza conteúdos, acompanha atividades e prazos e percebe o próprio avanço. Esse público é formado por estudantes de perfis variados, incluindo candidatos de programas como o Vestibular 60+ ou usuários com baixo conhecimento de tecnologia.
 
-É justamente nessa organização que está o problema: estudantes em ambientes de EaD podem enfrentar dificuldades para localizar conteúdos, acompanhar atividades, identificar prazos e compreender seu progresso, devido à forma como as informações e interações são organizadas no ambiente. Estudantes da modalidade já apontaram dificuldades de usabilidade no AVA como fator ligado à desistência (AMBIENTES, 2025), o que revela uma oportunidade de desenvolvimento de software voltado à experiência do aluno. Para esclarecer as causas desse problema, o grupo utilizou o diagrama de Ishikawa apresentado na Figura 1\.
+É justamente nessa organização que está o problema: estudantes em ambientes de EaD podem enfrentar dificuldades para localizar conteúdos, acompanhar atividades, identificar prazos e compreender seu progresso, devido à forma como as informações e interações são organizadas no ambiente. Estudantes da modalidade já apontaram dificuldades de usabilidade no AVA como fator ligado à desistência (AMBIENTES, 2025), o que revela uma oportunidade de desenvolvimento de software voltado à experiência do aluno. Para esclarecer as causas desse problema, o grupo utilizou o diagrama de Ishikawa apresentado na Figura 1.
 
 Figura 1 – Diagrama de Ishikawa do problema de navegação no EaD
 
-![][image1]
+![Figura 1 - Diagrama de Ishikawa](figura1-ishikawa.png)
 
 Fonte: elaborado pelo grupo (2026)
 
@@ -117,106 +47,102 @@ A leitura do diagrama mostra que a maioria das causas é estrutural: não depend
 
 A solução proposta é um software de visualização de tarefas e acompanhamento de atividades e prazos, com foco em diminuir a quantidade de cliques do usuário. O produto facilita a gestão de tarefas e de tempo, oferecendo uma interface intuitiva que auxilia o aluno a encontrar conteúdo, prazos e progresso usando o modelo mental de um caderno. Cada recurso responde a uma causa identificada no diagrama: o acesso direto às disciplinas reduz a profundidade de navegação; a agenda unificada de entregas centraliza pendências e prazos hoje dispersos entre sistemas; e o painel de progresso, alimentado pelas atividades que o aluno marca como concluídas, mostra quanto ele já avançou em cada disciplina e no período letivo. Com isso, espera-se que o aluno encontre o que precisa com menos passos e menos esforço, acompanhe seus prazos sem controles paralelos e tenha clareza sobre o próprio progresso.
 
-## **1.2 Declaração de Posição do Produto** {#1.2-declaração-de-posição-do-produto}
+## 1.2 Declaração de Posição do Produto
 
 Quadro 1 – Declaração de posição do produto
 
-| Para:   | estudantes de EaD |
+| Para: | estudantes de EaD |
 | ----: | :---- |
-| Necessidade:   | Uma plataforma que simplifica a gestão de atividades curriculares, facilitando o acesso às tarefas, a visualização de prazos e a compreensão do progresso dos trabalhos executados (desempenho do discente ao longo do período letivo / estudo). |
-| O (nome do produto):   | Uma aplicação web chamada cAnCHA. |
-| Que:   | Organiza a vida acadêmica do aluno como um caderno físico, possui agenda unificada de entregas (estilo kanban) e painel de progresso, possui fácil acesso às disciplinas em no máximo 3 cliques. |
-| Ao contrário:   | Baixo rendimento escolar para pessoas com dificuldades de navegação em plataformas já existentes; dispersão de responsabilidades entre diferentes softwares (exemplo: Aprender3, SIGAA, Notion), dificultando ainda mais a jornada estudantil. |
-| Nosso produto:   | Modelo mental de um caderno, facilitando a compreensão do usuário e garantindo uma maior adesão ao software, proporcionando um painel centralizado na experiência do usuário (UX) |
+| Necessidade: | Uma plataforma que simplifica a gestão de atividades curriculares, facilitando o acesso às tarefas, a visualização de prazos e a compreensão do progresso dos trabalhos executados (desempenho do discente ao longo do período letivo / estudo). |
+| O (nome do produto): | Uma aplicação web chamada cAnCHA. |
+| Que: | Organiza a vida acadêmica do aluno como um caderno físico, possui agenda unificada de entregas (estilo kanban) e painel de progresso, possui fácil acesso às disciplinas em no máximo 3 cliques. |
+| Ao contrário: | Baixo rendimento escolar para pessoas com dificuldades de navegação em plataformas já existentes; dispersão de responsabilidades entre diferentes softwares (exemplo: Aprender3, SIGAA, Notion), dificultando ainda mais a jornada estudantil. |
+| Nosso produto: | Modelo mental de um caderno, facilitando a compreensão do usuário e garantindo uma maior adesão ao software, proporcionando um painel centralizado na experiência do usuário (UX) |
 
 Fonte: elaborado pelo grupo (2026)
 
-## **1.3 Objetivos do Produto** {#1.3-objetivos-do-produto}
+## 1.3 Objetivos do Produto
 
-Simplificar a gestão de atividades curriculares, facilitando o acesso do estudante à tarefas,  visualização de prazos e entrega de trabalhos.
+Simplificar a gestão de atividades curriculares, facilitando o acesso do estudante a tarefas, visualização de prazos e entrega de trabalhos.
 
 Objetivos Específicos:
 
-1\. Reduzir a quantidade de cliques necessários para localizar tarefas e materiais de aula;
-
-2\. Centralizar as pendências e datas limite em um painel visual e dinâmico;
-
-3\. Exibir indicadores de progresso por disciplina para auxiliar a gestão de tempo do discente.
+1. Reduzir a quantidade de cliques necessários para localizar tarefas e materiais de aula;
+2. Centralizar as pendências e datas limite em um painel visual e dinâmico;
+3. Exibir indicadores de progresso por disciplina para auxiliar a gestão de tempo do discente.
 
 Objetivo Secundário:
 
-1\. Paralelamente, a aplicação ainda permite que o usuário mantenha anotações e registros dos conteúdos assimilados.
+1. Paralelamente, a aplicação ainda permite que o usuário mantenha anotações e registros dos conteúdos assimilados.
 
-## **1.4 Tecnologias a Serem Utilizadas** {#1.4-tecnologias-a-serem-utilizadas}
+## 1.4 Tecnologias a Serem Utilizadas
 
-	**Ferramentas de Desenvolvimento e Design:** 
+**Ferramentas de Desenvolvimento e Design:**
 
-VSCode para codificação, Figma para prototipagem de telas e GitHub para controle de versão e integração contínua
+VSCode para codificação, Figma para prototipagem de telas e GitHub para controle de versão e integração contínua.
 
 **Interface/Front-end:**
 
 React.js para construção de interface SPA reativa focada em UX.
 
-**Back-end/API:** 
+**Back-end/API:**
 
 Node.js para gestão de usuários, tarefas e disciplinas.
 
-# 
+# 2 VISÃO GERAL DO PROJETO
 
-# **2 VISÃO GERAL DO PROJETO** {#2-visão-geral-do-projeto}
-
-## **2.1 Ciclo de vida do projeto de desenvolvimento de software**	 {#2.1-ciclo-de-vida-do-projeto-de-desenvolvimento-de-software}
+## 2.1 Ciclo de vida do projeto de desenvolvimento de software
 
 O projeto adota uma metodologia ágil, instanciada em um ciclo de vida híbrido, iterativo e incremental baseado em Scrum e Extreme Programming (XP), com sprints semanais. A Figura 2 mostra como essa escolha se desdobra em processo, procedimentos, métodos e ferramentas, seguindo o modelo apresentado acima.
 
 Figura 2 – Metodologia de desenvolvimento do projeto cAnCHA
 
-![][image2]
+![Figura 2 - Metodologia](figura2-metodologia.png)
 
 Fonte: elaborado pelo grupo (2026)
 
 A metodologia ágil foi escolhida porque o problema é de usabilidade: não basta especificar a interface antes, é preciso verificar com frequência se ela de fato reduz passos e deixa prazos e progressos claros. Uma abordagem ágil permite entregar cedo e ajustar o produto a cada validação, em vez de fixar todos os requisitos no início.
 
-Como processo, adota-se um ciclo de vida híbrido, iterativo e incremental fundamentado em Scrum e XP. Antes da primeira sprint, na fase de iniciação (pré-sprint), A primeira sprint é dedicada à definição do produto: nela a equipe mapeou o problema com o diagrama de Ishikawa, elaborou este Documento de Visão e iniciou o Product Backlog. A partir da segunda sprint, cada ciclo passa a gerar incrementos do software. A partir daí, o Scrum organiza o trabalho em sprints de uma semana, com planejamento no início e revisão e retrospectiva no fim, o que viabiliza o refinamento contínuo do backlog. Cada sprint gera um incremento funcional do software, que acrescenta valor ao produto e é avaliado ao fim da sprint. O XP complementa o Scrum com práticas técnicas que mantêm o código estável entre uma entrega e outra. A sprint semanal permite que cada ajuste de interface chegue rapidamente à validação e se encaixa no ritmo do semestre.
+Como processo, adota-se um ciclo de vida híbrido, iterativo e incremental fundamentado em Scrum e XP. Antes da primeira sprint, na fase de iniciação (pré-sprint), a primeira sprint é dedicada à definição do produto: nela a equipe mapeou o problema com o diagrama de Ishikawa, elaborou este Documento de Visão e iniciou o Product Backlog. A partir da segunda sprint, cada ciclo passa a gerar incrementos do software. A partir daí, o Scrum organiza o trabalho em sprints de uma semana, com planejamento no início e revisão e retrospectiva no fim, o que viabiliza o refinamento contínuo do backlog. Cada sprint gera um incremento funcional do software, que acrescenta valor ao produto e é avaliado ao fim da sprint. O XP complementa o Scrum com práticas técnicas que mantêm o código estável entre uma entrega e outra. A sprint semanal permite que cada ajuste de interface chegue rapidamente à validação e se encaixa no ritmo do semestre.
 
 Nos procedimentos, uma história de usuário só entra na sprint quando atende à Definição de Preparado (Definition of Ready): possui critérios de aceitação verificáveis e escopo delimitado pelo Dono do Produto, pequeno o suficiente para ser concluído em uma semana. Cada sprint começa com a seleção das histórias mais prioritárias do backlog e termina com a revisão do incremento produzido, em que o Dono do Produto, representando o aluno, valida as entregas (seção 2.2). Além dessa validação semanal, a equipe realiza testes de usabilidade com estudantes em marcos definidos do projeto, como a conclusão de uma funcionalidade principal, verificando na prática se a interface reduz os passos até a tarefa e deixa prazos e progressos claros. Ao longo da sprint, a equipe realiza reuniões semanais para acompanhar o andamento e identificar impedimentos. Uma história só é considerada concluída, conforme a Definição de Pronto (Definition of Done), quando seus testes passam na integração contínua, critério acompanhado pelo Analista de Qualidade.
 
 Os métodos adotados são as histórias de usuário, que descrevem cada funcionalidade do ponto de vista do aluno (por exemplo, ver em uma única tela todos os prazos da semana); os testes automatizados, que verificam cada funcionalidade entregue; e a integração contínua, que executa esses testes a cada alteração enviada ao repositório. A programação em pares, prática comum do XP, não foi adotada nesta versão do projeto; em seu lugar, a qualidade do código é assegurada pela revisão de código, realizada por meio das inspeções de código atribuídas ao Analista de Qualidade (seção 2.2).
 
-Quanto às ferramentas, o código é versionado no GitHub, que também concentra a integração contínua do projeto. O Product Backlog e o Sprint Backlog são gerenciados no Trello, o que dá transparência ao andamento de cada sprint, e as reuniões semanais acontecem pelo Microsoft Teams. A codificação é feita no IntelliJ IDEA ou no VS Code, a critério de cada integrante, e o design e a prototipação das telas são feitos no Figma. 
+Quanto às ferramentas, o código é versionado no GitHub, que também concentra a integração contínua do projeto. O Product Backlog e o Sprint Backlog são gerenciados no Trello, o que dá transparência ao andamento de cada sprint, e as reuniões semanais acontecem pelo Microsoft Teams. A codificação é feita no IntelliJ IDEA ou no VS Code, a critério de cada integrante, e o design e a prototipação das telas são feitos no Figma.
 
-## **2.2 Organização do Projeto** {#2.2-organização-do-projeto}
+## 2.2 Organização do Projeto
 
-Quadro 2 – Organização da equipe do projeto 
+Quadro 2 – Organização da equipe do projeto
 
-| *Papel* | *Atribuições* | *Responsável* | *Participantes* |
+| Papel | Atribuições | Responsável | Participantes |
 | :---- | :---- | :---- | :---- |
-| *Desenvolvedor* | *Codificar o produto, codificar testes unitários, realizar refatoração* | *Pedro* | *Pedro, Thiago, Jefferson, Eduardo, Gustavo, Galdino* |
-| *Designer*  | *Desenvolvimento do Frontend da aplicação, responsável pela experiência de usuários e parte visual do projeto.* | *João Lucas* | *João Lucas, Galdino* |
-| *Scrum Master* | *Gerenciamento de Backlogs do projeto* | *Ana Jullia*  | *João Lucas, Ana Jullia*  |
-| *Dono do Produto* | *Atualizar o escopo do produto, organizar o escopo das sprints, validar as entregas* | *Eduardo* | *Jefferson, Eduardo* |
-| *Analista de Qualidade* | *Garantir a qualidade do produto, garantir o cumprimento do conceito de pronto, realizar inspeções de código* | *João Lucas* | *Pedro, Ana Jullia* |
-| *Cliente* | *Apresentar as necessidades dos estudantes de EaD e participar dos testes de usabilidade* |  |  |
+| Desenvolvedor | Codificar o produto, codificar testes unitários, realizar refatoração | Pedro | Pedro, Thiago, Jefferson, Eduardo, Gustavo, Galdino |
+| Designer | Desenvolvimento do Frontend da aplicação, responsável pela experiência de usuários e parte visual do projeto. | João Lucas | João Lucas, Galdino |
+| Scrum Master | Gerenciamento de Backlogs do projeto | Ana Jullia | João Lucas, Ana Jullia |
+| Dono do Produto | Atualizar o escopo do produto, organizar o escopo das sprints, validar as entregas | Eduardo | Jefferson, Eduardo |
+| Analista de Qualidade | Garantir a qualidade do produto, garantir o cumprimento do conceito de pronto, realizar inspeções de código | João Lucas | Pedro, Ana Jullia |
+| Cliente | Apresentar as necessidades dos estudantes de EaD e participar dos testes de usabilidade | | |
 
 Fonte: elaborado pelo grupo (2026)
 
-## **2.3 Planejamento das Fases e/ou Iterações do Projeto** {#2.3-planejamento-das-fases-e/ou-iterações-do-projeto}
+## 2.3 Planejamento das Fases e/ou Iterações do Projeto
 
-O planejamento das fases do projeto foi estruturado em Sprints semanais, alinhadas ao ciclo de vida ágil (Scrum/XP). A Tabela 1 apresenta o cronograma das iterações, especificando o período de execução, os entregáveis esperados, os papéis responsáveis e o percentual de conclusão. 
+O planejamento das fases do projeto foi estruturado em Sprints semanais, alinhadas ao ciclo de vida ágil (Scrum/XP). A Tabela 1 apresenta o cronograma das iterações, especificando o período de execução, os entregáveis esperados, os papéis responsáveis e o percentual de conclusão.
 
-Este planejamento possui caráter evolutivo e será atualizado sucessivamente ao final de cada Sprint, refletindo o real andamento das entregas no repositório da equipe. 
+Este planejamento possui caráter evolutivo e será atualizado sucessivamente ao final de cada Sprint, refletindo o real andamento das entregas no repositório da equipe.
 
 Tabela 1 – Planejamento das fases e iterações do projeto
 
-|  Sprint | Produto (Entrega) | Data Início | Data Fim | Entregável(eis) | Responsáveis | % conclusão |
+| Sprint | Produto (Entrega) | Data Início | Data Fim | Entregável(eis) | Responsáveis | % conclusão |
 | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
-| Sprint 1 | Definição do Produto | 16/09/2026 | 30/09/2026 | Documento de Visão, Backlog inicial | Todos  | 100% |
+| Sprint 1 | Definição do Produto | 16/09/2026 | 30/09/2026 | Documento de Visão, Backlog inicial | Todos | 100% |
 | Sprint 2 | Documento de Arquitetura | 01/10/2026 | 07/10/2026 | Documento de Arquitetura | Todos | 100% |
-| Sprint 3 | Apresentação  | 08/10/2026 | 14/10/2026 | Apresentação do Doc. de Visão, GQM | Todos | 100% |
+| Sprint 3 | Apresentação | 08/10/2026 | 14/10/2026 | Apresentação do Doc. de Visão, GQM | Todos | 100% |
 | Sprint 4 | Apresentação | 15/10/2026 | 21/10/2026 | Apresentação do Doc. de Arquitetura, prova | Todos | 100% |
 | Sprint 5 | Prototipação Visual | 22/10/2026 | 28/10/2026 | Protótipo no Figma | DEV, QA, DES | 100% |
-| Sprint 6 | Funcionalidades Base e Disciplinas | 29/10/2026 | 04/11/2026 | Fundação técnica, login, telas início/ matérias, backend de disciplinas, Swagger, deploy | DEV, QA,  SM | 0% |
-| Sprint 7 | Entregas, Materiais e Agenda | 05/11/2026 | 11/11/2026 | Entregas e materiais (back \+ front), página da disciplina, próximas entregas, testes de aceitação, release | DEV, QA, DES, PO | 0% |
+| Sprint 6 | Funcionalidades Base e Disciplinas | 29/10/2026 | 04/11/2026 | Fundação técnica, login, telas início/ matérias, backend de disciplinas, Swagger, deploy | DEV, QA, SM | 0% |
+| Sprint 7 | Entregas, Materiais e Agenda | 05/11/2026 | 11/11/2026 | Entregas e materiais (back + front), página da disciplina, próximas entregas, testes de aceitação, release | DEV, QA, DES, PO | 0% |
 | Sprint 8 | Ajustes pós-Ponto de Controle | 12/11/2026 | 18/11/2026 | Correções de defeitos apontados no Ponto de Controle | DEV, QA | 0% |
 | Sprint 9 | Módulo de Anotações | 19/11/2026 | 22/11/2026 | Módulo de anotações integrado ao backend | DEV, QA | 0% |
 | Sprint 10 | Testes e Correções | 23/11/2026 | 27/11/2026 | Execução dos testes CT-01 a CT-09 e correção de defeitos finais | DEV, QA, SM | 0% |
@@ -224,47 +150,43 @@ Tabela 1 – Planejamento das fases e iterações do projeto
 
 Fonte: elaborado pelo grupo (2026)
 
-***(Aliases): PO \= Product Owner; SM \= Scrum Master; DEV \= Desenvolvedores; DES \= Designer; QA \= Analista de Qualidade.***
+*(Aliases): PO = Product Owner; SM = Scrum Master; DEV = Desenvolvedores; DES = Designer; QA = Analista de Qualidade.*
 
-	
+## 2.4 Matriz de Comunicação
 
-## **2.4 Matriz de Comunicação** {#2.4-matriz-de-comunicação}
+Quadro 3 – Matriz de comunicação
 
-Quadro 3 – Matriz de comunicação 
-
-| *Descrição* | *Área/Envolvidos* | *Periodicidade* | *Produtos Gerados* |
+| Descrição | Área/Envolvidos | Periodicidade | Produtos Gerados |
 | :---- | :---- | :---- | :---- |
-| *Acompanhamento das Atividades em Andamento Acompanhamento dos Riscos, Compromissos, Ações Pendentes, Indicadores*  | *Equipe do Projeto* | *Semanal* | *Ata de reunião (Transcrição Teams) Relatório de situação do projeto* |
-| *Comunicar situação do projeto* | *Equipe Prof/Monitor* | *Semanal* | *Ata de reunião, e  Relatório de situação do projeto* |
-| *Daily: o que fiz, o que farei, impedimentos*  | *Equipe do Projeto* | *Semanal* | *Registro no Trello* |
+| Acompanhamento das Atividades em Andamento Acompanhamento dos Riscos, Compromissos, Ações Pendentes, Indicadores | Equipe do Projeto | Semanal | Ata de reunião (Transcrição Teams) Relatório de situação do projeto |
+| Comunicar situação do projeto | Equipe Prof/Monitor | Semanal | Ata de reunião, e Relatório de situação do projeto |
+| Daily: o que fiz, o que farei, impedimentos | Equipe do Projeto | Semanal | Registro no Trello |
 
 Fonte: elaborado pelo grupo (2026)
 
-## 
+## 2.5 Gerenciamento de Riscos
 
-## **2.5 Gerenciamento de Riscos** {#2.5-gerenciamento-de-riscos}
-
-* **Atraso na entrega por sobreposição com avaliações de outras disciplinas:**  
+* **Atraso na entrega por sobreposição com avaliações de outras disciplinas:**
   * Grau de exposição: Alto;
-
   * Plano de mitigação: Planejar Sprints com folga e distribuir tarefas de forma balanceada entre os integrantes;
-
   * Plano de contingência: Distribuição balanceada entre os membros, priorizando o backlog das tarefas realizadas (MoSCoW).
 
-* **Dificuldade técnica com tecnologias novas para a equipe (ex.: integração Spring Boot \+ React):**  
-  * Grau de exposição: Médio;  
-  * Plano de mitigação: Provas de conceito antecipadas e estudo dirigido nas primeiras sprints;  
-  * Plano de contingência: Buscar apoio de monitoria/Professor e, se necessário, simplificar o escopo técnico.  
-* **Esforço subestimado (Ex: Atraso de entrega devido à um escopo maior do que o esperado):**  
-  * Grau de exposição: Alto;  
-  * Plano de mitigação:  Estimar as histórias de usuário por meio de planning poker  e acompanhar a velocidade da equipe a cada sprint, a fim de ajustar o planejamento das sprints seguintes.  
-  * Plano de contingência: Mover os itens classificados como Should e Could para sprints seguintes, a fim de priorizar a entrega dos requisitos *Must*, e registrar a alteração no planejamento das fases.  
-* **Requisitos pouco claros ou alterados durante a sprint**  
-  * Grau de exposição: Alto;  
-  * Plano de mitigação: Definir critérios de aceitação para cada história de usuário e validar os requisitos com o Product Owner ao final de cada sprint na sprint review.  
+* **Dificuldade técnica com tecnologias novas para a equipe (ex.: integração Spring Boot + React):**
+  * Grau de exposição: Médio;
+  * Plano de mitigação: Provas de conceito antecipadas e estudo dirigido nas primeiras sprints;
+  * Plano de contingência: Buscar apoio de monitoria/Professor e, se necessário, simplificar o escopo técnico.
+
+* **Esforço subestimado (Ex: Atraso de entrega devido à um escopo maior do que o esperado):**
+  * Grau de exposição: Alto;
+  * Plano de mitigação: Estimar as histórias de usuário por meio de planning poker e acompanhar a velocidade da equipe a cada sprint, a fim de ajustar o planejamento das sprints seguintes.
+  * Plano de contingência: Mover os itens classificados como Should e Could para sprints seguintes, a fim de priorizar a entrega dos requisitos *Must*, e registrar a alteração no planejamento das fases.
+
+* **Requisitos pouco claros ou alterados durante a sprint**
+  * Grau de exposição: Alto;
+  * Plano de mitigação: Definir critérios de aceitação para cada história de usuário e validar os requisitos com o Product Owner ao final de cada sprint na sprint review.
   * Plano de contingência: Congelar o escopo da sprint em andamento e registrar as alterações no backlog do produto, para serem priorizadas para a sprint seguinte.
 
-## **2.6 Critérios de Replanejamento** {#2.6-critérios-de-replanejamento}
+## 2.6 Critérios de Replanejamento
 
 O replanejamento do projeto será acionado sempre que desvios de cronograma, problemas técnicos ou eventos imprevistos comprometerem as entregas planejadas para a sprint ou release. Abaixo estão detalhados os critérios e gatilhos de replanejamento mapeados para o projeto:
 
@@ -278,7 +200,7 @@ O replanejamento do projeto será acionado sempre que desvios de cronograma, pro
 
 2) **Replanejamento por Incompatibilidade ou Bloqueio Técnico**
 
-   Gatilho: Dificuldades na integração entre tecnologias (Spring Boot \+ React) ou complexidade imprevista no desenvolvimento.
+   Gatilho: Dificuldades na integração entre tecnologias (Spring Boot + React) ou complexidade imprevista no desenvolvimento.
 
    Condição de Acionamento: Quando um Spike técnico (investigação arquitetural curta do XP) não solucionar a dúvida tecnológica no prazo estipulado ou uma História de Usuário permanecer bloqueada por mais de 2 dias úteis.
 
@@ -300,24 +222,20 @@ O replanejamento do projeto será acionado sempre que desvios de cronograma, pro
 
    Ação e Contingência: O escopo da Sprint em andamento será congelado em relação à História de Usuário afetada, e as alterações identificadas serão registradas no Product Backlog. O Product Owner deverá priorizar as novas demandas para a Sprint seguinte, evitando alterações que comprometam o objetivo da Sprint atual.
 
-# 
-
-# **3 PROCESSO DE DESENVOLVIMENTO DE SOFTWARE** {#3-processo-de-desenvolvimento-de-software}
+# 3 PROCESSO DE DESENVOLVIMENTO DE SOFTWARE
 
 A equipe adota o framework Scrum como processo principal de desenvolvimento, complementado por práticas de Extreme Programming (XP) voltadas à qualidade técnica do código. Os papéis envolvidos seguem a divisão definida na Seção 2.2.
 
 O fluxo de trabalho organiza a engenharia de requisitos nas seguintes macro-atividades:
 
-1. **Elicitação e Descoberta:** Levantamento de necessidades através de questionários e brainstormings.  
-2. **Análise e Consenso:** Refinamento de histórias e priorização técnica entre o time e o PO antes de cada Sprint Planning.  
-3. **Declaração:** Formalização de Histórias de Usuário acompanhadas de critérios de aceitação testáveis.  
+1. **Elicitação e Descoberta:** Levantamento de necessidades através de questionários e brainstormings.
+2. **Análise e Consenso:** Refinamento de histórias e priorização técnica entre o time e o PO antes de cada Sprint Planning.
+3. **Declaração:** Formalização de Histórias de Usuário acompanhadas de critérios de aceitação testáveis.
 4. **Verificação e Validação:** Testes e validação contínua das entregas com foco nos atributos de qualidade do produto (usabilidade, desempenho e segurança).
 
-# 
+# 4 DECLARAÇÃO DE ESCOPO DO PROJETO
 
-# **4 DECLARAÇÃO DE ESCOPO DO PROJETO** {#4-declaração-de-escopo-do-projeto}
-
-## **4.1 Backlog do produto** {#4.1-backlog-do-produto}
+## 4.1 Backlog do produto
 
 O Product Backlog do projeto cAnCHA consiste no conjunto de requisitos, funcionalidades e necessidades identificadas para o desenvolvimento do produto. Ele é utilizado como instrumento de organização e priorização do escopo, sendo refinado continuamente ao longo do desenvolvimento do projeto. A organização do backlog considera os perfis de usuários, os cenários funcionais e as histórias de usuário associadas a cada requisito.
 
@@ -325,13 +243,13 @@ A definição e o refinamento dos requisitos são realizados de forma colaborati
 
 Para a priorização dos requisitos, a equipe utiliza a classificação MoSCoW, dividindo-os em três categorias utilizadas no projeto: Must Have, Should Have e Could Have. A classificação possui as seguintes definições:
 
-1. Must Have: requisitos considerados essenciais para o funcionamento do produto e para o cumprimento de seus objetivos principais. A ausência desses requisitos compromete a entrega das funcionalidades fundamentais do cAnCHA.  
-   2. Should Have: requisitos importantes para o produto e que agregam valor significativo à experiência do usuário, mas que não impedem o funcionamento das funcionalidades essenciais caso sejam adiados para uma Sprint posterior.  
-   3. Could Have: requisitos desejáveis que complementam a experiência do usuário ou acrescentam funcionalidades ao produto, mas que possuem menor prioridade em relação aos requisitos Must Have e Should Have.
+1. Must Have: requisitos considerados essenciais para o funcionamento do produto e para o cumprimento de seus objetivos principais. A ausência desses requisitos compromete a entrega das funcionalidades fundamentais do cAnCHA.
+2. Should Have: requisitos importantes para o produto e que agregam valor significativo à experiência do usuário, mas que não impedem o funcionamento das funcionalidades essenciais caso sejam adiados para uma Sprint posterior.
+3. Could Have: requisitos desejáveis que complementam a experiência do usuário ou acrescentam funcionalidades ao produto, mas que possuem menor prioridade em relação aos requisitos Must Have e Should Have.
 
 A classificação dos requisitos será utilizada durante o planejamento das Sprints para auxiliar a equipe na definição do escopo de cada ciclo. Em situações de redução de capacidade ou necessidade de replanejamento, os requisitos Should Have e Could Have poderão ser deslocados para Sprints posteriores, preservando a execução dos requisitos Must Have.
 
-### **4.1.1 Elicitação dos requisitos** {#4.1.1-elicitação-dos-requisitos}
+### 4.1.1 Elicitação dos requisitos
 
 A elicitação dos requisitos do cAnCHA é realizada principalmente por meio de brainstorming e questionários, técnicas utilizadas para levantar necessidades relacionadas à experiência dos estudantes de EaD e identificar funcionalidades que possam contribuir para a organização das atividades acadêmicas.
 
@@ -341,26 +259,26 @@ Os questionários são utilizados para obter informações diretamente relaciona
 
 Após a elicitação, os requisitos são analisados pela equipe e pelo Product Owner, sendo posteriormente formalizados como histórias de usuário acompanhadas de critérios de aceitação testáveis. Dessa forma, o backlog é mantido como um artefato evolutivo, podendo ser atualizado conforme novas necessidades sejam identificadas ou requisitos existentes sejam refinados. O detalhamento dos requisitos, suas respectivas prioridades, tipos e histórias de usuário associadas é apresentado na Seção 4.4.
 
-## **4.2 Perfis** {#4.2-perfis}
+## 4.2 Perfis
 
-Quadro 4 – Perfis de acesso 
+Quadro 4 – Perfis de acesso
 
-| \# | Nome do perfil | Características do perfil | Permissões de acesso |
+| # | Nome do perfil | Características do perfil | Permissões de acesso |
 | :---- | :---- | :---- | :---- |
 | 1 | Administrador | Responsável por manter os perfis de acesso da aplicação, alterar usuários já existentes, fazer a gestão e manutenção interna do sistema. | Gerenciar contas e perfis de acesso; configurar disciplinas e períodos letivos; acesso de leitura irrestrito para fins de suporte |
 | 2 | Aluno | Estudante regularmente matriculado; usuário principal da plataforma, consome conteúdo, acompanha prazos e registra anotações | Visualizar agenda e conteúdos das disciplinas em que está matriculado; registrar/editar suas próprias anotações; visualizar seu painel de progresso |
-| 3 | Representante Escolar | Preposto da instituição de ensino responsável por publicar informações acadêmicas | Adicionar, remover e editar conteúdos e atividades  |
+| 3 | Representante Escolar | Preposto da instituição de ensino responsável por publicar informações acadêmicas | Adicionar, remover e editar conteúdos e atividades |
 
 Fonte: elaborado pelo grupo (2026)
 
-## **4.3 Cenários** {#4.3-cenários}
+## 4.3 Cenários
 
-Quadro 5 – Cenários funcionais 
+Quadro 5 – Cenários funcionais
 
-| Sistema: cAnCHA – Cenários funcionais |  |  |
+| Sistema: cAnCHA – Cenários funcionais | | |
 | :---: | :---: | :---: |
 | Numeração do cenário | Nome do cenário | Sprints |
-| CEN-01 | Gestão e Visualização de Disciplinas: O Aluno acessa a plataforma e visualiza todas as matérias matriculadas em formato de fácil acesso (máximo 3 cliques). | Sprint 3  |
+| CEN-01 | Gestão e Visualização de Disciplinas: O Aluno acessa a plataforma e visualiza todas as matérias matriculadas em formato de fácil acesso (máximo 3 cliques). | Sprint 3 |
 | CEN-02 | Navegação e Consulta de Atividades: O aluno abre uma disciplina específica e visualiza rapidamente as tarefas, materiais em anexo e conteúdos. | Sprint 4 |
 | CEN-03 | Acompanhamento na Agenda Unificada: O Aluno acessa o painel central para verificar, em uma única visão (Kanban/Calendário), todas as datas limite e entregas pendentes | Sprint 5 |
 | CEN-04 | Controle de Progresso: O Aluno marca atividades como concluídas e o sistema atualiza visualmente a barra de progresso da respectiva disciplina e do semestre. | Sprint 5, 6 e 9 |
@@ -368,181 +286,17 @@ Quadro 5 – Cenários funcionais
 
 Fonte: elaborado pelo grupo (2026)
 
-## **4.4 Tabela de Backlog do produto** {#4.4-tabela-de-backlog-do-produto}
+## 4.4 Tabela de Backlog do produto
 
-Quadro 6 – Backlog do produto 
+Quadro 6 – Backlog do produto
 
-| Sistema: cAnCHA – Backlog do produto |  |  |  |  |  |  |
+| Sistema: cAnCHA – Backlog do produto | | | | | | |
 | ----- | :---- | :---- | :---- | :---- | :---- | ----- |
-| Numeração (Cenário / requisito) | Sprint | Nome do requisito | Tipo de requisito (Funcional / não funcional) | Priorização do requisito Must, Should, Could | Descrição sucinta do requisito | **User histories (U.S.) associadas** Identifique as U.S. associadas ao requisito |
-| CEN-01 / REQ-01 | Sprint 3 | Dashboard de Disciplinas  | Funcional | Must | Sistema deve exibir as disciplinas nas quais o aluno está matriculado logo na página inicial. | **US01:** Como aluno, quero ver minhas disciplinas na tela inicial para acessá-las rapidamente. |
-| CEN-01 / REQ-02 | Sprint 3 | Navegação Rasa (Regra dos 3 Cliques) | Não Funcional  | Must | A arquitetura de informação deve permitir que qualquer conteúdo base seja acessado em até 3 cliques. | **US02:** Como desenvolvedor, devo garantir rotas curtas para atender à regra de acessibilidade. |
-| CEN-02 / REQ-03 | Sprint 4 | Listagem de Atividades da Disciplina | Funcional  | Must | O sistema deve listar todas as atividades e conteúdos de uma disciplina ao selecioná-la. | **US03:** Como aluno, quero clicar na disciplina e ver a lista de tarefas da semana para saber o que estudar. |
-| CEN-03 / REQ-04 | Sprint 5 | Agenda Unificada (Visão Kanban) | Funcional | Must | O sistema deve agregar todas as pendências de todas as disciplinas em um único quadro de entregas. | **US04:** Como aluno, quero uma visão Kanban de tarefas a fazer, em andamento e concluídas, para não perder prazos. |
-| CEN-04 / REQ-05 | Sprint 5 | Painel de Progresso Acadêmico | Funcional | Should | O sistema deve exibir indicadores visuais (gráficos/barras) do percentual de conclusão do aluno. | **US05:** Como aluno, quero ver uma barra de progresso por disciplina para gerenciar melhor meu tempo de estudo. |
-| CEN-05 / REQ-06 | Sprint7 | Módulo de Anotações Livres | Funcional | Could | O sistema deve permitir criar notas em texto rico associadas a uma disciplina específica. | **US06:** Como aluno, quero poder escrever anotações no sistema, para centralizar meus estudos na mesma plataforma. |
-| CEN-03 / REQ-07 | Sprint 8 | Integração Front-end /API (Sincronização)  | Não Funcional  | Must | O Front-end em React.js deve espelhar em tempo real (ou próximo disso) as atualizações feitas na API Node.js. | **US07:** Como desenvolvedor, quero consumir a API de tarefas no React para renderizar a interface final. |
-
-Fonte: elaborado pelo grupo (2026)
-
-# **5 MÉTRICAS E MEDIÇÕES** {#5-métricas-e-medições}
-
-## **5.1 GQM de medições** {#5.1-gqm-de-medições}
-
-Para o acompanhamento do projeto cAnCHA, a equipe adotará o método GQM (Goal-Question-Metric), relacionando os objetivos de medição às questões que precisam ser respondidas e às métricas utilizadas para respondê-las. As medições serão utilizadas tanto para acompanhar o processo de desenvolvimento quanto para avaliar a qualidade técnica e a usabilidade do produto.
-
-A definição das métricas está relacionada às características do projeto estabelecidas nas seções anteriores deste documento. Como o desenvolvimento utiliza Scrum com sprints semanais e práticas técnicas de Extreme Programming (XP), serão acompanhados indicadores relacionados ao cumprimento das entregas, à qualidade do código e aos defeitos identificados durante o desenvolvimento. Além disso, considerando que um dos principais objetivos do cAnCHA é reduzir a quantidade de cliques necessários para que o estudante encontre suas atividades, serão realizadas medições relacionadas à usabilidade da aplicação.
-
-Quadro 7 – Objetivos de medição do projeto 
-
-| Objetivo | Descrição |
-| :---- | :---- |
-| Acompanhar o progresso do desenvolvimento  | Avaliar se o trabalho realizado pela equipe está de acordo com o planejamento estabelecido para cada Sprint.  |
-| Avaliar a qualidade técnica do software  | Identificar a ocorrência de defeitos e verificar a aprovação dos testes automatizados e das verificações realizadas durante o desenvolvimento.  |
-| Avaliar a usabilidade do produto  | Verificar se a aplicação permite que o estudante encontre informações e execute tarefas com a redução de passos prevista no objetivo do produto.  |
-
-Fonte: elaborado pelo grupo (2026)
-
-A partir dos objetivos apresentados no Quadro 7, foram definidas questões e métricas específicas para permitir o acompanhamento sistemático do projeto.
-
-Quadro 8 – GQM do projeto cAnCHA 
-
-| Objetivo | Questão | Métrica | Definição/Forma de cálculo | Unidade | Valor esperado | Forma de análise |
-| :---- | :---- | :---- | :---- | :---- | :---- | :---- |
-| Acompanhar o progresso do desenvolvimento  | A Sprint entregou o que foi planejado?  | Percentual de histórias concluídas  | (Histórias concluídas / Histórias planejadas) × 100  | % | 100% das histórias comprometidas que permanecerem no escopo da Sprint  | Comparar o percentual obtido ao final de cada Sprint com o planejamento inicial. Histórias não concluídas deverão retornar ao backlog para replanejamento.  |
-| Acompanhar o progresso do desenvolvimento  | A equipe está mantendo o ritmo de desenvolvimento planejado?  | Velocidade da Sprint  | Soma dos pontos das histórias concluídas na Sprint  | Pontos de história  | Manter comportamento estável entre Sprints, considerando a capacidade da equipe  | Comparar a velocidade entre Sprints para identificar variações relevantes na capacidade de entrega.  |
-| Avaliar a qualidade técnica do software  | Quantos defeitos foram encontrados durante o desenvolvimento?  | Quantidade de defeitos  | Contagem dos defeitos identificados nos testes e nas inspeções de código  | Defeitos  | Redução progressiva da quantidade de defeitos entre ciclos de desenvolvimento  | Registrar os defeitos por Sprint e verificar sua evolução ao longo do projeto.  |
-| Avaliar a qualidade técnica do software  | Os testes automatizados estão sendo aprovados?  | Taxa de aprovação dos testes  | (Testes aprovados / Testes executados) × 100  | % | 100% dos testes automatizados associados às funcionalidades concluídas  | Acompanhar os resultados da integração contínua. Uma história somente será considerada concluída quando atender à Definition of Done.  |
-| Avaliar a qualidade técnica do software  | Os defeitos encontrados estão sendo corrigidos antes da conclusão das histórias?  | Taxa de correção de defeitos  | (Defeitos corrigidos / Defeitos identificados) × 100  | % | 100% dos defeitos que impedirem o atendimento aos critérios de aceitação  | Verificar os defeitos em aberto ao final de cada Sprint e sua situação no backlog.  |
-| Avaliar a usabilidade do produto  | O estudante consegue encontrar uma atividade utilizando poucos passos?  | Quantidade de cliques para acesso à atividade  | Contagem dos cliques realizados desde a entrada no sistema até a visualização da atividade  | Cliques  | Até 3 cliques para acesso às disciplinas, conforme objetivo definido para o produto  | Comparar a quantidade de cliques observada durante os testes de usabilidade com o limite estabelecido pelo produto.  |
-| Avaliar a usabilidade do produto  | O estudante consegue concluir as tarefas propostas durante o teste?  | Taxa de sucesso das tarefas  | (Tarefas concluídas corretamente / Tarefas propostas) × 100  | % | 100% das tarefas previstas para o cenário de teste  | Avaliar a execução de cenários por estudantes e registrar as dificuldades encontradas.  |
-
-Fonte: elaborado pelo grupo (2026)
-
-As métricas de acompanhamento do processo serão coletadas ao final de cada Sprint, utilizando os registros mantidos no backlog e no Sprint Backlog. A velocidade será utilizada como indicador de acompanhamento da capacidade de entrega da equipe, sem representar uma meta individual de produtividade dos integrantes.
-
-As métricas relacionadas à qualidade serão obtidas a partir dos resultados dos testes automatizados, testes de integração, testes de sistema e inspeções de código. A taxa de aprovação dos testes será utilizada como um dos critérios para verificar o atendimento à Definition of Done estabelecida no processo de desenvolvimento.
-
-Por fim, as métricas de usabilidade serão coletadas durante os testes realizados com estudantes, principalmente nas funcionalidades relacionadas ao acesso às disciplinas, localização de tarefas, visualização de prazos e acompanhamento do progresso. Essas medições estão diretamente relacionadas ao problema identificado no projeto, que envolve a profundidade de navegação e a dispersão das informações acadêmicas.
-
-Os resultados das medições deverão ser registrados ao longo das Sprints e utilizados nas retrospectivas para identificar possíveis ajustes no processo de desenvolvimento. Caso os indicadores demonstrem desvios relevantes em relação ao planejamento ou aos critérios definidos, a equipe poderá utilizar os mecanismos de replanejamento estabelecidos na seção 2.6 deste documento.
-
-# **6 TESTES DE SOFTWARE** {#6-testes-de-software}
-
-## **6.1 Estratégia de testes** {#6.1-estratégia-de-testes}
-
-A estratégia de testes do cAnCHA será baseada nos níveis de teste unitário, integração e sistema, complementados por testes funcionais e não funcionais. A estratégia está alinhada ao processo de desenvolvimento adotado pela equipe, que utiliza Scrum como processo principal e práticas de Extreme Programming (XP) relacionadas à qualidade técnica do software.
-
-Os testes serão executados de forma contínua durante o desenvolvimento, evitando que a verificação das funcionalidades seja realizada somente ao final do projeto. Os testes automatizados serão executados por meio da integração contínua configurada no repositório do projeto. Além disso, serão realizadas inspeções de código e testes de usabilidade em momentos definidos do desenvolvimento. Conforme estabelecido na Definition of Done, uma história de usuário somente será considerada concluída quando seus testes forem aprovados na integração contínua.
-
-### **6.1.1 Níveis de testes** {#6.1.1-níveis-de-testes}
-
-Serão utilizados três níveis de teste:
-
-**a) Testes unitários:** serão utilizados para verificar componentes, funções e unidades isoladas do software. O objetivo é identificar erros em partes específicas da aplicação antes que elas sejam integradas às demais funcionalidades.
-
-**b) Testes de integração:** serão utilizados para verificar a comunicação entre os diferentes componentes da aplicação, principalmente entre a interface desenvolvida em React.js e a API responsável pelo gerenciamento dos dados. Também serão verificados os comportamentos resultantes da integração entre funcionalidades dependentes.
-
-**c) Testes de sistema:** serão realizados considerando o sistema como um todo, verificando os fluxos completos executados pelo usuário. Esses testes deverão representar cenários de utilização do cAnCHA, como acesso às disciplinas, localização de atividades, consulta de prazos, registro de anotações e acompanhamento do progresso.
-
-### **6.1.2 Tipos de testes** {#6.1.2-tipos-de-testes}
-
-Os testes serão classificados em funcionais e não funcionais.
-
-Os testes funcionais verificarão se o sistema executa corretamente as funcionalidades especificadas no backlog do produto. Entre os comportamentos verificados estarão o acesso às disciplinas, visualização de atividades, gerenciamento de anotações, visualização da agenda de entregas e apresentação do progresso acadêmico.
-
-Os testes não funcionais terão como principal foco a usabilidade, considerando que a redução da complexidade de navegação constitui um dos objetivos centrais do cAnCHA. Serão observados fatores como quantidade de cliques necessários para realizar uma tarefa, clareza das informações apresentadas e capacidade do usuário de localizar atividades e prazos.
-
-Também poderão ser realizadas verificações relacionadas ao desempenho e à portabilidade da aplicação quando essas características forem relevantes para as funcionalidades implementadas.
-
-### **6.1.3 Ambientes de testes** {#6.1.3-ambientes-de-testes}
-
-O desenvolvimento será realizado em ambiente local, utilizando o ambiente de desenvolvimento configurado pelos integrantes da equipe. O código será mantido no GitHub, que também será utilizado para o controle de versões e para a integração contínua.
-
-As funcionalidades deverão ser submetidas ao processo de integração contínua antes de serem consideradas concluídas. Dessa forma, as alterações realizadas pelos integrantes serão verificadas por meio dos testes automatizados associados ao projeto.
-
-As versões destinadas à validação das funcionalidades deverão estar integradas ao código principal do projeto, permitindo a realização dos testes de integração e de sistema.
-
-O fluxo de desenvolvimento seguirá a política de versionamento adotada pela equipe, de forma que as alterações possam ser identificadas e relacionadas às respectivas funcionalidades do backlog.
-
-### **6.1.4 Formas de análise dos testes** {#6.1.4-formas-de-análise-dos-testes}
-
-Cada caso de teste deverá possuir um resultado esperado previamente definido. Durante a execução, o resultado obtido será comparado ao resultado esperado.
-
-Um teste será considerado aprovado (OK) quando o comportamento observado corresponder aos critérios definidos para o caso de teste. Caso o comportamento observado seja diferente do resultado esperado, o teste será considerado rejeitado, sendo registrado um defeito para posterior correção.
-
-Após a realização do reparo, o caso de teste deverá ser executado novamente. O processo será repetido até que o resultado obtido corresponda ao resultado esperado.
-
-Além da verificação dos testes funcionais, os resultados dos testes de usabilidade serão analisados por meio das métricas estabelecidas na seção 5.1, principalmente a quantidade de cliques necessários para realizar as tarefas e a taxa de sucesso na execução dos cenários.
-
-Os resultados também serão considerados durante a revisão e a retrospectiva das Sprints, permitindo que os problemas encontrados sejam incorporados ao processo de desenvolvimento e ao backlog quando necessário.
-
-### **6.1.5 Resultados previstos e realizados** {#6.1.5-resultados-previstos-e-realizados}
-
-Para cada caso de teste será registrado o resultado previsto e, posteriormente, o resultado efetivamente obtido durante sua execução.
-
-O resultado previsto corresponde ao comportamento que o sistema deverá apresentar quando as condições estabelecidas no caso de teste forem atendidas. O resultado realizado será preenchido pela equipe durante a execução do teste, acompanhado de evidências objetivas quando aplicável.
-
-Quando o resultado previsto for diferente do resultado realizado, o teste será considerado rejeitado e um defeito deverá ser registrado. Após a correção, o caso de teste deverá ser executado novamente, registrando-se o novo ciclo de execução.
-
-Dessa forma, o roteiro de testes será atualizado ao longo do desenvolvimento, permitindo acompanhar a evolução da qualidade do software e o atendimento aos critérios de aceitação das histórias de usuário.
-
-## **6.2 Roteiro de teste** {#6.2-roteiro-de-teste}
-
-O roteiro de testes apresenta os casos planejados para verificar as principais funcionalidades do cAnCHA. Os casos foram definidos considerando os perfis e funcionalidades descritos no backlog do produto, bem como os objetivos de redução da profundidade de navegação, centralização das atividades e acompanhamento do progresso acadêmico.
-
-Quadro 9 – Roteiro de testes do cAnCHA 
-
-| Código |  Nome do teste | Objetivo  | Nível  | Tipo |
-| :---- | :---- | :---- | :---- | :---- |
-| CT-01  | Autenticação do usuário  | Verificar se um usuário cadastrado consegue acessar a aplicação com suas credenciais válidas.  | Sistema | Funcional |
-| CT-02 | Acesso às disciplinas  | Verificar se o aluno consegue visualizar as disciplinas nas quais está matriculado e acessá-las pela interface principal.  | Sistema | Funcional/Usabilidade |
-| CT-03 | Localização de atividade  | Verificar se o aluno consegue localizar uma atividade dentro da disciplina utilizando o fluxo definido pela aplicação.  | Sistema | Funcional/Usabilidade |
-| CT-04  | Limite de navegação  | Verificar a quantidade de cliques necessários para que o aluno acesse uma disciplina a partir da interface principal.  | Sistema | Não-Funcional/Usabilidade |
-| CT-05  | Agenda unificada  | Verificar se as atividades e seus respectivos prazos são apresentados de forma centralizada na agenda.  | Integração/Sistema | Funcional |
-| CT-06  | Registro de anotação  | Verificar se o aluno consegue criar e editar uma anotação relacionada aos conteúdos estudados.  | Sistema | Funcional |
-| CT-07  | Painel de progresso  | Verificar se o painel apresenta o progresso do aluno de acordo com as atividades concluídas.  | Integração/Sistema | Funcional |
-| CT-08  | Integração Front-end/API  | Verificar se a interface consegue obter e apresentar corretamente os dados fornecidos pela API.  | Sistema | Funcional |
-| CT-09  | Validação de componente  | Verificar o funcionamento individual de componentes ou funções responsáveis por operações específicas da aplicação.  | Sistema | Funcional |
-| CT-10  | Fluxo completo do aluno  | Verificar a execução integrada de um fluxo de utilização envolvendo acesso à disciplina, localização de atividade, consulta de prazo e atualização do progresso.  | Sistema | Funcional/Usabilidade |
-
-Fonte: elaborado pelo grupo (2026)
-
-Quadro 10 – Detalhamento dos casos de teste
-
-| Código | Precondições | Resultado esperado | Resultado realizado | Aceite/Recusa | Reparos executados | Ciclos |
-| :---- | :---- | :---- | :---- | :---- | :---- | :---- |
-| CT-01  | Usuário cadastrado e credenciais válidas.  | O sistema autentica o usuário e apresenta a área correspondente ao seu perfil.  | aaa |  |  |  |
-| CT-02 | Usuário autenticado e com disciplinas cadastradas. | O sistema apresenta as disciplinas do aluno e permite o acesso a cada uma delas. |  |  |  |  |
-| CT-03 | Usuário autenticado e disciplina contendo atividades cadastradas.  | O usuário localiza e visualiza a atividade selecionada.  |  |  |  |  |
-| CT-04  | Usuário autenticado e disciplinas disponíveis.  | O acesso à disciplina é realizado em, no máximo, três cliques a partir da interface definida para o teste.  |  |  |  |  |
-| CT-05  | Usuário autenticado e atividades com datas de entrega cadastradas.  | A agenda apresenta as atividades e seus respectivos prazos de forma centralizada.  |  |  |  |  |
-| CT-06  | Usuário autenticado.  | O usuário consegue criar uma anotação e posteriormente editar seu conteúdo.  |  |  |  |  |
-| CT-07  | Usuário autenticado e atividades com diferentes estados de conclusão.  | O painel apresenta o progresso correspondente às atividades concluídas pelo aluno.  |  |  |  |  |
-| CT-08  | API disponível e dados válidos cadastrados.  | O Front-end realiza a requisição, recebe os dados da API e apresenta as informações corretamente.  |  |  |  |  |
-| CT-09  | Componente ou função implementada e ambiente de testes configurado.  | O componente ou função apresenta o comportamento esperado para as entradas previstas.  |  |  |  |  |
-| CT-10  | Usuário autenticado, disciplina, atividade e prazo disponíveis.  | O usuário consegue executar o fluxo completo sem comportamento inesperado, encontrando a disciplina, a atividade e o prazo e visualizando a atualização do progresso.  |  |  |  |  |
-
-Fonte: elaborado pelo grupo (2026)
-
-A repetição de um caso de teste após a identificação de um defeito deverá ser registrada como um novo ciclo de execução do mesmo caso. O teste somente será considerado aprovado quando o resultado realizado estiver de acordo com o resultado esperado.
-
-A estratégia de testes também está relacionada à Definition of Done adotada pela equipe: uma história de usuário não será considerada concluída enquanto os testes associados não forem aprovados na integração contínua. Dessa maneira, a verificação de qualidade passa a fazer parte do próprio fluxo de desenvolvimento, em vez de ser realizada apenas após a implementação de todas as funcionalidades.
-
-# 
-
-# **REFERÊNCIAS** {#referências}
-
-AMBIENTES virtuais de aprendizagem na educação à distância: propostas de interface. **Educere et Educare**: Revista de Educação, Cascavel, 2025\. Disponível em: [https\://e-revista.unioeste.br/index.php/educereeteducare/en/article/view/28180](https://e-revista.unioeste.br/index.php/educereeteducare/en/article/view/28180). Acesso em: 29 set. 2026\.
-
-COGNITIVE load and pedagogical tension in multi-platform online learning: evidence from Chinese higher education. **PLOS One**, 2026\. Disponível em: [https\://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0347566](https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0347566). Acesso em: 29 set. 2026\.
-
-FEITOSA, Murilo Carvalho; MOURA, Patrícia de Souza; RAMOS, Maria do Socorro Ferreira; LAVOR, Otávio Paulino. **Ensino remoto: o que pensam os alunos e professores?** In: CONGRESSO SOBRE TECNOLOGIAS NA EDUCAÇÃO (CTRL+E), 5., 2020, Evento Online. *Anais \[...\].* Porto Alegre: Sociedade Brasileira de Computação, 2020\. p. 60-68. DOI: [https\://doi.org/10.5753/ctrle.2020.11383](https://doi.org/10.5753/ctrle.2020.11383).
-
-INEP. **Inep divulga resultado do Censo Superior 2024**. Brasília: Inep, 22 set. 2025\. Disponível em: [https\://www\.gov.br/inep/pt-br/centrais-de-conteudo/noticias/censo-da-educacao-superior/inep-divulga-resultado-do-censo-superior-2024](https://www.gov.br/inep/pt-br/centrais-de-conteudo/noticias/censo-da-educacao-superior/inep-divulga-resultado-do-censo-superior-2024). Acesso em: 29 set. 2026\.
-
-ZAPHIRIS, P.; KURNIAWAN, S. H.; ELLIS, R. D. **Age differences and the depth-breadth tradeoff in hierarchical online information systems**. \[S. l.\], 2003\. Disponível em: [https\://ktisis.cut.ac.cy/server/api/core/bitstreams/e7f2092f-b90e-41b4-b946-d853b5f1c53d/content](https://ktisis.cut.ac.cy/server/api/core/bitstreams/e7f2092f-b90e-41b4-b946-d853b5f1c53d/content). Acesso em: 29 set. 2026\.
-
-[image1]: <data:image/png;base64,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>
-
-[image2]: <data:image/png;base64,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>
+| Numeração (Cenário / requisito) | Sprint | Nome do requisito | Tipo de requisito (Funcional / não funcional) | Priorização do requisito Must, Should, Could | Descrição sucinta do requisito | User histories (U.S.) associadas Identifique as U.S. associadas ao requisito |
+| CEN-01 / REQ-01 | Sprint 3 | Dashboard de Disciplinas | Funcional | Must | Sistema deve exibir as disciplinas nas quais o aluno está matriculado logo na página inicial. | US01: Como aluno, quero ver minhas disciplinas na tela inicial para acessá-las rapidamente. |
+| CEN-01 / REQ-02 | Sprint 3 | Navegação Rasa (Regra dos 3 Cliques) | Não Funcional | Must | A arquitetura de informação deve permitir que qualquer conteúdo base seja acessado em até 3 cliques. | US02: Como desenvolvedor, devo garantir rotas curtas para atender à regra de acessibilidade. |
+| CEN-02 / REQ-03 | Sprint 4 | Listagem de Atividades da Disciplina | Funcional | Must | O sistema deve listar todas as atividades e conteúdos de uma disciplina ao selecioná-la. | US03: Como aluno, quero clicar na disciplina e ver a lista de tarefas da semana para saber o que estudar. |
+| CEN-03 / REQ-04 | Sprint 5 | Agenda Unificada (Visão Kanban) | Funcional | Must | O sistema deve agregar todas as pendências de todas as disciplinas em um único quadro de entregas. | US04: Como aluno, quero uma visão Kanban de tarefas a fazer, em andamento e concluídas, para não perder prazos. |
+| CEN-04 / REQ-05 | Sprint 5 | Painel de Progresso Acadêmico | Funcional | Should | O sistema deve exibir indicadores visuais (gráficos/barras) do percentual de conclusão do aluno. | US05: Como aluno, quero ver uma barra de progresso por disciplina para gerenciar melhor meu tempo de estudo. |
+| CEN-05 / REQ-06 | Sprint7 | Módulo de Anotações Livres | Funcional | Could | O sistema deve permitir criar notas em texto rico associadas a uma disciplina específica. | US06: Como aluno, quero poder escrever anotações no sistema, para centralizar meus estudos na mesma plataforma. |
+| CEN-03 / REQ-07 | Sprint 8 | Integração Front-end /API (Sincronização) | Não Funcional | Must | O Front-end em React.js deve espel
