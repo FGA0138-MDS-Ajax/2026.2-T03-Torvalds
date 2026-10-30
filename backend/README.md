@@ -79,6 +79,23 @@ docker compose down -v
 docker compose up --build
 ```
 
+## Formato de erro
+
+Todo erro da API sai no mesmo formato (`common/exception`), com o `GlobalExceptionHandler`:
+
+```json
+{
+  "timestamp": "2026-10-30T16:58:57Z",
+  "status": 404,
+  "erro": "Not Found",
+  "mensagem": "Recurso não encontrado.",
+  "caminho": "/nada",
+  "campos": null
+}
+```
+
+`campos` só vem preenchido em erros de validação (400), com `campo` e `mensagem` de cada item inválido. Para um erro de negócio, lance `RecursoNaoEncontradoException` (404) ou crie uma exceção nova e trate-a no `GlobalExceptionHandler`. Erros inesperados viram 500 com mensagem genérica; o detalhe fica só no log.
+
 ## Estrutura
 
 A organização segue o Documento de Arquitetura (Seção 2.5.2): um pacote por módulo (package-by-feature), cada um com suas camadas.
