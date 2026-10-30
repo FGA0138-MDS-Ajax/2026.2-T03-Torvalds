@@ -29,7 +29,22 @@ docker compose down
 
 Os dados do banco ficam salvos entre execuções. Para apagá-los, use `docker compose down -v`.
 
-> Enquanto o módulo `auth` não for implementado, o Spring Security exige login em todos os endpoints da API (exceto `/actuator/health`) e gera uma senha no log de inicialização.
+## Acesso à API enquanto o login não existe
+
+> **Aviso para quem for implementar o módulo `auth` (login e JWT):** esta seção descreve o estado **provisório**. Quando o login estiver pronto, atualize ou apague esta seção, a observação do Swagger mais abaixo e o aviso sobre os alunos de teste.
+
+O módulo `auth` ainda não está implementado, então vale o comportamento padrão do Spring Security:
+
+- Todos os endpoints exigem login, exceto `/actuator/health`.
+- O único usuário é **`user`**, e a senha é gerada de novo a cada inicialização do backend. Ela aparece no log, na linha `Using generated security password`. Com Docker:
+
+```
+docker compose logs backend | grep "generated security password"
+```
+
+- Os **alunos de teste do seed (`aluno1@cancha.test` e `aluno2@cancha.test`) ainda não fazem login**: o Spring Security não está ligado à tabela `usuario`. Eles só existem no banco por enquanto.
+
+O que falta fazer no `auth/security` (configuração do Spring Security): carregar o usuário da tabela `usuario`, conferir a senha BCrypt, emitir e validar o JWT, e liberar `/auth/login`, `/actuator/health`, `/swagger-ui.html`, `/swagger-ui/**` e `/v3/api-docs/**` sem token.
 
 ## Como executar para desenvolver (sem container do backend)
 
@@ -78,6 +93,12 @@ Se você já tinha rodado uma versão antiga das migrations, o Flyway recusa o b
 docker compose down -v
 docker compose up --build
 ```
+
+## Documentação da API (Swagger)
+
+Com a API no ar, a documentação interativa abre em `http://localhost:8080/swagger-ui.html` e o JSON em `/v3/api-docs`.
+
+> Enquanto a configuração do Spring Security do módulo `auth` não liberar essas rotas, elas pedem login com o usuário provisório descrito em [Acesso à API enquanto o login não existe](#acesso-à-api-enquanto-o-login-não-existe).
 
 ## Formato de erro
 
