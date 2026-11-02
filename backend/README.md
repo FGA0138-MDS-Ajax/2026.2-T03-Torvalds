@@ -76,7 +76,7 @@ Por padrão a conexão usa o banco `cancha` do `docker-compose.yml`. Para usar o
 ./mvnw test
 ```
 
-Os testes usam um banco H2 em memória (ver `src/test/resources/application.yml`) e não dependem do Docker. O Flyway roda as migrations também nos testes e o Hibernate valida as entidades contra as tabelas, então uma entidade que não bate com a migration quebra o build. O `MigracoesIntegrationTest` é o exemplo de teste de integração com o banco.
+Os testes usam um banco H2 em memória (ver `src/test/resources/application.yml`) e não dependem do Docker. O Flyway roda as migrations também nos testes e o Hibernate valida as entidades contra as tabelas, então uma entidade que não bate com a migration quebra o build. O `MigracoesIntegrationTest` é o exemplo de teste de integração com o banco, e o `DisciplinaIntegracaoTest` mostra como testar uma regra de negócio (um aluno só vê as próprias disciplinas) com o seed.
 
 ## Banco de dados e dados de exemplo
 
@@ -99,6 +99,22 @@ docker compose up --build
 Com a API no ar, a documentação interativa abre em `http://localhost:8080/swagger-ui.html` e o JSON em `/v3/api-docs`.
 
 > Enquanto a configuração do Spring Security do módulo `auth` não liberar essas rotas, elas pedem login com o usuário provisório descrito em [Acesso à API enquanto o login não existe](#acesso-à-api-enquanto-o-login-não-existe).
+
+## Disciplinas do aluno (`GET /disciplinas`)
+
+Devolve só as disciplinas em que o aluno da requisição está matriculado, em ordem alfabética, com o progresso dele em cada uma:
+
+```json
+[
+  { "id": 3, "nome": "Compiladores", "periodoLetivo": "2026.2", "progressoPercentual": 0.0 }
+]
+```
+
+O aluno nunca vem da requisição (nem por parâmetro, nem por cabeçalho): quem o descobre é a interface `AlunoAtual` (`auth/service`), e o `DisciplinaController` só chama `alunoAtual.id()`. Assim ninguém consegue pedir as disciplinas de outra pessoa trocando um valor.
+
+> **Provisório:** enquanto o login não existe, a implementação ativa é a `AlunoProvisorioAtual`, que devolve sempre o aluno `aluno1@cancha.test` do seed. Para testar com o outro aluno, suba a API com `CANCHA_ALUNO_PROVISORIO_EMAIL=aluno2@cancha.test`. Quando o JWT estiver pronto, **apague a `AlunoProvisorioAtual` e crie uma implementação de `AlunoAtual` que leia o usuário autenticado**; o controller e o service não mudam.
+
+Como o `GET /disciplinas` exige login (ver [Acesso à API enquanto o login não existe](#acesso-à-api-enquanto-o-login-não-existe)), chame-o com o usuário `user` e a senha do log, ou pelo botão "Authorize" do Swagger.
 
 ## Formato de erro
 
