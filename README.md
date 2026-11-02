@@ -21,3 +21,12 @@ Este repositório também conta com uma pipeline de automatização de deploy do
 * Clique em salvar e pronto;
 
 Após essas etapas de configuração, o seu GitPages deve funcionar normalmente.
+
+## Integração contínua (CI)
+
+Todo pull request para a `developer` roda o workflow `.github/workflows/ci.yml`, com dois checks:
+
+* **Backend (JDK 21):** `./mvnw test` e depois `./mvnw -DskipTests package`, dentro de `backend/`.
+* **Frontend (lint, formato e build):** `npm ci`, `npm run lint`, `npm run format:check` e `npm run build`, dentro de `frontend/`.
+
+Para rodar a mesma coisa antes de abrir o PR, use esses mesmos comandos nas pastas indicadas. O check só pode ser exigido nos rulesets depois de ter rodado ao menos uma vez no repositório.
