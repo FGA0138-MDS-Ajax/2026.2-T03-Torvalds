@@ -1,8 +1,55 @@
-# template-repository - Branch Developer
+# cAnCHA
 
-Template de Repositório para a matéria de Métodos de Desenvolvimento de Software lecionado pelo professor Ricardo Ajax.
+Plataforma web para estudantes de Ensino a Distância (EaD) que organiza a vida acadêmica como um caderno: o aluno encontra disciplinas, prazos e progresso com poucos cliques, num só lugar.
 
-Essa Branch deve ser usada exclusivamente para a versão de desenvolvimento do software antes de ir para produção.
+Projeto do Grupo Torvalds na disciplina Métodos de Desenvolvimento de Software (MDS), 2026.2, com o professor Ricardo Ajax.
+
+## O problema
+
+No EaD, quase tudo acontece dentro de ambientes virtuais e sistemas acadêmicos separados. Com menus profundos e prazos espalhados entre plataformas, o aluno perde tempo para achar conteúdos, esquece entregas e não sabe quanto já avançou. O cAnCHA reorganiza essa informação a partir da perspectiva do aluno.
+
+## O que o cAnCHA oferece
+
+- **Disciplinas na tela inicial**, com acesso a qualquer conteúdo em no máximo 3 cliques.
+- **Atividades e materiais** de cada disciplina em um só lugar.
+- **Agenda unificada de entregas**, em estilo kanban, juntando os prazos de todas as disciplinas.
+- **Painel de progresso** por disciplina e no semestre, a partir das atividades concluídas.
+- **Anotações** do aluno vinculadas às disciplinas (funcionalidade secundária).
+
+> Em desenvolvimento. Hoje existem a base do banco, o cadastro de disciplinas e entregas e o endpoint `GET /disciplinas`. As telas e o login (JWT) ainda estão por vir.
+
+## Tecnologias
+
+| Camada | Tecnologia |
+|---|---|
+| Frontend | React com Vite |
+| Backend | Java 21 e Spring Boot (API REST) |
+| Banco de dados | PostgreSQL, com migrações Flyway |
+| Autenticação | Spring Security com JWT (em implementação) |
+| Execução | Docker e Docker Compose |
+| Qualidade | GitHub Actions (CI) |
+
+## Como executar
+
+- Backend e banco: veja [`backend/README.md`](backend/README.md).
+- Frontend: veja [`frontend/README.md`](frontend/README.md).
+
+## Documentação
+
+Documento de Visão, Documento de Arquitetura, atas e guia de contribuição ficam na branch [`docs`](https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/tree/docs/docs).
+
+## Equipe
+
+| Nome | Função |
+|---|---|
+| Ana Jullia Barbara Mendes Lopes | QA e Scrum Master |
+| Eduardo Viana Ribeiro da Silva | Product Owner e desenvolvedor |
+| Gustavo Linhares Lima | Desenvolvedor |
+| Jefferson de Souza Reis | Desenvolvedor |
+| João Lucas R. Cabral | Designer e QA |
+| Pedro Henrique Galdino de Andrade Wollmann | Desenvolvedor |
+| Pedro Lucas Souza Silva | Desenvolvedor |
+| Thiago Kauã de Sousa Cardoso | Desenvolvedor |
 
 ## Especificações Técnicas do Repositório
 
@@ -30,3 +77,25 @@ Todo pull request para a `developer` roda o workflow `.github/workflows/ci.yml`,
 * **Frontend (lint, formato e build):** `npm ci`, `npm run lint`, `npm run format:check` e `npm run build`, dentro de `frontend/`.
 
 Para rodar a mesma coisa antes de abrir o PR, use esses mesmos comandos nas pastas indicadas. O check só pode ser exigido nos rulesets depois de ter rodado ao menos uma vez no repositório.
+
+## Deploy
+
+Ambiente publicado a partir da branch `developer`.
+
+| Peça | Serviço | Endereço |
+|---|---|---|
+| Frontend | Render (Static Site) | https://cancha-frontend-ew8b.onrender.com |
+| Backend | Render (Web Service, Docker) | https://cancha-backend-07nv.onrender.com |
+| Banco | Neon (PostgreSQL) | credenciais só nas variáveis de ambiente do Render |
+
+Verificado em 02/11/2026:
+- `GET /actuator/health` do backend respondeu `{"status":"UP"}`.
+- `GET /disciplinas` devolveu as 5 disciplinas do seed.
+- O frontend abre a página inicial "cAnCHA".
+
+O frontend e o backend estão publicados, mas ainda não integrados: o frontend não chama a API.
+
+Observações:
+- O backend gratuito dorme após 15 minutos sem uso. Ao acordar, a primeira requisição pode levar de 2 a 3 minutos (a subida medida foi de cerca de 2,5 minutos).
+- Enquanto o login (JWT) não existe, apenas `/actuator/health` responde sem autenticação. O `GET /disciplinas` exige o usuário `user` e a senha gerada a cada início, que aparece nos Logs do Render.
+- As variáveis `DB_URL`, `DB_USER`, `DB_PASSWORD` e `PORT` ficam só no painel do Render, nunca no repositório.
