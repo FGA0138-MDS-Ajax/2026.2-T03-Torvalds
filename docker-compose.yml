@@ -26,6 +26,8 @@ services:
       DB_URL: jdbc:postgresql://postgres:5432/cancha
       DB_USER: cancha
       DB_PASSWORD: cancha
+      JWT_SECRET: ${JWT_SECRET:?Defina JWT_SECRET antes de iniciar o backend}
+      JWT_EXPIRATION: ${JWT_EXPIRATION:-PT1H}
     ports:
       - '8080:8080'
 
