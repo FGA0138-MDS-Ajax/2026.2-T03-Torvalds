@@ -1,6 +1,7 @@
 package com.cancha.auth.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.time.Instant;
 import java.util.List;
@@ -58,5 +59,16 @@ public class AlunoAtualIntegracaoTest {
         var contexto = SecurityContextHolder.createEmptyContext();
         contexto.setAuthentication(new JwtAuthenticationToken(jwt, List.of()));
         SecurityContextHolder.setContext(contexto);
+    }
+
+    @Test
+    void semAutenticacaoNaoRetornaAlunoFixo(){
+        SecurityContextHolder.clearContext();
+
+        assertThatThrownBy(() -> alunoAtual.id())
+                .isInstanceOf(
+                        org.springframework.security.authentication
+                                .AuthenticationCredentialsNotFoundException.class
+                );
     }
 }
