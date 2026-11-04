@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
+import org.springframework.security.authentication.BadCredentialsException;
 
 /** Converte as exceções da API no formato único {@link ApiError}. */
 @RestControllerAdvice
@@ -96,4 +97,11 @@ public class GlobalExceptionHandler {
             campos);
     return ResponseEntity.status(status).body(corpo);
   }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ApiError> tratarCredenciaisInvalidas(
+            BadCredentialsException ex, HttpServletRequest request) {
+        return resposta(
+                HttpStatus.UNAUTHORIZED, "E-mail ou senha inválidos", request, null);
+    }
 }
