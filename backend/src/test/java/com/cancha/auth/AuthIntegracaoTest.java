@@ -96,4 +96,31 @@ class AuthIntegracaoTest {
                 .andExpect(status().isUnauthorized())
                 .andExpect(jsonPath("$.mensagem").value("E-mail ou senha inválidos"));
     }
+
+    @Test
+    void tokenRecebidoNoLoginPermiteConsultarMeuPerfil() throws Exception {
+        var resultado =
+                mockMvc
+                        .perform(
+                                post("/auth/login")
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .content("""
+                        {
+                          "email": "aluno2@cancha.test",
+                          "senha": "cancha-dev-123"
+                        }
+                        """))
+                        .andExpect(status().isOk())
+                        .andReturn();
+
+        String token =
+                com.jayway.jsonpath.JsonPath.read(
+                        resultado.getResponse().getContentAsString(), "$.token");
+
+        mockMvc
+                .perform(get("/me").header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.email").value("aluno2@cancha.test"))
+                .andExpect(jsonPath("$.senhaHash").doesNotExist());
+    }
 }
