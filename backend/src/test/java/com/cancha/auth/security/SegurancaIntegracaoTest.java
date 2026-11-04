@@ -31,6 +31,7 @@ class SegurancaIntegracaoTest {
     @Autowired private MockMvc mockMvc;
     @Autowired private SecretKey jwtSecretKey;
     @Autowired private JdbcTemplate jdbc;
+    @Autowired private JwtService jwtService;
 
     @Test
     void rotaProtegidaSemTokenRetorna401() throws Exception {
@@ -110,5 +111,21 @@ class SegurancaIntegracaoTest {
 
         jwt.sign(new MACSigner(jwtSecretKey.getEncoded()));
         return jwt.serialize();
+    }
+
+    @Test
+    void tokenEmitidoPeloServicoPermiteConsultarDisciplinas() throws Exception{
+        Long alunoId =
+                jdbc.queryForObject(
+                        "select id from usuario where email = ?",
+                        Long.class,
+                        "aluno1@cancha.test"
+                );
+
+        String token = jwtService.emitir(alunoId);
+
+        mockMvc
+                .perform(get("/disciplinas").header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk());
     }
 }
