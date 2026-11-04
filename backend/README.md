@@ -50,7 +50,7 @@ protegidas devem enviar o cabeçalho:
 Não é mais utilizado o usuário provisório `user` com senha gerada no log.
 
 Rotas públicas:
-- POST /auth/login — reservado para a próxima tarefa; endpoint ainda não implementado.
+- POST /auth/login.
 - GET /actuator/health.
 - Documentação Swagger: /swagger-ui.html, /swagger-ui/** e /v3/api-docs/**.
 
@@ -72,6 +72,13 @@ Os testes utilizam um segredo exclusivo de testes definido em
 src/test/resources/application.yml e não exigem JWT_SECRET no terminal.
 
 ### Estado da implementação
+POST /auth/login autentica alunos cadastrados por e-mail e senha, comparando a senha com o hash BCrypt armazenado. Em caso de sucesso, retorna {"token": "..."}.
+
+Credenciais incorretas retornam HTTP 401 com a mensagem "E-mail ou senha inválidos". Campos inválidos retornam HTTP 400.
+
+GET /me exige um token válido e retorna id, nome, email e matriculaUnB do aluno autenticado, sem expor senha ou hash.
+
+Os alunos do seed podem realizar login em desenvolvimento com as credenciais descritas na seção de dados de exemplo.
 
 A emissão e a validação dos tokens estão implementadas. O login com
 e-mail e senha e o endpoint GET /me serão entregues em tarefa separada.
