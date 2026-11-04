@@ -40,4 +40,16 @@ class SegurancaIntegracaoTest {
                                         org.hamcrest.Matchers.containsStringIgnoringCase("Authorization")));
 
     }
+
+    @Test
+    void tokenInvalidoRetorna401ComDesafioBearer() throws Exception {
+        mockMvc
+                .perform(get("/disciplinas").header("Authorization", "Bearer token-invalido"))
+                .andExpect(status().isUnauthorized())
+                .andExpect(
+                        header()
+                                .string(
+                                        "WWW-Authenticate",
+                                        org.hamcrest.Matchers.startsWith("Bearer")));
+    }
 }
