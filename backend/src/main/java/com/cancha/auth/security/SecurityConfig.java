@@ -8,6 +8,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.http.HttpMethod;
 import java.nio.charset.StandardCharsets;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -35,13 +36,14 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         requests->
                                 requests
+                                        .requestMatchers(HttpMethod.POST, "/auth/login")
+                                        .permitAll()
+                                        .requestMatchers(HttpMethod.GET, "/actuator/health")
+                                        .permitAll()
                                         .requestMatchers(
-                                                "/auth/login",
-                                                "/actuator/health",
                                                 "/swagger-ui.html",
                                                 "/swagger-ui/**",
-                                                "/v3/api-docs/**"
-                                        )
+                                                "/v3/api-docs/**")
                                         .permitAll()
                                         .anyRequest()
                                         .authenticated())
