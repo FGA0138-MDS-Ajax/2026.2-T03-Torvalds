@@ -11,6 +11,17 @@ Para rodar com Docker não é preciso ter Java nem Maven instalados: o `Dockerfi
 
 ## Como executar (Docker)
 
+Crie um arquivo `.env` na raiz do repositório, ao lado do `docker-compose.yml`, com:
+
+    JWT_SECRET=<substitua-por-um-segredo-aleatorio-forte>
+    JWT_EXPIRATION=PT1H
+
+O segredo deve ter pelo menos 32 bytes em UTF-8.
+Não utilize literalmente o texto de exemplo.
+O arquivo `.env` não deve ser commitado.
+
+O Docker Compose lê esse arquivo e repassa as variáveis ao backend.
+
 No terminal, a partir da pasta raiz do repositório, suba o banco de dados e a API:
 
 ```
@@ -29,22 +40,48 @@ docker compose down
 
 Os dados do banco ficam salvos entre execuções. Para apagá-los, use `docker compose down -v`.
 
-## Acesso à API enquanto o login não existe
+## Autenticação JWT
 
-> **Aviso para quem for implementar o módulo `auth` (login e JWT):** esta seção descreve o estado **provisório**. Quando o login estiver pronto, atualize ou apague esta seção, a observação do Swagger mais abaixo e o aviso sobre os alunos de teste.
+A API utiliza tokens JWT assinados com HS256. As requisições às rotas
+protegidas devem enviar o cabeçalho:
 
-O módulo `auth` ainda não está implementado, então vale o comportamento padrão do Spring Security:
+    Authorization: Bearer <token>
 
-- Todos os endpoints exigem login, exceto `/actuator/health`.
-- O único usuário é **`user`**, e a senha é gerada de novo a cada inicialização do backend. Ela aparece no log, na linha `Using generated security password`. Com Docker:
+Não é mais utilizado o usuário provisório `user` com senha gerada no log.
 
-```
-docker compose logs backend | grep "generated security password"
-```
+Rotas públicas:
+- POST /auth/login — reservado para a próxima tarefa; endpoint ainda não implementado.
+- GET /actuator/health.
+- Documentação Swagger: /swagger-ui.html, /swagger-ui/** e /v3/api-docs/**.
 
-- Os **alunos de teste do seed (`aluno1@cancha.test` e `aluno2@cancha.test`) ainda não fazem login**: o Spring Security não está ligado à tabela `usuario`. Eles só existem no banco por enquanto.
+As demais rotas exigem autenticação. Tokens inválidos ou expirados recebem
+HTTP 401. A autenticação é stateless, sem sessão de usuário no servidor.
 
-O que falta fazer no `auth/security` (configuração do Spring Security): carregar o usuário da tabela `usuario`, conferir a senha BCrypt, emitir e validar o JWT, e liberar `/auth/login`, `/actuator/health`, `/swagger-ui.html`, `/swagger-ui/**` e `/v3/api-docs/**` sem token.
+### Configuração
+
+- JWT_SECRET: obrigatório, com pelo menos 32 bytes em UTF-8. Use um segredo
+  aleatório forte, exclusivo de cada ambiente, sem salvá-lo no repositório.
+- JWT_EXPIRATION: opcional, com duração no formato ISO-8601.
+  O padrão é PT1H (uma hora).
+
+Para executar pela IDE, configure essas variáveis no campo de variáveis
+de ambiente da configuração de execução. Pelo terminal, forneça-as na
+mesma sessão que executará o Maven Wrapper.
+
+Os testes utilizam um segredo exclusivo de testes definido em
+src/test/resources/application.yml e não exigem JWT_SECRET no terminal.
+
+### Estado da implementação
+
+A emissão e a validação dos tokens estão implementadas. O login com
+e-mail e senha e o endpoint GET /me serão entregues em tarefa separada.
+Os alunos do seed ainda não podem realizar login.
+
+### CORS
+
+A origem permitida atualmente é http://localhost:5173, com suporte aos
+cabeçalhos Authorization e Content-Type. Outras origens, incluindo o
+frontend publicado, ainda precisam de configuração.
 
 ## Como executar para desenvolver (sem container do backend)
 
@@ -66,7 +103,13 @@ cd backend
 ./mvnw spring-boot:run
 ```
 
-Por padrão a conexão usa o banco `cancha` do `docker-compose.yml`. Para usar outro banco, copie `.env.example` e ajuste as variáveis `DB_URL`, `DB_USER` e `DB_PASSWORD`.
+Por padrão a conexão usa o banco `cancha` do `docker-compose.yml`. Por padrão, a conexão usa o banco cancha do docker-compose.yml.
+Para usar outro banco, configure DB_URL, DB_USER e DB_PASSWORD nas variáveis de ambiente do terminal ou da execução na IDE.
+
+Configure também JWT_SECRET antes de iniciar a API.
+O arquivo .env usado pelo Docker Compose não é carregado automaticamente ao executar pelo Maven ou pela IDE.
+
+No Windows, utilize .\mvnw.cmd spring-boot:run.
 
 > Se o Maven reclamar de `release version 21 not supported`, o `java` do seu sistema não é um JDK 21. Aponte o `JAVA_HOME` para um JDK 21 e tente de novo.
 
@@ -98,7 +141,7 @@ docker compose up --build
 
 Com a API no ar, a documentação interativa abre em `http://localhost:8080/swagger-ui.html` e o JSON em `/v3/api-docs`.
 
-> Enquanto a configuração do Spring Security do módulo `auth` não liberar essas rotas, elas pedem login com o usuário provisório descrito em [Acesso à API enquanto o login não existe](#acesso-à-api-enquanto-o-login-não-existe).
+A documentação pode ser consultada sem autenticação. A execução de endpoints protegidos exige um token JWT válido.
 
 ## Disciplinas do aluno (`GET /disciplinas`)
 
@@ -110,15 +153,16 @@ Devolve só as disciplinas em que o aluno da requisição está matriculado, em 
 ]
 ```
 
-O aluno nunca vem da requisição (nem por parâmetro, nem por cabeçalho): quem o descobre é a interface `AlunoAtual` (`auth/service`), e o `DisciplinaController` só chama `alunoAtual.id()`. Assim ninguém consegue pedir as disciplinas de outra pessoa trocando um valor.
+O ID do aluno não é recebido como parâmetro nem como cabeçalho de identificação separado. A implementação da interface `AlunoAtual` (`auth/service`) obtém esse ID do campo `subject` (`sub`) do JWT validado, enviado no cabeçalho `Authorization`. O `DisciplinaController` apenas chama `alunoAtual.id()`, sem permitir que o cliente escolha outro aluno informando um ID.
 
-> **Provisório:** enquanto o login não existe, a implementação ativa é a `AlunoProvisorioAtual`, que devolve sempre o aluno `aluno1@cancha.test` do seed. Para testar com o outro aluno, suba a API com `CANCHA_ALUNO_PROVISORIO_EMAIL=aluno2@cancha.test`. Quando o JWT estiver pronto, **apague a `AlunoProvisorioAtual` e crie uma implementação de `AlunoAtual` que leia o usuário autenticado**; o controller e o service não mudam.
+A implementação AlunoAutenticadoAtual obtém o ID do aluno pelo campo subject (sub) do JWT validado e confirma sua existência no banco.
+A seleção de aluno fixo por CANCHA_ALUNO_PROVISORIO_EMAIL foi removida.
 
-Como o `GET /disciplinas` exige login (ver [Acesso à API enquanto o login não existe](#acesso-à-api-enquanto-o-login-não-existe)), chame-o com o usuário `user` e a senha do log, ou pelo botão "Authorize" do Swagger.
+Para consultar GET /disciplinas, envie Authorization: Bearer <token>.
 
 ## Formato de erro
 
-Todo erro da API sai no mesmo formato (`common/exception`), com o `GlobalExceptionHandler`:
+Os erros tratados pelo `GlobalExceptionHandler` seguem o formato abaixo:
 
 ```json
 {
