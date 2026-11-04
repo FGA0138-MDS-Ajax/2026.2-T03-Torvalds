@@ -84,6 +84,8 @@ O esquema vem das migrations em `src/main/resources/db/migration/` (`V<n>__descr
 
 - `V1__base.sql`: tabelas `usuario`, `aluno`, `disciplina` e `matricula`.
 - `V2__seed_base.sql`: 2 alunos de teste, 5 disciplinas e a matrícula dos dois em todas elas.
+- `V3__tabela_de_entregas.sql`: tabelas `entrega` (trabalhos, listas e provas de cada disciplina, com prazo) e `progresso_atividade` (a situação de cada aluno em cada entrega).
+- V4__seed_entregas.sql: 16 entregas de exemplo (trabalhos, listas e provas) e as situações dos dois alunos de teste.
 
 Alunos de teste (somente desenvolvimento): `aluno1@cancha.test` e `aluno2@cancha.test`, ambos com a senha `cancha-dev-123`. No banco fica só o hash BCrypt.
 
