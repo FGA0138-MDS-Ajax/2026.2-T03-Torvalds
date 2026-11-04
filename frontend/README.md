@@ -66,3 +66,55 @@ A pasta `src` contém o código da aplicação. A organização prevista no Docu
 - `shared/api`: código compartilhado para comunicação com o backend
 
 Esses diretórios serão criados conforme as funcionalidades forem desenvolvidas. Atualmente, a aplicação ainda não está integrada ao backend.
+
+## Login e integração com a API
+
+O frontend utiliza estes endpoints:
+
+- POST /auth/login: recebe e-mail e senha e retorna um token JWT
+- GET /me: consulta o perfil com Authorization: Bearer <token>
+
+O backend precisa estar em execução com os endpoints de autenticação implementados. A origem local permitida pelo backend é http://localhost:5173; use esse endereço para acessar o frontend.
+
+### Endereço do backend
+
+Por padrão, o frontend acessa http://localhost:8080
+
+Para usar outro endereço, crie frontend/.env.local com:
+
+    VITE_API_URL=http://localhost:8080
+
+Reinicie o Vite depois de alterar essa variável.
+Para um build publicado, configure VITE_API_URL antes de gerar o build e autorize a origem do frontend no CORS do backend.
+
+Variáveis VITE_ são públicas. Nunca coloque JWT_SECRET ou outras credenciais nelas.
+
+### Sessão
+
+- Sem "Lembrar de mim": token armazenado em sessionStorage
+- Com "Lembrar de mim": token armazenado em localStorage
+- Ao recarregar, GET /me verifica a sessão antes de mostrar o perfil
+- Sair remove o token dos dois armazenamentos
+- A opção de lembrar não altera a expiração definida pelo backend
+
+A tela autenticada atual mostra o perfil e o botão Sair, como ponto de integração com a navegação do grupo. Cadastro e recuperação de senha ainda não estão disponíveis.
+
+### Verificação manual
+
+1. Tentar entrar com senha incorreta e conferir a mensagem de erro
+2. Entrar com uma conta do seed e conferir o perfil
+3. Recarregar e verificar a restauração da sessão
+4. Entrar com "Lembrar de mim", fechar a aba e abrir novamente
+5. Sair e verificar que recarregar não restaura a sessão
+6. Desligar o backend e conferir a mensagem de falha de conexão
+7. Conferir o layout em desktop e mobile, com zoom de 100%
+
+As credenciais de desenvolvimento estão no README do backend.
+
+### Referência visual
+
+A tela segue o protótipo desktop e mobile do Figma:
+https://www.figma.com/design/nl1ra0yeXBlse8CLl9H3M9/Untitled?node-id=0-1
+
+A ilustração atual utiliza um recorte por CSS do arquivo exportado.
+A substituição por uma exportação transparente exigirá ajustar o enquadramento em LoginPage.css.
