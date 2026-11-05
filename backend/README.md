@@ -57,6 +57,10 @@ Rotas públicas:
 As demais rotas exigem autenticação. Tokens inválidos ou expirados recebem
 HTTP 401. A autenticação é stateless, sem sessão de usuário no servidor.
 
+`GET /disciplinas/{disciplinaId}/conteudos` lista os materiais publicados para
+uma disciplina do aluno autenticado. O aluno precisa estar matriculado nela;
+caso contrário, a API responde HTTP 403. A rota também aparece no Swagger.
+
 ### Configuração
 
 - JWT_SECRET: obrigatório, com pelo menos 32 bytes em UTF-8. Use um segredo
@@ -136,6 +140,7 @@ O esquema vem das migrations em `src/main/resources/db/migration/` (`V<n>__descr
 - `V2__seed_base.sql`: 2 alunos de teste, 5 disciplinas e a matrícula dos dois em todas elas.
 - `V3__tabela_de_entregas.sql`: tabelas `entrega` (trabalhos, listas e provas de cada disciplina, com prazo) e `progresso_atividade` (a situação de cada aluno em cada entrega).
 - V4__seed_entregas.sql: 16 entregas de exemplo (trabalhos, listas e provas) e as situações dos dois alunos de teste.
+- `V5__conteudos.sql`: tabela `conteudo` e dois materiais de exemplo para cada disciplina do seed.
 
 Alunos de teste (somente desenvolvimento): `aluno1@cancha.test` e `aluno2@cancha.test`, ambos com a senha `cancha-dev-123`. No banco fica só o hash BCrypt.
 

@@ -9,6 +9,8 @@ import org.springframework.data.repository.query.Param;
 /** Acesso às matrículas dos alunos nas disciplinas. */
 public interface MatriculaRepository extends JpaRepository<Matricula, Long> {
 
+  boolean existsByAluno_IdAndDisciplina_Id(Long alunoId, Long disciplinaId);
+
   /**
    * Matrículas de um único aluno, já com a disciplina carregada (evita uma consulta por
    * disciplina) e em ordem alfabética.
