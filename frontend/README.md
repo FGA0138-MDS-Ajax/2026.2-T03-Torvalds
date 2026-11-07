@@ -61,11 +61,32 @@ Os arquivos ficam na pasta `dist`.
 
 A pasta `src` contém o código da aplicação. A organização prevista no Documento de Arquitetura agrupa o código por funcionalidade:
 
+- `features/auth`: login, sessão do aluno e proteção de rotas
+- `features/inicio`: tela Início
+- `features/materias`: tela Matérias
 - `features/disciplinas`: componentes e arquivos relacionados às disciplinas
 - `features/agenda`: componentes e arquivos relacionados à agenda
 - `shared/api`: código compartilhado para comunicação com o backend
+- `shared/auth`: armazenamento do token
+- `shared/components`: componentes usados por mais de uma funcionalidade
 
-Esses diretórios serão criados conforme as funcionalidades forem desenvolvidas. Atualmente, a aplicação ainda não está integrada ao backend.
+Os diretórios que ainda não existem serão criados conforme as funcionalidades forem desenvolvidas.
+
+## Rotas
+
+A navegação usa React Router. As rotas ficam em `src/App.jsx`:
+
+| Endereço           | Tela                  | Acesso                                     |
+| ------------------ | --------------------- | ------------------------------------------ |
+| `/login`           | Login                 | público (quem já está logado vai para `/`) |
+| `/`                | Início                | só logado                                  |
+| `/materias`        | Matérias              | só logado                                  |
+| `/disciplinas/:id` | Página da disciplina  | só logado                                  |
+| qualquer outro     | Página não encontrada | público                                    |
+
+Quem não está logado e abre uma rota protegida é levado para `/login`. A sessão do aluno vem do `SessaoProvider` (`useSessao()` devolve `perfil`, `entrar` e `sair`).
+
+No Static Site do Render, cadastre em **Redirects/Rewrites** a regra `/*` → `/index.html` (tipo **Rewrite**); sem ela, recarregar a página em `/materias` dá erro 404.
 
 ## Login e integração com a API
 

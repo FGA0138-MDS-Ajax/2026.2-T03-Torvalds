@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
+import { useParams } from 'react-router'
 import dadosExemplo from './dadosExemplo.json'
 
 export default function PaginaDisciplina() {
-  const id = 1
+  const { id } = useParams()
   const [entregas, setEntregas] = useState([])
   const [carregando, setCarregando] = useState(true)
 

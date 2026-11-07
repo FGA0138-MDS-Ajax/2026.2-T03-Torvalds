@@ -1,10 +1,16 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { BrowserRouter } from 'react-router'
 import './index.css'
 import App from './App.jsx'
+import SessaoProvider from './features/auth/SessaoProvider.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <BrowserRouter>
+      <SessaoProvider>
+        <App />
+      </SessaoProvider>
+    </BrowserRouter>
   </StrictMode>,
 )
