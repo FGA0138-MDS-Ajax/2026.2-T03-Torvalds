@@ -1,14 +1,8 @@
-import { Link } from 'react-router'
-
 export default function MateriasPage() {
   return (
-    <main className="session-page">
-      <section className="session-card">
-        <h1>Matérias</h1>
-        <p>Em breve: a lista das suas disciplinas.</p>
-        <Link to="/agenda">Ver agenda</Link>
-        <Link to="/">Voltar ao início</Link>
-      </section>
-    </main>
+    <section>
+      <h1>Matérias</h1>
+      <p>Em breve: a lista das suas disciplinas.</p>
+    </section>
   )
 }

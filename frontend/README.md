@@ -69,6 +69,7 @@ A pasta `src` contém o código da aplicação. A organização prevista no Docu
 - `shared/api`: código compartilhado para comunicação com o backend
 - `shared/auth`: armazenamento do token
 - `shared/components`: componentes usados por mais de uma funcionalidade
+- `shared/layout`: moldura das telas logadas (menu lateral no computador e barra inferior no celular)
 
 Os diretórios que ainda não existem serão criados conforme as funcionalidades forem desenvolvidas.
 
