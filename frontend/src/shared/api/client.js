@@ -1,4 +1,5 @@
-import { obterToken } from '../auth/tokenStorage'
+import { obterToken, removerToken } from '../auth/tokenStorage'
+import { notificarSessaoExpirada } from './sessaoExpirada'
 
 const API_URL = (
   import.meta.env.VITE_API_URL || 'http://localhost:8080'
@@ -64,6 +65,12 @@ export async function requisicao(
         'O servidor retornou uma resposta inesperada.',
       )
     }
+  }
+
+  if (resposta.status === 401 && autenticada) {
+    // Token expirado ou recusado: encerra a sessão em qualquer tela.
+    removerToken()
+    notificarSessaoExpirada()
   }
 
   if (!resposta.ok) {

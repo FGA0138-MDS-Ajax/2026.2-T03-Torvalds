@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { consultarPerfil } from './authApi'
 import { SessaoContext } from './SessaoContext'
+import { aoExpirarSessao } from '../../shared/api/sessaoExpirada'
 import { obterToken, removerToken } from '../../shared/auth/tokenStorage'
 
 /**
@@ -44,6 +45,8 @@ export default function SessaoProvider({ children }) {
 
     return () => controller.abort()
   }, [tentativa])
+
+  useEffect(() => aoExpirarSessao(() => setPerfil(null)), [])
 
   function sair() {
     removerToken()
