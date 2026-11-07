@@ -24,3 +24,5 @@ cancha:
     jwt:
       secret: ${JWT_SECRET}
       expiration: ${JWT_EXPIRATION:PT1H}
+    cors:
+      allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
