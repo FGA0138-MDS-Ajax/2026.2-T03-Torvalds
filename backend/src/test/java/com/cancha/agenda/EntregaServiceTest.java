@@ -38,6 +38,7 @@ public class EntregaServiceTest {
   void listaEntregasOrdenadasPorPrazo() {
     Entrega maisTarde = entrega(2L, "Prova", LocalDateTime.of(2026, 12, 10, 10, 0));
     Entrega maisCedo = entrega(1L, "Lista", LocalDateTime.of(2026, 12, 1, 10, 0));
+    when(disciplinas.existe(DISCIPLINA_ID)).thenReturn(true);
     when(disciplinas.estaMatriculado(ALUNO_ID, DISCIPLINA_ID)).thenReturn(true);
     when(entregas.findByDisciplina_Id(DISCIPLINA_ID)).thenReturn(List.of(maisTarde, maisCedo));
     when(progressos.findByAluno_IdAndEntrega_Disciplina_Id(ALUNO_ID, DISCIPLINA_ID))
@@ -57,6 +58,7 @@ public class EntregaServiceTest {
     ProgressoAtividade progresso = mock(ProgressoAtividade.class);
     when(progresso.getEntrega()).thenReturn(comProgresso);
     when(progresso.getStatus()).thenReturn("EM_ANDAMENTO");
+    when(disciplinas.existe(DISCIPLINA_ID)).thenReturn(true);
     when(disciplinas.estaMatriculado(ALUNO_ID, DISCIPLINA_ID)).thenReturn(true);
     when(entregas.findByDisciplina_Id(DISCIPLINA_ID))
         .thenReturn(List.of(comProgresso, semProgresso));
@@ -72,6 +74,7 @@ public class EntregaServiceTest {
 
   @Test
   void recusaAlunoSemMatriculaSemConsultarEntregasOuProgresso() {
+    when(disciplinas.existe(DISCIPLINA_ID)).thenReturn(true);
     when(disciplinas.estaMatriculado(ALUNO_ID, DISCIPLINA_ID)).thenReturn(false);
 
     assertThatThrownBy(() -> service.listarDaDisciplina(ALUNO_ID, DISCIPLINA_ID))
