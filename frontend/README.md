@@ -139,3 +139,22 @@ https://www.figma.com/design/nl1ra0yeXBlse8CLl9H3M9/Untitled?node-id=0-1
 
 A ilustração atual utiliza um recorte por CSS do arquivo exportado.
 A substituição por uma exportação transparente exigirá ajustar o enquadramento em LoginPage.css.
+
+## Página da disciplina
+
+A rota protegida `/disciplinas/:id` consulta `GET /disciplinas` para o cabeçalho e
+`GET /disciplinas/{id}/atividades` para as entregas, usando o cliente HTTP
+compartilhado e o token da sessão. Configure `VITE_API_URL` para apontar à API.
+Não há fallback para dados de exemplo. Os prazos `LocalDateTime` da API são
+interpretados no fuso local do navegador. Entregas `CONCLUIDA` não são marcadas
+como atrasadas; as demais ficam atrasadas após o prazo.
+
+Execute `npm test` para testar carregamento HTTP, entrega no prazo, atraso,
+filtro de concluídas, lista vazia e recuperação de erro.
+
+### Dependências verificadas
+
+A integração do repositório é `developer` (não existe `develop`). O endpoint
+de atividades da `feat/39-servico-entrega` foi integrado nela pelo PR #40.
+A branch desta página incorpora essa atualização e `feat/36-401-central`
+(incluindo as rotas de `feat/35-react-router`).
