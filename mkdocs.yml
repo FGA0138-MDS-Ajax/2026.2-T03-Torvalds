@@ -3,7 +3,16 @@ site_name: Documentação
 nav:
   - Instruções mkdocs: "index.md"
   - Atas de Reunião:
-    - Ata 1: "atas-reuniao/ata-reuniao-1.md"
+    - Índice: "atas-reuniao/index.md"
+    - Template: "atas-reuniao/template-ata.md"
+    - "Ata 1 — Definição inicial do produto e Documento de Visão": "atas-reuniao/ata-reuniao-1.md"
+    - "Ata 2 — Revisão do Documento de Visão e delimitação do escopo": "atas-reuniao/ata-reuniao-2.md"
+    - "Ata 3 — Preparação da apresentação do Documento de Visão e GQM": "atas-reuniao/ata-reuniao-3.md"
+    - "Ata 4 — Planejamento da Sprint 4, apresentação de arquitetura e identidade visual": "atas-reuniao/ata-reuniao-4.md"
+    - "Ata 5 — Estruturação do repositório e preparação da Sprint 6": "atas-reuniao/ata-reuniao-5.md"
+    - "Ata 6 — Planejamento e distribuição das tarefas da Sprint 6": "atas-reuniao/ata-reuniao-6.md"
+    - "Ata 7 — Revisão da Sprint 6 e preparação da Sprint 7": "atas-reuniao/ata-reuniao-7.md"
+    - "Ata 8 — Redistribuição da Sprint 7 e alinhamento das pendências": "atas-reuniao/ata-reuniao-8.md"
   - Documento de Visão: "documento-de-visao.md"
   - Documento de Arquitetura: "documento-de-arquitetura.md"
 
