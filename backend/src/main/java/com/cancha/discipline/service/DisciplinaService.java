@@ -24,6 +24,12 @@ public class DisciplinaService {
     return matriculas.listarDoAlunoComDisciplina(alunoId).stream().map(this::paraResumo).toList();
   }
 
+  /** Informa se o aluno está matriculado na disciplina. */
+  @Transactional(readOnly = true)
+  public boolean estaMatriculado(Long alunoId, Long disciplinaId) {
+    return matriculas.existsByAluno_IdAndDisciplina_Id(alunoId, disciplinaId);
+  }
+
   private DisciplinaResumoResponse paraResumo(Matricula matricula) {
     Disciplina disciplina = matricula.getDisciplina();
     return new DisciplinaResumoResponse(
