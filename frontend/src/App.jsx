@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from 'react-router'
 import LoginPage from './features/auth/LoginPage'
 import RotaProtegida from './features/auth/RotaProtegida'
 import { useSessao } from './features/auth/useSessao'
+import AgendaPage from './features/agenda/AgendaPage'
 import PaginaDisciplina from './features/disciplinas/PaginaDisciplina'
 import InicioPage from './features/inicio/InicioPage'
 import MateriasPage from './features/materias/MateriasPage'
@@ -25,6 +26,7 @@ function App() {
         <Route index element={<InicioPage />} />
         <Route path="materias" element={<MateriasPage />} />
         <Route path="disciplinas/:id" element={<PaginaDisciplina />} />
+        <Route path="agenda" element={<AgendaPage />} />
       </Route>
       <Route path="*" element={<PaginaNaoEncontrada />} />
     </Routes>
