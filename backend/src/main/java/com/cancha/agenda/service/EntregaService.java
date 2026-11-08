@@ -5,6 +5,7 @@ import com.cancha.agenda.model.Entrega;
 import com.cancha.agenda.model.ProgressoAtividade;
 import com.cancha.agenda.repository.EntregaRepository;
 import com.cancha.agenda.repository.ProgressoAtividadeRepository;
+import com.cancha.common.exception.RecursoNaoEncontradoException;
 import com.cancha.discipline.service.DisciplinaService;
 import java.util.Comparator;
 import java.util.List;
@@ -36,6 +37,10 @@ public class EntregaService {
   /** Lista as entregas em ordem de prazo somente para alunos matriculados. */
   @Transactional(readOnly = true)
   public List<EntregaResponse> listarDaDisciplina(Long alunoId, Long disciplinaId) {
+    if (!disciplinas.existe(disciplinaId)) {
+      throw new RecursoNaoEncontradoException("Disciplina não encontrada.");
+    }
+
     if (!disciplinas.estaMatriculado(alunoId, disciplinaId)) {
       throw new AccessDeniedException("Aluno não matriculado na disciplina.");
     }
