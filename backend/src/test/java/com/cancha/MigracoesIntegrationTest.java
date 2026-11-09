@@ -26,7 +26,7 @@ class MigracoesIntegrationTest {
 
   @Test
   void seedCriaAlunosDisciplinasEMatriculas() {
-    assertThat(contar("aluno")).isEqualTo(2);
+    assertThat(contar("aluno")).isEqualTo(3);
     assertThat(contar("disciplina")).isEqualTo(5);
     assertThat(contar("matricula")).isEqualTo(10);
   }
@@ -35,7 +35,7 @@ class MigracoesIntegrationTest {
   void entidadeAlunoLeOsDadosDoSeed() {
     List<Aluno> alunos = em.createQuery("select a from Aluno a order by a.email", Aluno.class).getResultList();
 
-    assertThat(alunos).hasSize(2);
+    assertThat(alunos).hasSize(3);
     assertThat(alunos.get(0).getEmail()).isEqualTo("aluno1@cancha.test");
     assertThat(alunos.get(0).getMatriculaUnB()).isEqualTo("260000001");
     assertThat(new BCryptPasswordEncoder().matches(SENHA_DE_DESENVOLVIMENTO, alunos.get(0).getSenhaHash()))
