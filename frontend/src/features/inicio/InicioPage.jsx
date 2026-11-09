@@ -11,6 +11,7 @@ export default function InicioPage() {
         <p>Você entrou no Cancha.</p>
         <p>{perfil.email}</p>
         <Link to="/materias">Ver matérias</Link>
+        <Link to="/agenda">Ver agenda</Link>
         <button type="button" onClick={sair}>
           Sair
         </button>

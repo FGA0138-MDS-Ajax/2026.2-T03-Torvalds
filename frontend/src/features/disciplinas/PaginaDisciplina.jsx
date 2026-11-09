@@ -143,6 +143,7 @@ export default function PaginaDisciplina() {
         <nav aria-label="Navegação principal">
           <Link to="/">⌂ Início</Link>
           <Link to="/materias">▤ Matérias</Link>
+          <Link to="/agenda">📅 Agenda</Link>
         </nav>
       </aside>
       <main className="disciplina-main">

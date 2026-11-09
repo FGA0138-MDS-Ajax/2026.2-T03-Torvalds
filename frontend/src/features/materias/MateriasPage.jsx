@@ -6,6 +6,7 @@ export default function MateriasPage() {
       <section className="session-card">
         <h1>Matérias</h1>
         <p>Em breve: a lista das suas disciplinas.</p>
+        <Link to="/agenda">Ver agenda</Link>
         <Link to="/">Voltar ao início</Link>
       </section>
     </main>
