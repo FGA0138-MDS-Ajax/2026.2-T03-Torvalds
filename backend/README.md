@@ -145,6 +145,8 @@ No Windows, utilize .\mvnw.cmd spring-boot:run.
 
 Os testes usam um banco H2 em memória (ver `src/test/resources/application.yml`) e não dependem do Docker. O Flyway roda as migrations também nos testes e o Hibernate valida as entidades contra as tabelas, então uma entidade que não bate com a migration quebra o build. O `MigracoesIntegrationTest` é o exemplo de teste de integração com o banco, e o `DisciplinaIntegracaoTest` mostra como testar uma regra de negócio (um aluno só vê as próprias disciplinas) com o seed.
 
+O JaCoCo mede a cobertura dos testes. Depois de `./mvnw test`, abra `backend/target/site/jacoco/index.html` no navegador. Na CI, o mesmo relatório fica na página da execução (aba Actions, seção Artifacts, arquivo `relatorio-jacoco`).
+
 ## Banco de dados e dados de exemplo
 
 O esquema vem das migrations em `src/main/resources/db/migration/` (`V<n>__descricao.sql`). Depois que uma migration for mergeada, não edite o arquivo: crie uma nova com o próximo número.
