@@ -1,0 +1,33 @@
+/*
+ * Cores, fontes e medidas do cAnCHA, tiradas do protótipo do Figma.
+ * Use estas variáveis nas telas em vez de escrever o código da cor.
+ */
+:root {
+  --cor-fundo: #faf3e7;
+  --cor-papel: #fbf8f1;
+  --cor-menu: #faeedb;
+  --cor-texto: #432d1e;
+  --cor-texto-suave: #6b5a4c;
+  --cor-borda: #e2d7c6;
+  --cor-borda-forte: #cabca6;
+
+  --cor-lilas: #bca9d2;
+  --cor-lilas-claro: #ede4f8;
+  --cor-lilas-escuro: #7557c0;
+
+  --cor-verde: #8f9e76;
+  --cor-verde-claro: #dcf2e1;
+  --cor-verde-escuro: #6f7d55;
+
+  --cor-amarelo: #ffe2a0;
+  --cor-amarelo-claro: #fdefd0;
+  --cor-azul-claro: #d9f1fe;
+  --cor-rosa-claro: #fee7e1;
+
+  --cor-alerta: #b3261e;
+
+  --fonte-titulo: 'Courier Prime', 'Courier New', Courier, monospace;
+  --fonte-texto: 'Segoe UI', Arial, sans-serif;
+
+  --raio: 12px;
+}

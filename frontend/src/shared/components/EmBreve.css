@@ -1,0 +1,22 @@
+.em-breve {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 48px 24px;
+  border: 1px dashed #c9b9a3;
+  border-radius: var(--raio);
+  background: var(--cor-papel);
+  text-align: center;
+}
+
+.em-breve p {
+  margin: 0;
+}
+
+.em-breve-selo {
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: var(--cor-lilas-claro);
+  color: var(--cor-lilas-escuro);
+  font-weight: 700;
+}

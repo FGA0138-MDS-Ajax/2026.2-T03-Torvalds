@@ -1,61 +1,4 @@
-.agenda-layout {
-  min-height: 100svh;
-  display: grid;
-  grid-template-columns: 250px minmax(0, 1fr);
-  background: #faf4e8;
-  color: #30251e;
-}
 
-.agenda-sidebar {
-  padding: 64px 28px;
-  background: #faeed8;
-  border-right: 3px solid #ddd7c8;
-}
-
-.agenda-marca {
-  font:
-    900 42px Georgia,
-    serif;
-  text-align: center;
-}
-
-.agenda-sidebar > p {
-  font-size: 13px;
-  text-align: center;
-  margin-top: 4px;
-}
-
-.agenda-sidebar nav {
-  display: grid;
-  gap: 16px;
-  margin-top: 64px;
-}
-
-.agenda-sidebar a {
-  border: 2px solid #d7cfbd;
-  border-radius: 18px;
-  padding: 22px 18px;
-  text-decoration: none;
-  color: inherit;
-  font:
-    bold 19px Georgia,
-    serif;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.agenda-sidebar a[aria-current='page'] {
-  background: #96a17e;
-  border-color: #96a17e;
-  color: #ffffff;
-}
-
-.agenda-main {
-  padding: 40px clamp(20px, 4vw, 70px);
-  background: url('../../assets/decoracao-superior.png') no-repeat right top /
-    220px auto;
-}
 
 .agenda-cabecalho {
   border: 2px solid #e2ddcf;
@@ -250,34 +193,6 @@
 }
 
 @media (max-width: 760px) {
-  .agenda-layout {
-    grid-template-columns: 1fr;
-  }
-  .agenda-sidebar {
-    padding: 20px;
-    border-right: 0;
-    border-bottom: 2px solid #ddd7c8;
-  }
-  .agenda-marca {
-    font-size: 28px;
-  }
-  .agenda-sidebar > p {
-    display: none;
-  }
-  .agenda-sidebar nav {
-    display: flex;
-    margin-top: 20px;
-    gap: 8px;
-  }
-  .agenda-sidebar a {
-    flex: 1;
-    padding: 12px;
-    font-size: 15px;
-    justify-content: center;
-  }
-  .agenda-main {
-    padding: 24px 16px;
-  }
   .agenda-cabecalho {
     padding: 16px;
   }

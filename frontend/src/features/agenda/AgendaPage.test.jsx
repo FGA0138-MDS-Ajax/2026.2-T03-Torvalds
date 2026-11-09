@@ -144,9 +144,6 @@ describe('Página Agenda com integração GET /agenda', () => {
     expect(screen.getByText('Compiladores')).toBeInTheDocument()
     expect(screen.getByText('Lista')).toBeInTheDocument()
     expect(screen.getByText(/Prazo:\s*10\/11/)).toBeInTheDocument()
-
-    // Verifica link de navegação da Agenda no menu
-    expect(screen.getByRole('link', { name: /Agenda/i })).toBeInTheDocument()
   })
 
   it('destaca atividades atrasadas', async () => {
