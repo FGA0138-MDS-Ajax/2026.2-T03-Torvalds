@@ -3,6 +3,7 @@ package com.cancha.agenda.repository;
 import com.cancha.agenda.model.ProgressoAtividade;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -25,4 +26,5 @@ public interface ProgressoAtividadeRepository extends JpaRepository<ProgressoAti
           + " and p.entrega.disciplina.id in :disciplinaIds group by p.entrega.disciplina.id")
   List<ContagemPorDisciplina> contarConcluidasPorDisciplina(
       @Param("alunoId") Long alunoId, @Param("disciplinaIds") Collection<Long> disciplinaIds);
+    Optional<ProgressoAtividade> findByAluno_IdAndEntrega_Id(Long alunoId, Long entregaId);
 }
