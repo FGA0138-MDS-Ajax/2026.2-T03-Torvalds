@@ -27,9 +27,9 @@ function responder(status = 200, corpo = disciplinas) {
   )
 }
 
-function abrir() {
+function abrir(url = '/materias') {
   return render(
-    <MemoryRouter>
+    <MemoryRouter initialEntries={[url]}>
       <MateriasPage />
     </MemoryRouter>,
   )
@@ -58,25 +58,21 @@ describe('Matérias', () => {
     expect(screen.getByText('40% concluído')).toBeInTheDocument()
   })
 
-  it('filtra pela busca e avisa quando nada é encontrado', async () => {
-    abrir()
-    await screen.findByRole('link', { name: /Compiladores/ })
+  it('filtra pelo termo da busca (?busca=) e avisa quando nada é encontrado', async () => {
+    abrir('/materias?busca=projeto')
 
-    const busca = screen.getByLabelText(/Buscar matéria/)
-
-    fireEvent.change(busca, { target: { value: 'projeto' } })
-
+    expect(
+      await screen.findByRole('link', { name: /Projeto Integrador/ }),
+    ).toBeInTheDocument()
     expect(
       screen.queryByRole('link', { name: /Compiladores/ }),
     ).not.toBeInTheDocument()
-    expect(
-      screen.getByRole('link', { name: /Projeto Integrador/ }),
-    ).toBeInTheDocument()
 
-    fireEvent.change(busca, { target: { value: 'xyz' } })
+    cleanup()
+    abrir('/materias?busca=xyz')
 
     expect(
-      screen.getByText('Nenhuma matéria encontrada para essa busca.'),
+      await screen.findByText('Nenhuma matéria encontrada para essa busca.'),
     ).toBeInTheDocument()
   })
 

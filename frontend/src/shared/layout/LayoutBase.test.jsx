@@ -26,6 +26,7 @@ function abrir() {
         <Routes>
           <Route element={<LayoutBase />}>
             <Route index element={<p>Conteúdo do início</p>} />
+            <Route path="materias" element={<p>Tela de matérias</p>} />
             <Route path="anotacoes" element={<EmBreve titulo="Anotações" />} />
           </Route>
         </Routes>
@@ -58,10 +59,15 @@ describe('Layout base', () => {
     expect(screen.getByText('Conteúdo do início')).toBeInTheDocument()
   })
 
-  it('deixa a busca e as notificações como "em breve"', () => {
+  it('leva a busca do topo para as matérias e deixa as notificações "em breve"', () => {
     abrir()
 
-    expect(screen.getByRole('searchbox', { name: /Buscar/ })).toBeDisabled()
+    const busca = screen.getByRole('searchbox', { name: /Buscar matéria/ })
+
+    fireEvent.change(busca, { target: { value: 'comp' } })
+
+    expect(screen.getByText('Tela de matérias')).toBeInTheDocument()
+    expect(busca).toHaveValue('comp')
     expect(
       screen.getByRole('button', { name: /Notificações/ }),
     ).toBeDisabled()

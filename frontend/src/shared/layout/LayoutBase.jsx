@@ -1,4 +1,11 @@
-import { Link, NavLink, Outlet } from 'react-router'
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from 'react-router'
 import { useSessao } from '../../features/auth/useSessao'
 import Icone from './Icone'
 import './LayoutBase.css'
@@ -18,6 +25,22 @@ const itens = [
 export default function LayoutBase() {
   const { perfil, sair } = useSessao()
   const inicial = (perfil.nome ?? '?').trim().charAt(0).toUpperCase() || '?'
+  const { pathname } = useLocation()
+  const navegar = useNavigate()
+  const [parametros] = useSearchParams()
+  const naMaterias = pathname === '/materias'
+  const busca = naMaterias ? (parametros.get('busca') ?? '') : ''
+
+  // A busca do topo filtra as matérias: o termo vai na URL (?busca=...) e a
+  // tela de Matérias lê de lá. Digitar em outra tela leva para Matérias.
+  function aoDigitar(evento) {
+    const termo = evento.target.value
+    const destino = termo
+      ? `/materias?busca=${encodeURIComponent(termo)}`
+      : '/materias'
+
+    navegar(destino, { replace: naMaterias })
+  }
 
   return (
     <div className="layout">
@@ -51,9 +74,10 @@ export default function LayoutBase() {
             <Icone nome="lupa" />
             <input
               type="search"
-              disabled
-              placeholder="Buscar matérias, anotações, atividades… (em breve)"
-              aria-label="Buscar (em breve)"
+              value={busca}
+              onChange={aoDigitar}
+              placeholder="Buscar matérias…"
+              aria-label="Buscar matéria"
             />
           </label>
 
