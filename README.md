@@ -93,9 +93,9 @@ Verificado em 02/11/2026:
 - `GET /disciplinas` devolveu as 5 disciplinas do seed.
 - O frontend abre a página inicial "cAnCHA".
 
-O frontend e o backend estão publicados, mas ainda não integrados: o frontend não chama a API.
+Para o frontend publicado conversar com o backend publicado, duas configurações são necessárias: `VITE_API_URL` no Static Site (definida antes do build, com o endereço do backend) e `CORS_ALLOWED_ORIGINS` no backend (com o endereço do frontend).
 
 Observações:
 - O backend gratuito dorme após 15 minutos sem uso. Ao acordar, a primeira requisição pode levar de 2 a 3 minutos (a subida medida foi de cerca de 2,5 minutos).
-- Enquanto o login (JWT) não existe, apenas `/actuator/health` responde sem autenticação. O `GET /disciplinas` exige o usuário `user` e a senha gerada a cada início, que aparece nos Logs do Render.
-- As variáveis `DB_URL`, `DB_USER`, `DB_PASSWORD` e `PORT` ficam só no painel do Render, nunca no repositório.
+- O login é feito em `POST /auth/login` e devolve um token JWT; as demais rotas exigem o cabeçalho `Authorization: Bearer <token>`. Sem token, só respondem o login, o `/actuator/health` e o Swagger.
+- As variáveis do backend (`DB_URL`, `DB_USER`, `DB_PASSWORD`, `PORT`, `JWT_SECRET` e `CORS_ALLOWED_ORIGINS`) e a do frontend (`VITE_API_URL`) ficam só no painel do Render, nunca no repositório. O `JWT_SECRET` é obrigatório: sem ele o backend não inicia.

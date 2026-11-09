@@ -67,6 +67,9 @@ caso contrário, a API responde HTTP 403. A rota também aparece no Swagger.
   aleatório forte, exclusivo de cada ambiente, sem salvá-lo no repositório.
 - JWT_EXPIRATION: opcional, com duração no formato ISO-8601.
   O padrão é PT1H (uma hora).
+- CORS_ALLOWED_ORIGINS: opcional, com os endereços do frontend autorizados a
+  chamar a API pelo navegador, separados por vírgula. O padrão é
+  http://localhost:5173. Veja a seção CORS abaixo.
 
 Para executar pela IDE, configure essas variáveis no campo de variáveis
 de ambiente da configuração de execução. Pelo terminal, forneça-as na
@@ -90,9 +93,19 @@ Os alunos do seed ainda não podem realizar login.
 
 ### CORS
 
-A origem permitida atualmente é http://localhost:5173, com suporte aos
-cabeçalhos Authorization e Content-Type. Outras origens, incluindo o
-frontend publicado, ainda precisam de configuração.
+A API só aceita chamadas feitas pelo navegador a partir das origens listadas em
+`CORS_ALLOWED_ORIGINS`, com suporte aos cabeçalhos Authorization e Content-Type.
+Sem a variável, vale apenas http://localhost:5173.
+
+Em um ambiente publicado, informe o endereço do frontend, por exemplo:
+
+    CORS_ALLOWED_ORIGINS=https://cancha-frontend-ew8b.onrender.com,http://localhost:5173
+
+Ao definir a variável, a lista substitui o padrão: inclua também
+http://localhost:5173 se ainda precisar dele. Cada endereço deve ter `http://`
+ou `https://`, sem caminho (a barra final é removida). O coringa `*` não é
+aceito. Um valor inválido impede a API de iniciar, com uma mensagem que explica
+o erro.
 
 ## Como executar para desenvolver (sem container do backend)
 
