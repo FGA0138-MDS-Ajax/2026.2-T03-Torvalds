@@ -68,5 +68,8 @@ jobs:
       - name: Formatação (Prettier)
         run: npm run format:check
 
+      - name: Testes da interface
+        run: npm test
+
       - name: Build
         run: npm run build
