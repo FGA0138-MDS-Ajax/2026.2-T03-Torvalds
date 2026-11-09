@@ -3,6 +3,8 @@ package com.cancha.agenda.model;
 import com.cancha.auth.model.Aluno;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -33,15 +35,16 @@ public class ProgressoAtividade {
   @JoinColumn(name = "entrega_id", nullable = false)
   private Entrega entrega;
 
+  @Enumerated(EnumType.STRING)
   @Column(nullable = false, length = 50)
-  private String status;
+  private StatusEntrega status;
 
   @Column(name = "data_conclusao")
   private LocalDateTime dataConclusao;
 
   protected ProgressoAtividade() {}
 
-  public ProgressoAtividade(Aluno aluno, Entrega entrega, String status) {
+  public ProgressoAtividade(Aluno aluno, Entrega entrega, StatusEntrega status) {
     this.aluno = aluno;
     this.entrega = entrega;
     this.status = status;
@@ -50,8 +53,8 @@ public class ProgressoAtividade {
   public Long getId() { return id; }
   public Aluno getAluno() { return aluno; }
   public Entrega getEntrega() { return entrega; }
-  public String getStatus() { return status; }
-  public void setStatus(String status) { this.status = status; }
+  public StatusEntrega getStatus() { return status; }
+  public void setStatus(StatusEntrega status) { this.status = status; }
   public LocalDateTime getDataConclusao() { return dataConclusao; }
   public void setDataConclusao(LocalDateTime dataConclusao) { this.dataConclusao = dataConclusao; }
 }

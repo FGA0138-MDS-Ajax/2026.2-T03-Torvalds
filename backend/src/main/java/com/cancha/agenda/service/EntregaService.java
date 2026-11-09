@@ -3,6 +3,7 @@ package com.cancha.agenda.service;
 import com.cancha.agenda.dto.EntregaResponse;
 import com.cancha.agenda.model.Entrega;
 import com.cancha.agenda.model.ProgressoAtividade;
+import com.cancha.agenda.model.StatusEntrega;
 import com.cancha.agenda.repository.EntregaRepository;
 import com.cancha.agenda.repository.ProgressoAtividadeRepository;
 import com.cancha.common.exception.RecursoNaoEncontradoException;
@@ -19,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class EntregaService {
 
-  private static final String STATUS_PADRAO = "A fazer";
+  private static final StatusEntrega STATUS_PADRAO = StatusEntrega.A_FAZER;
 
   private final EntregaRepository entregas;
   private final ProgressoAtividadeRepository progressos;
@@ -45,7 +46,7 @@ public class EntregaService {
       throw new AccessDeniedException("Aluno não matriculado na disciplina.");
     }
 
-    Map<Long, String> statusPorEntrega =
+    Map<Long, StatusEntrega> statusPorEntrega =
         progressos.findByAluno_IdAndEntrega_Disciplina_Id(alunoId, disciplinaId).stream()
             .collect(
                 Collectors.toMap(
@@ -57,7 +58,7 @@ public class EntregaService {
         .toList();
   }
 
-  private EntregaResponse paraResposta(Entrega entrega, Map<Long, String> statusPorEntrega) {
+  private EntregaResponse paraResposta(Entrega entrega, Map<Long, StatusEntrega> statusPorEntrega) {
     return new EntregaResponse(
         entrega.getId(),
         entrega.getTitulo(),

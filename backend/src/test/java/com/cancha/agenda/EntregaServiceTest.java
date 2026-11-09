@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 import com.cancha.agenda.dto.EntregaResponse;
 import com.cancha.agenda.model.Entrega;
 import com.cancha.agenda.model.ProgressoAtividade;
+import com.cancha.agenda.model.StatusEntrega;
 import com.cancha.agenda.repository.EntregaRepository;
 import com.cancha.agenda.repository.ProgressoAtividadeRepository;
 import com.cancha.agenda.service.EntregaService;
@@ -57,7 +58,7 @@ public class EntregaServiceTest {
     Entrega semProgresso = entrega(2L, "Prova", LocalDateTime.of(2026, 12, 10, 10, 0));
     ProgressoAtividade progresso = mock(ProgressoAtividade.class);
     when(progresso.getEntrega()).thenReturn(comProgresso);
-    when(progresso.getStatus()).thenReturn("EM_ANDAMENTO");
+    when(progresso.getStatus()).thenReturn(StatusEntrega.EM_ANDAMENTO);
     when(disciplinas.existe(DISCIPLINA_ID)).thenReturn(true);
     when(disciplinas.estaMatriculado(ALUNO_ID, DISCIPLINA_ID)).thenReturn(true);
     when(entregas.findByDisciplina_Id(DISCIPLINA_ID))
@@ -69,7 +70,7 @@ public class EntregaServiceTest {
 
     assertThat(resultado)
         .extracting(EntregaResponse::status)
-        .containsExactly("EM_ANDAMENTO", "A fazer");
+        .containsExactly(StatusEntrega.EM_ANDAMENTO, StatusEntrega.A_FAZER);
   }
 
   @Test

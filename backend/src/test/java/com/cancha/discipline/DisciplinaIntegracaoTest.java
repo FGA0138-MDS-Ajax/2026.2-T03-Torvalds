@@ -1,6 +1,7 @@
 package com.cancha.discipline;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.within;
 
 import com.cancha.discipline.dto.DisciplinaResumoResponse;
 import com.cancha.discipline.service.DisciplinaService;
@@ -69,6 +70,64 @@ class DisciplinaIntegracaoTest {
   @Test
   void alunoSemMatriculasRecebeListaVazia() {
     assertThat(service.listarDoAluno(999_999L)).isEmpty();
+  }
+
+  @Test
+  void progressoEOPercentualDeEntregasConcluidasDoAlunoEmCadaDisciplina() {
+    Long aluno1 = idDoAluno("aluno1@cancha.test");
+
+    List<DisciplinaResumoResponse> disciplinas = service.listarDoAluno(aluno1);
+
+    assertThat(disciplinas)
+        .allSatisfy(
+            d ->
+                assertThat(d.progressoPercentual())
+                    .isCloseTo(percentualEsperado(aluno1, d.id()), within(0.0001)));
+    assertThat(disciplinas)
+        .extracting(DisciplinaResumoResponse::progressoPercentual)
+        .anyMatch(percentual -> percentual > 0);
+  }
+
+  @Test
+  void cadaAlunoVeOSeuProprioProgressoNasMesmasDisciplinas() {
+    Long aluno1 = idDoAluno("aluno1@cancha.test");
+    Long aluno2 = idDoAluno("aluno2@cancha.test");
+
+    List<Double> doAluno1 =
+        service.listarDoAluno(aluno1).stream()
+            .map(DisciplinaResumoResponse::progressoPercentual)
+            .toList();
+    List<Double> doAluno2 =
+        service.listarDoAluno(aluno2).stream()
+            .map(DisciplinaResumoResponse::progressoPercentual)
+            .toList();
+
+    assertThat(doAluno1).isNotEqualTo(doAluno2);
+  }
+
+  @Test
+  void disciplinaSemEntregasTemProgressoNulo() {
+    Long aluno1 = idDoAluno("aluno1@cancha.test");
+    matricularApenas(aluno1, DISCIPLINA_EXCLUSIVA);
+
+    assertThat(service.listarDoAluno(aluno1))
+        .filteredOn(d -> d.nome().equals(DISCIPLINA_EXCLUSIVA))
+        .singleElement()
+        .satisfies(d -> assertThat(d.progressoPercentual()).isNull());
+  }
+
+  private double percentualEsperado(Long alunoId, Long disciplinaId) {
+    int total =
+        jdbc.queryForObject(
+            "select count(*) from entrega where disciplina_id = ?", Integer.class, disciplinaId);
+    int concluidas =
+        jdbc.queryForObject(
+            "select count(*) from progresso_atividade p join entrega e on e.id = p.entrega_id"
+                + " where p.aluno_id = ? and e.disciplina_id = ? and p.status = 'CONCLUIDA'",
+            Integer.class,
+            alunoId,
+            disciplinaId);
+    return concluidas * 100.0 / total;
   }
 
   private Long idDoAluno(String email) {

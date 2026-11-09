@@ -24,7 +24,7 @@ class DisciplinaControllerTest {
   @Test
   void listaAsDisciplinasDoAlunoDaRequisicao() {
     List<DisciplinaResumoResponse> esperado =
-        List.of(new DisciplinaResumoResponse(10L, "Compiladores", "2026.2", 0));
+        List.of(new DisciplinaResumoResponse(10L, "Compiladores", "2026.2", 0.0));
     when(alunoAtual.id()).thenReturn(7L);
     when(service.listarDoAluno(7L)).thenReturn(esperado);
 
