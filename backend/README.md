@@ -160,10 +160,12 @@ O esquema vem das migrations em `src/main/resources/db/migration/` (`V<n>__descr
 - `V1__base.sql`: tabelas `usuario`, `aluno`, `disciplina` e `matricula`.
 - `V2__seed_base.sql`: 2 alunos de teste, 5 disciplinas e a matrícula dos dois em todas elas.
 - `V3__tabela_de_entregas.sql`: tabelas `entrega` (trabalhos, listas e provas de cada disciplina, com prazo) e `progresso_atividade` (a situação de cada aluno em cada entrega).
-- V4__seed_entregas.sql: 16 entregas de exemplo (trabalhos, listas e provas) e as situações dos dois alunos de teste.
+- `V4__seed_entregas.sql`: 16 entregas de exemplo (trabalhos, listas e provas) e as situações dos dois alunos de teste.
 - `V5__conteudos.sql`: tabela `conteudo` e dois materiais de exemplo para cada disciplina do seed.
+- `V6__restringe_status_do_progresso.sql`: o status de `progresso_atividade` só aceita `A_FAZER`, `EM_ANDAMENTO` e `CONCLUIDA`.
+- `V7__amplia_dados_de_exemplo.sql`: mais 9 entregas (25 no total), situações variadas para os dois alunos de teste e o `aluno3@cancha.test`, sem nenhuma matrícula, para mostrar as telas vazias.
 
-Alunos de teste (somente desenvolvimento): `aluno1@cancha.test` e `aluno2@cancha.test`, ambos com a senha `cancha-dev-123`. No banco fica só o hash BCrypt.
+Alunos de teste (somente desenvolvimento): `aluno1@cancha.test`, `aluno2@cancha.test` e `aluno3@cancha.test` (este sem matrícula), todos com a senha `cancha-dev-123`. No banco fica só o hash BCrypt.
 
 Se você já tinha rodado uma versão antiga das migrations, o Flyway recusa o banco com erro de checksum. Apague o volume e suba de novo:
 
