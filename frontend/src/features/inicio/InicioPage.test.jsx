@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { cleanup, render, screen } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
 import { MemoryRouter } from 'react-router'
 import { SessaoContext } from '../auth/SessaoContext'
@@ -13,35 +13,45 @@ const disciplinas = [
     periodoLetivo: '2026.2',
     progressoPercentual: 40,
   },
+  {
+    id: 2,
+    nome: 'Projeto Integrador',
+    periodoLetivo: '2026.2',
+    progressoPercentual: 0,
+  },
 ]
 
-const entregas = [
+const entregasDaDisciplina1 = [
   {
     id: 1,
     titulo: 'Lista 2',
-    disciplina: 'Compiladores',
     tipo: 'Lista',
     prazo: '2099-11-10T18:00:00',
-    status: 'A fazer',
+    status: 'A_FAZER',
   },
   {
     id: 2,
     titulo: 'Trabalho já entregue',
-    disciplina: 'Compiladores',
     tipo: 'Trabalho',
     prazo: '2099-11-05T18:00:00',
     status: 'CONCLUIDA',
   },
 ]
 
-function responder({ agenda = entregas, statusAgenda = 200 } = {}) {
+function responder({ lista = disciplinas, statusLista = 200 } = {}) {
   vi.stubGlobal(
     'fetch',
-    vi.fn(async (url) =>
-      url.endsWith('/agenda')
-        ? new Response(JSON.stringify(agenda), { status: statusAgenda })
-        : new Response(JSON.stringify(disciplinas), { status: 200 }),
-    ),
+    vi.fn(async (url) => {
+      if (url.endsWith('/disciplinas')) {
+        return new Response(JSON.stringify(lista), { status: statusLista })
+      }
+      if (url.endsWith('/disciplinas/1/atividades')) {
+        return new Response(JSON.stringify(entregasDaDisciplina1), {
+          status: 200,
+        })
+      }
+      return new Response(JSON.stringify([]), { status: 200 })
+    }),
   )
 }
 
@@ -69,36 +79,85 @@ afterEach(() => {
 })
 
 describe('Início', () => {
-  it('mostra a saudação, as matérias e os próximos prazos', async () => {
+  it('mostra a saudação e os três cartões de resumo', async () => {
     abrir()
 
     expect(
       screen.getByRole('heading', { name: 'Olá, Maria!' }),
     ).toBeInTheDocument()
+
+    const materias = await screen.findByRole('link', {
+      name: 'Matérias: 2 cursando',
+    })
+    const atividades = screen.getByRole('link', {
+      name: 'Atividades: 1 pendentes',
+    })
+
+    expect(materias).toHaveAttribute('href', '/materias')
+    expect(atividades).toHaveAttribute('href', '/agenda')
     expect(
-      await screen.findByRole('link', { name: /Compiladores/ }),
-    ).toHaveAttribute('href', '/disciplinas/1')
-    expect(await screen.findByText('Lista 2')).toBeInTheDocument()
-    expect(screen.getByText(/Prazo: 10\/11/)).toBeInTheDocument()
-    expect(screen.queryByText('Trabalho já entregue')).not.toBeInTheDocument()
+      screen.getByRole('link', { name: 'Anotações: em breve' }),
+    ).toHaveAttribute('href', '/anotacoes')
   })
 
-  it('avisa quando não há entregas pendentes', async () => {
-    responder({ agenda: [] })
+  it('mostra o progresso geral calculado pelas entregas', async () => {
     abrir()
 
+    expect(await screen.findByText('1/2')).toBeInTheDocument()
     expect(
-      await screen.findByText('Nenhuma entrega pendente. Bom trabalho!'),
+      screen.getByRole('img', { name: '50% do semestre concluído' }),
+    ).toBeInTheDocument()
+    expect(screen.getByText(/Você está indo muito bem!/)).toBeInTheDocument()
+  })
+
+  it('lista as próximas atividades sem as concluídas', async () => {
+    abrir()
+
+    expect(await screen.findByText('Lista 2')).toBeInTheDocument()
+    expect(screen.getByText(/10\/11, 18:00/)).toBeInTheDocument()
+    expect(screen.queryByText('Trabalho já entregue')).not.toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /Ver tudo/ })).toHaveAttribute(
+      'href',
+      '/agenda',
+    )
+  })
+
+  it('mostra as matérias com a contagem de atividades', async () => {
+    abrir()
+
+    const cartao = await screen.findByRole('link', { name: /Compiladores/ })
+
+    expect(cartao).toHaveAttribute('href', '/disciplinas/1')
+    expect(cartao).toHaveTextContent('1/2 Atividades')
+    expect(cartao).toHaveTextContent('40%')
+    expect(
+      screen.getByRole('heading', { name: 'Sua tarde de hoje' }),
     ).toBeInTheDocument()
   })
 
-  it('mostra o erro dos prazos sem derrubar as matérias', async () => {
-    responder({ agenda: { mensagem: 'Falha nos prazos' }, statusAgenda: 500 })
+  it('avisa quando o aluno não tem matérias', async () => {
+    responder({ lista: [] })
+    abrir()
+
+    expect(
+      await screen.findByText('Você ainda não tem matérias.'),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText('Nenhuma entrega pendente. Bom trabalho!'),
+    ).toBeInTheDocument()
+  })
+
+  it('mostra o erro e permite tentar novamente', async () => {
+    responder({ statusLista: 500 })
     abrir()
 
     expect(await screen.findByRole('alert')).toHaveTextContent(
-      'Falha nos prazos',
+      'Não foi possível carregar o painel',
     )
+
+    responder()
+    fireEvent.click(screen.getByRole('button', { name: 'Tentar novamente' }))
+
     expect(
       await screen.findByRole('link', { name: /Compiladores/ }),
     ).toBeInTheDocument()
