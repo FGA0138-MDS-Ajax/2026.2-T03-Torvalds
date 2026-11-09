@@ -1,0 +1,31 @@
+.estado {
+  padding: 24px;
+  border: 1px dashed #c9b9a3;
+  border-radius: 12px;
+  background: #fcf6ec;
+  text-align: center;
+}
+
+.estado p {
+  margin: 0;
+}
+
+.estado h2 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+}
+
+.estado-erro {
+  border: 1px solid #c97b7b;
+  background: #fbeaea;
+}
+
+.estado-erro button {
+  min-height: 44px;
+  margin-top: 12px;
+  padding: 10px 18px;
+  border: 1px solid #756184;
+  border-radius: 6px;
+  background: #bba7ce;
+  color: #302239;
+}
