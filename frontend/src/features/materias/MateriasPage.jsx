@@ -46,9 +46,7 @@ export default function MateriasPage() {
         </label>
 
         {visiveis.length === 0 ? (
-          <EstadoVazio
-            mensagem="Nenhuma matéria encontrada para essa busca."
-          />
+          <EstadoVazio mensagem="Nenhuma matéria encontrada para essa busca." />
         ) : (
           <ul className="lista-cartoes">
             {visiveis.map((disciplina) => (
