@@ -61,6 +61,12 @@ HTTP 401. A autenticação é stateless, sem sessão de usuário no servidor.
 uma disciplina do aluno autenticado. O aluno precisa estar matriculado nela;
 caso contrário, a API responde HTTP 403. A rota também aparece no Swagger.
 
+`GET /atividades/proximas` lista as próximas entregas do aluno autenticado para a
+tela Início: até 5 entregas ainda não concluídas de todas as disciplinas dele, da
+mais urgente para a menos urgente. As que já venceram vêm primeiro, com
+`atrasada: true`. Cada item traz `disciplinaId` e `disciplinaNome`, para o front
+levar o aluno à página da disciplina.
+
 ### Configuração
 
 - JWT_SECRET: obrigatório, com pelo menos 32 bytes em UTF-8. Use um segredo
