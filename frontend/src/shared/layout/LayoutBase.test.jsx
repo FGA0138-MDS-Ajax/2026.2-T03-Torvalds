@@ -68,9 +68,7 @@ describe('Layout base', () => {
 
     expect(screen.getByText('Tela de matérias')).toBeInTheDocument()
     expect(busca).toHaveValue('comp')
-    expect(
-      screen.getByRole('button', { name: /Notificações/ }),
-    ).toBeDisabled()
+    expect(screen.getByRole('button', { name: /Notificações/ })).toBeDisabled()
   })
 
   it('abre a tela "Em breve" das anotações', () => {

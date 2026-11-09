@@ -46,9 +46,7 @@ describe('formatarPrazoCurto', () => {
   const agora = new Date(2026, 9, 22, 8, 0)
 
   it('diz "Hoje" e "Amanhã"', () => {
-    expect(formatarPrazoCurto('2026-10-22T23:59:00', agora)).toBe(
-      'Hoje, 23:59',
-    )
+    expect(formatarPrazoCurto('2026-10-22T23:59:00', agora)).toBe('Hoje, 23:59')
     expect(formatarPrazoCurto('2026-10-23T09:05:00', agora)).toBe(
       'Amanhã, 09:05',
     )

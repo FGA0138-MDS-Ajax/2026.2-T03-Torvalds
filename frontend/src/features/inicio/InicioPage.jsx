@@ -23,11 +23,7 @@ const CORES_DAS_MATERIAS = ['lilas', 'amarelo', 'verde', 'azul', 'rosa']
 
 function CartaoResumo({ cor, titulo, valor, legenda, para, rotulo }) {
   return (
-    <Link
-      className={`resumo resumo-${cor}`}
-      to={para}
-      aria-label={rotulo}
-    >
+    <Link className={`resumo resumo-${cor}`} to={para} aria-label={rotulo}>
       <span className="resumo-titulo">{titulo}</span>
       <span className="resumo-valor">{valor}</span>
       <span className="resumo-legenda">{legenda}</span>
