@@ -93,10 +93,6 @@ GET /me exige um token válido e retorna id, nome, email e matriculaUnB do aluno
 
 Os alunos do seed podem realizar login em desenvolvimento com as credenciais descritas na seção de dados de exemplo.
 
-A emissão e a validação dos tokens estão implementadas. O login com
-e-mail e senha e o endpoint GET /me serão entregues em tarefa separada.
-Os alunos do seed ainda não podem realizar login.
-
 ### CORS
 
 A API só aceita chamadas feitas pelo navegador a partir das origens listadas em

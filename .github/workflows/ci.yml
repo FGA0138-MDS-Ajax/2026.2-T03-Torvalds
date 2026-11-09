@@ -1,11 +1,12 @@
 name: CI
 
-# Roda em todo pull request que aponta para a developer (e sob demanda, pela aba Actions).
+# Roda em todo pull request que aponta para a developer ou para a main, esta última
+# para os PRs de release (e sob demanda, pela aba Actions).
 # Os dois jobs rodam sempre, sem filtro de pastas: um check obrigatório que não roda
 # deixa o PR travado esperando para sempre.
 on:
   pull_request:
-    branches: [developer]
+    branches: [developer, main]
   workflow_dispatch:
 
 # Um push novo no mesmo PR cancela a execução anterior, que já está velha.
