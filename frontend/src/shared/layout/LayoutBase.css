@@ -6,7 +6,7 @@
   color: var(--cor-texto);
 }
 
-/* Menu de caderno */
+/* Menu de caderno: painel na altura toda, com argolas na borda, como no protótipo */
 .layout-menu {
   position: sticky;
   top: 0;
@@ -16,25 +16,24 @@
   gap: 40px;
   height: 100svh;
   padding: 40px 24px;
-  border-right: 3px solid var(--cor-borda-forte);
+  border-right: 1px solid var(--cor-borda-forte);
   background: var(--cor-menu);
+
+  /* Largura de cada argola: mude só este número para aumentar ou diminuir */
+  --argola-largura: 38px;
 }
 
-/* As argolas do caderno, só como enfeite */
+/* Argolas de metal do protótipo (duas pontas ligadas por uma alça), repetidas
+   a cada 96px e centradas na borda do menu */
 .layout-menu::after {
   content: '';
   position: absolute;
-  top: 24px;
+  top: 52px;
   bottom: 24px;
-  right: -13px;
-  width: 26px;
-  background: radial-gradient(
-      circle at 50% 50%,
-      var(--cor-menu) 0 5px,
-      #9b9b94 5px 7.5px,
-      transparent 8px
-    )
-    0 0 / 26px 64px repeat-y;
+  right: calc(var(--argola-largura) / -2);
+  width: var(--argola-largura);
+  background: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='52'%20height='96'%20viewBox='208%20-269%20650%201200'%3E%3Cdefs%3E%3CradialGradient%20id='e'%20cx='.4'%20cy='.35'%20r='.8'%3E%3Cstop%20offset='0'%20stop-color='%23f0f0f0'/%3E%3Cstop%20offset='1'%20stop-color='%23cdcdcd'/%3E%3C/radialGradient%3E%3CradialGradient%20id='d'%20cx='.35'%20cy='.3'%20r='.9'%3E%3Cstop%20offset='0'%20stop-color='%23d6d1c8'/%3E%3Cstop%20offset='1'%20stop-color='%238a857d'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle%20cx='330'%20cy='331'%20r='114'%20fill='url%28%23e%29'%20stroke='%23666'%20stroke-width='12'/%3E%3Ccircle%20cx='738'%20cy='331'%20r='114'%20fill='url%28%23d%29'%20stroke='%23666'%20stroke-width='12'/%3E%3Crect%20x='272.5'%20y='274.5'%20width='525'%20height='101'%20rx='50.5'%20fill='none'%20stroke='%23919191'%20stroke-width='25'/%3E%3C/svg%3E")
+    0 0 / 100% 96px repeat-y;
   pointer-events: none;
 }
 
@@ -95,11 +94,43 @@
 
 /* Coluna da direita: barra do topo e conteúdo */
 .layout-coluna {
+  position: relative;
   display: flex;
   flex-direction: column;
   min-width: 0;
-  background: url('../../assets/decoracao-superior.png') no-repeat right top /
-    220px auto;
+  overflow: hidden;
+  background: var(--cor-fundo);
+}
+
+/* Manchas verdes do protótipo: uma grande atrás da busca e uma pequena no canto */
+.layout-coluna::before,
+.layout-coluna::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  z-index: 0;
+  background: url('../../assets/decoracao-superior.png') no-repeat top left /
+    100% auto;
+  pointer-events: none;
+}
+
+.layout-coluna::before {
+  left: 0;
+  width: 300px;
+  height: 205px;
+}
+
+.layout-coluna::after {
+  right: 0;
+  width: 130px;
+  height: 90px;
+  transform: scaleX(-1);
+}
+
+.layout-topo,
+.layout-conteudo {
+  position: relative;
+  z-index: 1;
 }
 
 .layout-topo {
@@ -194,9 +225,11 @@
     flex-direction: row;
     gap: 0;
     height: 68px;
+    margin-block: 0;
     padding: 8px 12px;
+    border: 0;
     border-top: 3px solid var(--cor-borda-forte);
-    border-right: 0;
+    border-radius: 0;
   }
 
   .layout-menu::after,
@@ -230,8 +263,14 @@
     font-size: 0.7rem;
   }
 
-  .layout-coluna {
-    background-size: 140px auto;
+  .layout-coluna::before {
+    width: 190px;
+    height: 130px;
+  }
+
+  .layout-coluna::after {
+    width: 90px;
+    height: 62px;
   }
 
   .layout-topo {
