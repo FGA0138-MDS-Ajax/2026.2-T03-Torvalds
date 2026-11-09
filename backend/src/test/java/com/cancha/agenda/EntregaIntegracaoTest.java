@@ -38,7 +38,7 @@ class EntregaIntegracaoTest {
         .andExpect(jsonPath("$[1].titulo").value("Trabalho: analisador sintático"))
         .andExpect(jsonPath("$[1].status").value("EM_ANDAMENTO"))
         .andExpect(jsonPath("$[2].titulo").value("Prova 2 de Compiladores"))
-        .andExpect(jsonPath("$[2].status").value("A fazer"))
+        .andExpect(jsonPath("$[2].status").value("A_FAZER"))
         .andExpect(jsonPath("$[0].descricao").exists())
         .andExpect(jsonPath("$[0].tipo").value("Lista"))
         .andExpect(jsonPath("$[0].prazo").exists());
