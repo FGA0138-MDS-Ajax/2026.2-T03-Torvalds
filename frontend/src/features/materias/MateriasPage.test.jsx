@@ -54,11 +54,18 @@ const atividades = [
   },
 ]
 
-function responder(status = 200, corpo = disciplinas) {
+function responder(status = 200, corpo = disciplinas, statusPatch = 200) {
+  const corpoPatch = statusPatch === 200 ? {} : { mensagem: 'Falhou' }
+
   vi.stubGlobal(
     'fetch',
-    vi.fn(async (url) => {
+    vi.fn(async (url, opcoes) => {
       const caminho = String(url)
+
+      if (opcoes?.method === 'PATCH') {
+        return new Response(JSON.stringify(corpoPatch), { status: statusPatch })
+      }
+
       let resposta = corpo
 
       if (status === 200 && caminho.endsWith('/conteudos')) {
@@ -133,6 +140,56 @@ describe('Matérias', () => {
     expect(
       await screen.findByRole('link', { name: /Ver todas as entregas/ }),
     ).toHaveAttribute('href', '/disciplinas/2')
+  })
+
+  it('muda o status ao escolher outra coluna e atualiza o progresso', async () => {
+    abrir()
+
+    fireEvent.change(
+      await screen.findByRole('combobox', { name: 'Mover Prova 2 para' }),
+      { target: { value: 'CONCLUIDA' } },
+    )
+
+    expect(await screen.findByText('Concluído (2)')).toBeInTheDocument()
+    expect(screen.getByText('A fazer (0)')).toBeInTheDocument()
+    expect(screen.getByText('67%')).toBeInTheDocument()
+
+    const chamada = fetch.mock.calls.find(
+      ([, opcoes]) => opcoes?.method === 'PATCH',
+    )
+
+    expect(String(chamada[0])).toContain('/atividades/13/status')
+    expect(JSON.parse(chamada[1].body)).toEqual({ status: 'CONCLUIDA' })
+  })
+
+  it('muda o status ao soltar o cartão em outra coluna', async () => {
+    abrir()
+
+    const cartao = (await screen.findByText('Prova 2')).closest('li')
+    const coluna = screen.getByText('Concluído (1)').closest('div')
+    const dataTransfer = { getData: () => '13', setData: vi.fn() }
+
+    fireEvent.dragStart(cartao, { dataTransfer })
+    fireEvent.dragOver(coluna, { dataTransfer })
+    fireEvent.drop(coluna, { dataTransfer })
+
+    expect(await screen.findByText('Concluído (2)')).toBeInTheDocument()
+  })
+
+  it('desfaz a mudança e avisa quando o servidor recusa', async () => {
+    responder(200, disciplinas, 503)
+    abrir()
+
+    fireEvent.change(
+      await screen.findByRole('combobox', { name: 'Mover Prova 2 para' }),
+      { target: { value: 'CONCLUIDA' } },
+    )
+
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      'Não foi possível mudar o status',
+    )
+    expect(screen.getByText('A fazer (1)')).toBeInTheDocument()
+    expect(screen.getByText('40%')).toBeInTheDocument()
   })
 
   it('filtra pelo termo da busca (?busca=) e avisa quando nada é encontrado', async () => {

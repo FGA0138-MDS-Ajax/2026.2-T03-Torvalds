@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest'
-import { agruparPorStatus, corDaMateria } from './materiasUtils'
+import {
+  agruparPorStatus,
+  corDaMateria,
+  percentualConcluido,
+} from './materiasUtils'
 
 describe('materiasUtils', () => {
   it('repete as cores do protótipo na ordem', () => {
@@ -24,5 +28,17 @@ describe('materiasUtils', () => {
     expect(grupos.aFazer.map((a) => a.id)).toEqual([1, 4])
     expect(grupos.emAndamento.map((a) => a.id)).toEqual([2])
     expect(grupos.concluidas.map((a) => a.id)).toEqual([3])
+  })
+
+  it('calcula o percentual de atividades concluídas', () => {
+    expect(percentualConcluido([])).toBe(0)
+    expect(
+      percentualConcluido([
+        { status: 'CONCLUIDA' },
+        { status: 'A_FAZER' },
+        { status: 'EM_ANDAMENTO' },
+        { status: 'CONCLUIDA' },
+      ]),
+    ).toBe(50)
   })
 })

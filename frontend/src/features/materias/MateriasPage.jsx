@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useSearchParams } from 'react-router'
 import { listarDisciplinas } from '../disciplinas/listarDisciplinas'
 import BarraProgresso from '../../shared/components/BarraProgresso'
@@ -17,6 +18,8 @@ export default function MateriasPage() {
   const [parametros, setParametros] = useSearchParams()
   const busca = parametros.get('busca') ?? ''
   const escolhida = parametros.get('materia')
+  // Progresso recalculado aqui quando o aluno move uma atividade no quadro.
+  const [progressoLocal, setProgressoLocal] = useState({})
 
   function escolher(id) {
     const novos = new URLSearchParams(parametros)
@@ -74,7 +77,10 @@ export default function MateriasPage() {
                   >
                     <strong>{disciplina.nome}</strong>
                     <BarraProgresso
-                      percentual={disciplina.progressoPercentual}
+                      percentual={
+                        progressoLocal[disciplina.id] ??
+                        disciplina.progressoPercentual
+                      }
                       rotulo={`Progresso em ${disciplina.nome}`}
                     />
                   </button>
@@ -82,7 +88,16 @@ export default function MateriasPage() {
               )
             })}
           </ul>
-          <DetalheMateria key={selecionada.id} disciplina={selecionada} />
+          <DetalheMateria
+            key={selecionada.id}
+            disciplina={selecionada}
+            aoMudarProgresso={(percentual) =>
+              setProgressoLocal((anterior) => ({
+                ...anterior,
+                [selecionada.id]: percentual,
+              }))
+            }
+          />
         </div>
       )
     }
