@@ -4,15 +4,29 @@ import { carregarAgenda } from './agendaApi'
 import {
   agruparPorDia,
   chaveDoDia,
+  descreverSemana,
+  diasDaSemana,
   ehAtrasada,
   ehConcluida,
+  formatarHora,
   formatarPrazoDdMm,
+  inicioDaSemana,
   montarSemanas,
   nomeDoMes,
+  rotuloDoStatus,
 } from './agendaUtils'
 import './AgendaPage.css'
 
 const DIAS_DA_SEMANA = ['SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB', 'DOM']
+const DIAS_POR_EXTENSO = [
+  'Segunda',
+  'Terça',
+  'Quarta',
+  'Quinta',
+  'Sexta',
+  'Sábado',
+  'Domingo',
+]
 
 function descreverStatus(item) {
   if (ehConcluida(item.status)) return 'concluída'
@@ -94,6 +108,63 @@ function Calendario({ ano, mes, porDia, corDe, hoje }) {
         ))}
       </tbody>
     </table>
+  )
+}
+
+// Semana com mais detalhes: um dia por linha, com um cartão para cada entrega.
+function SemanaDetalhada({ inicio, porDia, corDe, hoje }) {
+  const chaveDeHoje = chaveDoDia(hoje)
+
+  return (
+    <div className="agenda-semana">
+      {diasDaSemana(inicio).map((data, indice) => {
+        const chave = chaveDoDia(data)
+        const itens = porDia.get(chave) ?? []
+
+        return (
+          <section
+            key={chave}
+            className={`agenda-semana-dia${
+              chave === chaveDeHoje ? ' agenda-dia-hoje' : ''
+            }`}
+            aria-label={`${DIAS_POR_EXTENSO[indice]}, ${formatarPrazoDdMm(data)}`}
+          >
+            <h3>
+              {DIAS_POR_EXTENSO[indice]}
+              <span>{formatarPrazoDdMm(data)}</span>
+            </h3>
+            {itens.length === 0 ? (
+              <p className="agenda-semana-vazio">Sem atividades</p>
+            ) : (
+              <ul className="agenda-semana-cartoes">
+                {itens.map((item) => (
+                  <li
+                    key={item.id}
+                    className={`agenda-cartao agenda-chip-${corDe(
+                      item.disciplina,
+                    )}${ehConcluida(item.status) ? ' agenda-chip-concluida' : ''}${
+                      ehAtrasada(item) ? ' agenda-chip-atrasada' : ''
+                    }`}
+                  >
+                    <span className="agenda-cartao-hora">
+                      {formatarHora(item.prazo)}
+                    </span>
+                    <strong>{item.titulo}</strong>
+                    {item.descricao && <p>{item.descricao}</p>}
+                    <span className="agenda-cartao-meta">
+                      {item.disciplina} · {item.tipo}
+                    </span>
+                    <span className="agenda-cartao-status">
+                      {rotuloDoStatus(item)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+        )
+      })}
+    </div>
   )
 }
 
@@ -196,6 +267,7 @@ export default function AgendaPage() {
 
     return { ano: hoje.getFullYear(), mes: hoje.getMonth() }
   })
+  const [semana, setSemana] = useState(() => inicioDaSemana(new Date()))
   const [ocultas, setOcultas] = useState(() => new Set())
 
   useEffect(() => {
@@ -227,6 +299,49 @@ export default function AgendaPage() {
 
       return { ano: data.getFullYear(), mes: data.getMonth() }
     })
+  }
+
+  function mudarSemana(passo) {
+    setSemana(
+      (inicio) =>
+        new Date(
+          inicio.getFullYear(),
+          inicio.getMonth(),
+          inicio.getDate() + passo * 7,
+        ),
+    )
+  }
+
+  function navegar(passo) {
+    if (vista === 'semana') mudarSemana(passo)
+    else mudarMes(passo)
+  }
+
+  // Ao trocar de vista, a nova começa no período que o aluno estava olhando.
+  function escolherVista(nova) {
+    if (nova === 'semana' && vista !== 'semana') {
+      const hoje = new Date()
+      const nesteMes =
+        hoje.getFullYear() === mostrado.ano && hoje.getMonth() === mostrado.mes
+
+      setSemana(
+        inicioDaSemana(
+          nesteMes ? hoje : new Date(mostrado.ano, mostrado.mes, 1),
+        ),
+      )
+    } else if (nova !== 'semana' && vista === 'semana') {
+      // Se a semana tem o dia de hoje, vale o mês de hoje; senão, o da quinta-feira.
+      const dias = diasDaSemana(semana)
+      const chaveDeHoje = chaveDoDia(new Date())
+      const referencia =
+        dias.find((dia) => chaveDoDia(dia) === chaveDeHoje) ?? dias[3]
+
+      setMostrado({
+        ano: referencia.getFullYear(),
+        mes: referencia.getMonth(),
+      })
+    }
+    setVista(nova)
   }
 
   function alternarMateria(nome) {
@@ -290,17 +405,21 @@ export default function AgendaPage() {
               <button
                 type="button"
                 aria-pressed={vista === 'mes'}
-                onClick={() => setVista('mes')}
+                onClick={() => escolherVista('mes')}
               >
                 Mês
               </button>
-              <button type="button" disabled title="Em breve">
+              <button
+                type="button"
+                aria-pressed={vista === 'semana'}
+                onClick={() => escolherVista('semana')}
+              >
                 Semana
               </button>
               <button
                 type="button"
                 aria-pressed={vista === 'lista'}
-                onClick={() => setVista('lista')}
+                onClick={() => escolherVista('lista')}
               >
                 Lista
               </button>
@@ -308,18 +427,24 @@ export default function AgendaPage() {
             <div className="agenda-navegacao">
               <button
                 type="button"
-                aria-label="Mês anterior"
-                onClick={() => mudarMes(-1)}
+                aria-label={
+                  vista === 'semana' ? 'Semana anterior' : 'Mês anterior'
+                }
+                onClick={() => navegar(-1)}
               >
                 ‹
               </button>
               <h2 aria-live="polite">
-                {nomeDoMes(mostrado.ano, mostrado.mes)}
+                {vista === 'semana'
+                  ? descreverSemana(semana)
+                  : nomeDoMes(mostrado.ano, mostrado.mes)}
               </h2>
               <button
                 type="button"
-                aria-label="Próximo mês"
-                onClick={() => mudarMes(1)}
+                aria-label={
+                  vista === 'semana' ? 'Próxima semana' : 'Próximo mês'
+                }
+                onClick={() => navegar(1)}
               >
                 ›
               </button>
@@ -329,6 +454,13 @@ export default function AgendaPage() {
             <Calendario
               ano={mostrado.ano}
               mes={mostrado.mes}
+              porDia={porDia}
+              corDe={corDe}
+              hoje={new Date()}
+            />
+          ) : vista === 'semana' ? (
+            <SemanaDetalhada
+              inicio={semana}
               porDia={porDia}
               corDe={corDe}
               hoje={new Date()}

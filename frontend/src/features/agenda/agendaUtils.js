@@ -109,3 +109,51 @@ export function agruparPorDia(itens) {
 
   return grupos
 }
+
+/** Segunda-feira (à meia-noite) da semana que contém a data. */
+export function inicioDaSemana(data) {
+  const deslocamento = (data.getDay() + 6) % 7
+
+  return new Date(
+    data.getFullYear(),
+    data.getMonth(),
+    data.getDate() - deslocamento,
+  )
+}
+
+/** Os 7 dias da semana, de segunda a domingo, a partir da segunda-feira dada. */
+export function diasDaSemana(inicio) {
+  return Array.from(
+    { length: 7 },
+    (_, i) =>
+      new Date(inicio.getFullYear(), inicio.getMonth(), inicio.getDate() + i),
+  )
+}
+
+/** "09/11 a 15/11 de 2026", como título da vista semanal. */
+export function descreverSemana(inicio) {
+  const fim = diasDaSemana(inicio)[6]
+
+  return `${formatarPrazoDdMm(inicio)} a ${formatarPrazoDdMm(fim)} de ${fim.getFullYear()}`
+}
+
+/** Hora do prazo no formato 23:59. */
+export function formatarHora(dataIso) {
+  const data = new Date(dataIso)
+
+  if (!dataIso || Number.isNaN(data.getTime())) return ''
+
+  const hora = String(data.getHours()).padStart(2, '0')
+  const minuto = String(data.getMinutes()).padStart(2, '0')
+
+  return `${hora}:${minuto}`
+}
+
+/** Situação da entrega em texto: Concluída, Atrasada, Em andamento ou A fazer. */
+export function rotuloDoStatus(item) {
+  if (ehConcluida(item.status)) return 'Concluída'
+  if (ehAtrasada(item)) return 'Atrasada'
+  if (ehEmAndamento(item.status)) return 'Em andamento'
+
+  return 'A fazer'
+}

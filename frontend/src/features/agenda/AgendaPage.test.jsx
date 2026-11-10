@@ -7,10 +7,15 @@ import AgendaPage from './AgendaPage'
 import {
   agruparPorDia,
   categorizarEntrega,
+  descreverSemana,
+  diasDaSemana,
   ehAtrasada,
+  formatarHora,
   formatarPrazoDdMm,
+  inicioDaSemana,
   montarSemanas,
   nomeDoMes,
+  rotuloDoStatus,
 } from './agendaUtils'
 
 const hoje = new Date()
@@ -161,6 +166,35 @@ describe('Funções utilitárias da Agenda', () => {
     expect(grupos.size).toBe(2)
   })
 
+  it('acha a segunda-feira e os 7 dias da semana', () => {
+    // 10/11/2026 é uma terça-feira.
+    const inicio = inicioDaSemana(new Date(2026, 10, 10))
+    const dias = diasDaSemana(inicio)
+
+    expect(formatarPrazoDdMm(inicio)).toBe('09/11')
+    expect(inicioDaSemana(new Date(2026, 10, 15))).toEqual(inicio)
+    expect(dias).toHaveLength(7)
+    expect(formatarPrazoDdMm(dias[6])).toBe('15/11')
+    expect(descreverSemana(inicio)).toBe('09/11 a 15/11 de 2026')
+  })
+
+  it('formata a hora e o rótulo da situação', () => {
+    expect(formatarHora('2026-10-07T09:05:00')).toBe('09:05')
+    expect(formatarHora('invalida')).toBe('')
+    expect(
+      rotuloDoStatus({ prazo: '2000-01-01T00:00:00', status: 'A_FAZER' }),
+    ).toBe('Atrasada')
+    expect(
+      rotuloDoStatus({ prazo: '2099-01-01T00:00:00', status: 'EM_ANDAMENTO' }),
+    ).toBe('Em andamento')
+    expect(
+      rotuloDoStatus({ prazo: '2000-01-01T00:00:00', status: 'CONCLUIDA' }),
+    ).toBe('Concluída')
+    expect(
+      rotuloDoStatus({ prazo: '2099-01-01T00:00:00', status: 'A_FAZER' }),
+    ).toBe('A fazer')
+  })
+
   it('escreve o nome do mês como no protótipo', () => {
     expect(nomeDoMes(2026, 9)).toBe('Outubro 2026')
     expect(nomeDoMes(2027, 0)).toBe('Janeiro 2027')
@@ -275,6 +309,48 @@ describe('Página Agenda (calendário)', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Próximo mês' }))
 
     expect(screen.getByText('Prova do mês seguinte')).toBeInTheDocument()
+  })
+
+  it('mostra a semana com os detalhes de cada entrega', async () => {
+    abrir()
+    await screen.findByText(/Lista 2: análise léxica/)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Semana' }))
+
+    expect(
+      screen.getByRole('heading', {
+        name: descreverSemana(inicioDaSemana(hoje)),
+      }),
+    ).toBeInTheDocument()
+    expect(screen.getByText('Lista 2: análise léxica')).toBeInTheDocument()
+    expect(screen.getAllByText('23:59')).toHaveLength(2)
+    expect(screen.getByText('Compiladores · Lista')).toBeInTheDocument()
+    expect(screen.getByText('Em andamento')).toBeInTheDocument()
+    expect(screen.getByText('Atrasada')).toBeInTheDocument()
+    expect(screen.getAllByText('Sem atividades')).toHaveLength(6)
+  })
+
+  it('navega entre as semanas e volta para o mês certo', async () => {
+    abrir()
+    await screen.findByText(/Lista 2: análise léxica/)
+    fireEvent.click(screen.getByRole('button', { name: 'Semana' }))
+
+    fireEvent.click(screen.getByRole('button', { name: 'Próxima semana' }))
+
+    expect(
+      screen.queryByText('Lista 2: análise léxica'),
+    ).not.toBeInTheDocument()
+    expect(screen.getAllByText('Sem atividades')).toHaveLength(7)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Semana anterior' }))
+
+    expect(screen.getByText('Lista 2: análise léxica')).toBeInTheDocument()
+
+    fireEvent.click(screen.getByRole('button', { name: 'Mês' }))
+
+    expect(
+      screen.getByRole('heading', { name: NOME_DO_MES_ATUAL }),
+    ).toBeInTheDocument()
   })
 
   it('mostra o formulário de adicionar tarefa desativado e como Em breve', async () => {

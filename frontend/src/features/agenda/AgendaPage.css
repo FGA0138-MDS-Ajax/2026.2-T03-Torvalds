@@ -433,3 +433,86 @@
     display: none;
   }
 }
+
+/* Vista semanal: um dia por linha, com os detalhes de cada entrega */
+.agenda-semana {
+  display: grid;
+  gap: 10px;
+}
+
+.agenda-semana-dia {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  padding: 10px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 12px;
+}
+
+.agenda-semana-dia h3 {
+  display: grid;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.agenda-semana-dia h3 span {
+  font-family: var(--fonte-texto);
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.agenda-semana-vazio {
+  margin: 0;
+  color: var(--cor-texto-suave);
+  font-size: 0.875rem;
+}
+
+.agenda-semana-cartoes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.agenda-cartao {
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px;
+  border: 1px solid;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.agenda-cartao p {
+  margin: 0;
+}
+
+.agenda-cartao-hora,
+.agenda-cartao-status {
+  font-weight: 700;
+}
+
+.agenda-cartao-status {
+  justify-self: start;
+  padding: 1px 10px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.7);
+}
+
+@media (max-width: 600px) {
+  .agenda-semana-dia {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  .agenda-semana-dia h3 {
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+  }
+}
