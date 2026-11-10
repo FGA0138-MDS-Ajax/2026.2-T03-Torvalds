@@ -192,6 +192,33 @@ describe('Matérias', () => {
     expect(screen.getByText('40%')).toBeInTheDocument()
   })
 
+  it('abre a tela da matéria ao escolher e volta para a lista', async () => {
+    const { container } = abrir()
+    const grade = () => container.querySelector('.materias-grade')
+
+    fireEvent.click(
+      await screen.findByRole('button', { name: /Projeto Integrador/ }),
+    )
+
+    expect(grade()).toHaveClass('materias-grade-detalhe')
+
+    fireEvent.click(
+      screen.getByRole('button', { name: /Voltar para as matérias/ }),
+    )
+
+    expect(grade()).not.toHaveClass('materias-grade-detalhe')
+  })
+
+  it('começa só com a lista quando nenhuma matéria foi escolhida', async () => {
+    const { container } = abrir()
+
+    await screen.findByRole('button', { name: /Compiladores/ })
+
+    expect(container.querySelector('.materias-grade')).not.toHaveClass(
+      'materias-grade-detalhe',
+    )
+  })
+
   it('filtra pelo termo da busca (?busca=) e avisa quando nada é encontrado', async () => {
     abrir('/materias?busca=projeto')
 

@@ -21,12 +21,20 @@ export default function MateriasPage() {
   // Progresso recalculado aqui quando o aluno move uma atividade no quadro.
   const [progressoLocal, setProgressoLocal] = useState({})
 
+  function voltarParaLista() {
+    const novos = new URLSearchParams(parametros)
+    novos.delete('materia')
+    setParametros(novos)
+  }
+
   function escolher(id) {
     const novos = new URLSearchParams(parametros)
     novos.set('materia', String(id))
-    setParametros(novos, { replace: true })
+    setParametros(novos)
   }
 
+  // No celular, só a lista aparece até o aluno escolher uma matéria; aí abre a tela dela.
+  let detalheAberto = false
   let conteudo
 
   if (carregando) {
@@ -56,8 +64,16 @@ export default function MateriasPage() {
         visiveis.find((disciplina) => String(disciplina.id) === escolhida) ??
         visiveis[0]
 
+      detalheAberto = visiveis.some(
+        (disciplina) => String(disciplina.id) === escolhida,
+      )
+
       conteudo = (
-        <div className="materias-grade">
+        <div
+          className={`materias-grade${
+            detalheAberto ? ' materias-grade-detalhe' : ''
+          }`}
+        >
           <ul className="materias-lista">
             {visiveis.map((disciplina) => {
               const ativa = disciplina.id === selecionada.id
@@ -88,23 +104,34 @@ export default function MateriasPage() {
               )
             })}
           </ul>
-          <DetalheMateria
-            key={selecionada.id}
-            disciplina={selecionada}
-            aoMudarProgresso={(percentual) =>
-              setProgressoLocal((anterior) => ({
-                ...anterior,
-                [selecionada.id]: percentual,
-              }))
-            }
-          />
+          <div className="materias-painel">
+            <button
+              type="button"
+              className="materias-voltar"
+              onClick={voltarParaLista}
+            >
+              ← Voltar para as matérias
+            </button>
+            <DetalheMateria
+              key={selecionada.id}
+              disciplina={selecionada}
+              aoMudarProgresso={(percentual) =>
+                setProgressoLocal((anterior) => ({
+                  ...anterior,
+                  [selecionada.id]: percentual,
+                }))
+              }
+            />
+          </div>
         </div>
       )
     }
   }
 
   return (
-    <section className="materias">
+    <section
+      className={`materias${detalheAberto ? ' materias-com-detalhe' : ''}`}
+    >
       <h1>Suas Matérias</h1>
       <p className="materias-subtitulo">
         Escolha uma matéria para continuar seus estudos.

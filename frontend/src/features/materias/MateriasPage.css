@@ -283,9 +283,48 @@
   font-size: 0.875rem;
 }
 
+.materias-painel {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.materias-voltar {
+  display: none;
+}
+
 @media (max-width: 900px) {
   .materias-grade {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Celular: primeiro só a lista; ao escolher uma matéria, só o conteúdo dela */
+  .materias-grade:not(.materias-grade-detalhe) .materias-painel {
+    display: none;
+  }
+
+  .materias-grade-detalhe .materias-lista {
+    display: none;
+  }
+
+  .materias-com-detalhe > h1,
+  .materias-com-detalhe > .materias-subtitulo {
+    display: none;
+  }
+
+  .materias-voltar {
+    display: inline-flex;
+    align-items: center;
+    justify-self: start;
+    min-height: 44px;
+    padding: 8px 16px;
+    border: 1px solid var(--cor-borda-forte);
+    border-radius: 12px;
+    background: var(--cor-papel);
+    color: var(--cor-texto);
+    font: inherit;
+    font-size: 0.875rem;
+    cursor: pointer;
   }
 
   .materia-quadro {
