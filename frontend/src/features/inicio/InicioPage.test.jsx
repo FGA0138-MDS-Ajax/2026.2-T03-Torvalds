@@ -148,10 +148,9 @@ describe('Início', () => {
     expect(item).toHaveAttribute('href', '/disciplinas/1')
     expect(item).toHaveTextContent('Compiladores')
     expect(item).toHaveTextContent('10/11, 18:00')
-    expect(screen.getByRole('link', { name: /Relatório parcial/ })).toHaveAttribute(
-      'href',
-      '/disciplinas/2',
-    )
+    expect(
+      screen.getByRole('link', { name: /Relatório parcial/ }),
+    ).toHaveAttribute('href', '/disciplinas/2')
     expect(screen.getByText(/\(atrasada\)/)).toBeInTheDocument()
     expect(screen.getByRole('link', { name: /Ver tudo/ })).toHaveAttribute(
       'href',
