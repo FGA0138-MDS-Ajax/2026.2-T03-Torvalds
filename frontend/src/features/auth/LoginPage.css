@@ -43,17 +43,11 @@
   left: 50%;
   width: 38px;
   transform: translateX(-50%);
-  background: var(--argolas-caderno) 0 40px / 100% 96px repeat-y;
-}
 
-/* Linha da lombada do caderno, atrás das argolas */
-.login-binding::before {
-  content: '';
-  position: absolute;
-  inset-block: 0;
-  left: calc(50% - 1px);
-  width: 2px;
-  background: #cdbc9f;
+  /* Primeira camada fica por cima: as argolas passam sobre a linha da lombada */
+  background:
+    var(--argolas-caderno) 0 40px / 100% 96px repeat-y,
+    linear-gradient(#cdbc9f, #cdbc9f) center / 2px 100% no-repeat;
 }
 
 .login-panel {
