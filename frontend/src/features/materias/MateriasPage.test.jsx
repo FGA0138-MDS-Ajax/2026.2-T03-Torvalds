@@ -192,6 +192,20 @@ describe('Matérias', () => {
     expect(screen.getByText('40%')).toBeInTheDocument()
   })
 
+  it('o painel do conteúdo usa a cor da matéria escolhida', async () => {
+    const { container } = abrir()
+    const painel = () => container.querySelector('.materia-detalhe')
+
+    await screen.findByRole('button', { name: /Compiladores/ })
+
+    expect(painel()).toHaveClass('materia-detalhe-lilas')
+
+    fireEvent.click(screen.getByRole('button', { name: /Projeto Integrador/ }))
+
+    expect(painel()).toHaveClass('materia-detalhe-verde')
+    expect(painel()).not.toHaveClass('materia-detalhe-lilas')
+  })
+
   it('abre a tela da matéria ao escolher e volta para a lista', async () => {
     const { container } = abrir()
     const grade = () => container.querySelector('.materias-grade')

@@ -21,6 +21,10 @@ export default function MateriasPage() {
   // Progresso recalculado aqui quando o aluno move uma atividade no quadro.
   const [progressoLocal, setProgressoLocal] = useState({})
 
+  // Cada matéria tem a sua cor, a mesma no cartão da lista e no painel do conteúdo.
+  const corDe = (disciplina) =>
+    corDaMateria(dados.findIndex((item) => item.id === disciplina.id))
+
   function voltarParaLista() {
     const novos = new URLSearchParams(parametros)
     novos.delete('materia')
@@ -77,9 +81,7 @@ export default function MateriasPage() {
           <ul className="materias-lista">
             {visiveis.map((disciplina) => {
               const ativa = disciplina.id === selecionada.id
-              const cor = corDaMateria(
-                dados.findIndex((item) => item.id === disciplina.id),
-              )
+              const cor = corDe(disciplina)
 
               return (
                 <li key={disciplina.id}>
@@ -115,6 +117,7 @@ export default function MateriasPage() {
             <DetalheMateria
               key={selecionada.id}
               disciplina={selecionada}
+              cor={corDe(selecionada)}
               aoMudarProgresso={(percentual) =>
                 setProgressoLocal((anterior) => ({
                   ...anterior,

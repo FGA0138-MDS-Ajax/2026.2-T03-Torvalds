@@ -176,7 +176,11 @@ function Quadro({ atividades, disciplinaId, aoMudarProgresso }) {
   )
 }
 
-export default function DetalheMateria({ disciplina, aoMudarProgresso }) {
+export default function DetalheMateria({
+  disciplina,
+  cor = 'lilas',
+  aoMudarProgresso,
+}) {
   const carregar = useCallback(
     (signal) => carregarDetalhe(disciplina.id, signal),
     [disciplina.id],
@@ -184,7 +188,7 @@ export default function DetalheMateria({ disciplina, aoMudarProgresso }) {
   const { dados, erro, carregando, tentarNovamente } = useRequisicao(carregar)
 
   return (
-    <div className="materia-detalhe">
+    <div className={`materia-detalhe materia-detalhe-${cor}`}>
       <div className="materia-detalhe-topo">
         <h2>Tópicos do conteúdo</h2>
         <div className="materia-capitulos">
