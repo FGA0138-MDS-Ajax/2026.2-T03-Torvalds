@@ -335,4 +335,88 @@ class ConclusaoEntregaIntegracaoTest {
                 entregaId))
         .isEqualTo("CONCLUIDA");
     }
+
+    @Test
+    void desfazerConclusaoRetornaParaAFazerEApagaData() throws Exception {
+    Long alunoId =
+        jdbc.queryForObject(
+            "select id from usuario where email = ?",
+            Long.class,
+            "aluno1@cancha.test");
+
+    Long entregaId =
+        jdbc.queryForObject(
+            "select min(e.id) from entrega e"
+                + " join matricula m on m.disciplina_id = e.disciplina_id"
+                + " where m.aluno_id = ?",
+            Long.class,
+            alunoId);
+
+    jdbc.update(
+        "delete from progresso_atividade where aluno_id = ? and entrega_id = ?",
+        alunoId,
+        entregaId);
+
+    String token = jwtService.emitir(alunoId);
+
+    mockMvc
+        .perform(
+            patch("/atividades/{id}/status", entregaId)
+                .header("Authorization", "Bearer " + token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                    {"status":"CONCLUIDA"}
+                    """))
+        .andExpect(status().isNoContent());
+
+    entityManager.flush();
+
+    assertThat(
+            jdbc.queryForObject(
+                "select data_conclusao from progresso_atividade"
+                    + " where aluno_id = ? and entrega_id = ?",
+                java.sql.Timestamp.class,
+                alunoId,
+                entregaId))
+        .isNotNull();
+
+    mockMvc
+        .perform(
+            patch("/atividades/{id}/status", entregaId)
+                .header("Authorization", "Bearer " + token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                    {"status":"A_FAZER"}
+                    """))
+        .andExpect(status().isNoContent());
+
+    entityManager.flush();
+
+    assertThat(
+            jdbc.queryForObject(
+                "select status from progresso_atividade"
+                    + " where aluno_id = ? and entrega_id = ?",
+                String.class,
+                alunoId,
+                entregaId))
+        .isEqualTo("A_FAZER");
+
+    assertThat(
+            jdbc.queryForObject(
+                "select data_conclusao from progresso_atividade"
+                    + " where aluno_id = ? and entrega_id = ?",
+                java.sql.Timestamp.class,
+                alunoId,
+                entregaId))
+        .isNull();
+
+    assertThat(
+            jdbc.queryForObject(
+                "select count(*) from progresso_atividade"
+                    + " where aluno_id = ? and entrega_id = ?",
+                Long.class,
+                alunoId,
+                entregaId))
+        .isEqualTo(1L);
+    }
 }
