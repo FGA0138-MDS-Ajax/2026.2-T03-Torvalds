@@ -34,7 +34,11 @@ public class ConclusaoEntregaService {
   }
 
   @Transactional
-  public void concluir(Long alunoId, Long entregaId) {
+  public void atualizarStatus(Long alunoId, Long entregaId, StatusEntrega status) {
+    if (status != StatusEntrega.CONCLUIDA && status != StatusEntrega.A_FAZER) {
+      throw new IllegalArgumentException("Situação não permitida para esta operação.");
+    }
+
     Entrega entrega =
         entregas
             .findById(entregaId)
@@ -52,13 +56,17 @@ public class ConclusaoEntregaService {
                 () -> new ProgressoAtividade(
                     alunos.buscar(alunoId), entrega, StatusEntrega.A_FAZER));
 
-    
-    if (progresso.getStatus() != StatusEntrega.CONCLUIDA
-        || progresso.getDataConclusao() == null) {
-      progresso.setDataConclusao(LocalDateTime.now());
+    if (status == StatusEntrega.CONCLUIDA) {
+      // Repetir a conclusão preserva a data anteriormente registrada.
+      if (progresso.getStatus() != StatusEntrega.CONCLUIDA
+          || progresso.getDataConclusao() == null) {
+        progresso.setDataConclusao(LocalDateTime.now());
+      }
+    } else {
+      progresso.setDataConclusao(null);
     }
 
-    progresso.setStatus(StatusEntrega.CONCLUIDA);
+    progresso.setStatus(status);
     progressos.save(progresso);
   }
 }

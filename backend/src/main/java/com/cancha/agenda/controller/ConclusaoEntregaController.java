@@ -1,4 +1,5 @@
 package com.cancha.agenda.controller;
+import com.cancha.agenda.model.StatusEntrega;
 
 import com.cancha.agenda.dto.ConclusaoEntregaRequest;
 import com.cancha.agenda.service.ConclusaoEntregaService;
@@ -29,17 +30,18 @@ public class ConclusaoEntregaController {
 
   @PatchMapping("/atividades/{id}/status")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  @Operation(summary = "Conclui uma entrega do aluno autenticado")
+  @Operation(summary = "Conclui ou desfaz a conclusão de uma entrega")
   @ApiResponses({
-    @ApiResponse(responseCode = "204", description = "Entrega concluída"),
+    @ApiResponse(responseCode = "204", description = "Situação da entrega atualizada"),
     @ApiResponse(responseCode = "400", description = "Corpo da requisição inválido"),
     @ApiResponse(responseCode = "401", description = "Autenticação necessária"),
     @ApiResponse(responseCode = "403", description = "Aluno não matriculado"),
     @ApiResponse(responseCode = "404", description = "Atividade não encontrada")
   })
-  public void concluir(
+  public void atualizarStatus(
       @PathVariable Long id,
       @Valid @RequestBody ConclusaoEntregaRequest request) {
-    service.concluir(alunoAtual.id(), id);
+    service.atualizarStatus(
+        alunoAtual.id(), id, StatusEntrega.valueOf(request.status()));
   }
 }
