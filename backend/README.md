@@ -245,3 +245,28 @@ backend/
 ```
 
 Dentro de cada módulo (exceto `common`), os subpacotes são `controller`, `service`, `repository`, `model` e `dto`. Um módulo só acessa outro por meio da camada `service`, nunca pelo `repository`.
+
+## Concluir uma entrega
+
+`PATCH /atividades/{id}/status`
+
+Exige token JWT no cabeçalho `Authorization: Bearer <token>`.
+O aluno é identificado pelo token, sem informar seu ID no corpo.
+
+Corpo da requisição:
+
+```json
+{"status":"CONCLUIDA"}
+```
+
+- `204`: conclusão registrada, sem corpo na resposta.
+- `400`: corpo inválido ou situação diferente de `CONCLUIDA`.
+- `401`: autenticação ausente ou inválida.
+- `403`: aluno não matriculado na disciplina.
+- `404`: atividade inexistente.
+
+Cria o progresso individual quando não existe e atualiza quando já existe.
+Registra a data de conclusão e preserva essa data em chamadas repetidas.
+O progresso de outros alunos não é alterado.
+
+Desfazer a conclusão será implementado em tarefa separada.
