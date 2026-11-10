@@ -20,10 +20,55 @@ const disciplinas = [
   },
 ]
 
+const conteudos = [
+  {
+    id: 7,
+    titulo: 'Introdução aos compiladores',
+    tipo: 'Livro',
+    urlOuArquivo: 'https://exemplo.test/livro',
+    dataPublicacao: '2026-11-01',
+  },
+]
+
+const atividades = [
+  {
+    id: 11,
+    titulo: 'Lista 2: análise léxica',
+    tipo: 'Lista',
+    prazo: '2020-01-01T23:59:00',
+    status: 'CONCLUIDA',
+  },
+  {
+    id: 12,
+    titulo: 'Trabalho: parser',
+    tipo: 'Trabalho',
+    prazo: '2020-01-02T23:59:00',
+    status: 'EM_ANDAMENTO',
+  },
+  {
+    id: 13,
+    titulo: 'Prova 2',
+    tipo: 'Prova',
+    prazo: '2099-01-01T23:59:00',
+    status: 'A_FAZER',
+  },
+]
+
 function responder(status = 200, corpo = disciplinas) {
   vi.stubGlobal(
     'fetch',
-    vi.fn(async () => new Response(JSON.stringify(corpo), { status })),
+    vi.fn(async (url) => {
+      const caminho = String(url)
+      let resposta = corpo
+
+      if (status === 200 && caminho.endsWith('/conteudos')) {
+        resposta = conteudos
+      } else if (status === 200 && caminho.endsWith('/atividades')) {
+        resposta = atividades
+      }
+
+      return new Response(JSON.stringify(resposta), { status })
+    }),
   )
 }
 
@@ -47,25 +92,57 @@ afterEach(() => {
 })
 
 describe('Matérias', () => {
-  it('lista as matérias com link para a disciplina', async () => {
+  it('lista as matérias com o progresso e abre a primeira no painel', async () => {
     abrir()
 
     expect(screen.getByRole('status')).toHaveTextContent('Carregando')
 
-    const link = await screen.findByRole('link', { name: /Compiladores/ })
+    expect(
+      await screen.findByRole('button', { name: /Compiladores/ }),
+    ).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByText('40%')).toBeInTheDocument()
+    expect(
+      await screen.findByRole('link', {
+        name: 'Abrir Introdução aos compiladores',
+      }),
+    ).toHaveAttribute('href', 'https://exemplo.test/livro')
+  })
 
-    expect(link).toHaveAttribute('href', '/disciplinas/1')
-    expect(screen.getByText('40% concluído')).toBeInTheDocument()
+  it('mostra as atividades nas colunas do quadro', async () => {
+    abrir()
+
+    expect(
+      await screen.findByText('Lista 2: análise léxica'),
+    ).toBeInTheDocument()
+    expect(screen.getByText('A fazer (1)')).toBeInTheDocument()
+    expect(screen.getByText('Em andamento (1)')).toBeInTheDocument()
+    expect(screen.getByText('Concluído (1)')).toBeInTheDocument()
+    expect(screen.getByText(/Atrasada/)).toBeInTheDocument()
+    expect(
+      screen.getByRole('link', { name: /Ver todas as entregas/ }),
+    ).toHaveAttribute('href', '/disciplinas/1')
+  })
+
+  it('troca o painel ao escolher outra matéria', async () => {
+    abrir()
+
+    fireEvent.click(
+      await screen.findByRole('button', { name: /Projeto Integrador/ }),
+    )
+
+    expect(
+      await screen.findByRole('link', { name: /Ver todas as entregas/ }),
+    ).toHaveAttribute('href', '/disciplinas/2')
   })
 
   it('filtra pelo termo da busca (?busca=) e avisa quando nada é encontrado', async () => {
     abrir('/materias?busca=projeto')
 
     expect(
-      await screen.findByRole('link', { name: /Projeto Integrador/ }),
+      await screen.findByRole('button', { name: /Projeto Integrador/ }),
     ).toBeInTheDocument()
     expect(
-      screen.queryByRole('link', { name: /Compiladores/ }),
+      screen.queryByRole('button', { name: /Compiladores/ }),
     ).not.toBeInTheDocument()
 
     cleanup()
@@ -97,7 +174,7 @@ describe('Matérias', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Tentar novamente' }))
 
     expect(
-      await screen.findByRole('link', { name: /Compiladores/ }),
+      await screen.findByRole('button', { name: /Compiladores/ }),
     ).toBeInTheDocument()
   })
 })
