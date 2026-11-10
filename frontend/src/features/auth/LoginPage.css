@@ -16,7 +16,7 @@
 .login-book {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 32px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) 38px minmax(0, 1fr);
   align-items: center;
   max-width: 1440px;
   min-height: 100svh;
@@ -41,23 +41,19 @@
   position: absolute;
   inset-block: 0;
   left: 50%;
-  width: 32px;
+  width: 38px;
   transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  border-left: 2px solid #cdbc9f;
+  background: var(--argolas-caderno) 0 40px / 100% 96px repeat-y;
 }
 
-.login-binding span {
-  width: 32px;
-  height: 9px;
-  margin-left: -2px;
-  border: 1px solid #8f8b87;
-  border-radius: 8px;
-  background: linear-gradient(#ddd9d4, #aaa5a0, #e5e1dc);
-  box-shadow: 0 1px 2px #0002;
+/* Linha da lombada do caderno, atrás das argolas */
+.login-binding::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  left: calc(50% - 1px);
+  width: 2px;
+  background: #cdbc9f;
 }
 
 .login-panel {

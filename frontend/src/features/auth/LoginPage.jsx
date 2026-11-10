@@ -54,11 +54,7 @@ export default function LoginPage({ onEntrar }) {
           />
         </section>
 
-        <div className="login-binding" aria-hidden="true">
-          {Array.from({ length: 10 }, (_, index) => (
-            <span key={index} />
-          ))}
-        </div>
+        <div className="login-binding" aria-hidden="true" />
 
         <section className="login-panel" aria-labelledby="login-title">
           <div className="login-card">
