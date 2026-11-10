@@ -64,7 +64,7 @@
   align-items: center;
   gap: 12px;
   padding: 16px 18px;
-  border: 2px solid #d7cfbd;
+  border: 1px solid var(--cor-borda-forte);
   border-radius: 18px;
   color: inherit;
   font-family: var(--fonte-titulo);
@@ -79,7 +79,7 @@
 .layout-links a.active {
   border-color: var(--cor-verde);
   background: var(--cor-verde);
-  color: #fff;
+  color: var(--cor-texto);
 }
 
 .layout-links a:focus-visible,
