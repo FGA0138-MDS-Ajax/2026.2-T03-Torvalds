@@ -1,97 +1,207 @@
 import { Link } from 'react-router'
-import { carregarAgenda } from '../agenda/agendaApi'
-import {
-  ehAtrasada,
-  ehConcluida,
-  formatarPrazoDdMm,
-} from '../agenda/agendaUtils'
 import { useSessao } from '../auth/useSessao'
-import CartaoDisciplina from '../disciplinas/CartaoDisciplina'
-import { listarDisciplinas } from '../disciplinas/listarDisciplinas'
 import {
   Carregando,
   ErroCarregamento,
   EstadoVazio,
 } from '../../shared/components/Estados'
+import BarraProgresso from '../../shared/components/BarraProgresso'
 import { useRequisicao } from '../../shared/hooks/useRequisicao'
-import '../disciplinas/CartaoDisciplina.css'
+import { carregarInicio } from './inicioApi'
+import {
+  corDoTipo,
+  formatarPrazoCurto,
+  mensagemDeProgresso,
+  resumirEntregas,
+} from './inicioUtils'
+import ProgressoGeral from './ProgressoGeral'
 import './InicioPage.css'
 
-const LIMITE_PRAZOS = 5
+const CORES_DAS_MATERIAS = ['lilas', 'amarelo', 'verde', 'azul', 'rosa']
 
-function proximasEntregas(itens) {
-  return itens
-    .filter((item) => !ehConcluida(item.status))
-    .sort((a, b) => new Date(a.prazo) - new Date(b.prazo))
-    .slice(0, LIMITE_PRAZOS)
-}
-
-function SecaoDisciplinas() {
-  const { dados, erro, carregando, tentarNovamente } =
-    useRequisicao(listarDisciplinas)
-
-  if (carregando) return <Carregando mensagem="Carregando suas matérias…" />
-
-  if (erro) {
-    return (
-      <ErroCarregamento
-        titulo="Não foi possível carregar as matérias"
-        mensagem={erro.message}
-        aoTentarNovamente={tentarNovamente}
-      />
-    )
-  }
-
-  if (dados.length === 0) {
-    return <EstadoVazio mensagem="Você ainda não tem matérias." />
-  }
-
+function CartaoResumo({ cor, titulo, valor, legenda, para, rotulo }) {
   return (
-    <ul className="lista-cartoes">
-      {dados.map((disciplina) => (
-        <li key={disciplina.id}>
-          <CartaoDisciplina disciplina={disciplina} />
-        </li>
-      ))}
-    </ul>
+    <Link className={`resumo resumo-${cor}`} to={para} aria-label={rotulo}>
+      <span className="resumo-titulo">{titulo}</span>
+      <span className="resumo-valor">{valor}</span>
+      <span className="resumo-legenda">{legenda}</span>
+      <span className="resumo-seta" aria-hidden="true">
+        →
+      </span>
+    </Link>
   )
 }
 
-function SecaoPrazos() {
-  const { dados, erro, carregando, tentarNovamente } =
-    useRequisicao(carregarAgenda)
+function Progresso({ resumo }) {
+  return (
+    <section className="inicio-caixa inicio-progresso">
+      <h2>Meu progresso</h2>
+      <div className="inicio-progresso-corpo">
+        <ProgressoGeral percentual={resumo.percentual} />
+        <p className="inicio-progresso-contagem">
+          <strong>
+            {resumo.concluidas}/{resumo.total}
+          </strong>
+          <span>Atividades feitas</span>
+        </p>
+      </div>
+      <p className="inicio-progresso-mensagem">
+        <span aria-hidden="true">★ </span>
+        {mensagemDeProgresso(resumo)}
+      </p>
+    </section>
+  )
+}
 
-  if (carregando) return <Carregando mensagem="Carregando seus prazos…" />
+function Proximas({ proximas }) {
+  return (
+    <section className="inicio-caixa inicio-proximas">
+      <div className="inicio-caixa-topo">
+        <h2>Próximas atividades</h2>
+        <Link to="/agenda">Ver tudo →</Link>
+      </div>
+
+      {proximas.length === 0 ? (
+        <EstadoVazio mensagem="Nenhuma entrega pendente. Bom trabalho!" />
+      ) : (
+        <ul>
+          {proximas.map((item) => (
+            <li key={`${item.disciplinaId}-${item.id}`}>
+              <Link
+                className="inicio-proxima"
+                to={`/disciplinas/${item.disciplinaId}`}
+              >
+                <span
+                  className={`ponto ponto-${corDoTipo(item.tipo)}`}
+                  aria-hidden="true"
+                />
+                <span className="inicio-proxima-texto">
+                  <strong>{item.titulo}</strong>
+                  <span>{item.disciplinaNome}</span>
+                  <small className={item.atrasada ? 'atrasada' : undefined}>
+                    {formatarPrazoCurto(item.prazo)}
+                    {item.atrasada && ' (atrasada)'}
+                  </small>
+                </span>
+                {item.tipo && (
+                  <span className={`etiqueta etiqueta-${corDoTipo(item.tipo)}`}>
+                    {item.tipo}
+                  </span>
+                )}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  )
+}
+
+function MinhasMaterias({ disciplinas, entregas }) {
+  return (
+    <section className="inicio-caixa">
+      <h2>Minhas matérias</h2>
+
+      {disciplinas.length === 0 ? (
+        <EstadoVazio mensagem="Você ainda não tem matérias." />
+      ) : (
+        <ul className="inicio-materias">
+          {disciplinas.map((disciplina, indice) => {
+            const { total, concluidas } = resumirEntregas(
+              entregas.filter((item) => item.disciplinaId === disciplina.id),
+            )
+
+            return (
+              <li key={disciplina.id}>
+                <Link
+                  className={`materia materia-${
+                    CORES_DAS_MATERIAS[indice % CORES_DAS_MATERIAS.length]
+                  }`}
+                  to={`/disciplinas/${disciplina.id}`}
+                >
+                  <strong>{disciplina.nome}</strong>
+                  <span>
+                    {concluidas}/{total} Atividades
+                  </span>
+                  <BarraProgresso
+                    percentual={disciplina.progressoPercentual}
+                    rotulo={`Progresso em ${disciplina.nome}`}
+                  />
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+      )}
+    </section>
+  )
+}
+
+function Conteudo() {
+  const { dados, erro, carregando, tentarNovamente } =
+    useRequisicao(carregarInicio)
+
+  if (carregando) return <Carregando mensagem="Carregando seu painel…" />
 
   if (erro) {
     return (
       <ErroCarregamento
-        titulo="Não foi possível carregar os prazos"
+        titulo="Não foi possível carregar o painel"
         mensagem={erro.message}
         aoTentarNovamente={tentarNovamente}
       />
     )
   }
 
-  const proximas = proximasEntregas(dados)
-
-  if (proximas.length === 0) {
-    return <EstadoVazio mensagem="Nenhuma entrega pendente. Bom trabalho!" />
-  }
+  const { disciplinas, entregas, proximas } = dados
+  const resumo = resumirEntregas(entregas)
 
   return (
-    <ul className="inicio-prazos">
-      {proximas.map((item) => (
-        <li key={item.id}>
-          <strong>{item.titulo}</strong>
-          <span>{item.disciplina}</span>
-          <span>
-            Prazo: {formatarPrazoDdMm(item.prazo)}
-            {ehAtrasada(item) && ' (atrasada)'}
-          </span>
-        </li>
-      ))}
-    </ul>
+    <div className="inicio-grade">
+      <div className="inicio-principal">
+        <div className="inicio-resumos">
+          <CartaoResumo
+            cor="lilas"
+            titulo="Matérias"
+            valor={disciplinas.length}
+            legenda="Cursando"
+            para="/materias"
+            rotulo={`Matérias: ${disciplinas.length} cursando`}
+          />
+          <CartaoResumo
+            cor="amarelo"
+            titulo="Atividades"
+            valor={resumo.pendentes}
+            legenda="Pendentes"
+            para="/agenda"
+            rotulo={`Atividades: ${resumo.pendentes} pendentes`}
+          />
+          <CartaoResumo
+            cor="verde"
+            titulo="Anotações"
+            valor="—"
+            legenda="Em breve"
+            para="/anotacoes"
+            rotulo="Anotações: em breve"
+          />
+        </div>
+
+        <section className="inicio-caixa inicio-tarde">
+          <h2>Sua tarde de hoje</h2>
+          <p>
+            <span className="inicio-em-breve">Em breve</span> Aqui vão aparecer
+            as suas aulas do dia.
+          </p>
+        </section>
+
+        <MinhasMaterias disciplinas={disciplinas} entregas={entregas} />
+      </div>
+
+      <aside className="inicio-lateral">
+        <Progresso resumo={resumo} />
+        <Proximas proximas={proximas} />
+      </aside>
+    </div>
   )
 }
 
@@ -99,17 +209,9 @@ export default function InicioPage() {
   const { perfil } = useSessao()
 
   return (
-    <section>
+    <section className="inicio">
       <h1>Olá, {perfil.nome}!</h1>
-
-      <h2>Suas matérias</h2>
-      <SecaoDisciplinas />
-
-      <h2>Próximos prazos</h2>
-      <SecaoPrazos />
-      <p>
-        <Link to="/agenda">Ver agenda completa</Link>
-      </p>
+      <Conteudo />
     </section>
   )
 }

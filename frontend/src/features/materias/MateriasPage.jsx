@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useSearchParams } from 'react-router'
 import CartaoDisciplina from '../disciplinas/CartaoDisciplina'
 import { listarDisciplinas } from '../disciplinas/listarDisciplinas'
 import {
@@ -12,7 +12,8 @@ import '../disciplinas/CartaoDisciplina.css'
 export default function MateriasPage() {
   const { dados, erro, carregando, tentarNovamente } =
     useRequisicao(listarDisciplinas)
-  const [busca, setBusca] = useState('')
+  const [parametros] = useSearchParams()
+  const busca = parametros.get('busca') ?? ''
 
   let conteudo
 
@@ -36,15 +37,6 @@ export default function MateriasPage() {
 
     conteudo = (
       <>
-        <label>
-          Buscar matéria{' '}
-          <input
-            type="search"
-            value={busca}
-            onChange={(evento) => setBusca(evento.target.value)}
-          />
-        </label>
-
         {visiveis.length === 0 ? (
           <EstadoVazio mensagem="Nenhuma matéria encontrada para essa busca." />
         ) : (
