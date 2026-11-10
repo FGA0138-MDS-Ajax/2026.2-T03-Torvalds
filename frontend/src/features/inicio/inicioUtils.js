@@ -1,7 +1,5 @@
 import { ehConcluida } from '../agenda/agendaUtils'
 
-const LIMITE_PROXIMAS = 5
-
 /** Conta as entregas e calcula o percentual concluído (0 a 100). */
 export function resumirEntregas(entregas) {
   const total = entregas.length
@@ -9,14 +7,6 @@ export function resumirEntregas(entregas) {
   const percentual = total === 0 ? 0 : Math.round((concluidas / total) * 100)
 
   return { total, concluidas, pendentes: total - concluidas, percentual }
-}
-
-/** As entregas ainda não concluídas, da mais próxima para a mais distante. */
-export function proximasEntregas(entregas, limite = LIMITE_PROXIMAS) {
-  return entregas
-    .filter((item) => !ehConcluida(item.status))
-    .sort((a, b) => new Date(a.prazo) - new Date(b.prazo))
-    .slice(0, limite)
 }
 
 function inicioDoDia(data) {

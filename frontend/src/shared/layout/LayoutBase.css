@@ -47,7 +47,7 @@
 
 .layout-lema {
   margin: 4px 0 0;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   text-align: center;
 }
 
@@ -260,7 +260,7 @@
     padding: 4px;
     border-width: 1px;
     border-radius: 12px;
-    font-size: 0.7rem;
+    font-size: 0.875rem;
   }
 
   .layout-coluna::before {

@@ -38,12 +38,42 @@ const entregasDaDisciplina1 = [
   },
 ]
 
-function responder({ lista = disciplinas, statusLista = 200 } = {}) {
+const proximas = [
+  {
+    id: 1,
+    titulo: 'Lista 2',
+    tipo: 'Lista',
+    prazo: '2099-11-10T18:00:00',
+    status: 'A_FAZER',
+    disciplinaId: 1,
+    disciplinaNome: 'Compiladores',
+    atrasada: false,
+  },
+  {
+    id: 9,
+    titulo: 'Relatório parcial',
+    tipo: 'Trabalho',
+    prazo: '2020-01-01T10:00:00',
+    status: 'A_FAZER',
+    disciplinaId: 2,
+    disciplinaNome: 'Projeto Integrador',
+    atrasada: true,
+  },
+]
+
+function responder({
+  lista = disciplinas,
+  statusLista = 200,
+  proximasDoAluno = proximas,
+} = {}) {
   vi.stubGlobal(
     'fetch',
     vi.fn(async (url) => {
       if (url.endsWith('/disciplinas')) {
         return new Response(JSON.stringify(lista), { status: statusLista })
+      }
+      if (url.endsWith('/atividades/proximas')) {
+        return new Response(JSON.stringify(proximasDoAluno), { status: 200 })
       }
       if (url.endsWith('/disciplinas/1/atividades')) {
         return new Response(JSON.stringify(entregasDaDisciplina1), {
@@ -110,12 +140,19 @@ describe('Início', () => {
     expect(screen.getByText(/Você está indo muito bem!/)).toBeInTheDocument()
   })
 
-  it('lista as próximas atividades sem as concluídas', async () => {
+  it('lista as próximas atividades vindas do backend e leva à matéria', async () => {
     abrir()
 
-    expect(await screen.findByText('Lista 2')).toBeInTheDocument()
-    expect(screen.getByText(/10\/11, 18:00/)).toBeInTheDocument()
-    expect(screen.queryByText('Trabalho já entregue')).not.toBeInTheDocument()
+    const item = await screen.findByRole('link', { name: /Lista 2/ })
+
+    expect(item).toHaveAttribute('href', '/disciplinas/1')
+    expect(item).toHaveTextContent('Compiladores')
+    expect(item).toHaveTextContent('10/11, 18:00')
+    expect(screen.getByRole('link', { name: /Relatório parcial/ })).toHaveAttribute(
+      'href',
+      '/disciplinas/2',
+    )
+    expect(screen.getByText(/\(atrasada\)/)).toBeInTheDocument()
     expect(screen.getByRole('link', { name: /Ver tudo/ })).toHaveAttribute(
       'href',
       '/agenda',
@@ -125,7 +162,9 @@ describe('Início', () => {
   it('mostra as matérias com a contagem de atividades', async () => {
     abrir()
 
-    const cartao = await screen.findByRole('link', { name: /Compiladores/ })
+    const cartao = await screen.findByRole('link', {
+      name: /1\/2 Atividades/,
+    })
 
     expect(cartao).toHaveAttribute('href', '/disciplinas/1')
     expect(cartao).toHaveTextContent('1/2 Atividades')
@@ -136,7 +175,7 @@ describe('Início', () => {
   })
 
   it('avisa quando o aluno não tem matérias', async () => {
-    responder({ lista: [] })
+    responder({ lista: [], proximasDoAluno: [] })
     abrir()
 
     expect(
@@ -159,7 +198,7 @@ describe('Início', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Tentar novamente' }))
 
     expect(
-      await screen.findByRole('link', { name: /Compiladores/ }),
+      await screen.findByRole('link', { name: /1\/2 Atividades/ }),
     ).toBeInTheDocument()
   })
 })

@@ -1,5 +1,4 @@
 import { Link } from 'react-router'
-import { ehAtrasada } from '../agenda/agendaUtils'
 import { useSessao } from '../auth/useSessao'
 import {
   Carregando,
@@ -13,7 +12,6 @@ import {
   corDoTipo,
   formatarPrazoCurto,
   mensagemDeProgresso,
-  proximasEntregas,
   resumirEntregas,
 } from './inicioUtils'
 import ProgressoGeral from './ProgressoGeral'
@@ -55,9 +53,7 @@ function Progresso({ resumo }) {
   )
 }
 
-function Proximas({ entregas }) {
-  const proximas = proximasEntregas(entregas)
-
+function Proximas({ proximas }) {
   return (
     <section className="inicio-caixa inicio-proximas">
       <div className="inicio-caixa-topo">
@@ -71,23 +67,28 @@ function Proximas({ entregas }) {
         <ul>
           {proximas.map((item) => (
             <li key={`${item.disciplinaId}-${item.id}`}>
-              <span
-                className={`ponto ponto-${corDoTipo(item.tipo)}`}
-                aria-hidden="true"
-              />
-              <div className="inicio-proxima-texto">
-                <strong>{item.titulo}</strong>
-                <span>{item.disciplina}</span>
-                <small className={ehAtrasada(item) ? 'atrasada' : undefined}>
-                  {formatarPrazoCurto(item.prazo)}
-                  {ehAtrasada(item) && ' (atrasada)'}
-                </small>
-              </div>
-              {item.tipo && (
-                <span className={`etiqueta etiqueta-${corDoTipo(item.tipo)}`}>
-                  {item.tipo}
+              <Link
+                className="inicio-proxima"
+                to={`/disciplinas/${item.disciplinaId}`}
+              >
+                <span
+                  className={`ponto ponto-${corDoTipo(item.tipo)}`}
+                  aria-hidden="true"
+                />
+                <span className="inicio-proxima-texto">
+                  <strong>{item.titulo}</strong>
+                  <span>{item.disciplinaNome}</span>
+                  <small className={item.atrasada ? 'atrasada' : undefined}>
+                    {formatarPrazoCurto(item.prazo)}
+                    {item.atrasada && ' (atrasada)'}
+                  </small>
                 </span>
-              )}
+                {item.tipo && (
+                  <span className={`etiqueta etiqueta-${corDoTipo(item.tipo)}`}>
+                    {item.tipo}
+                  </span>
+                )}
+              </Link>
             </li>
           ))}
         </ul>
@@ -152,7 +153,7 @@ function Conteudo() {
     )
   }
 
-  const { disciplinas, entregas } = dados
+  const { disciplinas, entregas, proximas } = dados
   const resumo = resumirEntregas(entregas)
 
   return (
@@ -198,7 +199,7 @@ function Conteudo() {
 
       <aside className="inicio-lateral">
         <Progresso resumo={resumo} />
-        <Proximas entregas={entregas} />
+        <Proximas proximas={proximas} />
       </aside>
     </div>
   )

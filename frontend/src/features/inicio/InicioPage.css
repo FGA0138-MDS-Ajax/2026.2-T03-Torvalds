@@ -49,7 +49,7 @@
 
 .inicio-caixa-topo a {
   color: var(--cor-texto);
-  font-size: 0.8rem;
+  font-size: 0.875rem;
 }
 
 /* Três cartões de resumo */
@@ -130,7 +130,7 @@
   border-radius: 999px;
   background: var(--cor-lilas-claro);
   color: var(--cor-lilas-escuro);
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   font-weight: 700;
 }
 
@@ -153,7 +153,7 @@
   padding: 14px;
   border-radius: 10px;
   color: var(--cor-texto);
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   text-decoration: none;
 }
 
@@ -193,10 +193,6 @@
 .materia .barra-progresso-trilho {
   min-width: 0;
   height: 8px;
-}
-
-.materia .barra-progresso-texto {
-  font-size: 0.75rem;
 }
 
 /* Meu progresso: donut */
@@ -249,7 +245,7 @@
 }
 
 .progresso-geral-centro span {
-  font-size: 0.7rem;
+  font-size: 0.875rem;
   line-height: 1.2;
 }
 
@@ -265,7 +261,7 @@
 }
 
 .inicio-progresso-contagem span {
-  font-size: 0.8rem;
+  font-size: 0.875rem;
 }
 
 .inicio-progresso-mensagem {
@@ -286,11 +282,25 @@
 }
 
 .inicio-proximas li {
+  border-top: 1px solid var(--cor-borda);
+}
+
+.inicio-proxima {
   display: flex;
   align-items: flex-start;
   gap: 12px;
   padding: 12px 0;
-  border-top: 1px solid var(--cor-borda);
+  color: var(--cor-texto);
+  text-decoration: none;
+}
+
+.inicio-proxima:hover .inicio-proxima-texto strong {
+  text-decoration: underline;
+}
+
+.inicio-proxima:focus-visible {
+  outline: 3px solid var(--cor-lilas-escuro);
+  outline-offset: 2px;
 }
 
 .inicio-proxima-texto {
@@ -306,7 +316,7 @@
 
 .inicio-proxima-texto span,
 .inicio-proxima-texto small {
-  font-size: 0.8rem;
+  font-size: 0.875rem;
 }
 
 .inicio-proxima-texto small {
@@ -347,7 +357,7 @@
   padding: 1px 10px;
   border: 1px solid currentColor;
   border-radius: 999px;
-  font-size: 0.7rem;
+  font-size: 0.875rem;
 }
 
 .etiqueta-lilas {

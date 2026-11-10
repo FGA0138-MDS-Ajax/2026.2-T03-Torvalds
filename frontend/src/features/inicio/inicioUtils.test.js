@@ -3,7 +3,6 @@ import {
   corDoTipo,
   formatarPrazoCurto,
   mensagemDeProgresso,
-  proximasEntregas,
   resumirEntregas,
 } from './inicioUtils'
 
@@ -31,14 +30,6 @@ describe('resumirEntregas', () => {
       pendentes: 0,
       percentual: 0,
     })
-  })
-})
-
-describe('proximasEntregas', () => {
-  it('tira as concluídas, ordena por prazo e respeita o limite', () => {
-    const ids = proximasEntregas(entregas, 2).map((item) => item.id)
-
-    expect(ids).toEqual([2, 1])
   })
 })
 
