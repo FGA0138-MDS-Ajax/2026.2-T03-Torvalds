@@ -233,6 +233,10 @@
 }
 
 .materia-coluna-titulo {
+  display: grid;
+  place-content: center;
+  /* Mesma altura nas três colunas, mesmo quando um título quebra em duas linhas */
+  min-height: 3.5rem;
   margin: 0 0 8px;
   padding: 6px 10px;
   border-radius: 8px;
@@ -301,16 +305,9 @@
   cursor: grab;
 }
 
-.materia-item select {
-  width: 100%;
-  min-height: 32px;
-  margin-top: 4px;
-  border: 1px solid var(--cor-borda-forte);
-  border-radius: 6px;
-  background: var(--cor-papel);
-  color: var(--cor-texto);
-  font: inherit;
-  font-size: 0.875rem;
+.materia-item:focus-visible {
+  outline: 3px solid var(--painel-destaque);
+  outline-offset: 2px;
 }
 
 .materias-painel {
