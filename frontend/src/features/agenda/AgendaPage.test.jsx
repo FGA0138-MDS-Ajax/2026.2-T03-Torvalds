@@ -5,43 +5,59 @@ import '@testing-library/jest-dom/vitest'
 import { MemoryRouter, Route, Routes } from 'react-router'
 import AgendaPage from './AgendaPage'
 import {
-  formatarPrazoDdMm,
-  ehAtrasada,
+  agruparPorDia,
   categorizarEntrega,
+  ehAtrasada,
+  formatarPrazoDdMm,
+  montarSemanas,
+  nomeDoMes,
 } from './agendaUtils'
 
+const hoje = new Date()
+const NOME_DO_MES_ATUAL = nomeDoMes(hoje.getFullYear(), hoje.getMonth())
+
+function iso(data, hora = '18:00:00') {
+  const mes = String(data.getMonth() + 1).padStart(2, '0')
+  const dia = String(data.getDate()).padStart(2, '0')
+
+  return `${data.getFullYear()}-${mes}-${dia}T${hora}`
+}
+
+const proximoMes = new Date(hoje.getFullYear(), hoje.getMonth() + 1, 15)
+
+// Dois itens de hoje (mês atual) e um do mês seguinte.
 const itensExemplo = [
   {
     id: 1,
     titulo: 'Lista 2: análise léxica',
     disciplina: 'Compiladores',
     tipo: 'Lista',
-    prazo: '2099-11-10T18:00:00',
-    status: 'A fazer',
+    prazo: iso(hoje, '23:59:00'),
+    status: 'A_FAZER',
   },
   {
     id: 2,
     titulo: 'Trabalho de PI',
-    disciplina: 'Projeto Integrador',
+    disciplina: 'Projeto Integrador em Engenharia',
     tipo: 'Trabalho',
-    prazo: '2099-11-20T23:59:00',
+    prazo: iso(hoje, '23:59:00'),
     status: 'EM_ANDAMENTO',
   },
   {
     id: 3,
-    titulo: 'Estudo de caso ISO',
-    disciplina: 'Qualidade',
-    tipo: 'Trabalho',
-    prazo: '2000-01-01T12:00:00',
-    status: 'CONCLUIDA',
+    titulo: 'Prova do mês seguinte',
+    disciplina: 'Compiladores',
+    tipo: 'Prova',
+    prazo: iso(proximoMes),
+    status: 'A_FAZER',
   },
   {
     id: 4,
     titulo: 'Relatório atrasado',
-    disciplina: 'MDS',
-    tipo: 'Relatório',
-    prazo: '2000-01-01T12:00:00',
-    status: 'A fazer',
+    disciplina: 'Teoria dos Números',
+    tipo: 'Trabalho',
+    prazo: iso(hoje, '00:00:00'),
+    status: 'A_FAZER',
   },
 ]
 
@@ -116,53 +132,157 @@ describe('Funções utilitárias da Agenda', () => {
     expect(categorizarEntrega({ status: 'CONCLUIDA' })).toBe('CONCLUIDAS')
     expect(categorizarEntrega({ status: 'Concluída' })).toBe('CONCLUIDAS')
   })
-})
 
-describe('Página Agenda com integração GET /agenda', () => {
-  it('exibe estado de carregando e depois as três colunas com título, disciplina, tipo e prazo dd/mm', async () => {
-    abrir()
+  it('monta as semanas do mês de segunda a domingo', () => {
+    // Outubro de 2026 começa numa quinta-feira e tem 31 dias: 5 semanas.
+    const semanas = montarSemanas(2026, 9)
 
-    // Estado carregando
-    expect(screen.getByRole('status')).toHaveTextContent('Carregando agenda...')
-
-    // Título e colunas
-    expect(
-      await screen.findByRole('heading', { level: 1, name: 'Agenda' }),
-    ).toBeInTheDocument()
-    expect(
-      screen.getByRole('heading', { level: 2, name: 'A fazer' }),
-    ).toBeInTheDocument()
-    expect(
-      screen.getByRole('heading', { level: 2, name: 'Em andamento' }),
-    ).toBeInTheDocument()
-    expect(
-      screen.getByRole('heading', { level: 2, name: 'Concluídas' }),
-    ).toBeInTheDocument()
-
-    // Itens exibidos com título, disciplina, tipo e prazo dd/mm
-    expect(screen.getByText('Lista 2: análise léxica')).toBeInTheDocument()
-    expect(screen.getByText('Compiladores')).toBeInTheDocument()
-    expect(screen.getByText('Lista')).toBeInTheDocument()
-    expect(screen.getByText(/Prazo:\s*10\/11/)).toBeInTheDocument()
+    expect(semanas).toHaveLength(5)
+    expect(semanas.every((semana) => semana.length === 7)).toBe(true)
+    expect(semanas[0][0].chave).toBe('2026-09-28')
+    expect(semanas[0][0].foraDoMes).toBe(true)
+    expect(semanas[0][3].chave).toBe('2026-10-01')
+    expect(semanas[0][3].foraDoMes).toBe(false)
+    expect(semanas[4][6].chave).toBe('2026-11-01')
+    expect(semanas[4][6].foraDoMes).toBe(true)
   })
 
-  it('destaca atividades atrasadas', async () => {
+  it('agrupa as entregas por dia em ordem de prazo e ignora datas inválidas', () => {
+    const grupos = agruparPorDia([
+      { id: 1, prazo: '2026-10-07T20:00:00' },
+      { id: 2, prazo: '2026-10-07T09:00:00' },
+      { id: 3, prazo: '2026-10-08T10:00:00' },
+      { id: 4, prazo: 'invalida' },
+      { id: 5 },
+    ])
+
+    expect(grupos.get('2026-10-07').map((i) => i.id)).toEqual([2, 1])
+    expect(grupos.get('2026-10-08').map((i) => i.id)).toEqual([3])
+    expect(grupos.size).toBe(2)
+  })
+
+  it('escreve o nome do mês como no protótipo', () => {
+    expect(nomeDoMes(2026, 9)).toBe('Outubro 2026')
+    expect(nomeDoMes(2027, 0)).toBe('Janeiro 2027')
+  })
+})
+
+describe('Página Agenda (calendário)', () => {
+  it('mostra o carregamento e depois o calendário do mês atual com as entregas', async () => {
     abrir()
 
-    const itemAtrasado = await screen.findByText('Relatório atrasado')
-    expect(itemAtrasado).toBeInTheDocument()
+    expect(screen.getByRole('status')).toHaveTextContent('Carregando')
+    expect(
+      await screen.findByRole('heading', { name: NOME_DO_MES_ATUAL }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('columnheader', { name: 'SEG' }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText(/Lista 2: análise léxica, Compiladores, a fazer/),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText(/Trabalho de PI, Projeto Integrador/),
+    ).toBeInTheDocument()
+    expect(screen.queryByText(/Prova do mês seguinte/)).not.toBeInTheDocument()
+  })
 
-    // Alerta de atraso presente
-    expect(screen.getByText('(Atrasada)')).toBeInTheDocument()
+  it('navega entre os meses', async () => {
+    abrir()
+    await screen.findByRole('heading', { name: NOME_DO_MES_ATUAL })
 
-    // Card possui a classe css atrasada
-    const card = itemAtrasado.closest('.agenda-card')
-    expect(card).toHaveClass('atrasada')
+    fireEvent.click(screen.getByRole('button', { name: 'Próximo mês' }))
 
-    // Atividade concluída passada não deve ter destaque de atrasada
-    const itemConcluido = screen.getByText('Estudo de caso ISO')
-    const cardConcluido = itemConcluido.closest('.agenda-card')
-    expect(cardConcluido).not.toHaveClass('atrasada')
+    expect(
+      screen.getByRole('heading', {
+        name: nomeDoMes(proximoMes.getFullYear(), proximoMes.getMonth()),
+      }),
+    ).toBeInTheDocument()
+    expect(screen.getByText(/Prova do mês seguinte/)).toBeInTheDocument()
+    expect(screen.queryByText(/Trabalho de PI/)).not.toBeInTheDocument()
+
+    fireEvent.click(screen.getByRole('button', { name: 'Mês anterior' }))
+
+    expect(screen.getByText(/Trabalho de PI/)).toBeInTheDocument()
+  })
+
+  it('destaca as atividades atrasadas e marca as concluídas', async () => {
+    responderSucesso([
+      ...itensExemplo,
+      {
+        id: 9,
+        titulo: 'Já entregue',
+        disciplina: 'Compiladores',
+        tipo: 'Lista',
+        prazo: iso(hoje, '00:00:00'),
+        status: 'CONCLUIDA',
+      },
+    ])
+    abrir()
+
+    const atrasada = (await screen.findByText(/Relatório atrasado/)).closest(
+      'li',
+    )
+    const concluida = screen.getByText(/Já entregue/).closest('li')
+
+    expect(atrasada).toHaveClass('agenda-chip-atrasada')
+    expect(concluida).toHaveClass('agenda-chip-concluida')
+    expect(concluida).not.toHaveClass('agenda-chip-atrasada')
+    expect(
+      screen.getByText(/Já entregue, Compiladores, concluída/),
+    ).toBeInTheDocument()
+  })
+
+  it('usa a mesma cor da matéria no calendário e no filtro', async () => {
+    abrir()
+
+    const chip = (await screen.findByText(/Lista 2: análise léxica/)).closest(
+      'li',
+    )
+
+    expect(chip).toHaveClass('agenda-chip-lilas')
+    expect(screen.getByText(/Trabalho de PI/).closest('li')).toHaveClass(
+      'agenda-chip-verde',
+    )
+  })
+
+  it('filtra as entregas pelas matérias marcadas', async () => {
+    abrir()
+    await screen.findByText(/Lista 2: análise léxica/)
+
+    fireEvent.click(screen.getByRole('checkbox', { name: 'Compiladores' }))
+
+    expect(
+      screen.queryByText(/Lista 2: análise léxica/),
+    ).not.toBeInTheDocument()
+    expect(screen.getByText(/Trabalho de PI/)).toBeInTheDocument()
+
+    fireEvent.click(screen.getByRole('checkbox', { name: 'Compiladores' }))
+
+    expect(screen.getByText(/Lista 2: análise léxica/)).toBeInTheDocument()
+  })
+
+  it('mostra as atividades do mês em lista com a data dd/mm', async () => {
+    abrir()
+    await screen.findByText(/Lista 2: análise léxica/)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Lista' }))
+
+    expect(screen.getByText('Lista 2: análise léxica')).toBeInTheDocument()
+    expect(screen.getAllByText(formatarPrazoDdMm(iso(hoje))).length).toBe(3)
+    expect(screen.queryByText('Prova do mês seguinte')).not.toBeInTheDocument()
+
+    fireEvent.click(screen.getByRole('button', { name: 'Próximo mês' }))
+
+    expect(screen.getByText('Prova do mês seguinte')).toBeInTheDocument()
+  })
+
+  it('mostra o formulário de adicionar tarefa desativado e como Em breve', async () => {
+    abrir()
+    await screen.findByText(/Lista 2: análise léxica/)
+
+    expect(screen.getByText('Em breve')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Adicionar' })).toBeDisabled()
   })
 
   it('exibe estado vazio quando não há atividades', async () => {
@@ -192,14 +312,12 @@ describe('Página Agenda com integração GET /agenda', () => {
     expect(screen.getByText('Falha ao buscar agenda')).toBeInTheDocument()
 
     const botaoTentar = screen.getByRole('button', { name: /Tentar de novo/i })
-    expect(botaoTentar).toBeInTheDocument()
 
-    // Ao clicar em Tentar de novo com o serviço recuperado
     responderSucesso()
     fireEvent.click(botaoTentar)
 
     expect(
-      await screen.findByText('Lista 2: análise léxica'),
+      await screen.findByText(/Lista 2: análise léxica/),
     ).toBeInTheDocument()
   })
 
@@ -228,8 +346,8 @@ describe('Página Agenda com integração GET /agenda', () => {
                 id: 10,
                 titulo: 'Parser LR',
                 tipo: 'Trabalho',
-                prazo: '2099-12-01T23:59:00',
-                status: 'A fazer',
+                prazo: iso(hoje, '23:59:00'),
+                status: 'A_FAZER',
               },
             ]),
             { status: 200, headers: { 'Content-Type': 'application/json' } },
@@ -241,8 +359,9 @@ describe('Página Agenda com integração GET /agenda', () => {
 
     abrir()
 
-    expect(await screen.findByText('Parser LR')).toBeInTheDocument()
-    expect(screen.getByText('Compiladores')).toBeInTheDocument()
-    expect(screen.getByText(/Prazo:\s*01\/12/)).toBeInTheDocument()
+    expect(
+      await screen.findByText(/Parser LR, Compiladores, a fazer/),
+    ).toBeInTheDocument()
+    expect(screen.getByRole('checkbox', { name: 'Compiladores' })).toBeChecked()
   })
 })

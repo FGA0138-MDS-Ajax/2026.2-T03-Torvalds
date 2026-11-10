@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useSearchParams } from 'react-router'
 import { listarDisciplinas } from '../disciplinas/listarDisciplinas'
 import BarraProgresso from '../../shared/components/BarraProgresso'
+import { corDaDisciplina } from '../../shared/utils/coresDisciplina'
 import {
   Carregando,
   ErroCarregamento,
@@ -9,7 +10,6 @@ import {
 } from '../../shared/components/Estados'
 import { useRequisicao } from '../../shared/hooks/useRequisicao'
 import DetalheMateria from './DetalheMateria'
-import { corDaMateria } from './materiasUtils'
 import './MateriasPage.css'
 
 export default function MateriasPage() {
@@ -77,7 +77,8 @@ export default function MateriasPage() {
           <ul className="materias-lista">
             {visiveis.map((disciplina) => {
               const ativa = disciplina.id === selecionada.id
-              const cor = corDaMateria(
+              const cor = corDaDisciplina(
+                disciplina.nome,
                 dados.findIndex((item) => item.id === disciplina.id),
               )
 
