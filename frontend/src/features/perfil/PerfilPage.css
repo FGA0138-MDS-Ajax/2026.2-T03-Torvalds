@@ -1,0 +1,51 @@
+.perfil-caixa {
+  display: grid;
+  gap: 16px;
+  max-width: 640px;
+  padding: 20px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 14px;
+  background: var(--cor-papel);
+}
+
+.perfil-avatar {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--cor-lilas-escuro);
+  color: #fff;
+  font-family: var(--fonte-titulo);
+  font-size: 2rem;
+}
+
+.perfil-caixa dl {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+
+.perfil-caixa dt {
+  font-size: 0.875rem;
+  color: var(--cor-texto-suave);
+}
+
+.perfil-caixa dd {
+  margin: 0;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.perfil-sair {
+  justify-self: start;
+  min-height: 44px;
+  padding: 8px 18px;
+  border: 1px solid #756184;
+  border-radius: 6px;
+  background: var(--cor-lilas);
+  color: #302239;
+  font: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+}

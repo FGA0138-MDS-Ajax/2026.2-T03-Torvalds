@@ -7,6 +7,7 @@ const caminhos = {
     'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19 12l2-1-2-4-2 1-2-1V5H9v2L7 8 5 7 3 11l2 1v2l-2 1 2 4 2-1 2 1v2h6v-2l2-1 2 1 2-4-2-1z',
   sino: 'M6 17v-6a6 6 0 0 1 12 0v6l2 2H4zM10 21h4',
   lupa: 'M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM21 21l-5-5',
+  seta: 'M6 9l6 6 6-6',
 }
 
 /** Ícone simples, desenhado em SVG, que herda a cor do texto. */

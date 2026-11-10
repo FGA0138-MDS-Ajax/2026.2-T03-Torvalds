@@ -133,6 +133,11 @@
   z-index: 1;
 }
 
+/* Acima do conteúdo, para os painéis do topo não ficarem escondidos atrás dele */
+.layout-topo {
+  z-index: 5;
+}
+
 .layout-topo {
   display: flex;
   align-items: center;
@@ -157,49 +162,6 @@
   min-width: 0;
   border: 0;
   background: transparent;
-}
-
-.layout-acoes {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-left: auto;
-}
-
-.layout-acoes > button:not(.layout-sair),
-.layout-engrenagem {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border: 0;
-  border-radius: 50%;
-  background: transparent;
-  color: inherit;
-}
-
-.layout-acoes > button:disabled {
-  opacity: 0.6;
-}
-
-.layout-avatar {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--cor-lilas-escuro);
-  color: #fff;
-  font-weight: 700;
-}
-
-.layout-sair {
-  min-height: 40px;
-  padding: 8px 14px;
-  border: 1px solid #756184;
-  border-radius: 6px;
-  background: var(--cor-lilas);
-  color: #302239;
 }
 
 .layout-conteudo {

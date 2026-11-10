@@ -1,0 +1,223 @@
+.layout-acoes {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.layout-gatilho {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.layout-gatilho:hover,
+.layout-gatilho[aria-expanded='true'] {
+  background: rgb(67 45 30 / 0.08);
+}
+
+.layout-gatilho:focus-visible {
+  outline: 3px solid var(--cor-lilas-escuro);
+  outline-offset: 2px;
+}
+
+.layout-gatilho-perfil {
+  grid-auto-flow: column;
+  gap: 2px;
+  width: auto;
+  padding: 0 8px 0 2px;
+  border-radius: 999px;
+}
+
+.layout-avatar {
+  display: grid;
+  flex: 0 0 40px;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--cor-lilas-escuro);
+  color: #fff;
+  font-weight: 700;
+}
+
+.layout-selo {
+  position: absolute;
+  top: 0;
+  right: -2px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 6px;
+  background: var(--cor-alerta);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+}
+
+/* Painel que abre embaixo dos botões, preso à borda direita do topo */
+.layout-painel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 40;
+  width: min(400px, calc(100vw - 32px));
+  max-height: min(70vh, 560px);
+  overflow-y: auto;
+  border: 1px solid var(--cor-borda-forte);
+  border-radius: 12px;
+  background: var(--cor-papel);
+  box-shadow: 0 8px 24px rgb(67 45 30 / 0.18);
+}
+
+.layout-painel-estreito {
+  width: min(320px, calc(100vw - 32px));
+}
+
+.layout-painel-titulo {
+  margin: 0;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--cor-borda);
+  font-size: 1.1rem;
+}
+
+.layout-painel-corpo {
+  display: grid;
+  gap: 10px;
+  padding: 14px 18px;
+}
+
+.layout-painel-rotulo {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.layout-painel-aviso {
+  margin: 0;
+  padding: 18px;
+  font-size: 0.875rem;
+}
+
+.layout-painel-aviso button {
+  min-height: 44px;
+  margin-top: 10px;
+  padding: 8px 16px;
+  border: 1px solid #756184;
+  border-radius: 6px;
+  background: var(--cor-lilas);
+  color: #302239;
+  font: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.layout-painel-rodape {
+  display: block;
+  padding: 12px 18px;
+  border-top: 1px solid var(--cor-borda);
+  color: var(--cor-lilas-escuro);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.layout-notificacoes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.layout-notificacoes li + li {
+  border-top: 1px solid var(--cor-borda);
+}
+
+.layout-notificacoes a,
+.layout-perfil-links a {
+  display: grid;
+  gap: 2px;
+  padding: 12px 18px;
+  color: inherit;
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.layout-notificacoes a:hover,
+.layout-perfil-links a:hover {
+  background: var(--cor-menu);
+}
+
+.layout-notificacoes a:focus-visible,
+.layout-perfil-links a:focus-visible,
+.layout-painel-rodape:focus-visible {
+  outline: 3px solid var(--cor-lilas-escuro);
+  outline-offset: -3px;
+}
+
+.layout-notificacao-atrasada {
+  color: var(--cor-alerta);
+  font-weight: 700;
+}
+
+/* Perfil */
+.layout-perfil-cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.layout-perfil-cabecalho div {
+  display: grid;
+  min-width: 0;
+}
+
+.layout-perfil-cabecalho span:not(.layout-avatar) {
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+}
+
+.layout-perfil-links {
+  margin: 0;
+  padding: 6px 0;
+  list-style: none;
+}
+
+.layout-sair {
+  display: block;
+  width: calc(100% - 36px);
+  min-height: 44px;
+  margin: 4px 18px 16px;
+  border: 1px solid #756184;
+  border-radius: 6px;
+  background: var(--cor-lilas);
+  color: #302239;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.layout-sair:focus-visible {
+  outline: 3px solid var(--cor-lilas-escuro);
+  outline-offset: 2px;
+}
+
+/* No celular os ajustes ficam na barra de baixo */
+@media (max-width: 760px) {
+  .layout-gatilho.layout-engrenagem {
+    display: none;
+  }
+}

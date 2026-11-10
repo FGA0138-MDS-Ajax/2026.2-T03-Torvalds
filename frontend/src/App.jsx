@@ -3,9 +3,11 @@ import AgendaPage from './features/agenda/AgendaPage'
 import LoginPage from './features/auth/LoginPage'
 import RotaProtegida from './features/auth/RotaProtegida'
 import { useSessao } from './features/auth/useSessao'
+import ConfiguracoesPage from './features/configuracoes/ConfiguracoesPage'
 import PaginaDisciplina from './features/disciplinas/PaginaDisciplina'
 import InicioPage from './features/inicio/InicioPage'
 import MateriasPage from './features/materias/MateriasPage'
+import PerfilPage from './features/perfil/PerfilPage'
 import EmBreve from './shared/components/EmBreve'
 import PaginaNaoEncontrada from './shared/components/PaginaNaoEncontrada'
 import LayoutBase from './shared/layout/LayoutBase'
@@ -39,15 +41,8 @@ function App() {
               />
             }
           />
-          <Route
-            path="configuracoes"
-            element={
-              <EmBreve
-                titulo="Configurações"
-                descricao="Em breve você poderá ajustar o cAnCHA do seu jeito."
-              />
-            }
-          />
+          <Route path="configuracoes" element={<ConfiguracoesPage />} />
+          <Route path="perfil" element={<PerfilPage />} />
         </Route>
       </Route>
       <Route path="*" element={<PaginaNaoEncontrada />} />
