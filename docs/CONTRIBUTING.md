@@ -212,7 +212,7 @@ PRs grandes demais para revisar com calma (algumas centenas de linhas ou mais) d
 | Branch de documentação → `docs` | **Squash and merge** | Mesmo motivo. |
 | `developer` → `main` (release) | **Create a merge commit** | Fazer squash de uma branch permanente faz a `developer` e a `main` se afastarem e gera conflitos repetidos. |
 
-Depois do merge: apague a branch (o GitHub pode fazer isso sozinho, veja a seção 10) e rode os comandos de limpeza da seção 2.3.
+Depois do merge: apague a branch pelo botão **Delete branch** do PR e rode os comandos de limpeza da seção 2.3.
 
 ### 4.5 Nunca fazer
 
@@ -265,7 +265,7 @@ Fazemos Scrum usando só recursos nativos do GitHub: **Issues** (com labels e su
 | Estimativa | Label `pontos: 1`, `2`, `3`, `5` ou `8` nas HUs (jogo do planejamento do XP) |
 | Burndown / velocidade | Barra de progresso da milestone; velocidade = pontos das HUs fechadas na sprint |
 | Status da tarefa | Estado da issue + PR ligado (filtros abaixo) |
-| Definition of Done | Checklist do PR + 1 aprovação, garantidos pelas regras das branches |
+| Definition of Done | Checklist do PR + 1 aprovação, conferidos por quem revisa e pelo Product Owner na review |
 | Aceite da HU | O Product Owner confere os critérios de aceitação e fecha a HU na review |
 
 ### 6.3 Ver o "quadro" sem um quadro
@@ -354,7 +354,7 @@ Título da tarefa: verbo + objeto. Cada tarefa tem exatamente uma HU como pai, n
 |---|---|
 | Programação em par | As duas pessoas nos assignees da tarefa; `Co-authored-by:` nos commits |
 | Desenvolvimento guiado por testes (TDD) | O histórico mostra: `test:` → `feat:` → `refactor:`. O CI roda os testes em todo PR. |
-| Integração contínua | Branches curtas (1 a 2 dias), PRs pequenos, `developer` sempre funcionando; CI obrigatório para o merge (quando existir) |
+| Integração contínua | Branches curtas (1 a 2 dias), PRs pequenos, `developer` sempre funcionando; CI verde antes do merge |
 | Pequenas releases | Uma tag por sprint, com notas da release |
 | Design simples e refatoração | Refatoração em commit próprio, sem mudar comportamento; um assunto por PR |
 | Propriedade coletiva do código | Qualquer pessoa pode revisar ou alterar qualquer parte; revisores em rodízio |
@@ -367,27 +367,27 @@ Título da tarefa: verbo + objeto. Cada tarefa tem exatamente uma HU como pai, n
 
 ## 10. Configuração do repositório (admins)
 
-Feita uma vez, por quem administra o repositório. É isso que transforma o combinado em regra de verdade.
+As configurações em **Settings** e os **rulesets** dependem de permissão de administrador no repositório, que fica com o monitor da disciplina. Na reunião de 11/11/2026, o time decidiu não pedir essa permissão e não usar rulesets (#92). As regras abaixo continuam valendo como **combinado do time**: quem revisa confere antes de aprovar, e o Product Owner confere na review.
 
-### 10.1 Settings → General → Pull Requests
+### 10.1 Merge e branches
 
-- [x] Allow merge commits (usado só nas releases para a `main`)
-- [x] Allow squash merging, com mensagem padrão: **título do pull request**
-- [ ] Allow rebase merging (desligado)
-- [x] Always suggest updating pull request branches
-- [x] Automatically delete head branches
+- Tarefa → `developer` e documentação → `docs`: **Squash and merge**, com o título do PR como mensagem.
+- Release `developer` → `main`: **Create a merge commit**.
+- Rebase merge não é usado.
+- Depois do merge, quem fez o merge apaga a branch pelo botão **Delete branch** do PR.
+- Se a branch ficou para trás da base, quem abriu o PR traz a base para a branch (`git merge origin/developer`) e envia de novo. O push também faz o CI rodar outra vez.
 
-### 10.2 Settings → Rules → Rulesets
+### 10.2 Regras das branches
 
-| Ruleset | Alvo | Regras |
-|---|---|---|
-| Proteger main | `main` | Exigir pull request · 1 aprovação · descartar aprovações antigas quando houver commits novos · exigir conversas resolvidas · método de merge permitido: **merge** · bloquear force push · impedir exclusão |
-| Proteger developer | `developer` | Igual, com método de merge permitido: **squash** |
-| Proteger docs | `docs` | Igual, com método de merge permitido: **squash** |
+| Branch | Combinado |
+|---|---|
+| `main` | Só recebe o PR de release, com 1 aprovação, conversas resolvidas e **Create a merge commit**. Sem push direto e sem force push. |
+| `developer` | Só recebe PR, com 1 aprovação de quem não trabalhou na tarefa, conversas resolvidas, CI verde e **Squash and merge**. Sem push direto e sem force push. |
+| `docs` | Igual à `developer`, com **Squash and merge**. |
+| `gh-pages` | Só o pipeline de deploy envia para ela. |
 
-- Deixe a `gh-pages` **sem** regra de pull request: o pipeline de deploy precisa enviar para ela.
-- Não adicione permissões de bypass: as regras valem também para os admins.
-- Quando houver CI, adicione "Require status checks to pass" em cada ruleset.
+- Quem escreveu o PR não aprova o próprio PR.
+- PR para a `developer` com o CI vermelho ou sem o CI rodar não recebe merge.
 
 ### 10.3 Issues
 
@@ -414,11 +414,11 @@ Opcional: uma GitHub Action que verifica se o título do PR segue o Conventional
 |---|---|
 | Branch com nome automático (`usuario-patch-1`) | Ao editar pelo site, escolher "Create a new branch" e dar um nome no padrão |
 | Commits fora do padrão vindos do editor web | Squash merge com o título do PR no padrão |
-| Branches antigas acumuladas | "Automatically delete head branches" + `git fetch --prune` |
+| Branches antigas acumuladas | Apagar a branch no botão **Delete branch** do PR + `git fetch --prune` |
 | PR aberto contra a base errada | Conferir a base antes de criar; corrigir com Edit → trocar a base |
 | Arquivos de outra pessoa ou pastas geradas no commit | `git add` pelo caminho + um bom `.gitignore` |
-| Merge sem revisão | Rulesets exigindo PR e 1 aprovação desde o primeiro dia |
-| A revisão existe mas não é obrigatória, e poucas pessoas acabam aprovando e fazendo merge de tudo | Exigir a aprovação nos rulesets e revezar os revisores |
+| Merge sem revisão | 1 aprovação de quem não trabalhou na tarefa antes do merge (seção 4.3), conferida pelo Product Owner na review |
+| A revisão existe mas não é obrigatória, e poucas pessoas acabam aprovando e fazendo merge de tudo | Revezar os revisores; quem escreveu não aprova o próprio PR |
 | HU fechada por engano no merge | Só tarefas são ligadas a PRs; HUs são fechadas pelo Product Owner |
 
 ---
