@@ -1,0 +1,1265 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../documento-de-arquitetura/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Relatório de execução — Sprint 7 - Documentação</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#relatorio-de-execucao-dos-testes-sprint-7" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Documentação" class="md-header__button md-logo" aria-label="Documentação" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentação
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Relatório de execução — Sprint 7
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Documentação" class="md-nav__button md-logo" aria-label="Documentação" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Documentação
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instruções mkdocs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Atas de Reunião
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Atas de Reunião
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../atas-reuniao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Índice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../atas-reuniao/template-ata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../atas-reuniao/ata-reuniao-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 1 — Definição inicial do produto e Documento de Visão
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../atas-reuniao/ata-reuniao-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 2 — Revisão do Documento de Visão e delimitação do escopo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../atas-reuniao/ata-reuniao-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 3 — Preparação da apresentação do Documento de Visão e GQM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../atas-reuniao/ata-reuniao-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 4 — Planejamento da Sprint 4, apresentação de arquitetura e identidade visual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../atas-reuniao/ata-reuniao-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 5 — Estruturação do repositório e preparação da Sprint 6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../atas-reuniao/ata-reuniao-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 6 — Planejamento e distribuição das tarefas da Sprint 6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../atas-reuniao/ata-reuniao-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 7 — Revisão da Sprint 6 e preparação da Sprint 7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../atas-reuniao/ata-reuniao-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 8 — Redistribuição da Sprint 7 e alinhamento das pendências
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documento-de-visao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documento de Visão
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documento-de-arquitetura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documento de Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Testes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Relatório de execução — Sprint 7
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Relatório de execução — Sprint 7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-resumo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Resumo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-defeitos-encontrados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Defeitos encontrados
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Defeitos encontrados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#d1-agenda-fica-em-branco-issue-95" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D1 — Agenda fica em branco (issue #95)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d2-materiais-nao-aparecem-na-disciplina-issue-96" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D2 — Materiais não aparecem na disciplina (issue #96)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-resultado-por-caso-de-teste" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Resultado por caso de teste
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-verificacoes-adicionais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Verificações adicionais
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-nota-sobre-o-roteiro-de-testes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Nota sobre o roteiro de testes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-observacao-sobre-a-suite-automatizada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Observação sobre a suíte automatizada
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-como-reproduzir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Como reproduzir
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-situacao-dos-defeitos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Situação dos defeitos
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-resumo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Resumo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-defeitos-encontrados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Defeitos encontrados
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Defeitos encontrados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#d1-agenda-fica-em-branco-issue-95" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D1 — Agenda fica em branco (issue #95)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d2-materiais-nao-aparecem-na-disciplina-issue-96" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D2 — Materiais não aparecem na disciplina (issue #96)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-resultado-por-caso-de-teste" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Resultado por caso de teste
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-verificacoes-adicionais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Verificações adicionais
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-nota-sobre-o-roteiro-de-testes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Nota sobre o roteiro de testes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-observacao-sobre-a-suite-automatizada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Observação sobre a suíte automatizada
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-como-reproduzir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Como reproduzir
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-situacao-dos-defeitos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Situação dos defeitos
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="relatorio-de-execucao-dos-testes-sprint-7">Relatório de execução dos testes — Sprint 7</h1>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Responsável</strong></td>
+<td>João Lucas R. Cabral (Analista de Qualidade)</td>
+</tr>
+<tr>
+<td><strong>Data da execução</strong></td>
+<td>10 e 11/11/2026</td>
+</tr>
+<tr>
+<td><strong>Versão da aplicação</strong></td>
+<td><code>developer</code> em <code>2390f7a</code> (após os merges dos PRs #64, #65 e #71)</td>
+</tr>
+<tr>
+<td><strong>Casos executados</strong></td>
+<td>CT-01, CT-02, CT-03, CT-04, CT-05, CT-07, CT-08</td>
+</tr>
+<tr>
+<td><strong>Roteiro de referência</strong></td>
+<td><a href="../../documento-de-visao/">Documento de Visão v1.2</a>, seção 6.2</td>
+</tr>
+<tr>
+<td><strong>Atualização</strong></td>
+<td>11/11/2026: os defeitos D1 e D2 foram corrigidos e entraram na release v0.1.0 (ver <a href="#8-situacao-dos-defeitos">seção 8</a>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1-resumo">1. Resumo</h2>
+<p>A execução foi feita em dois níveis: <strong>API</strong> (com <code>curl</code>, direto nos endpoints) e <strong>interface</strong> (navegador dirigido por script, simulando o aluno).</p>
+<table>
+<thead>
+<tr>
+<th>Nível</th>
+<th>Verificações</th>
+<th>Passaram</th>
+<th>Falharam</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API</td>
+<td>45</td>
+<td>43</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Interface</td>
+<td>17</td>
+<td>11</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p>As 6 falhas de interface se reduzem a <strong>2 defeitos</strong> (cada um reprova várias verificações). As 2 falhas de API são de uma funcionalidade ainda não mergeada, não de defeito.</p>
+<p><strong>Conclusão:</strong> o back-end cumpre o que a Visão pede. Os dois defeitos estão no front-end e são de <strong>integração</strong> — cada peça funciona isolada, e a junção é que falha.</p>
+<h2 id="2-defeitos-encontrados">2. Defeitos encontrados</h2>
+<h3 id="d1-agenda-fica-em-branco-issue-95">D1 — Agenda fica em branco (<a href="https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/issues/95">issue #95</a>)</h3>
+<p><strong>Situação:</strong> corrigido no <a href="https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/pull/101">PR #101</a>, na release v0.1.0.</p>
+<p>A tela <code>/agenda</code> não renderiza nada. O <code>GET /agenda</code> responde 200, mas o front quebra ao consumir.</p>
+<p>O back-end devolve um objeto agrupado (<code>{"A_FAZER": [...], "EM_ANDAMENTO": [...], "CONCLUIDA": [...]}</code>) e <code>AgendaPage.jsx</code> trata a resposta como array, chamando <code>itens.filter(...)</code>. O resultado é <code>TypeError: itens.filter is not a function</code> durante a renderização.</p>
+<p><img alt="Agenda em branco" src="../../imagens/testes/agenda-em-branco.png" /></p>
+<p><strong>Impacto:</strong> a US04a (Agenda Kanban, Must) não é demonstrável. Afeta o CT-05.</p>
+<h3 id="d2-materiais-nao-aparecem-na-disciplina-issue-96">D2 — Materiais não aparecem na disciplina (<a href="https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/issues/96">issue #96</a>)</h3>
+<p><strong>Situação:</strong> corrigido no <a href="https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/pull/102">PR #102</a>, na release v0.1.0.</p>
+<p>A página da disciplina mostra apenas as entregas. O <code>disciplinaApi.js</code> nunca chama <code>GET /disciplinas/{id}/conteudos</code>, então a seção de materiais não existe na tela.</p>
+<p>O back-end responde corretamente: em MDS devolve "Scrum Guide" e "Princípios ágeis", com tipo, data e link.</p>
+<p><img alt="Disciplina sem materiais" src="../../imagens/testes/disciplina-sem-materiais.png" /></p>
+<p><strong>Impacto:</strong> a US03b (Materiais da disciplina, Must) não é demonstrável. Como não há nenhum link com <code>target="_blank"</code>, o critério "abre em nova aba" também fica sem como verificar. Afeta os CT-03 e CT-04.</p>
+<h2 id="3-resultado-por-caso-de-teste">3. Resultado por caso de teste</h2>
+<table>
+<thead>
+<tr>
+<th>Caso</th>
+<th>Resultado</th>
+<th>Observação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CT-01 Autenticação</td>
+<td><strong>Passou</strong></td>
+<td>Senha errada mostra a mensagem; tela protegida sem login redireciona ao login; token inválido devolve 401.</td>
+</tr>
+<tr>
+<td>CT-02 Acesso às disciplinas</td>
+<td><strong>Passou</strong></td>
+<td>As 5 disciplinas da carga aparecem e cada card abre a disciplina.</td>
+</tr>
+<tr>
+<td>CT-03 Entrega e material</td>
+<td><strong>Falhou</strong></td>
+<td>Entregas corretas e ordenadas por prazo. Materiais não aparecem (D2).</td>
+</tr>
+<tr>
+<td>CT-04 Limite de navegação</td>
+<td><strong>Passou com ressalva</strong></td>
+<td>Disciplina em 1 clique, entrega em 1, Agenda em 1 — todos dentro do limite de 3. O alvo "material" não pôde ser contado por causa do D2.</td>
+</tr>
+<tr>
+<td>CT-05 Agenda e próximas entregas</td>
+<td><strong>Falhou</strong></td>
+<td>As próximas entregas no Início estão certas (5 itens, sem concluídas, ordenadas). A Agenda não renderiza (D1).</td>
+</tr>
+<tr>
+<td>CT-07 Painel de progresso</td>
+<td><strong>Passou</strong></td>
+<td>Progresso por disciplina e no semestre coerentes com as entregas concluídas; o valor muda ao concluir uma entrega, sem recarregar a página.</td>
+</tr>
+<tr>
+<td>CT-08 Integração front-end e API</td>
+<td><strong>Passou</strong></td>
+<td>Todas as telas obtêm os dados da API; as alterações se refletem sem recarregar.</td>
+</tr>
+</tbody>
+</table>
+<p>CT-06 (anotações) e CT-09/CT-10 completos não foram executados: a funcionalidade de anotações está prevista para a Sprint 10 e o fluxo completo depende dos dois defeitos acima.</p>
+<h2 id="4-verificacoes-adicionais">4. Verificações adicionais</h2>
+<p><strong>Isolamento entre alunos.</strong> Um aluno nunca vê nem altera dados de outro. O aluno sem matrícula (<code>aluno3@cancha.test</code>, da carga V7) recebe <code>403</code> ao tentar ler atividades, materiais ou concluir entregas de disciplinas em que não está matriculado, e vê listas vazias bem formadas nas telas gerais.</p>
+<p><strong>Legibilidade (US02).</strong> Nenhum texto visível abaixo de 14px, medido sobre os elementos renderizados.</p>
+<p><strong>Cobertura do back-end (JaCoCo).</strong> 90,1% de linhas e 83,3% de ramos, com 109 testes passando — acima da meta de 80% da estratégia de testes.</p>
+<p><strong>Desempenho (REQ-13).</strong> Com o serviço já ativo, <code>/disciplinas</code>, <code>/agenda</code> e <code>/progresso</code> responderam entre 1,2 e 1,8 s no Render, dentro da meta de 2 s. O primeiro acesso após o serviço dormir levou <strong>175 s</strong>, o que confirma o risco R7: é preciso acordar o ambiente antes da apresentação.</p>
+<h2 id="5-nota-sobre-o-roteiro-de-testes">5. Nota sobre o roteiro de testes</h2>
+<p>Os valores esperados dos casos de teste na Visão v1.2 <strong>não batem</strong> com a carga de exemplo atual (V7), porque os prazos do seed são relativos a <code>CURRENT_DATE</code> e o número de entregas mudou.</p>
+<table>
+<thead>
+<tr>
+<th>Caso</th>
+<th>A Visão espera</th>
+<th>Os dados atuais têm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CT-03</td>
+<td>Entregas "Lista 1, Trabalho 1, Prova 1, Lista 2"; prazo 14/11</td>
+<td>7 entregas em MDS, com outros títulos e prazos relativos</td>
+</tr>
+<tr>
+<td>CT-05</td>
+<td>10 entregas, 1 concluída</td>
+<td>25 entregas: 10 a fazer, 4 em andamento, 11 concluídas</td>
+</tr>
+<tr>
+<td>CT-07</td>
+<td>MDS 25% → 50%; semestre 2 de 10</td>
+<td>MDS 42,9%; semestre 11 de 25</td>
+</tr>
+<tr>
+<td>CT-03</td>
+<td>Material "Slides da aula 1"</td>
+<td>"Scrum Guide" e "Princípios ágeis"</td>
+</tr>
+</tbody>
+</table>
+<p>Por isso a execução verificou os <strong>critérios</strong> de cada caso (ordenação, coerência do cálculo, permissões, estados vazios) em vez dos números fixos: um valor fixo escrito hoje volta a ficar desatualizado assim que a carga mudar ou o dia virar.</p>
+<p><strong>Recomendação:</strong> na revisão do roteiro, trocar os valores fixos por critérios verificáveis — por exemplo, "o progresso da disciplina é igual a concluídas ÷ total" em vez de "a barra mostra 25%". Também vale alinhar o nome: a Visão fala em "materiais" e a API expõe <code>/conteudos</code>.</p>
+<h2 id="6-observacao-sobre-a-suite-automatizada">6. Observação sobre a suíte automatizada</h2>
+<p>O defeito D1 passou pela CI porque <code>AgendaPage.test.jsx</code> monta o mock da agenda como um <strong>array</strong>, ou seja, valida um contrato diferente do que a API entrega. Os testes do front ficam verdes e a tela quebra assim mesmo.</p>
+<p>Ao corrigir o D1, vale ajustar o mock para o formato real da resposta — senão o teste continua verde sobre uma tela quebrada. É o mesmo cuidado que vale para os demais testes de tela: quando o mock e a API divergem, o teste deixa de proteger.</p>
+<h2 id="7-como-reproduzir">7. Como reproduzir</h2>
+<ol>
+<li>Subir o ambiente: <code>docker compose up --build -d</code> na raiz do repositório.</li>
+<li>Em <code>frontend/</code>, criar <code>.env.local</code> com <code>VITE_API_URL=http://localhost:8080</code> e rodar <code>npm run dev</code>.</li>
+<li>Entrar com <code>aluno1@cancha.test</code> e a senha de desenvolvimento descrita no <a href="https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/blob/developer/backend/README.md">README do back-end</a>.</li>
+</ol>
+<p>Os alunos de teste da carga V7 são <code>aluno1</code> e <code>aluno2</code> (matriculados nas 5 disciplinas) e <code>aluno3</code> (sem matrícula, para verificar os estados vazios e as permissões).</p>
+<h2 id="8-situacao-dos-defeitos">8. Situação dos defeitos</h2>
+<p>Atualizado em 11/11/2026, depois da release v0.1.0.</p>
+<table>
+<thead>
+<tr>
+<th>Defeito</th>
+<th>Correção</th>
+<th>Casos a reexecutar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D1 — Agenda em branco (<a href="https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/issues/95">#95</a>)</td>
+<td><a href="https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/pull/101">PR #101</a>: a tela transforma a resposta agrupada do <code>GET /agenda</code> em uma lista. O teste da página passou a usar o formato real da resposta, como recomendado na seção 6.</td>
+<td>CT-05</td>
+</tr>
+<tr>
+<td>D2 — Materiais não aparecem (<a href="https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/issues/96">#96</a>)</td>
+<td><a href="https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/pull/102">PR #102</a>: a página da disciplina chama <code>GET /disciplinas/{id}/conteudos</code> e mostra a seção Materiais, com o link abrindo em nova aba.</td>
+<td>CT-03 e CT-04 (cliques até um material)</td>
+</tr>
+</tbody>
+</table>
+<p>Os resultados da seção 3 continuam valendo para a versão testada (<code>2390f7a</code>). A reexecução de CT-03, CT-04 e CT-05 na release v0.1.0 fica com o Analista de Qualidade e deve ser registrada neste relatório ou no da Sprint 8.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>
