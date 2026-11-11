@@ -178,7 +178,53 @@
   margin-left: 4px;
 }
 
+.agenda-dica {
+  margin: 0 0 16px;
+  font-size: 14px;
+  color: #665e53;
+}
+
+.agenda-erro-acao {
+  margin: 0 0 16px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #fbeaea;
+  color: #882f20;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.agenda-coluna-alvo {
+  border-color: #a389c9;
+  background: #f4eefb;
+}
+
+.agenda-card[draggable='true'] {
+  cursor: grab;
+}
+
+.agenda-mover {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  font-size: 14px;
+  color: #554e44;
+}
+
+.agenda-mover select {
+  flex: 1;
+  min-height: 36px;
+  border: 2px solid #e2ddcf;
+  border-radius: 8px;
+  background: #fcf9f1;
+  color: #30251e;
+  font: inherit;
+  padding: 4px 8px;
+}
+
 .agenda-layout a:focus-visible,
+.agenda-mover select:focus-visible,
 .agenda-painel-estado button:focus-visible {
   outline: 3px solid #72528e;
   outline-offset: 4px;
