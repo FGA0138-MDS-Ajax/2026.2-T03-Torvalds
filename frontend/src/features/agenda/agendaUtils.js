@@ -35,3 +35,23 @@ export function categorizarEntrega(item) {
   if (ehEmAndamento(item.status)) return 'EM_ANDAMENTO'
   return 'A_FAZER'
 }
+
+const GRUPOS_DA_AGENDA = ['A_FAZER', 'EM_ANDAMENTO', 'CONCLUIDA']
+
+/**
+ * O GET /agenda devolve as entregas agrupadas pela situação
+ * ({ A_FAZER: [...], EM_ANDAMENTO: [...], CONCLUIDA: [...] }) e cada item traz
+ * o campo `situacao`. A tela trabalha com uma lista única em que cada item tem
+ * `status`, então a resposta é achatada aqui. Uma lista continua sendo aceita.
+ */
+export function achatarAgenda(resposta) {
+  if (Array.isArray(resposta)) return resposta
+  if (!resposta || typeof resposta !== 'object') return []
+
+  return GRUPOS_DA_AGENDA.flatMap((grupo) =>
+    (resposta[grupo] ?? []).map((item) => ({
+      ...item,
+      status: item.status ?? item.situacao ?? grupo,
+    })),
+  )
+}
