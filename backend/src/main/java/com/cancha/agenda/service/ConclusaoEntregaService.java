@@ -13,7 +13,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/** Registra a conclusão individual de uma entrega. */
+/** Atualiza a situação individual de uma entrega: concluída, em andamento ou a fazer. */
 @Service
 public class ConclusaoEntregaService {
 
@@ -35,8 +35,8 @@ public class ConclusaoEntregaService {
 
   @Transactional
   public void atualizarStatus(Long alunoId, Long entregaId, StatusEntrega status) {
-    if (status != StatusEntrega.CONCLUIDA && status != StatusEntrega.A_FAZER) {
-      throw new IllegalArgumentException("Situação não permitida para esta operação.");
+    if (status == null) {
+      throw new IllegalArgumentException("Informe a situação da entrega.");
     }
 
     Entrega entrega =
@@ -63,6 +63,7 @@ public class ConclusaoEntregaService {
         progresso.setDataConclusao(LocalDateTime.now());
       }
     } else {
+      // A fazer ou em andamento: a entrega deixa de estar concluída.
       progresso.setDataConclusao(null);
     }
 
