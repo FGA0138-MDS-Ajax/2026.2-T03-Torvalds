@@ -32,23 +32,35 @@ function CartaoResumo({ cor, titulo, valor, legenda, para, rotulo }) {
   )
 }
 
-function Progresso({ resumo }) {
+/**
+ * Card do progresso no semestre. Os números vêm do GET /progresso, somados
+ * pelo back-end em todas as disciplinas do aluno.
+ */
+function Progresso({ progresso }) {
+  const { concluidas, total, percentual } = progresso
+
   return (
     <section className="inicio-caixa inicio-progresso">
       <h2>Meu progresso</h2>
-      <div className="inicio-progresso-corpo">
-        <ProgressoGeral percentual={resumo.percentual} />
-        <p className="inicio-progresso-contagem">
-          <strong>
-            {resumo.concluidas}/{resumo.total}
-          </strong>
-          <span>Atividades feitas</span>
-        </p>
-      </div>
-      <p className="inicio-progresso-mensagem">
-        <span aria-hidden="true">★ </span>
-        {mensagemDeProgresso(resumo)}
-      </p>
+      {total === 0 ? (
+        <EstadoVazio mensagem="Você ainda não tem atividades no semestre." />
+      ) : (
+        <>
+          <div className="inicio-progresso-corpo">
+            <ProgressoGeral percentual={percentual} />
+            <p className="inicio-progresso-contagem">
+              <strong>
+                {concluidas}/{total}
+              </strong>
+              <span>Atividades feitas</span>
+            </p>
+          </div>
+          <p className="inicio-progresso-mensagem">
+            <span aria-hidden="true">★ </span>
+            {mensagemDeProgresso({ total, percentual })}
+          </p>
+        </>
+      )}
     </section>
   )
 }
@@ -153,7 +165,7 @@ function Conteudo() {
     )
   }
 
-  const { disciplinas, entregas, proximas } = dados
+  const { disciplinas, entregas, proximas, progresso } = dados
   const resumo = resumirEntregas(entregas)
 
   return (
@@ -198,7 +210,7 @@ function Conteudo() {
       </div>
 
       <aside className="inicio-lateral">
-        <Progresso resumo={resumo} />
+        <Progresso progresso={progresso} />
         <Proximas proximas={proximas} />
       </aside>
     </div>

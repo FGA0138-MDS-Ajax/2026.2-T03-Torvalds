@@ -84,7 +84,7 @@
   background: #e2ddcf;
   border-radius: 12px;
   padding: 3px 10px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: bold;
 }
 
@@ -125,7 +125,7 @@
 
 .agenda-card p {
   margin: 0;
-  font-size: 13px;
+  font-size: 14px;
   color: #554e44;
   line-height: 1.4;
 }
@@ -135,7 +135,7 @@
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 4px;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .agenda-badge-disciplina {
@@ -174,7 +174,7 @@
 .agenda-alerta-atraso {
   color: #b3261e;
   font-weight: bold;
-  font-size: 12px;
+  font-size: 14px;
   margin-left: 4px;
 }
 

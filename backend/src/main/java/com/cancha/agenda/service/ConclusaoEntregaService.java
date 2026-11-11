@@ -13,7 +13,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/** Registra a conclusão individual de uma entrega. */
+/** Atualiza a situação individual de uma entrega: concluída, em andamento ou a fazer. */
 @Service
 public class ConclusaoEntregaService {
 
@@ -34,7 +34,11 @@ public class ConclusaoEntregaService {
   }
 
   @Transactional
-  public void concluir(Long alunoId, Long entregaId) {
+  public void atualizarStatus(Long alunoId, Long entregaId, StatusEntrega status) {
+    if (status == null) {
+      throw new IllegalArgumentException("Informe a situação da entrega.");
+    }
+
     Entrega entrega =
         entregas
             .findById(entregaId)
@@ -52,13 +56,18 @@ public class ConclusaoEntregaService {
                 () -> new ProgressoAtividade(
                     alunos.buscar(alunoId), entrega, StatusEntrega.A_FAZER));
 
-    
-    if (progresso.getStatus() != StatusEntrega.CONCLUIDA
-        || progresso.getDataConclusao() == null) {
-      progresso.setDataConclusao(LocalDateTime.now());
+    if (status == StatusEntrega.CONCLUIDA) {
+      // Repetir a conclusão preserva a data anteriormente registrada.
+      if (progresso.getStatus() != StatusEntrega.CONCLUIDA
+          || progresso.getDataConclusao() == null) {
+        progresso.setDataConclusao(LocalDateTime.now());
+      }
+    } else {
+      // A fazer ou em andamento: a entrega deixa de estar concluída.
+      progresso.setDataConclusao(null);
     }
 
-    progresso.setStatus(StatusEntrega.CONCLUIDA);
+    progresso.setStatus(status);
     progressos.save(progresso);
   }
 }
