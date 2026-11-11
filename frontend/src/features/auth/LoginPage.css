@@ -177,7 +177,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.5px;
 }
 
@@ -194,7 +194,7 @@
   border: 0;
   background: transparent;
   color: #775492;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.5px;
 }
 
@@ -236,7 +236,7 @@
 
 .login-unavailable {
   margin: 0;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.5;
   color: #655c52;
 }
