@@ -271,13 +271,22 @@ Para desfazer a conclusão:
 
 Altera a situação para `A_FAZER` e limpa o campo `data_conclusao`.
 
-As duas operações verificam se o aluno está matriculado na disciplina
+Para marcar como em andamento (por exemplo, ao arrastar o cartão no quadro
+das Matérias):
+
+```json
+{"status":"EM_ANDAMENTO"}
+```
+
+Altera a situação para `EM_ANDAMENTO` e também limpa o campo `data_conclusao`.
+
+As três operações verificam se o aluno está matriculado na disciplina
 e alteram somente o progresso do aluno autenticado.
 
 ### Respostas
 
 - `204`: situação atualizada, sem corpo na resposta.
-- `400`: corpo inválido ou situação diferente de `CONCLUIDA` e `A_FAZER`.
+- `400`: corpo inválido ou situação diferente de `CONCLUIDA`, `EM_ANDAMENTO` e `A_FAZER`.
 - `401`: autenticação ausente ou inválida.
 - `403`: aluno não matriculado na disciplina.
 - `404`: atividade inexistente.
