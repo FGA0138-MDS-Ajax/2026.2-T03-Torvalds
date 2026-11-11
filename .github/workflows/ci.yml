@@ -1,8 +1,8 @@
 name: CI
 
 # Roda em todo pull request que aponta para a developer (e sob demanda, pela aba Actions).
-# Os dois jobs rodam sempre, sem filtro de pastas: um check obrigatório que não roda
-# deixa o PR travado esperando para sempre.
+# Os dois jobs rodam sempre, sem filtro de pastas, para todo PR mostrar os dois checks
+# que quem revisa confere antes do merge.
 on:
   pull_request:
     branches: [developer]
@@ -17,7 +17,7 @@ permissions:
   contents: read
 
 jobs:
-  # O nome do job é o nome do check que os rulesets vão exigir. Mudou aqui, mude lá.
+  # O nome do job é o nome do check que aparece no PR e que quem revisa confere antes do merge.
   backend:
     name: Backend (JDK 21)
     runs-on: ubuntu-latest

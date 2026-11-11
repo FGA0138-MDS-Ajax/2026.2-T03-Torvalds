@@ -76,7 +76,7 @@ Todo pull request para a `developer` roda o workflow `.github/workflows/ci.yml`,
 * **Backend (JDK 21):** `./mvnw test` e depois `./mvnw -DskipTests package`, dentro de `backend/`.
 * **Frontend (lint, formato e build):** `npm ci`, `npm run lint`, `npm run format:check` e `npm run build`, dentro de `frontend/`.
 
-Para rodar a mesma coisa antes de abrir o PR, use esses mesmos comandos nas pastas indicadas. O check só pode ser exigido nos rulesets depois de ter rodado ao menos uma vez no repositório.
+Para rodar a mesma coisa antes de abrir o PR, use esses mesmos comandos nas pastas indicadas. O repositório não usa rulesets (decisão do time, #92): um PR só recebe merge com o CI verde por combinado, conferido por quem revisa.
 
 ## Deploy
 
