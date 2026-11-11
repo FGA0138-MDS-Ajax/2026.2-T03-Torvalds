@@ -1,0 +1,86 @@
+name: CI
+
+# Roda em todo pull request que aponta para a developer (e sob demanda, pela aba Actions).
+# Os dois jobs rodam sempre, sem filtro de pastas: um check obrigatório que não roda
+# deixa o PR travado esperando para sempre.
+on:
+  pull_request:
+    branches: [developer]
+  workflow_dispatch:
+
+# Um push novo no mesmo PR cancela a execução anterior, que já está velha.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  # O nome do job é o nome do check que os rulesets vão exigir. Mudou aqui, mude lá.
+  backend:
+    name: Backend (JDK 21)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configura o JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      # Os testes usam H2 em memória; não precisa de PostgreSQL no runner.
+      - name: Compila e roda os testes
+        run: ./mvnw -B test
+
+      # O JaCoCo gera o relatório em HTML durante o `test`. Fica disponível para baixar na página
+      # da execução (aba Actions > a execução > Artifacts), mesmo quando algum teste falha.
+      - name: Publica o relatório de cobertura (JaCoCo)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorio-jacoco
+          path: backend/target/site/jacoco
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Build (empacota o .jar)
+        run: ./mvnw -B -DskipTests package
+
+  frontend:
+    name: Frontend (lint, formato e build)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configura o Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Instala as dependências
+        run: npm ci
+
+      - name: Lint (ESLint)
+        run: npm run lint
+
+      - name: Formatação (Prettier)
+        run: npm run format:check
+
+      - name: Testes da interface
+        run: npm test
+
+      - name: Build
+        run: npm run build

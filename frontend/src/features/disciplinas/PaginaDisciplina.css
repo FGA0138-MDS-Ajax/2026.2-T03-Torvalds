@@ -1,0 +1,143 @@
+.disciplina-voltar {
+  display: inline-block;
+  color: #51415f;
+  margin-bottom: 35px;
+}
+.disciplina-cabecalho,
+.disciplina-painel {
+  border: 2px solid #e2ddcf;
+  background: #fcf9f1;
+  border-radius: 20px;
+  padding: 24px;
+}
+.disciplina-cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+.disciplina-cabecalho h1 {
+  font:
+    bold clamp(24px, 3vw, 36px) Georgia,
+    serif;
+  margin: 0 0 6px;
+  overflow-wrap: anywhere;
+}
+.disciplina-cabecalho p {
+  margin: 0;
+}
+.disciplina-icone {
+  background: #cfb4ed;
+  border-radius: 50%;
+  padding: 14px 20px;
+  font-size: 32px;
+}
+.disciplina-titulo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.disciplina-titulo h2 {
+  font:
+    bold 26px Georgia,
+    serif;
+  margin: 0;
+}
+.disciplina-titulo > span,
+.entrega-meta {
+  color: #665e53;
+  font-size: 14px;
+}
+.disciplina-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 24px 0;
+}
+.disciplina-painel button {
+  background: transparent;
+  border: 2px solid #e2ddcf;
+  border-radius: 24px;
+  padding: 8px 20px;
+  color: #30251e;
+}
+.disciplina-filtros button[aria-pressed='true'] {
+  background: #cfb4ed;
+  border-color: #cfb4ed;
+}
+.disciplina-entregas {
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 16px;
+}
+.entrega {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 20px;
+  border: 2px solid #e2ddcf;
+  border-radius: 18px;
+}
+.entrega-numero {
+  border-radius: 50%;
+  background: #cfb4ed;
+  padding: 7px 12px;
+  font-weight: bold;
+}
+.entrega-conteudo {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.entrega h3 {
+  margin: 4px 0 10px;
+  font-size: 18px;
+}
+.entrega p {
+  line-height: 1.6;
+  margin: 0 0 16px;
+}
+.entrega-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+.entrega-status {
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 16px;
+  padding: 7px 12px;
+  background: #e5eadb;
+  white-space: nowrap;
+}
+.entrega.atrasada {
+  border-color: #d8a699;
+}
+.atrasada .entrega-status {
+  background: #f8ded5;
+  color: #882f20;
+}
+.disciplina-vazio {
+  padding: 32px 0;
+}
+.disciplina-layout a:focus-visible {
+  outline: 3px solid #72528e;
+  outline-offset: 4px;
+}
+@media (max-width: 760px) {
+  .disciplina-painel {
+    padding: 16px;
+  }
+  .entrega {
+    flex-wrap: wrap;
+    padding: 16px;
+  }
+  .entrega-status {
+    margin-left: 44px;
+  }
+  .disciplina-icone {
+    display: none;
+  }
+}
