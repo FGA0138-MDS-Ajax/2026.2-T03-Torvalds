@@ -39,3 +39,14 @@ export async function carregarAgenda(signal) {
     return entregasPorDisciplina.flat()
   }
 }
+
+/**
+ * Muda a situação de uma entrega do aluno autenticado
+ * (A_FAZER, EM_ANDAMENTO ou CONCLUIDA) em PATCH /atividades/{id}/status.
+ */
+export function alterarSituacao(entregaId, status) {
+  return requisicao(`/atividades/${encodeURIComponent(entregaId)}/status`, {
+    method: 'PATCH',
+    dados: { status },
+  })
+}

@@ -36,6 +36,17 @@ export function categorizarEntrega(item) {
   return 'A_FAZER'
 }
 
+/** Ordena por prazo, do mais próximo ao mais distante; sem prazo vai para o fim. */
+export function compararPrazo(a, b) {
+  const prazoA = a?.prazo ? new Date(a.prazo).getTime() : Number.NaN
+  const prazoB = b?.prazo ? new Date(b.prazo).getTime() : Number.NaN
+
+  if (Number.isNaN(prazoA) && Number.isNaN(prazoB)) return 0
+  if (Number.isNaN(prazoA)) return 1
+  if (Number.isNaN(prazoB)) return -1
+  return prazoA - prazoB
+}
+
 const GRUPOS_DA_AGENDA = ['A_FAZER', 'EM_ANDAMENTO', 'CONCLUIDA']
 
 /**

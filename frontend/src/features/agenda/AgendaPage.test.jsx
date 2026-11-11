@@ -1,6 +1,12 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  within,
+} from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
 import { MemoryRouter, Route, Routes } from 'react-router'
 import AgendaPage from './AgendaPage'
@@ -9,6 +15,7 @@ import {
   ehAtrasada,
   categorizarEntrega,
   achatarAgenda,
+  compararPrazo,
 } from './agendaUtils'
 
 const itensExemplo = [
@@ -53,6 +60,23 @@ function abrir() {
         <Route path="/agenda" element={<AgendaPage />} />
       </Routes>
     </MemoryRouter>,
+  )
+}
+
+function responderComPatch(statusPatch = 200) {
+  vi.stubGlobal(
+    'fetch',
+    vi.fn(async (url, opcoes) => {
+      if (opcoes?.method === 'PATCH') {
+        const corpo = statusPatch === 200 ? {} : { mensagem: 'Falha ao salvar' }
+        return new Response(JSON.stringify(corpo), { status: statusPatch })
+      }
+
+      return new Response(JSON.stringify(itensExemplo), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      })
+    }),
   )
 }
 
@@ -131,6 +155,18 @@ describe('Funções utilitárias da Agenda', () => {
     ])
     expect(achatarAgenda(itensExemplo)).toBe(itensExemplo)
     expect(achatarAgenda(null)).toEqual([])
+  })
+
+  it('ordena as entregas pelo prazo, com as sem prazo no fim', () => {
+    const lista = [
+      { id: 1, prazo: '2099-01-01T00:00:00' },
+      { id: 2, prazo: null },
+      { id: 3, prazo: '2000-01-01T00:00:00' },
+    ]
+
+    expect([...lista].sort(compararPrazo).map((item) => item.id)).toEqual([
+      3, 1, 2,
+    ])
   })
 })
 
@@ -298,5 +334,87 @@ describe('Página Agenda com integração GET /agenda', () => {
     expect(await screen.findByText('Parser LR')).toBeInTheDocument()
     expect(screen.getByText('Compiladores')).toBeInTheDocument()
     expect(screen.getByText(/Prazo:\s*01\/12/)).toBeInTheDocument()
+  })
+})
+
+describe('Mover cartão na Agenda (US04a)', () => {
+  it('mostra cada coluna ordenada pelo prazo', async () => {
+    abrir()
+
+    const coluna = (
+      await screen.findByRole('heading', { level: 2, name: 'A fazer' })
+    ).closest('section')
+    const titulos = within(coluna)
+      .getAllByRole('heading', { level: 3 })
+      .map((titulo) => titulo.textContent)
+
+    expect(titulos).toEqual(['Relatório atrasado', 'Lista 2: análise léxica'])
+  })
+
+  it('muda a situação ao escolher outra coluna no seletor', async () => {
+    responderComPatch()
+    abrir()
+
+    fireEvent.change(
+      await screen.findByRole('combobox', {
+        name: 'Mover Lista 2: análise léxica para',
+      }),
+      { target: { value: 'CONCLUIDA' } },
+    )
+
+    expect(
+      await screen.findByLabelText('2 atividades em Concluídas'),
+    ).toBeInTheDocument()
+    expect(screen.getByLabelText('1 atividades em A fazer')).toBeInTheDocument()
+
+    const chamada = fetch.mock.calls.find(
+      ([, opcoes]) => opcoes?.method === 'PATCH',
+    )
+
+    expect(String(chamada[0])).toContain('/atividades/1/status')
+    expect(JSON.parse(chamada[1].body)).toEqual({ status: 'CONCLUIDA' })
+  })
+
+  it('muda a situação ao soltar o cartão em outra coluna', async () => {
+    responderComPatch()
+    abrir()
+
+    const cartao = (await screen.findByText('Trabalho de PI')).closest('li')
+    const coluna = screen
+      .getByRole('heading', { level: 2, name: 'Concluídas' })
+      .closest('section')
+    const dataTransfer = { getData: () => '2', setData: vi.fn() }
+
+    fireEvent.dragStart(cartao, { dataTransfer })
+    fireEvent.dragOver(coluna, { dataTransfer })
+    fireEvent.drop(coluna, { dataTransfer })
+
+    expect(
+      await screen.findByLabelText('2 atividades em Concluídas'),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByLabelText('0 atividades em Em andamento'),
+    ).toBeInTheDocument()
+    expect(dataTransfer.setData).toHaveBeenCalledWith('text/plain', '2')
+  })
+
+  it('desfaz a mudança e avisa quando a API recusa', async () => {
+    responderComPatch(503)
+    abrir()
+
+    fireEvent.change(
+      await screen.findByRole('combobox', {
+        name: 'Mover Lista 2: análise léxica para',
+      }),
+      { target: { value: 'CONCLUIDA' } },
+    )
+
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      'Não foi possível mover “Lista 2: análise léxica”: Falha ao salvar',
+    )
+    expect(screen.getByLabelText('2 atividades em A fazer')).toBeInTheDocument()
+    expect(
+      screen.getByLabelText('1 atividades em Concluídas'),
+    ).toBeInTheDocument()
   })
 })
