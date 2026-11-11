@@ -6,6 +6,7 @@ import { useSessao } from './features/auth/useSessao'
 import PaginaDisciplina from './features/disciplinas/PaginaDisciplina'
 import InicioPage from './features/inicio/InicioPage'
 import MateriasPage from './features/materias/MateriasPage'
+import EmBreve from './shared/components/EmBreve'
 import PaginaNaoEncontrada from './shared/components/PaginaNaoEncontrada'
 import LayoutBase from './shared/layout/LayoutBase'
 
@@ -27,10 +28,27 @@ function App() {
         <Route element={<LayoutBase />}>
           <Route index element={<InicioPage />} />
           <Route path="materias" element={<MateriasPage />} />
+          <Route path="disciplinas/:id" element={<PaginaDisciplina />} />
+          <Route path="agenda" element={<AgendaPage />} />
+          <Route
+            path="anotacoes"
+            element={
+              <EmBreve
+                titulo="Anotações"
+                descricao="Aqui você vai escrever e organizar as anotações de cada matéria."
+              />
+            }
+          />
+          <Route
+            path="configuracoes"
+            element={
+              <EmBreve
+                titulo="Configurações"
+                descricao="Em breve você poderá ajustar o cAnCHA do seu jeito."
+              />
+            }
+          />
         </Route>
-        {/* Agenda e Disciplina ainda trazem o próprio menu lateral. */}
-        <Route path="disciplinas/:id" element={<PaginaDisciplina />} />
-        <Route path="agenda" element={<AgendaPage />} />
       </Route>
       <Route path="*" element={<PaginaNaoEncontrada />} />
     </Routes>

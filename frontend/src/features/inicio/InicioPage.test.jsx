@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { cleanup, render, screen } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
 import { MemoryRouter } from 'react-router'
 import { SessaoContext } from '../auth/SessaoContext'
@@ -13,35 +13,82 @@ const disciplinas = [
     periodoLetivo: '2026.2',
     progressoPercentual: 40,
   },
+  {
+    id: 2,
+    nome: 'Projeto Integrador',
+    periodoLetivo: '2026.2',
+    progressoPercentual: 0,
+  },
 ]
 
-const entregas = [
+const entregasDaDisciplina1 = [
   {
     id: 1,
     titulo: 'Lista 2',
-    disciplina: 'Compiladores',
     tipo: 'Lista',
     prazo: '2099-11-10T18:00:00',
-    status: 'A fazer',
+    status: 'A_FAZER',
   },
   {
     id: 2,
     titulo: 'Trabalho já entregue',
-    disciplina: 'Compiladores',
     tipo: 'Trabalho',
     prazo: '2099-11-05T18:00:00',
     status: 'CONCLUIDA',
   },
 ]
 
-function responder({ agenda = entregas, statusAgenda = 200 } = {}) {
+const proximas = [
+  {
+    id: 1,
+    titulo: 'Lista 2',
+    tipo: 'Lista',
+    prazo: '2099-11-10T18:00:00',
+    status: 'A_FAZER',
+    disciplinaId: 1,
+    disciplinaNome: 'Compiladores',
+    atrasada: false,
+  },
+  {
+    id: 9,
+    titulo: 'Relatório parcial',
+    tipo: 'Trabalho',
+    prazo: '2020-01-01T10:00:00',
+    status: 'A_FAZER',
+    disciplinaId: 2,
+    disciplinaNome: 'Projeto Integrador',
+    atrasada: true,
+  },
+]
+
+// O GET /progresso devolve o resumo do semestre já somado pelo back-end.
+const progresso = { concluidas: 1, total: 2, percentual: 50 }
+
+function responder({
+  lista = disciplinas,
+  statusLista = 200,
+  proximasDoAluno = proximas,
+  progressoDoAluno = progresso,
+} = {}) {
   vi.stubGlobal(
     'fetch',
-    vi.fn(async (url) =>
-      url.endsWith('/agenda')
-        ? new Response(JSON.stringify(agenda), { status: statusAgenda })
-        : new Response(JSON.stringify(disciplinas), { status: 200 }),
-    ),
+    vi.fn(async (url) => {
+      if (url.endsWith('/disciplinas')) {
+        return new Response(JSON.stringify(lista), { status: statusLista })
+      }
+      if (url.endsWith('/progresso')) {
+        return new Response(JSON.stringify(progressoDoAluno), { status: 200 })
+      }
+      if (url.endsWith('/atividades/proximas')) {
+        return new Response(JSON.stringify(proximasDoAluno), { status: 200 })
+      }
+      if (url.endsWith('/disciplinas/1/atividades')) {
+        return new Response(JSON.stringify(entregasDaDisciplina1), {
+          status: 200,
+        })
+      }
+      return new Response(JSON.stringify([]), { status: 200 })
+    }),
   )
 }
 
@@ -69,38 +116,120 @@ afterEach(() => {
 })
 
 describe('Início', () => {
-  it('mostra a saudação, as matérias e os próximos prazos', async () => {
+  it('mostra a saudação e os três cartões de resumo', async () => {
     abrir()
 
     expect(
       screen.getByRole('heading', { name: 'Olá, Maria!' }),
     ).toBeInTheDocument()
+
+    const materias = await screen.findByRole('link', {
+      name: 'Matérias: 2 cursando',
+    })
+    const atividades = screen.getByRole('link', {
+      name: 'Atividades: 1 pendentes',
+    })
+
+    expect(materias).toHaveAttribute('href', '/materias')
+    expect(atividades).toHaveAttribute('href', '/agenda')
     expect(
-      await screen.findByRole('link', { name: /Compiladores/ }),
-    ).toHaveAttribute('href', '/disciplinas/1')
-    expect(await screen.findByText('Lista 2')).toBeInTheDocument()
-    expect(screen.getByText(/Prazo: 10\/11/)).toBeInTheDocument()
-    expect(screen.queryByText('Trabalho já entregue')).not.toBeInTheDocument()
+      screen.getByRole('link', { name: 'Anotações: em breve' }),
+    ).toHaveAttribute('href', '/anotacoes')
   })
 
-  it('avisa quando não há entregas pendentes', async () => {
-    responder({ agenda: [] })
+  it('mostra o progresso do semestre vindo do GET /progresso', async () => {
+    abrir()
+
+    expect(await screen.findByText('1/2')).toBeInTheDocument()
+    expect(
+      screen.getByRole('img', { name: '50% do semestre concluído' }),
+    ).toBeInTheDocument()
+    expect(screen.getByText(/Você está indo muito bem!/)).toBeInTheDocument()
+  })
+
+  it('usa o valor do back-end, e não a soma das entregas da tela', async () => {
+    // O back-end soma todas as disciplinas do aluno; a tela baixa as entregas
+    // de algumas. Quando os dois divergem, quem manda é o back-end.
+    responder({
+      progressoDoAluno: { concluidas: 9, total: 12, percentual: 75 },
+    })
+    abrir()
+
+    expect(await screen.findByText('9/12')).toBeInTheDocument()
+    expect(
+      screen.getByRole('img', { name: '75% do semestre concluído' }),
+    ).toBeInTheDocument()
+    expect(screen.queryByText('1/2')).not.toBeInTheDocument()
+  })
+
+  it('mostra o estado vazio quando o aluno não tem atividades', async () => {
+    responder({ progressoDoAluno: { concluidas: 0, total: 0, percentual: 0 } })
     abrir()
 
     expect(
-      await screen.findByText('Nenhuma entrega pendente. Bom trabalho!'),
+      await screen.findByText('Você ainda não tem atividades no semestre.'),
+    ).toBeInTheDocument()
+    expect(screen.queryByText('0/0')).not.toBeInTheDocument()
+  })
+
+  it('lista as próximas atividades vindas do backend e leva à matéria', async () => {
+    abrir()
+
+    const item = await screen.findByRole('link', { name: /Lista 2/ })
+
+    expect(item).toHaveAttribute('href', '/disciplinas/1')
+    expect(item).toHaveTextContent('Compiladores')
+    expect(item).toHaveTextContent('10/11, 18:00')
+    expect(
+      screen.getByRole('link', { name: /Relatório parcial/ }),
+    ).toHaveAttribute('href', '/disciplinas/2')
+    expect(screen.getByText(/\(atrasada\)/)).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /Ver tudo/ })).toHaveAttribute(
+      'href',
+      '/agenda',
+    )
+  })
+
+  it('mostra as matérias com a contagem de atividades', async () => {
+    abrir()
+
+    const cartao = await screen.findByRole('link', {
+      name: /1\/2 Atividades/,
+    })
+
+    expect(cartao).toHaveAttribute('href', '/disciplinas/1')
+    expect(cartao).toHaveTextContent('1/2 Atividades')
+    expect(cartao).toHaveTextContent('40%')
+    expect(
+      screen.getByRole('heading', { name: 'Sua tarde de hoje' }),
     ).toBeInTheDocument()
   })
 
-  it('mostra o erro dos prazos sem derrubar as matérias', async () => {
-    responder({ agenda: { mensagem: 'Falha nos prazos' }, statusAgenda: 500 })
+  it('avisa quando o aluno não tem matérias', async () => {
+    responder({ lista: [], proximasDoAluno: [] })
+    abrir()
+
+    expect(
+      await screen.findByText('Você ainda não tem matérias.'),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText('Nenhuma entrega pendente. Bom trabalho!'),
+    ).toBeInTheDocument()
+  })
+
+  it('mostra o erro e permite tentar novamente', async () => {
+    responder({ statusLista: 500 })
     abrir()
 
     expect(await screen.findByRole('alert')).toHaveTextContent(
-      'Falha nos prazos',
+      'Não foi possível carregar o painel',
     )
+
+    responder()
+    fireEvent.click(screen.getByRole('button', { name: 'Tentar novamente' }))
+
     expect(
-      await screen.findByRole('link', { name: /Compiladores/ }),
+      await screen.findByRole('link', { name: /1\/2 Atividades/ }),
     ).toBeInTheDocument()
   })
 })

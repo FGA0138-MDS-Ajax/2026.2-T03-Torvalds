@@ -137,21 +137,12 @@ export default function PaginaDisciplina() {
   const { id } = useParams()
   return (
     <div className="disciplina-layout">
-      <aside className="disciplina-sidebar">
-        <div className="disciplina-marca">cAnCHA</div>
-        <p>Seu caderno, agora digital!</p>
-        <nav aria-label="Navegação principal">
-          <Link to="/">⌂ Início</Link>
-          <Link to="/materias">▤ Matérias</Link>
-          <Link to="/agenda">📅 Agenda</Link>
-        </nav>
-      </aside>
-      <main className="disciplina-main">
+      <div className="disciplina-main">
         <Link className="disciplina-voltar" to="/materias">
           ← Voltar para matérias
         </Link>
         <ConteudoDisciplina key={id} id={id} />
-      </main>
+      </div>
     </div>
   )
 }

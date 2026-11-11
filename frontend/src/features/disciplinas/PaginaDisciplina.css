@@ -1,49 +1,3 @@
-.disciplina-layout {
-  min-height: 100svh;
-  display: grid;
-  grid-template-columns: 250px minmax(0, 1fr);
-  background: #faf4e8;
-  color: #30251e;
-}
-.disciplina-sidebar {
-  padding: 64px 28px;
-  background: #faeed8;
-  border-right: 3px solid #ddd7c8;
-}
-.disciplina-marca {
-  font:
-    900 42px Georgia,
-    serif;
-  text-align: center;
-}
-.disciplina-sidebar > p {
-  font-size: 13px;
-  text-align: center;
-}
-.disciplina-sidebar nav {
-  display: grid;
-  gap: 16px;
-  margin-top: 64px;
-}
-.disciplina-sidebar a {
-  border: 2px solid #d7cfbd;
-  border-radius: 18px;
-  padding: 22px 18px;
-  text-decoration: none;
-  color: inherit;
-  font:
-    bold 19px Georgia,
-    serif;
-}
-.disciplina-sidebar a[aria-current] {
-  background: #96a17e;
-  border-color: #96a17e;
-}
-.disciplina-main {
-  padding: 40px clamp(20px, 4vw, 70px);
-  background: url('../../assets/decoracao-superior.png') no-repeat right top /
-    220px auto;
-}
 .disciplina-voltar {
   display: inline-block;
   color: #51415f;
@@ -173,32 +127,6 @@
   outline-offset: 4px;
 }
 @media (max-width: 760px) {
-  .disciplina-layout {
-    grid-template-columns: 1fr;
-  }
-  .disciplina-sidebar {
-    padding: 20px;
-    border-right: 0;
-    border-bottom: 2px solid #ddd7c8;
-  }
-  .disciplina-marca {
-    font-size: 28px;
-  }
-  .disciplina-sidebar > p {
-    display: none;
-  }
-  .disciplina-sidebar nav {
-    display: flex;
-    margin-top: 20px;
-  }
-  .disciplina-sidebar a {
-    flex: 1;
-    padding: 12px;
-    font-size: 16px;
-  }
-  .disciplina-main {
-    padding: 24px 16px;
-  }
   .disciplina-painel {
     padding: 16px;
   }

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { NavLink } from 'react-router'
 import { carregarAgenda } from './agendaApi'
 import {
   categorizarEntrega,
@@ -44,23 +43,7 @@ export default function AgendaPage() {
 
   return (
     <div className="agenda-layout">
-      <aside className="agenda-sidebar">
-        <div className="agenda-marca">cAnCHA</div>
-        <p>Seu caderno, agora digital!</p>
-        <nav aria-label="Navegação principal">
-          <NavLink to="/">
-            <span aria-hidden="true">⌂</span> Início
-          </NavLink>
-          <NavLink to="/materias">
-            <span aria-hidden="true">▤</span> Matérias
-          </NavLink>
-          <NavLink to="/agenda">
-            <span aria-hidden="true">📅</span> Agenda
-          </NavLink>
-        </nav>
-      </aside>
-
-      <main className="agenda-main">
+      <div className="agenda-main">
         <header className="agenda-cabecalho">
           <span className="agenda-icone" aria-hidden="true">
             📅
@@ -165,7 +148,7 @@ export default function AgendaPage() {
             })}
           </div>
         )}
-      </main>
+      </div>
     </div>
   )
 }
