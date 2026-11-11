@@ -30,7 +30,7 @@ public class ConclusaoEntregaController {
 
   @PatchMapping("/atividades/{id}/status")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  @Operation(summary = "Conclui ou desfaz a conclusão de uma entrega")
+  @Operation(summary = "Conclui, marca em andamento ou desfaz a conclusão de uma entrega")
   @ApiResponses({
     @ApiResponse(responseCode = "204", description = "Situação da entrega atualizada"),
     @ApiResponse(responseCode = "400", description = "Corpo da requisição inválido"),
