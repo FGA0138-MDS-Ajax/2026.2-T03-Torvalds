@@ -2,7 +2,7 @@
 
 # VISÃO DO PRODUTO E DO PROJETO
 
-**Versão 1.2**
+**Versão 1.3**
 
 ## Integrantes do Grupo
 
@@ -25,6 +25,7 @@
 | 30/09 | 1.0 | Versão inicial do Documento de Visão. | Grupo Torvalds |
 | 16/10 | 1.1 | Alteração do nome do produto de “Folha Digital” para “cAnCHA” e reorganização das sprints | Ana Jullia |
 | 09/11 | 1.2 | Correções da avaliação do professor: tecnologia do back-end, papéis, ciclo de vida, critérios de aceitação, GQM e testes. | Ana Jullia / Eduardo |
+| 11/11 | 1.3 | Resultado da Sprint 7 na Sprint Review: entregáveis concluídos (100%) e release v0.1.0 publicada na main em 11/11, dois dias depois do previsto. | Eduardo |
 
 ## Sumário
 
@@ -179,7 +180,7 @@ O percentual é atualizado na Sprint Review de cada sprint, e toda mudança de e
 | Sprint 4 | Apresentar Doc. Arquitetura | 15/10/26 | 21/10/26 | Apresentação do Doc. de Arquitetura | Apresentação; prova | Todos | 100% |
 | Sprint 5 | Prototipar as telas | 22/10/26 | 28/10/26 | Protótipo no Figma | - | DEV, QA, DES | 100% |
 | Sprint 6 | Base técnica e disciplinas | 29/10/26 | 04/11/26 | Estrutura do back-end, banco, CI, deploy, GET/disciplinas, autenticação no back-end | - | DEV, QA, SM | 100% |
-| Sprint 7 | Primeira versão utilizável pelo aluno | 05/11/26 | 11/11/26 | Tela de login, Início com disciplinas e próximas entregas, página da disciplina com entregas e materiais, Agenda Kanban, Visão v1.2 | Release v0.1.0 na main em 09/11; Ponto de Controle em 11/11 | Todos | 0% |
+| Sprint 7 | Primeira versão utilizável pelo aluno | 05/11/26 | 11/11/26 | Tela de login, Início com disciplinas e próximas entregas, página da disciplina com entregas e materiais, Agenda Kanban, Visão v1.2 | Release v0.1.0 na main em 11/11 (prevista para 09/11); Ponto de Controle em 11/11 | Todos | 100% |
 | Sprint 8 | Progresso do aluno | 12/11/26 | 18/11/26 | Ajustes pedidos no Ponto de Controle; concluir entrega; progresso por disciplina e no semestre | Inspeção do código pelos inspetores | DEV, QA, PO | 0% |
 | Sprint 9 | Validação e ajustes | 19/11/26 | 25/11/26 | Testes de usabilidade com 5 alunos; reparos dos defeitos da inspeção e ajustes na Agenda | Testes de usabilidade | Todos | 0% |
 | Sprint 10 | Entregar o produto | 26/11/26 | 02/12/26 | Anotações, se couber; execução de CT-01 a CT-10; correções; congelamento do código, release v1.0.0 | Apresentação final | Todos | 0% |
