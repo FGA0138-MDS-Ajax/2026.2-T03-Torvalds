@@ -219,4 +219,65 @@ class IsolamentoAlunosIntegracaoTest {
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.length()").value(0));
     }
+
+    @Test
+    void agendaNaoIncluiEntregaExclusivaDeOutroAluno() throws Exception {
+    mockMvc
+        .perform(
+            get("/agenda")
+                .header("Authorization", "Bearer " + tokenAluno1))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.A_FAZER[*].titulo", hasItem(TITULO_ENTREGA)));
+
+    mockMvc
+        .perform(
+            get("/agenda")
+                .header("Authorization", "Bearer " + tokenAluno2))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.A_FAZER[*].titulo", not(hasItem(TITULO_ENTREGA))))
+        .andExpect(jsonPath("$.EM_ANDAMENTO[*].titulo", not(hasItem(TITULO_ENTREGA))))
+        .andExpect(jsonPath("$.CONCLUIDA[*].titulo", not(hasItem(TITULO_ENTREGA))));
+    }
+
+    @Test
+    void progressoDoSemestreConsideraSomenteConclusoesDoAlunoAutenticado()
+        throws Exception {
+    jdbc.update(
+        "delete from matricula where aluno_id in (?, ?) and disciplina_id <> ?",
+        aluno1,
+        aluno2,
+        disciplinaId);
+
+    jdbc.update(
+        "insert into matricula (aluno_id, disciplina_id, data_matricula)"
+            + " values (?, ?, current_date)",
+        aluno2,
+        disciplinaId);
+
+    jdbc.update(
+        "insert into progresso_atividade"
+            + " (aluno_id, entrega_id, status, data_conclusao)"
+            + " values (?, ?, 'CONCLUIDA', ?)",
+        aluno1,
+        entregaId,
+        Timestamp.valueOf("2000-01-02 12:00:00"));
+
+    mockMvc
+        .perform(
+            get("/progresso")
+                .header("Authorization", "Bearer " + tokenAluno1))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.concluidas").value(1))
+        .andExpect(jsonPath("$.total").value(1))
+        .andExpect(jsonPath("$.percentual").value(100));
+
+    mockMvc
+        .perform(
+            get("/progresso")
+                .header("Authorization", "Bearer " + tokenAluno2))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.concluidas").value(0))
+        .andExpect(jsonPath("$.total").value(1))
+        .andExpect(jsonPath("$.percentual").value(0));
+    }
 }
