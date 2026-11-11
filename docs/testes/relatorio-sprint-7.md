@@ -7,6 +7,7 @@
 | **Versão da aplicação** | `developer` em `2390f7a` (após os merges dos PRs #64, #65 e #71) |
 | **Casos executados** | CT-01, CT-02, CT-03, CT-04, CT-05, CT-07, CT-08 |
 | **Roteiro de referência** | [Documento de Visão v1.2](../documento-de-visao.md), seção 6.2 |
+| **Atualização** | 11/11/2026: os defeitos D1 e D2 foram corrigidos e entraram na release v0.1.0 (ver [seção 8](#8-situacao-dos-defeitos)) |
 
 ## 1. Resumo
 
@@ -25,6 +26,8 @@ As 6 falhas de interface se reduzem a **2 defeitos** (cada um reprova várias ve
 
 ### D1 — Agenda fica em branco ([issue #95](https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/issues/95))
 
+**Situação:** corrigido no [PR #101](https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/pull/101), na release v0.1.0.
+
 A tela `/agenda` não renderiza nada. O `GET /agenda` responde 200, mas o front quebra ao consumir.
 
 O back-end devolve um objeto agrupado (`{"A_FAZER": [...], "EM_ANDAMENTO": [...], "CONCLUIDA": [...]}`) e `AgendaPage.jsx` trata a resposta como array, chamando `itens.filter(...)`. O resultado é `TypeError: itens.filter is not a function` durante a renderização.
@@ -34,6 +37,8 @@ O back-end devolve um objeto agrupado (`{"A_FAZER": [...], "EM_ANDAMENTO": [...]
 **Impacto:** a US04a (Agenda Kanban, Must) não é demonstrável. Afeta o CT-05.
 
 ### D2 — Materiais não aparecem na disciplina ([issue #96](https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/issues/96))
+
+**Situação:** corrigido no [PR #102](https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/pull/102), na release v0.1.0.
 
 A página da disciplina mostra apenas as entregas. O `disciplinaApi.js` nunca chama `GET /disciplinas/{id}/conteudos`, então a seção de materiais não existe na tela.
 
@@ -95,3 +100,14 @@ Ao corrigir o D1, vale ajustar o mock para o formato real da resposta — senão
 3. Entrar com `aluno1@cancha.test` e a senha de desenvolvimento descrita no [README do back-end](https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/blob/developer/backend/README.md).
 
 Os alunos de teste da carga V7 são `aluno1` e `aluno2` (matriculados nas 5 disciplinas) e `aluno3` (sem matrícula, para verificar os estados vazios e as permissões).
+
+## 8. Situação dos defeitos
+
+Atualizado em 11/11/2026, depois da release v0.1.0.
+
+| Defeito | Correção | Casos a reexecutar |
+|---|---|---|
+| D1 — Agenda em branco ([#95](https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/issues/95)) | [PR #101](https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/pull/101): a tela transforma a resposta agrupada do `GET /agenda` em uma lista. O teste da página passou a usar o formato real da resposta, como recomendado na seção 6. | CT-05 |
+| D2 — Materiais não aparecem ([#96](https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/issues/96)) | [PR #102](https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/pull/102): a página da disciplina chama `GET /disciplinas/{id}/conteudos` e mostra a seção Materiais, com o link abrindo em nova aba. | CT-03 e CT-04 (cliques até um material) |
+
+Os resultados da seção 3 continuam valendo para a versão testada (`2390f7a`). A reexecução de CT-03, CT-04 e CT-05 na release v0.1.0 fica com o Analista de Qualidade e deve ser registrada neste relatório ou no da Sprint 8.
