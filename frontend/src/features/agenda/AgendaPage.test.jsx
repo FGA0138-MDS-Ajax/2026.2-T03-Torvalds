@@ -5,6 +5,7 @@ import '@testing-library/jest-dom/vitest'
 import { MemoryRouter, Route, Routes } from 'react-router'
 import AgendaPage from './AgendaPage'
 import {
+  achatarAgenda,
   agruparPorDia,
   categorizarEntrega,
   descreverSemana,
@@ -439,5 +440,35 @@ describe('Página Agenda (calendário)', () => {
       await screen.findByText(/Parser LR, Compiladores, a fazer/),
     ).toBeInTheDocument()
     expect(screen.getByRole('checkbox', { name: 'Compiladores' })).toBeChecked()
+  })
+})
+
+describe('achatarAgenda', () => {
+  it('junta os grupos do GET /agenda numa lista com o campo status', () => {
+    const lista = achatarAgenda({
+      A_FAZER: [{ id: 1, titulo: 'Lista 1', situacao: 'A_FAZER' }],
+      EM_ANDAMENTO: [{ id: 2, titulo: 'Trabalho', situacao: 'EM_ANDAMENTO' }],
+      CONCLUIDA: [{ id: 3, titulo: 'Prova', situacao: 'CONCLUIDA' }],
+    })
+
+    expect(lista.map((item) => [item.id, item.status])).toEqual([
+      [1, 'A_FAZER'],
+      [2, 'EM_ANDAMENTO'],
+      [3, 'CONCLUIDA'],
+    ])
+  })
+
+  it('usa o nome do grupo quando o item não traz a situação', () => {
+    expect(achatarAgenda({ CONCLUIDA: [{ id: 9 }] })[0].status).toBe(
+      'CONCLUIDA',
+    )
+  })
+
+  it('deixa passar uma lista pronta e aceita resposta vazia', () => {
+    const pronta = [{ id: 1, status: 'A_FAZER' }]
+
+    expect(achatarAgenda(pronta)).toBe(pronta)
+    expect(achatarAgenda(null)).toEqual([])
+    expect(achatarAgenda({})).toEqual([])
   })
 })

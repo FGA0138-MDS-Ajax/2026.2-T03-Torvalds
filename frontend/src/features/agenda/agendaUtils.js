@@ -157,3 +157,23 @@ export function rotuloDoStatus(item) {
 
   return 'A fazer'
 }
+
+const GRUPOS_DA_AGENDA = ['A_FAZER', 'EM_ANDAMENTO', 'CONCLUIDA']
+
+/**
+ * Transforma a resposta de GET /agenda numa lista simples de entregas.
+ * O backend agrupa por situação ({ A_FAZER: [...], EM_ANDAMENTO: [...],
+ * CONCLUIDA: [...] }) e usa o campo "situacao"; a tela trabalha com uma lista
+ * e o campo "status". Uma lista já pronta passa direto.
+ */
+export function achatarAgenda(resposta) {
+  if (Array.isArray(resposta)) return resposta
+  if (!resposta || typeof resposta !== 'object') return []
+
+  return GRUPOS_DA_AGENDA.flatMap((grupo) =>
+    (resposta[grupo] ?? []).map((item) => ({
+      ...item,
+      status: item.status ?? item.situacao ?? grupo,
+    })),
+  )
+}
