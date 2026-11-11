@@ -15,6 +15,8 @@ nav:
     - "Ata 8 — Redistribuição da Sprint 7 e alinhamento das pendências": "atas-reuniao/ata-reuniao-8.md"
   - Documento de Visão: "documento-de-visao.md"
   - Documento de Arquitetura: "documento-de-arquitetura.md"
+  - Testes:
+    - "Relatório de execução — Sprint 7": "testes/relatorio-sprint-7.md"
 
 theme:
   name: material
