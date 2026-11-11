@@ -8,6 +8,7 @@ import {
   formatarPrazoDdMm,
   ehAtrasada,
   categorizarEntrega,
+  achatarAgenda,
 } from './agendaUtils'
 
 const itensExemplo = [
@@ -116,9 +117,62 @@ describe('Funções utilitárias da Agenda', () => {
     expect(categorizarEntrega({ status: 'CONCLUIDA' })).toBe('CONCLUIDAS')
     expect(categorizarEntrega({ status: 'Concluída' })).toBe('CONCLUIDAS')
   })
+
+  it('achata a resposta agrupada do GET /agenda usando o campo situacao', () => {
+    const lista = achatarAgenda({
+      A_FAZER: [{ id: 1, titulo: 'Lista 1', situacao: 'A_FAZER' }],
+      EM_ANDAMENTO: [],
+      CONCLUIDA: [{ id: 2, titulo: 'Quiz', situacao: 'CONCLUIDA' }],
+    })
+
+    expect(lista).toEqual([
+      { id: 1, titulo: 'Lista 1', situacao: 'A_FAZER', status: 'A_FAZER' },
+      { id: 2, titulo: 'Quiz', situacao: 'CONCLUIDA', status: 'CONCLUIDA' },
+    ])
+    expect(achatarAgenda(itensExemplo)).toBe(itensExemplo)
+    expect(achatarAgenda(null)).toEqual([])
+  })
 })
 
 describe('Página Agenda com integração GET /agenda', () => {
+  it('mostra as entregas quando o GET /agenda responde agrupado por situação', async () => {
+    responderSucesso({
+      A_FAZER: [
+        {
+          id: 10,
+          titulo: 'Lista de exercícios 1',
+          disciplina: 'Cálculo 1',
+          tipo: 'Lista',
+          prazo: '2099-11-10T18:00:00',
+          situacao: 'A_FAZER',
+        },
+      ],
+      EM_ANDAMENTO: [],
+      CONCLUIDA: [
+        {
+          id: 11,
+          titulo: 'Quiz semanal',
+          disciplina: 'MDS',
+          tipo: 'Quiz',
+          prazo: '2000-01-01T12:00:00',
+          situacao: 'CONCLUIDA',
+        },
+      ],
+    })
+
+    abrir()
+
+    expect(await screen.findByText('Lista de exercícios 1')).toBeInTheDocument()
+    expect(screen.getByText('Quiz semanal')).toBeInTheDocument()
+    expect(screen.getByLabelText('1 atividades em A fazer')).toBeInTheDocument()
+    expect(
+      screen.getByLabelText('0 atividades em Em andamento'),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByLabelText('1 atividades em Concluídas'),
+    ).toBeInTheDocument()
+  })
+
   it('exibe estado de carregando e depois as três colunas com título, disciplina, tipo e prazo dd/mm', async () => {
     abrir()
 
