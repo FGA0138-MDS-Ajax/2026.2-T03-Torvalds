@@ -79,14 +79,14 @@ Uma branch por tarefa. Vida curta: o ideal é o merge em 1 a 2 dias.
 | `refactor/` | Mudança interna, mesmo comportamento | `developer` |
 | `ci/` | Workflows e automações | `developer` |
 | `chore/` | Dependências, configuração, manutenção | `developer` |
-| `docs/` | Conteúdo do site de documentação | `docs` |
+| `docs-` | Conteúdo do site de documentação (com hífen: como já existe a branch `docs`, o Git não aceita `docs/...`) | `docs` |
 
 **Bons nomes**
 
 ```
 feat/18-validacao-email
 fix/31-produto-inexistente-404
-docs/7-visao-geral-arquitetura
+docs-7-visao-geral-arquitetura
 ```
 
 **Nomes a evitar**
