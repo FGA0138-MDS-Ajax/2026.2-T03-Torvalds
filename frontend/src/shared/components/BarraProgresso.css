@@ -1,0 +1,42 @@
+.barra-progresso {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+}
+
+.barra-progresso-trilho {
+  flex: 1;
+  min-width: 80px;
+  height: 12px;
+  border-radius: 999px;
+  background: #e2ddcf;
+  overflow: hidden;
+}
+
+.barra-progresso-preenchimento {
+  height: 100%;
+  border-radius: inherit;
+  background: #6f7d55;
+  transition: width 0.3s ease;
+}
+
+.barra-progresso-texto {
+  flex-shrink: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #30251e;
+  white-space: nowrap;
+}
+
+.barra-progresso-vazia .barra-progresso-texto {
+  font-weight: 400;
+  color: #5c5047;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .barra-progresso-preenchimento {
+    transition: none;
+  }
+}

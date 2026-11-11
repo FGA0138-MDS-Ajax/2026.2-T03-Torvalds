@@ -1,0 +1,200 @@
+.agenda-cabecalho {
+  border: 2px solid #e2ddcf;
+  background: #fcf9f1;
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.agenda-icone {
+  background: #cfb4ed;
+  border-radius: 50%;
+  padding: 14px 20px;
+  font-size: 32px;
+}
+
+.agenda-cabecalho h1 {
+  font:
+    bold clamp(24px, 3vw, 36px) Georgia,
+    serif;
+  margin: 0 0 6px;
+  overflow-wrap: anywhere;
+}
+
+.agenda-cabecalho p {
+  margin: 0;
+  color: #665e53;
+}
+
+.agenda-painel-estado {
+  border: 2px solid #e2ddcf;
+  background: #fcf9f1;
+  border-radius: 20px;
+  padding: 32px;
+  text-align: center;
+}
+
+.agenda-painel-estado button {
+  background: #cfb4ed;
+  border: 2px solid #a389c9;
+  border-radius: 20px;
+  padding: 10px 24px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 16px;
+  color: #30251e;
+}
+
+.agenda-kanban {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+.agenda-coluna {
+  background: #fcf9f1;
+  border: 2px solid #e2ddcf;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.agenda-coluna-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #eee8db;
+  padding-bottom: 12px;
+}
+
+.agenda-coluna-topo h2 {
+  font:
+    bold 20px Georgia,
+    serif;
+  margin: 0;
+}
+
+.agenda-coluna-contagem {
+  background: #e2ddcf;
+  border-radius: 12px;
+  padding: 3px 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.agenda-coluna-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.agenda-coluna-vazio {
+  color: #8c827a;
+  font-style: italic;
+  font-size: 14px;
+  text-align: center;
+  padding: 24px 0;
+  margin: 0;
+}
+
+.agenda-card {
+  background: #ffffff;
+  border: 2px solid #e2ddcf;
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+.agenda-card h3 {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.agenda-card p {
+  margin: 0;
+  font-size: 14px;
+  color: #554e44;
+  line-height: 1.4;
+}
+
+.agenda-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+  font-size: 14px;
+}
+
+.agenda-badge-disciplina {
+  background: #cfb4ed;
+  border-radius: 8px;
+  padding: 3px 8px;
+  font-weight: 600;
+  color: #2b1d3d;
+}
+
+.agenda-badge-tipo {
+  background: #f0eae1;
+  border-radius: 8px;
+  padding: 3px 8px;
+  color: #4a4135;
+}
+
+.agenda-prazo {
+  background: #f7f3ec;
+  border-radius: 8px;
+  padding: 3px 8px;
+  font-weight: 500;
+}
+
+.agenda-card.atrasada {
+  border-color: #d8a699;
+  background: #fffafa;
+}
+
+.agenda-card.atrasada .agenda-prazo {
+  background: #f8ded5;
+  color: #882f20;
+  font-weight: bold;
+}
+
+.agenda-alerta-atraso {
+  color: #b3261e;
+  font-weight: bold;
+  font-size: 14px;
+  margin-left: 4px;
+}
+
+.agenda-layout a:focus-visible,
+.agenda-painel-estado button:focus-visible {
+  outline: 3px solid #72528e;
+  outline-offset: 4px;
+}
+
+@media (max-width: 900px) {
+  .agenda-kanban {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .agenda-cabecalho {
+    padding: 16px;
+  }
+  .agenda-icone {
+    display: none;
+  }
+}

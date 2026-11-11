@@ -1,0 +1,406 @@
+.inicio {
+  --ponto-lilas: #a178de;
+  --ponto-azul: #48a6ed;
+  --ponto-verde: #5fb286;
+  --ponto-amarelo: #f2b94a;
+  --anel-verde: #79ad66;
+}
+
+.inicio h1 {
+  margin: 16px 0 20px;
+  font-size: 1.6rem;
+}
+
+.inicio h2 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+/* Duas colunas no computador: conteúdo principal e a lateral */
+.inicio-grade {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+  gap: 24px;
+  align-items: start;
+}
+
+.inicio-principal,
+.inicio-lateral {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+}
+
+.inicio-caixa {
+  display: grid;
+  gap: 14px;
+  padding: 18px 20px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 14px;
+  background: var(--cor-papel);
+}
+
+.inicio-caixa-topo {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.inicio-caixa-topo a {
+  color: var(--cor-texto);
+  font-size: 0.875rem;
+}
+
+/* Três cartões de resumo */
+.inicio-resumos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.resumo {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  min-height: 190px;
+  padding: 20px 22px 64px;
+  border-radius: 14px;
+  color: var(--cor-texto);
+  text-decoration: none;
+}
+
+.resumo:hover {
+  filter: brightness(0.97);
+}
+
+.resumo:focus-visible {
+  outline: 3px solid var(--cor-lilas-escuro);
+  outline-offset: 3px;
+}
+
+.resumo-lilas {
+  background: var(--cor-lilas);
+}
+
+.resumo-amarelo {
+  background: var(--cor-amarelo);
+}
+
+.resumo-verde {
+  background: var(--cor-verde);
+}
+
+.resumo-titulo {
+  margin-bottom: 16px;
+  font-size: 1.05rem;
+}
+
+.resumo-valor {
+  font-size: 2.6rem;
+  line-height: 1;
+}
+
+.resumo-legenda {
+  font-size: 1rem;
+}
+
+.resumo-seta {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgb(67 45 30 / 0.18);
+}
+
+/* Sua tarde de hoje (ainda sem backend) */
+.inicio-tarde p {
+  margin: 0;
+}
+
+.inicio-em-breve {
+  display: inline-block;
+  margin-right: 8px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--cor-lilas-claro);
+  color: var(--cor-lilas-escuro);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+/* Minhas matérias */
+.inicio-materias {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.materia {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 10px;
+  height: 100%;
+  min-height: 140px;
+  padding: 14px;
+  border-radius: 10px;
+  color: var(--cor-texto);
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.materia strong {
+  overflow-wrap: anywhere;
+}
+
+.materia:hover {
+  filter: brightness(0.97);
+}
+
+.materia:focus-visible {
+  outline: 3px solid var(--cor-lilas-escuro);
+  outline-offset: 3px;
+}
+
+.materia-lilas {
+  background: var(--cor-lilas-claro);
+}
+
+.materia-amarelo {
+  background: var(--cor-amarelo-claro);
+}
+
+.materia-verde {
+  background: var(--cor-verde-claro);
+}
+
+.materia-azul {
+  background: var(--cor-azul-claro);
+}
+
+.materia-rosa {
+  background: var(--cor-rosa-claro);
+}
+
+.materia .barra-progresso-trilho {
+  min-width: 0;
+  height: 8px;
+}
+
+/* Meu progresso: donut */
+.inicio-progresso-corpo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.progresso-geral {
+  position: relative;
+  flex: 0 0 150px;
+  width: 150px;
+  height: 150px;
+}
+
+.progresso-geral svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.progresso-geral circle {
+  fill: none;
+  stroke-width: 14;
+}
+
+.progresso-geral-trilho {
+  stroke: #b3b1ad;
+}
+
+.progresso-geral-anel {
+  stroke: var(--anel-verde);
+  transition: stroke-dasharray 0.4s ease;
+}
+
+.progresso-geral-centro {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  margin: 0;
+  padding: 0 28px;
+  text-align: center;
+}
+
+.progresso-geral-centro strong {
+  font-size: 1.5rem;
+}
+
+.progresso-geral-centro span {
+  font-size: 0.875rem;
+  line-height: 1.2;
+}
+
+.inicio-progresso-contagem {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  text-align: center;
+}
+
+.inicio-progresso-contagem strong {
+  font-size: 1.4rem;
+}
+
+.inicio-progresso-contagem span {
+  font-size: 0.875rem;
+}
+
+.inicio-progresso-mensagem {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.inicio-progresso-mensagem span {
+  color: #e8b923;
+}
+
+/* Próximas atividades */
+.inicio-proximas ul {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.inicio-proximas li {
+  border-top: 1px solid var(--cor-borda);
+}
+
+.inicio-proxima {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  color: var(--cor-texto);
+  text-decoration: none;
+}
+
+.inicio-proxima:hover .inicio-proxima-texto strong {
+  text-decoration: underline;
+}
+
+.inicio-proxima:focus-visible {
+  outline: 3px solid var(--cor-lilas-escuro);
+  outline-offset: 2px;
+}
+
+.inicio-proxima-texto {
+  display: grid;
+  flex: 1;
+  gap: 2px;
+  min-width: 0;
+}
+
+.inicio-proxima-texto strong {
+  overflow-wrap: anywhere;
+}
+
+.inicio-proxima-texto span,
+.inicio-proxima-texto small {
+  font-size: 0.875rem;
+}
+
+.inicio-proxima-texto small {
+  color: var(--cor-texto-suave);
+}
+
+.inicio-proxima-texto .atrasada {
+  color: var(--cor-alerta);
+  font-weight: 700;
+}
+
+.ponto {
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  border-radius: 50%;
+}
+
+.ponto-lilas {
+  background: var(--ponto-lilas);
+}
+
+.ponto-azul {
+  background: var(--ponto-azul);
+}
+
+.ponto-verde {
+  background: var(--ponto-verde);
+}
+
+.ponto-amarelo {
+  background: var(--ponto-amarelo);
+}
+
+.etiqueta {
+  flex-shrink: 0;
+  padding: 1px 10px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 0.875rem;
+}
+
+.etiqueta-lilas {
+  color: #6f49b8;
+}
+
+.etiqueta-azul {
+  color: #287dcb;
+}
+
+.etiqueta-verde {
+  color: #3f8f66;
+}
+
+.etiqueta-amarelo {
+  color: #a8730a;
+}
+
+/* Telas menores: tudo em uma coluna */
+@media (max-width: 1100px) {
+  .inicio-grade {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .inicio-resumos {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .resumo {
+    min-height: 0;
+    padding-bottom: 20px;
+  }
+
+  .resumo-seta {
+    bottom: auto;
+    top: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progresso-geral-anel {
+    transition: none;
+  }
+}
