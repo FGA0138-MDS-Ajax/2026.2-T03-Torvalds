@@ -1,4 +1,5 @@
 import { requisicao } from '../../shared/api/client'
+import { achatarAgenda } from './agendaUtils'
 
 /**
  * Carrega a agenda unificada do aluno autenticado.
@@ -8,7 +9,7 @@ import { requisicao } from '../../shared/api/client'
  */
 export async function carregarAgenda(signal) {
   try {
-    return await requisicao('/agenda', { signal })
+    return achatarAgenda(await requisicao('/agenda', { signal }))
   } catch (erro) {
     if (signal?.aborted) throw erro
     if (erro.status !== 404) {
