@@ -26,6 +26,14 @@
 .disciplina-cabecalho p {
   margin: 0;
 }
+.disciplina-cabecalho-texto {
+  flex: 1;
+  min-width: 0;
+}
+.disciplina-progresso {
+  margin-top: 14px;
+  max-width: 420px;
+}
 .disciplina-icone {
   background: #cfb4ed;
   border-radius: 50%;
@@ -105,7 +113,7 @@
   gap: 8px 24px;
 }
 .entrega-status {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: bold;
   border-radius: 16px;
   padding: 7px 12px;
@@ -122,6 +130,51 @@
 .disciplina-vazio {
   padding: 32px 0;
 }
+.entrega-acoes {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+.disciplina-painel .entrega-botao {
+  padding: 6px 16px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.disciplina-painel .entrega-botao:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.disciplina-erro-acao {
+  margin: 0 0 16px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: #f8ded5;
+  color: #882f20;
+}
+.disciplina-materiais {
+  margin-top: 28px;
+}
+.disciplina-lista-materiais {
+  padding: 0;
+  margin: 24px 0 0;
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+.material {
+  padding: 16px 20px;
+  border: 2px solid #e2ddcf;
+  border-radius: 18px;
+  overflow-wrap: anywhere;
+}
+.material a {
+  display: inline-block;
+  margin-bottom: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #51415f;
+}
 .disciplina-layout a:focus-visible {
   outline: 3px solid #72528e;
   outline-offset: 4px;
@@ -134,7 +187,9 @@
     flex-wrap: wrap;
     padding: 16px;
   }
-  .entrega-status {
+  .entrega-acoes {
+    flex-direction: row;
+    align-items: center;
     margin-left: 44px;
   }
   .disciplina-icone {
