@@ -96,7 +96,7 @@ describe('Página de disciplina com API HTTP', () => {
     abrir()
     expect(await screen.findByText('Atrasada')).toBeInTheDocument()
     expect(screen.getByText('Concluída')).toBeInTheDocument()
-    fireEvent.click(screen.getByRole('button', { name: 'Concluídas' }))
+    fireEvent.click(screen.getByRole('button', { name: /^Concluídas/ }))
     expect(screen.queryByText('Atrasada')).not.toBeInTheDocument()
     expect(screen.getByText('Já entregue')).toBeInTheDocument()
   })
@@ -145,6 +145,102 @@ describe('Página de disciplina com API HTTP', () => {
         name: 'Progresso em Compiladores',
       }),
     ).toHaveAttribute('aria-valuetext', '1 de 2 · 50%')
+  })
+
+  it('volta para a matéria que estava aberta', async () => {
+    abrir()
+
+    expect(
+      await screen.findByRole('link', { name: /Voltar para a matéria/ }),
+    ).toHaveAttribute('href', '/materias?materia=7')
+  })
+
+  describe('com entregas em várias situações', () => {
+    const entregas = [
+      {
+        ...entrega,
+        id: 1,
+        titulo: 'Futura',
+        prazo: '2099-01-01T12:00:00',
+        status: 'A_FAZER',
+      },
+      {
+        ...entrega,
+        id: 2,
+        titulo: 'Já entregue',
+        prazo: '2000-01-02T12:00:00',
+        status: 'CONCLUIDA',
+      },
+      {
+        ...entrega,
+        id: 3,
+        titulo: 'Vencida',
+        prazo: '2000-01-01T12:00:00',
+        status: 'EM_ANDAMENTO',
+      },
+    ]
+
+    it('mostra a contagem em cada filtro, o resumo e o progresso', async () => {
+      responder(entregas)
+      abrir()
+
+      expect(
+        await screen.findByRole('button', { name: 'Todas (3)' }),
+      ).toBeInTheDocument()
+      expect(
+        screen.getByRole('button', { name: 'A fazer (1)' }),
+      ).toBeInTheDocument()
+      expect(
+        screen.getByRole('button', { name: 'Em andamento (1)' }),
+      ).toBeInTheDocument()
+      expect(
+        screen.getByRole('button', { name: 'Concluídas (1)' }),
+      ).toBeInTheDocument()
+      expect(
+        screen.getByText('1 atrasada · 1 em andamento'),
+      ).toBeInTheDocument()
+      expect(screen.getByRole('progressbar')).toHaveAttribute(
+        'aria-valuetext',
+        '1 de 3 · 33%',
+      )
+    })
+
+    it('lista as atrasadas primeiro e as concluídas por último', async () => {
+      responder(entregas)
+      abrir()
+
+      await screen.findByRole('heading', { name: 'Vencida' })
+
+      expect(
+        screen
+          .getAllByRole('heading', { level: 3 })
+          .map((titulo) => titulo.textContent),
+      ).toEqual(['Vencida', 'Futura', 'Já entregue'])
+    })
+
+    it('filtra só as entregas em andamento', async () => {
+      responder(entregas)
+      abrir()
+
+      fireEvent.click(
+        await screen.findByRole('button', { name: 'Em andamento (1)' }),
+      )
+
+      expect(screen.getByText('Vencida')).toBeInTheDocument()
+      expect(screen.queryByText('Futura')).not.toBeInTheDocument()
+      expect(screen.queryByText('Já entregue')).not.toBeInTheDocument()
+    })
+
+    it('escreve o prazo em palavras, menos nas concluídas', async () => {
+      responder(entregas)
+      abrir()
+
+      await screen.findByRole('heading', { name: 'Vencida' })
+
+      // A vencida e a futura trazem o prazo em palavras; a concluída não.
+      expect(screen.getAllByText(/^venceu há \d+ dias$/)).toHaveLength(1)
+      expect(screen.getAllByText(/^faltam \d+ dias$/)).toHaveLength(1)
+    })
   })
 })
 
