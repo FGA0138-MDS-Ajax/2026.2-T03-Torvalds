@@ -63,6 +63,11 @@ function abrir() {
   )
 }
 
+// A Agenda abre no calendário do mês; os testes abaixo são do quadro de três colunas.
+async function abrirQuadro() {
+  fireEvent.click(await screen.findByRole('button', { name: 'Quadro' }))
+}
+
 function responderComPatch(statusPatch = 200) {
   vi.stubGlobal(
     'fetch',
@@ -197,6 +202,7 @@ describe('Página Agenda com integração GET /agenda', () => {
     })
 
     abrir()
+    await abrirQuadro()
 
     expect(await screen.findByText('Lista de exercícios 1')).toBeInTheDocument()
     expect(screen.getByText('Quiz semanal')).toBeInTheDocument()
@@ -214,6 +220,7 @@ describe('Página Agenda com integração GET /agenda', () => {
 
     // Estado carregando
     expect(screen.getByRole('status')).toHaveTextContent('Carregando agenda...')
+    await abrirQuadro()
 
     // Título e colunas
     expect(
@@ -230,14 +237,17 @@ describe('Página Agenda com integração GET /agenda', () => {
     ).toBeInTheDocument()
 
     // Itens exibidos com título, disciplina, tipo e prazo dd/mm
-    expect(screen.getByText('Lista 2: análise léxica')).toBeInTheDocument()
-    expect(screen.getByText('Compiladores')).toBeInTheDocument()
-    expect(screen.getByText('Lista')).toBeInTheDocument()
+    const cartao = screen.getByText('Lista 2: análise léxica').closest('li')
+
+    expect(cartao).toBeInTheDocument()
+    expect(within(cartao).getByText('Compiladores')).toBeInTheDocument()
+    expect(within(cartao).getByText('Lista')).toBeInTheDocument()
     expect(screen.getByText(/Prazo:\s*10\/11/)).toBeInTheDocument()
   })
 
   it('destaca atividades atrasadas', async () => {
     abrir()
+    await abrirQuadro()
 
     const itemAtrasado = await screen.findByText('Relatório atrasado')
     expect(itemAtrasado).toBeInTheDocument()
@@ -287,6 +297,7 @@ describe('Página Agenda com integração GET /agenda', () => {
     // Ao clicar em Tentar de novo com o serviço recuperado
     responderSucesso()
     fireEvent.click(botaoTentar)
+    await abrirQuadro()
 
     expect(
       await screen.findByText('Lista 2: análise léxica'),
@@ -330,6 +341,7 @@ describe('Página Agenda com integração GET /agenda', () => {
     )
 
     abrir()
+    await abrirQuadro()
 
     expect(await screen.findByText('Parser LR')).toBeInTheDocument()
     expect(screen.getByText('Compiladores')).toBeInTheDocument()
@@ -340,6 +352,7 @@ describe('Página Agenda com integração GET /agenda', () => {
 describe('Mover cartão na Agenda (US04a)', () => {
   it('mostra cada coluna ordenada pelo prazo', async () => {
     abrir()
+    await abrirQuadro()
 
     const coluna = (
       await screen.findByRole('heading', { level: 2, name: 'A fazer' })
@@ -354,6 +367,7 @@ describe('Mover cartão na Agenda (US04a)', () => {
   it('muda a situação ao escolher outra coluna no seletor', async () => {
     responderComPatch()
     abrir()
+    await abrirQuadro()
 
     fireEvent.change(
       await screen.findByRole('combobox', {
@@ -378,6 +392,7 @@ describe('Mover cartão na Agenda (US04a)', () => {
   it('muda a situação ao soltar o cartão em outra coluna', async () => {
     responderComPatch()
     abrir()
+    await abrirQuadro()
 
     const cartao = (await screen.findByText('Trabalho de PI')).closest('li')
     const coluna = screen
@@ -401,6 +416,7 @@ describe('Mover cartão na Agenda (US04a)', () => {
   it('desfaz a mudança e avisa quando a API recusa', async () => {
     responderComPatch(503)
     abrir()
+    await abrirQuadro()
 
     fireEvent.change(
       await screen.findByRole('combobox', {
