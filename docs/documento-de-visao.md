@@ -2,7 +2,7 @@
 
 # VISÃO DO PRODUTO E DO PROJETO
 
-**Versão 1.3**
+**Versão 1.4**
 
 ## Integrantes do Grupo
 
@@ -12,7 +12,7 @@
 | 232014469 | Jefferson de Souza Reis | Desenvolvedor | 12.5 |
 | 242004967 | Pedro Lucas Souza Silva | Desenvolvedor | 12.5 |
 | 242015719 | Thiago Kauã de Sousa Cardoso | Desenvolvedor | 12.5 |
-| 251036440 | Eduardo | Product Owner | 12.5 |
+| 251036440 | Eduardo Viana | Product Owner | 12.5 |
 | 232014692 | João Lucas R. Cabral | Designer/QA | 15 |
 | 232024554 | Ana Jullia B. M. Lopes | Scrum Master/QA | 12.5 |
 | 241040341 | Pedro Henrique Galdino | Desenvolvedor | 9 |
@@ -22,10 +22,11 @@
 
 | Data | Versão | Descrição | Autor |
 | --- | --- | --- | --- |
-| 30/09 | 1.0 | Versão inicial do Documento de Visão. | Grupo Torvalds |
-| 16/10 | 1.1 | Alteração do nome do produto de “Folha Digital” para “cAnCHA” e reorganização das sprints | Ana Jullia |
-| 09/11 | 1.2 | Correções da avaliação do professor: tecnologia do back-end, papéis, ciclo de vida, critérios de aceitação, GQM e testes. | Ana Jullia / Eduardo |
-| 11/11 | 1.3 | Resultado da Sprint 7 na Sprint Review: entregáveis concluídos (100%) e release v0.1.0 publicada na main em 11/11, dois dias depois do previsto. | Eduardo |
+| 30/09/2026 | 1.0 | Versão inicial do Documento de Visão. | Grupo Torvalds |
+| 16/10/2026 | 1.1 | Alteração do nome do produto de “Folha Digital” para “cAnCHA” e reorganização das sprints | Ana Jullia |
+| 09/11/2026 | 1.2 | Correções da avaliação do professor: tecnologia do back-end, papéis, ciclo de vida, critérios de aceitação, GQM e testes. | Ana Jullia / Eduardo |
+| 11/11/2026 | 1.3 | Resultado da Sprint 7 na Sprint Review: entregáveis concluídos (100%) e release v0.1.0 publicada na main em 11/11, dois dias depois do previsto. | Eduardo |
+| 16/11/2026 | 1.4 | Processo alinhado ao praticado, sem trabalho em pares; testes de usabilidade com 2 estudantes por sprint a partir da Sprint 9, com métricas M6 a M12 e risco R6 ajustados; M4 medida nos pull requests; Ponto de Controle e Review da Sprint 7 registrados; Tabela 1, backlog, calendário e roteiro de testes atualizados; novo risco R8; quadros citados no texto. | Eduardo |
 
 ## Sumário
 
@@ -80,6 +81,8 @@ A leitura do diagrama mostra que a maioria das causas é estrutural: não depend
 A solução proposta é um software de visualização de tarefas e acompanhamento de atividades e prazos, com foco em diminuir a quantidade de cliques do usuário. O produto facilita a gestão de tarefas e de tempo, oferecendo uma interface intuitiva que auxilia o aluno a encontrar conteúdo, prazos e progresso usando o modelo mental de um caderno. Cada recurso responde a uma causa identificada no diagrama: o acesso direto às disciplinas reduz a profundidade de navegação; a agenda unificada de entregas centraliza pendências e prazos hoje dispersos entre sistemas; e o painel de progresso, alimentado pelas atividades que o aluno marca como concluídas, mostra quanto ele já avançou em cada disciplina e no período letivo. Com isso, espera-se que o aluno encontre o que precisa com menos passos e menos esforço, acompanhe seus prazos sem controles paralelos e tenha clareza sobre o próprio progresso.
 
 ## 1.2 Declaração de Posição do Produto
+
+O Quadro 1 resume a posição do produto: a quem se destina, que necessidade atende e em que se diferencia das alternativas atuais.
 
 **Quadro 1 – Declaração de posição do produto**
 
@@ -143,13 +146,15 @@ A metodologia ágil foi escolhida porque o problema é de usabilidade: não bast
 
 Como processo, adota-se um ciclo de vida híbrido, iterativo e incremental fundamentado em Scrum e XP. Na fase de iniciação (Sprint 1), a equipe mapeou o problema com o diagrama de Ishikawa, elaborou este Documento de Visão e iniciou o Product Backlog. A partir da Sprint 2, cada ciclo passa a gerar incrementos do software. O Scrum organiza o trabalho em sprints semanais, com planejamento no início e revisão e retrospectiva no fim, o que viabiliza o refinamento contínuo do backlog. Cada sprint gera um incremento funcional do software, que acrescenta valor ao produto e é avaliado ao fim da sprint. O XP complementa o Scrum com práticas técnicas que mantêm o código estável entre uma entrega e outra. A sprint semanal permite que cada ajuste de interface chegue rapidamente à validação e se encaixa no ritmo do semestre.
 
-Nos procedimentos, uma história de usuário só entra na sprint quando atende à Definição de Preparado (*Definition of Ready*): possui critérios de aceitação verificáveis e escopo delimitado pelo Dono do Produto, pequeno o suficiente para ser concluído em uma semana. Cada sprint começa com a seleção das histórias mais prioritárias do backlog e termina com a revisão do incremento produzido, em que o Dono do Produto, representando o aluno, valida as entregas (seção 2.2). Além dessa validação semanal, a equipe realiza testes de usabilidade com estudantes em marcos definidos do projeto, como a conclusão de uma funcionalidade principal, verificando na prática se a interface reduz os passos até a tarefa e deixa prazos e progressos claros. Ao longo da sprint, a equipe realiza reuniões semanais para acompanhar o andamento e identificar impedimentos. Uma história só é considerada concluída, conforme a Definição de Pronto (*Definition of Done*), quando seus testes passam na integração contínua, critério acompanhado pelo Analista de Qualidade.
+Nos procedimentos, uma história de usuário só entra na sprint quando atende à Definição de Preparado (*Definition of Ready*): possui critérios de aceitação verificáveis e escopo delimitado pelo Dono do Produto, pequeno o suficiente para ser concluído em uma semana. Cada sprint começa com a seleção das histórias mais prioritárias do backlog e termina com a revisão do incremento produzido, em que o Dono do Produto, representando o aluno, valida as entregas (seção 2.2). Além dessa validação semanal, a partir da Sprint 9 a equipe realiza, em cada sprint, uma rodada de testes de usabilidade com dois estudantes (seção 5.1), verificando na prática se a interface reduz os passos até a tarefa e deixa prazos e progressos claros. Ao longo da sprint, a equipe realiza reuniões semanais para acompanhar o andamento e identificar impedimentos. Uma história só é considerada concluída, conforme a Definição de Pronto (*Definition of Done*), quando seus testes passam na integração contínua, critério acompanhado pelo Analista de Qualidade.
 
 Os métodos adotados são as histórias de usuário, que descrevem cada funcionalidade do ponto de vista do aluno (por exemplo, ver em uma única tela todos os prazos da semana); os testes automatizados, que verificam cada funcionalidade entregue; e a integração contínua, que executa esses testes a cada alteração enviada ao repositório. A programação em pares, prática comum do XP, não foi adotada nesta versão do projeto; em seu lugar, a qualidade do código é assegurada pela revisão de código, realizada por meio das inspeções de código atribuídas ao Analista de Qualidade (seção 2.2).
 
 Quanto às ferramentas, o código é versionado no GitHub, que também concentra a integração contínua do projeto. O Product Backlog e o Sprint Backlog são gerenciados no Trello, o que dá transparência ao andamento de cada sprint, e as reuniões semanais acontecem pelo Microsoft Teams. A codificação é feita no IntelliJ IDEA ou no VS Code, a critério de cada integrante, e o design e a prototipação das telas são feitos no Figma.
 
 ## 2.2 Organização do Projeto
+
+O Quadro 2 apresenta os papéis do projeto, as atribuições de cada um e quem os exerce.
 
 **Quadro 2 – Organização da equipe do projeto**
 
@@ -180,16 +185,18 @@ O percentual é atualizado na Sprint Review de cada sprint, e toda mudança de e
 | Sprint 4 | Apresentar Doc. Arquitetura | 15/10/26 | 21/10/26 | Apresentação do Doc. de Arquitetura | Apresentação; prova | Todos | 100% |
 | Sprint 5 | Prototipar as telas | 22/10/26 | 28/10/26 | Protótipo no Figma | - | DEV, QA, DES | 100% |
 | Sprint 6 | Base técnica e disciplinas | 29/10/26 | 04/11/26 | Estrutura do back-end, banco, CI, deploy, GET/disciplinas, autenticação no back-end | - | DEV, QA, SM | 100% |
-| Sprint 7 | Primeira versão utilizável pelo aluno | 05/11/26 | 11/11/26 | Tela de login, Início com disciplinas e próximas entregas, página da disciplina com entregas e materiais, Agenda Kanban, Visão v1.2 | Release v0.1.0 na main em 11/11 (prevista para 09/11); Ponto de Controle em 11/11 | Todos | 100% |
-| Sprint 8 | Progresso do aluno | 12/11/26 | 18/11/26 | Ajustes pedidos no Ponto de Controle; concluir entrega; progresso por disciplina e no semestre | Inspeção do código pelos inspetores | DEV, QA, PO | 0% |
-| Sprint 9 | Validação e ajustes | 19/11/26 | 25/11/26 | Testes de usabilidade com 5 alunos; reparos dos defeitos da inspeção e ajustes na Agenda | Testes de usabilidade | Todos | 0% |
-| Sprint 10 | Entregar o produto | 26/11/26 | 02/12/26 | Anotações, se couber; execução de CT-01 a CT-10; correções; congelamento do código, release v1.0.0 | Apresentação final | Todos | 0% |
+| Sprint 7 | Primeira versão utilizável pelo aluno | 05/11/26 | 11/11/26 | Tela de login, Início com disciplinas e próximas entregas, página da disciplina com entregas e materiais, Agenda Kanban, Visão v1.2; concluir entrega e progresso por disciplina, adiantados da Sprint 8 | Releases v0.1.0 e v0.1.1 na main em 11/11 (prevista para 09/11); Ponto de Controle em 11/11, sem apontamentos significativos; Review feita presencialmente em sala | Todos | 100% |
+| Sprint 8 | Agenda filtrada e documentação alinhada | 12/11/26 | 18/11/26 | Filtro por disciplina na Agenda (US04b, adiantada da Sprint 9); documentação sem trabalho em pares; registro das métricas das Sprints 6 e 7; Visão v1.4; Documento de Arquitetura com a correção do professor; reexecução de CT-03, CT-04, CT-05 e CT-07 | Inspeção mútua entre os grupos em 16/11 | Todos | 0% |
+| Sprint 9 | Validação e ajustes | 19/11/26 | 25/11/26 | Testes de usabilidade com 2 alunos (rodada 1); reparos dos defeitos da inspeção | Testes de usabilidade (rodada 1) | Todos | 0% |
+| Sprint 10 | Entregar o produto | 26/11/26 | 02/12/26 | Anotações, se couber; testes de usabilidade com 2 alunos (rodada 2); execução de CT-01 a CT-10; correções; congelamento do código, release v1.0.0 | Testes de usabilidade (rodada 2); apresentação final | Todos | 0% |
 
 *Fonte: elaborado pelo grupo (2026)*
 
 *(Aliases): PO = Product Owner; SM = Scrum Master; DEV = Desenvolvedores; DES = Designer; QA = Analista de Qualidade.*
 
 ## 2.4 Matriz de Comunicação
+
+O Quadro 3 reúne os eventos do projeto, com objetivo, participantes, condução, frequência, canal e forma de registro.
 
 **Quadro 3 – Matriz de comunicação**
 
@@ -213,8 +220,9 @@ Os riscos são avaliados em duas escalas de 1 a 3. Probabilidade: 1 = Improváve
 - **R3: Esforço subestimado (Exposição 6, alta).** Mitigação: estimar com planning poker; histórias de até 5 pontos. Contingência: mover Should/Could; registrar no cronograma. Responsável: PO.
 - **R4: Requisitos pouco claros (Exposição 4, média).** Mitigação: critérios de aceitação antes da Planning. Contingência: congelar a história e registrar no backlog. Responsável: PO.
 - **R5: Falta de dados acadêmicos reais (Exposição 6, alta).** Mitigação: carga inicial realista, sem dados pessoais. Contingência: cadastrar por migration antes dos testes. Responsável: PO.
-- **R6: Poucos alunos para testes de usabilidade (Exposição 6, alta).** Mitigação: recrutar desde a Sprint 7. Contingência: testes remotos; mínimo de 3 participantes. Responsável: Analista de Qualidade.
+- **R6: Poucos alunos para testes de usabilidade (Exposição 6, alta).** Ocorreu: o grupo conta com 2 estudantes, e não 5, e os testes passaram a ser feitos em rodadas de 2 participantes por sprint, a partir da Sprint 9. Mitigação: confirmar os participantes de cada rodada na sprint anterior, de preferência pessoas diferentes a cada rodada; sessões remotas de até 20 min. Contingência: fazer a rodada com 1 participante e registrar a limitação, ou passá-la para o início da sprint seguinte. Responsável: Analista de Qualidade.
 - **R7: Serviço gratuito fora do ar na apresentação (Exposição 6, alta).** Mitigação: acordar o serviço 5 minutos antes. Contingência: apresentar pelo ambiente local. Responsável: Desenvolvedores.
+- **R8: Ausência de um integrante (Exposição 6, alta).** Ocorreu na Sprint 7, quando as tarefas de um integrante foram assumidas pelo PO. Mitigação: tarefas pequenas; pull requests revisados por outra pessoa; README atualizado. Contingência: outro integrante assume a tarefa, como o grupo combinou; o Scrum Master registra na ata e o PO repactua a sprint. Responsável: Scrum Master.
 
 ## 2.6 Critérios de Replanejamento
 
@@ -261,10 +269,10 @@ Cada história percorre o seguinte fluxo de desenvolvimento, detalhado no guia d
 
 1. O PO escreve e ordena a história no Product Backlog, com critérios de aceitação; o Designer liga a tela do Figma, quando houver.
 2. Atendida a Definição de Preparado, a história entra na Sprint Planning, e o time a divide em tarefas.
-3. Cada tarefa vira uma issue no GitHub, ligada à história e à milestone da sprint, com um responsável e um par.
+3. Cada tarefa vira uma issue no GitHub, ligada à história e à milestone da sprint, com um responsável.
 4. O responsável cria uma branch a partir da `developer`, escreve os testes e o código e faz commits no padrão Conventional Commits.
 5. Ao terminar, abre um pull request para a `developer`; a integração contínua roda os testes do back-end e o lint, a formatação e o build do front-end.
-6. Um integrante de fora da dupla revisa e aprova o código; o merge é feito por squash.
+6. Um integrante que não fez a tarefa revisa e aprova o código; o merge é feito por squash.
 7. Na Sprint Review, o PO confere os critérios de aceitação no ambiente publicado: aceita e fecha a história, ou a recusa e ela volta ao backlog.
 8. No fim da sprint, a `developer` é integrada à `main` por um pull request de release, marcado com uma tag de versão.
 
@@ -317,6 +325,8 @@ Após a elicitação, os requisitos são analisados pela equipe e pelo Product O
 
 ## 4.2 Perfis
 
+O Quadro 4 descreve os perfis de acesso previstos e suas permissões. Nesta versão, só o perfil Aluno é implementado; as funcionalidades dos outros dois perfis estão fora desta versão (seção 4.4).
+
 **Quadro 4 – Perfis de acesso**
 
 | # | Nome do perfil | Características do perfil | Permissões de acesso |
@@ -329,6 +339,8 @@ Após a elicitação, os requisitos são analisados pela equipe e pelo Product O
 
 ## 4.3 Cenários
 
+O Quadro 5 lista os cenários funcionais e as sprints em que cada um é desenvolvido.
+
 **Quadro 5 – Cenários funcionais**
 
 | Numeração do cenário | Nome do cenário | Sprints |
@@ -336,8 +348,8 @@ Após a elicitação, os requisitos são analisados pela equipe e pelo Product O
 | CEN-00 | Acesso ao sistema (Login) | Sprint 6 e 7 |
 | CEN-01 | Gestão e Visualização de Disciplinas (máximo 3 cliques) | Sprint 7 a 10 |
 | CEN-02 | Navegação e Consulta de Atividades (tarefas e materiais) | Sprint 7 |
-| CEN-03 | Acompanhamento na Agenda Unificada (Kanban) | Sprint 7 e 9 |
-| CEN-04 | Controle e Progresso (marcar concluídas e atualizar barra) | Sprint 8 |
+| CEN-03 | Acompanhamento na Agenda Unificada (Kanban) | Sprint 7 e 8 |
+| CEN-04 | Controle e Progresso (marcar concluídas e atualizar barra) | Sprint 7 (adiantado da Sprint 8) |
 | CEN-05 | Criação e Gestão de Anotações (cadernos digitais) | Sprint 10 |
 
 *Fonte: elaborado pelo grupo (2026)*
@@ -390,14 +402,14 @@ O Product Backlog do projeto cAnCHA está organizado por ordem de prioridade. O 
 
 ### 7. Concluir entrega (CEN-04 / REQ-05)
 
-- **Tipo:** Funcional | **MoSCoW:** Must | **Sprint:** 8
+- **Tipo:** Funcional | **MoSCoW:** Must | **Sprint:** 7 (adiantada da 8)
 - **História:** US05a: Como aluno, quero marcar uma entrega como concluída, para registrar meu avanço.
 - **Critérios de Aceitação:** Dado uma entrega a fazer, quando o aluno clica em Concluir, então ela passa a concluída só para ele, com a data registrada. Dado uma entrega concluída, quando o aluno desfaz, então ela volta a pendente. Dado uma entrega de disciplina em que não está matriculado, então a alteração é negada.
 - **Teste:** CT-07, CT-10
 
 ### 8. Progresso por disciplina (CEN-04 / REQ-05)
 
-- **Tipo:** Funcional | **MoSCoW:** Must | **Sprint:** 8
+- **Tipo:** Funcional | **MoSCoW:** Must | **Sprint:** 7 (adiantada da 8)
 - **História:** US05b: Como aluno, quero ver uma barra de progresso por disciplina, para gerenciar meu tempo de estudo.
 - **Critérios de Aceitação:** Dado uma disciplina com 4 entregas e 1 concluída, então a barra mostra 25%. Dado que o aluno conclui mais uma, então a barra passa a 50% sem recarregar a página. Dado uma disciplina sem entregas, então aparece "sem entregas" em vez de 0%.
 - **Teste:** CT-07
@@ -411,7 +423,7 @@ O Product Backlog do projeto cAnCHA está organizado por ordem de prioridade. O 
 
 ### 10. Filtro da agenda (CEN-03 / REQ-04)
 
-- **Tipo:** Funcional | **MoSCoW:** Should | **Sprint:** 9
+- **Tipo:** Funcional | **MoSCoW:** Should | **Sprint:** 8 (adiantada da 9)
 - **História:** US04b: Como aluno, quero filtrar a agenda por disciplina, para focar em uma matéria.
 - **Critérios de Aceitação:** Dado o filtro com uma disciplina marcada, então só os cartões dela aparecem; ao limpar, voltam todos.
 - **Teste:** CT-05
@@ -451,25 +463,32 @@ Para o acompanhamento do projeto cAnCHA, a equipe adotará o método GQM (*Goal-
   - **Questão:** Quantos defeitos aparecem?
     - **Métrica M3 (Defeitos por sprint):** Issues com a label `bug` abertas na sprint. Valor esperado: queda a partir da Sprint 9. Coleta: Analista de Qualidade, pelo filtro de issues do GitHub. Interpretação: Aumento de defeitos exige ação na Retrospectiva.
   - **Questão:** Os testes passam?
-    - **Métrica M4 (Aprovação dos testes):** (Execuções da CI na `developer` sem falha ÷ total de execuções) x 100. Valor esperado: 100%. Coleta: Analista de Qualidade, na aba Actions. Interpretação: Qualquer falha na `developer` deve ser corrigida antes de novas histórias.
+    - **Métrica M4 (Aprovação dos testes):** (Execuções da CI nos pull requests para a `developer` sem falha ÷ total de execuções) x 100. Valor esperado: nenhum pull request integrado com a CI falhando; a taxa mostra com que frequência o código chega ao pull request sem passar nos testes. Coleta: Analista de Qualidade, na aba Actions. Interpretação: Falha num pull request é corrigida antes do merge; taxa em queda entre sprints é discutida na Retrospectiva.
   - **Questão:** Os defeitos são corrigidos a tempo?
     - **Métrica M5 (Correção de defeitos):** (Defeitos que impedem critérios, corrigidos ÷ identificados) x 100. Valor esperado: 100% antes da Review. Coleta: Analista de Qualidade. Interpretação: Defeito aberto impede o aceite da história.
 - **O3. Avaliar a profundidade de navegação**
   - **Questão:** O aluno chega à disciplina em até 3 cliques?
-    - **Métrica M6 (Cliques até a disciplina):** Cliques desde o Início até a página da disciplina abrir. Valor esperado: ≤ 3. Coleta: Observador, no teste de usabilidade da Sprint 9. Interpretação: Acima de 3, registrar o caminho feito e abrir um item no backlog.
-    - **Métrica M7 (Cliques até a entrega):** Cliques desde o Início até ver a entrega pedida. Valor esperado: ≤ 3. Coleta: Observador. Interpretação: Idem M6.
+    - **Métrica M6 (Cliques até a disciplina):** Cliques desde o Início até a página da disciplina abrir. Valor esperado: ≤ 3 para todos os participantes da rodada. Coleta: Observador, nas rodadas de usabilidade, a partir da Sprint 9. Interpretação: Acima de 3, registrar o caminho feito e abrir um item no backlog.
+    - **Métrica M7 (Cliques até a entrega):** Cliques desde o Início até ver a entrega pedida. Valor esperado: ≤ 3 para todos os participantes da rodada. Coleta: Observador. Interpretação: Idem M6.
   - **Questão:** O aluno completa as tarefas sozinho?
     - **Métrica M8 (Taxa de sucesso):** (Tarefas concluídas sem ajuda, em até 2 minutos ÷ tarefas propostas) x 100. Valor esperado: ≥ 80%. Coleta: Observador. Interpretação: Tarefa abaixo de 80% vira item do backlog.
 - **O4. Avaliar a centralização dos prazos**
   - **Questão:** O aluno identifica o próximo prazo de uma tela só?
-    - **Métrica M9 (Tempo até o próximo prazo):** Segundos desde o Início até o participante dizer qual é a próxima entrega. Valor esperado: ≤ 30 segundos. Coleta: Observador com cronômetro. Interpretação: Acima de 30s, rever a tela Início.
+    - **Métrica M9 (Tempo até o próximo prazo):** Segundos desde o Início até o participante dizer qual é a próxima entrega. Valor esperado: ≤ 30 segundos para cada participante. Coleta: Observador com cronômetro. Interpretação: Acima de 30s, rever a tela Início.
 - **O5. Avaliar a compreensão do progresso**
   - **Questão:** O aluno entende quanto já concluiu?
     - **Métrica M10 (Acerto na leitura do progresso):** (Participantes cuja resposta difere no máximo 10 pontos do valor real ÷ participantes) × 100. Valor esperado: ≥ 80%. Coleta: Observador. Interpretação: Abaixo de 80%, rever o painel de progresso.
   - **Questão:** O aluno ficou satisfeito?
-    - **Métrica M11 (Nota SUS):** Questionário SUS de 10 itens. Valor esperado: média ≥ 68. Coleta: Analista de Qualidade, ao fim de cada sessão. Interpretação: Abaixo de 68, as respostas abertas viram itens do backlog.
+    - **Métrica M11 (Nota SUS):** Questionário SUS de 10 itens. Valor esperado: média ≥ 68, calculada sobre as sessões acumuladas das rodadas. Coleta: Analista de Qualidade, ao fim de cada sessão. Interpretação: Abaixo de 68, as respostas abertas viram itens do backlog.
+- **O6. Corrigir os problemas de uso entre as rodadas**
+  - **Questão:** Os problemas encontrados numa rodada são corrigidos antes da seguinte?
+    - **Métrica M12 (Problemas de usabilidade):** Problemas encontrados por rodada, classificados por gravidade (grave: impede concluir a tarefa; moderado: atrasa a tarefa ou exige ajuda; leve: incomoda sem atrasar). Valor esperado: todos os graves corrigidos antes da rodada seguinte. Coleta: Observador, que registra cada problema como issue no GitHub. Interpretação: Problema grave que se repete na rodada seguinte vira prioridade da próxima Planning.
 
-**Procedimento dos testes de usabilidade:** Na Sprint 9, cinco estudantes de EaD usam o ambiente publicado, em sessões de até 20 minutos. Cada participante executa cinco tarefas: T1, abrir uma disciplina indicada; T2, achar uma entrega e dizer o prazo; T3, dizer qual é a próxima entrega; T4, dizer quanto já concluiu; T5, marcar uma entrega como concluída. Um observador registra cliques, tempo, sucesso e respostas numa planilha, sem ajudar. Ao fim, o participante responde ao SUS.
+**Procedimento dos testes de usabilidade:** A partir da Sprint 9, cada sprint tem uma rodada com dois estudantes de EaD, de preferência pessoas diferentes a cada rodada, que usam o ambiente publicado em sessões de até 20 minutos. Cada participante executa cinco tarefas: T1, abrir uma disciplina indicada; T2, achar uma entrega e dizer o prazo; T3, dizer qual é a próxima entrega; T4, dizer quanto já concluiu; T5, marcar uma entrega como concluída. Um observador registra cliques, tempo, sucesso e respostas numa planilha, sem ajudar. Ao fim, o participante responde ao SUS. Se o mesmo estudante participar de mais de uma rodada, a disciplina e a entrega pedidas nas tarefas mudam, para reduzir o efeito de aprendizado. O serviço publicado é acordado 5 minutos antes de cada sessão (risco R7).
+
+Pela curva de Nielsen (2000), um participante encontra em média 31% dos problemas de uso, e dois encontram cerca de metade. O autor recomenda várias rodadas pequenas, com correções entre elas, e pelo menos três pessoas por perfil para cobrir a variedade de comportamentos. Por isso o grupo faz uma rodada por sprint, corrige os problemas graves antes da rodada seguinte (M12) e registra no resultado de cada rodada a limitação de ter só dois participantes. Com dois participantes, as metas de 80% de M8 e M10 só são atingidas quando os dois têm sucesso.
+
+Os valores coletados a cada sprint ficam registrados na pasta de métricas da documentação, começando pelo [registro das Sprints 6 e 7](metricas/relatorio-sprints-6-e-7.md).
 
 ---
 
@@ -482,11 +501,11 @@ A estratégia de testes do cAnCHA será baseada nos níveis de teste unitário, 
 - **Ferramentas por nível:** Testes unitários usam JUnit 5 e Mockito no back-end, e Vitest e Testing Library no front-end. Testes de integração usam Spring Boot Test com banco H2 e Flyway. Testes de sistema são executados manualmente pelo roteiro da seção 6.2 no ambiente publicado (Render/Neon).
 - **Metas não funcionais:** Desempenho: 95% das consultas em até 2 segundos, medidas com o serviço já ativo. Cobertura: pelo menos 80% no back-end e 70% no front-end, medidas com JaCoCo e Vitest.
 - **Registro de defeitos:** Todo teste recusado gera uma issue com a label `bug`, ligada ao caso de teste e à história afetada.
-- **Calendário de execução:** Sprint 7: CT-01 a CT-04 e CT-08, antes do Ponto de Controle. Sprint 8: CT-07. Sprint 9: CT-05 e os testes de usabilidade. Sprint 10: execução completa de CT-01 a CT-10. O CT-09 roda em toda integração contínua.
+- **Calendário de execução:** Sprint 7: CT-01 a CT-05, CT-07 e CT-08, registrados no [relatório de testes da Sprint 7](testes/relatorio-sprint-7.md). Sprint 8: reexecução de CT-03, CT-04, CT-05 e CT-07 na versão publicada, depois da correção dos defeitos. Sprint 9: rodada 1 dos testes de usabilidade. Sprint 10: execução completa de CT-01 a CT-10 e rodada 2 dos testes de usabilidade. O CT-09 roda em toda integração contínua.
 
 ## 6.2 Roteiro de teste
 
-Os casos usam a carga de teste do banco (`aluno1@cancha.test` e `aluno2@cancha.test`, senha descrita no README, matriculados nas 5 disciplinas da carga inicial, com 10 entregas e 2 materiais cadastrados).
+Os casos usam a carga de teste do banco (`aluno1@cancha.test` e `aluno2@cancha.test`, senha descrita no README, matriculados nas 5 disciplinas da carga inicial). Como os prazos da carga são calculados a partir da data do dia e o número de entregas muda com a carga, os resultados esperados descrevem critérios verificáveis (ordem, cálculo, permissões), e não valores fixos.
 
 ### CT-01. Autenticação do usuário
 
@@ -507,24 +526,24 @@ Os casos usam a carga de teste do banco (`aluno1@cancha.test` e `aluno2@cancha.t
 
 - **Objetivo:** Verificar a lista de entregas e de materiais da disciplina.
 - **Pré-condições:** Logado como aluno1; carga de entregas e materiais.
-- **Dados de entrada:** Entrega "Trabalho 1"; material "Slides da aula 1".
-- **Passos:** 1. Abrir MDS. 2. Localizar "Trabalho 1". 3. Abrir "Slides da aula 1".
-- **Resultado esperado:** 1: entregas na ordem Lista 1, Trabalho 1, Prova 1, Lista 2, cada uma com tipo, prazo e situação; Lista 1 como concluída. 2: prazo 14/11. 3: o material abre em nova aba.
+- **Dados de entrada:** A primeira entrega pendente de MDS; o primeiro material de MDS.
+- **Passos:** 1. Abrir MDS. 2. Localizar a primeira entrega pendente. 3. Abrir o primeiro material.
+- **Resultado esperado:** 1: entregas ordenadas por prazo, cada uma com título, tipo, prazo (dd/mm) e situação; as atrasadas em destaque. 2: o prazo mostrado é o mesmo da Agenda. 3: o material abre em nova aba.
 
 ### CT-04. Limite de navegação
 
 - **Objetivo:** Contar os cliques do Início até uma disciplina, uma entrega e um material.
 - **Pré-condições:** Logado como aluno1, no Início.
-- **Dados de entrada:** Alvos: MDS, "Trabalho 1", "Slides da aula 1".
+- **Dados de entrada:** Alvos: MDS, a primeira entrega pendente de MDS e o primeiro material de MDS.
 - **Passos:** Para cada alvo, partir do Início e contar os cliques até ele aparecer.
 - **Resultado esperado:** No máximo 3 cliques para cada alvo.
 
 ### CT-05. Agenda e próximas entregas
 
 - **Objetivo:** Verificar a centralização e a ordem dos prazos.
-- **Pré-condições:** Logado como aluno1; carga de 10 entregas, 1 concluída.
+- **Pré-condições:** Logado como aluno1; carga com entregas em situações diferentes.
 - **Passos:** 1. Ler as próximas entregas no Início. 2. Abrir a Agenda.
-- **Resultado esperado:** 1: as 5 entregas pendentes de prazo mais próximo, em ordem de prazo. 2: as 10 entregas, 9 nas colunas de pendentes e 1 em Concluídas, em ordem de prazo.
+- **Resultado esperado:** 1: as 5 entregas não concluídas de prazo mais próximo, de todas as disciplinas, em ordem de prazo. 2: todas as entregas do aluno, cada uma na coluna da sua situação, em ordem de prazo; o total de cartões é igual ao total de entregas.
 
 ### CT-06. Registro de anotação
 
@@ -537,10 +556,10 @@ Os casos usam a carga de teste do banco (`aluno1@cancha.test` e `aluno2@cancha.t
 ### CT-07. Painel de progresso
 
 - **Objetivo:** Verificar o cálculo e a atualização do progresso.
-- **Pré-condições:** Logado como aluno1; MDS com 4 entregas e 1 concluída; 10 entregas no semestre.
-- **Dados de entrada:** Entrega "Trabalho 1".
-- **Passos:** 1. Ler o progresso de MDS. 2. Concluir "Trabalho 1". 3. Ler de novo. 4. Ler o progresso do semestre.
-- **Resultado esperado:** 1: 25%. 3: 50%, sem recarregar a página. 4: 2 de 10, 20%.
+- **Pré-condições:** Logado como aluno1; MDS com pelo menos uma entrega pendente.
+- **Dados de entrada:** Uma entrega pendente de MDS.
+- **Passos:** 1. Anotar o total de entregas e as concluídas de MDS e ler o progresso. 2. Concluir a entrega. 3. Ler de novo. 4. Ler o progresso do semestre.
+- **Resultado esperado:** 1: progresso = concluídas ÷ total × 100. 3: o valor passa a (concluídas + 1) ÷ total × 100, sem recarregar a página. 4: entregas concluídas no semestre ÷ entregas do semestre × 100.
 
 ### CT-08. Integração front-end e API
 
@@ -562,8 +581,8 @@ Os casos usam a carga de teste do banco (`aluno1@cancha.test` e `aluno2@cancha.t
 - **Objetivo:** Verificar o fluxo login, disciplina, entrega, conclusão e progresso.
 - **Pré-condições:** Ambiente publicado; carga de teste; ninguém logado.
 - **Dados de entrada:** Credenciais do aluno1.
-- **Passos:** 1. Entrar. 2. Abrir MDS. 3. Abrir "Trabalho 1" e ler o prazo. 4. Concluir. 5. Voltar ao Início.
-- **Resultado esperado:** Fluxo sem erros; prazo 14/11; MDS vai de 25% para 50%; semestre vai de 10% para 20%; cada tela-alvo em até 3 cliques.
+- **Passos:** 1. Entrar. 2. Abrir MDS. 3. Abrir a primeira entrega pendente e ler o prazo. 4. Concluir. 5. Voltar ao Início.
+- **Resultado esperado:** Fluxo sem erros; o prazo confere com a lista da disciplina; o progresso de MDS e o do semestre aumentam com a entrega concluída, pela regra do CT-07; cada tela-alvo em até 3 cliques.
 
 ---
 
@@ -576,5 +595,7 @@ COGNITIVE load and pedagogical tension in multi-platform online learning: eviden
 FEITOSA, Murilo Carvalho; MOURA, Patrícia de Souza; RAMOS, Maria do Socorro Ferreira; LAVOR, Otávio Paulino. **Ensino remoto: o que pensam os alunos e professores?** In: CONGRESSO SOBRE TECNOLOGIAS NA EDUCAÇÃO (CTRL+E), 5., 2020, Evento Online. *Anais* [...]. Porto Alegre: Sociedade Brasileira de Computação, 2020. p. 60-68. DOI: <https://doi.org/10.5753/ctrle.2020.11383>.
 
 INEP. **Inep divulga resultado do Censo Superior 2024**. Brasília: Inep, 22 set. 2025. Disponível em: <https://www.gov.br/inep/pt-br/centrais-de-conteudo/noticias/censo-da-educacao-superior/inep-divulga-resultado-do-censo-superior-2024>. Acesso em: 29 set. 2026.
+
+NIELSEN, Jakob. **Why you only need to test with 5 users**. Nielsen Norman Group, 18 mar. 2000. Disponível em: <https://www.nngroup.com/articles/why-you-only-need-to-test-with-5-users/>. Acesso em: 16 nov. 2026.
 
 ZAPHIRIS, P.; KURNIAWAN, S. H.; ELLIS, R. D. **Age differences and the depth-breadth tradeoff in hierarchical online information systems**. [S. l.], 2003. Disponível em: <https://ktisis.cut.ac.cy/server/api/core/bitstreams/e7f2092f-b90e-41b4-b946-d853b5f1c53d/content>. Acesso em: 29 set. 2026.
