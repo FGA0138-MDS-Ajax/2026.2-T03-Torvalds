@@ -79,6 +79,17 @@ function responder(status = 200, corpo = disciplinas, statusPatch = 200) {
   )
 }
 
+// Simula arrastar o cartão da atividade e soltar na coluna cujo título é `tituloDaColuna`.
+async function arrastar(tituloDoCartao, idDoCartao, tituloDaColuna) {
+  const cartao = (await screen.findByText(tituloDoCartao)).closest('li')
+  const coluna = screen.getByText(tituloDaColuna).closest('div')
+  const dataTransfer = { getData: () => String(idDoCartao), setData: vi.fn() }
+
+  fireEvent.dragStart(cartao, { dataTransfer })
+  fireEvent.dragOver(coluna, { dataTransfer })
+  fireEvent.drop(coluna, { dataTransfer })
+}
+
 function abrir(url = '/materias') {
   return render(
     <MemoryRouter initialEntries={[url]}>
@@ -142,13 +153,10 @@ describe('Matérias', () => {
     ).toHaveAttribute('href', '/disciplinas/2')
   })
 
-  it('muda o status ao escolher outra coluna e atualiza o progresso', async () => {
+  it('muda o status ao arrastar o cartão para outra coluna e atualiza o progresso', async () => {
     abrir()
 
-    fireEvent.change(
-      await screen.findByRole('combobox', { name: 'Mover Prova 2 para' }),
-      { target: { value: 'CONCLUIDA' } },
-    )
+    await arrastar('Prova 2', 13, 'Concluído (1)')
 
     expect(await screen.findByText('Concluído (2)')).toBeInTheDocument()
     expect(screen.getByText('A fazer (0)')).toBeInTheDocument()
@@ -162,34 +170,69 @@ describe('Matérias', () => {
     expect(JSON.parse(chamada[1].body)).toEqual({ status: 'CONCLUIDA' })
   })
 
-  it('muda o status ao soltar o cartão em outra coluna', async () => {
+  it('não tem menu de escolha: o status muda só arrastando', async () => {
+    abrir()
+
+    await screen.findByText('Prova 2')
+
+    expect(screen.queryByRole('combobox')).not.toBeInTheDocument()
+  })
+
+  it('move o cartão focado com as setas do teclado', async () => {
     abrir()
 
     const cartao = (await screen.findByText('Prova 2')).closest('li')
-    const coluna = screen.getByText('Concluído (1)').closest('div')
-    const dataTransfer = { getData: () => '13', setData: vi.fn() }
 
-    fireEvent.dragStart(cartao, { dataTransfer })
-    fireEvent.dragOver(coluna, { dataTransfer })
-    fireEvent.drop(coluna, { dataTransfer })
+    fireEvent.keyDown(cartao, { key: 'ArrowRight' })
 
-    expect(await screen.findByText('Concluído (2)')).toBeInTheDocument()
+    expect(await screen.findByText('Em andamento (2)')).toBeInTheDocument()
+    expect(screen.getByText('A fazer (0)')).toBeInTheDocument()
+
+    fireEvent.keyDown(screen.getByText('Prova 2').closest('li'), {
+      key: 'ArrowLeft',
+    })
+
+    expect(await screen.findByText('A fazer (1)')).toBeInTheDocument()
+  })
+
+  it('ignora a seta que levaria para fora do quadro', async () => {
+    abrir()
+
+    const cartao = (await screen.findByText('Prova 2')).closest('li')
+
+    fireEvent.keyDown(cartao, { key: 'ArrowLeft' })
+
+    expect(screen.getByText('A fazer (1)')).toBeInTheDocument()
+    expect(
+      fetch.mock.calls.some(([, opcoes]) => opcoes?.method === 'PATCH'),
+    ).toBe(false)
   })
 
   it('desfaz a mudança e avisa quando o servidor recusa', async () => {
     responder(200, disciplinas, 503)
     abrir()
 
-    fireEvent.change(
-      await screen.findByRole('combobox', { name: 'Mover Prova 2 para' }),
-      { target: { value: 'CONCLUIDA' } },
-    )
+    await arrastar('Prova 2', 13, 'Concluído (1)')
 
     expect(await screen.findByRole('alert')).toHaveTextContent(
       'Não foi possível mudar o status',
     )
     expect(screen.getByText('A fazer (1)')).toBeInTheDocument()
     expect(screen.getByText('40%')).toBeInTheDocument()
+  })
+
+  it('o painel do conteúdo usa a cor da matéria escolhida', async () => {
+    const { container } = abrir()
+    const painel = () => container.querySelector('.materia-detalhe')
+
+    await screen.findByRole('button', { name: /Compiladores/ })
+
+    expect(painel()).toHaveClass('materia-detalhe-lilas')
+
+    fireEvent.click(screen.getByRole('button', { name: /Projeto Integrador/ }))
+
+    expect(painel()).toHaveClass('materia-detalhe-verde')
+    expect(painel()).not.toHaveClass('materia-detalhe-lilas')
   })
 
   it('abre a tela da matéria ao escolher e volta para a lista', async () => {
