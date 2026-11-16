@@ -1,6 +1,6 @@
 ---
 name: Tarefa
-about: Parte de uma HU, feita por um par em uma sprint
+about: Parte de uma HU, realizada em uma sprint
 title: ""
 labels: tarefa
 ---
