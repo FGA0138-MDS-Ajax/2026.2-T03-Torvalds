@@ -135,14 +135,12 @@ tipo(escopo): descrição curta no presente (#issue)
 
 Corpo opcional: por que a mudança foi feita, em frases curtas.
 
-Co-authored-by: Nome do Par <email-do-par@exemplo.com>
 ```
 
 1. **tipo**: da tabela abaixo, em inglês.
 2. **escopo** (opcional, mas recomendado): o módulo ou a área afetada (`auth`, `api`, `ui`, `db`…). O time usa sempre os mesmos nomes.
 3. **descrição**: verbo na 3ª pessoa do presente ("adiciona", "corrige", "remove"), minúscula, sem ponto final, com até 72 caracteres.
 4. **(#issue)**: o número da tarefa. Qualquer `#numero` cria o link entre o commit e a issue.
-5. **Trabalho em par** leva a linha `Co-authored-by:` no fim, depois de uma linha em branco. Assim o GitHub mostra as duas pessoas como autoras.
 
 **Um commit = uma mudança lógica.** Não misture refatoração com funcionalidade nova.
 
@@ -197,7 +195,7 @@ Histórias de usuário nunca são fechadas por PR. Quem fecha é o Product Owner
 
 Um pull request só pode receber merge quando:
 
-- [ ] Tem pelo menos **uma aprovação** de alguém que **não** trabalhou na tarefa (o par já revisou enquanto escrevia; a revisão do PR traz um olhar de fora).
+- [ ] Tem pelo menos **uma aprovação** de alguém que **não** trabalhou na tarefa.
 - [ ] O CI está verde (quando o time tiver CI).
 - [ ] O checklist do template está todo marcado.
 - [ ] Todas as conversas da revisão estão resolvidas.
@@ -244,12 +242,12 @@ Fazemos Scrum usando só recursos nativos do GitHub: **Issues** (com labels e su
 ```
 Épico (label: epico)                       Product Backlog
   └─ História de usuário (label: historia)  Product Backlog → Sprint Backlog
-       └─ Tarefa (label: tarefa)            Sprint Backlog; feita por um par em uma sprint
+       └─ Tarefa (label: tarefa)            Sprint Backlog; realizada em uma sprint
 ```
 
 - **Épico**: um tema grande, que não cabe numa sprint. As HUs dele são sub-issues.
 - **História de usuário (HU)**: "Como …, quero …, para …", com critérios de aceitação. Criada pelo template.
-- **Tarefa**: sub-issue de uma HU, feita por um par dentro de uma sprint, entregue por um pull request.
+- **Tarefa**: sub-issue de uma HU, realizada dentro de uma sprint e entregue por um pull request.
 
 ### 6.2 O que vira o quê
 
@@ -258,7 +256,7 @@ Fazemos Scrum usando só recursos nativos do GitHub: **Issues** (com labels e su
 | Product Backlog | Issues abertas com label `historia` e sem milestone, ordenadas pela label de prioridade |
 | Épico | Issue com label `epico`; as HUs entram como sub-issues |
 | História de usuário | Issue com label `historia`, criada pelo template |
-| Tarefa | Sub-issue da HU, com label `tarefa` e o par nos assignees |
+| Tarefa | Sub-issue da HU, com label `tarefa` e o responsável nos assignees |
 | Sprint | Milestone "Sprint N", com a data de fim |
 | Sprint Backlog | HUs e tarefas colocadas na milestone da sprint |
 | Release | Tag + GitHub Release na `main` |
@@ -284,7 +282,7 @@ A barra de busca das abas Issues e Pull requests substitui as colunas de um quad
 
 Para os filtros funcionarem, todo mundo segue três hábitos:
 
-1. **Pegou uma tarefa** → coloca você e o seu par nos assignees.
+1. **Pegou uma tarefa** → coloca seu usuário nos assignees.
 2. **Começou** → abre um PR em rascunho na hora, ligado à tarefa.
 3. **Terminou** → clica em "Ready for review". Depois do merge, fecha a tarefa.
 
@@ -306,7 +304,7 @@ Um item com a label errada some do filtro certo e aparece no errado, então as l
 | Evento | O que acontece no GitHub |
 |---|---|
 | **Refinamento** | Ajustar as HUs (critérios de aceitação, pontos, prioridade) e quebrar épicos. Uma HU está **pronta** para a sprint quando é pequena, independente e testável (INVEST), tem critérios de aceitação e está estimada. |
-| **Sprint planning** | Criar a milestone "Sprint N" com a data de fim. Colocar nela as HUs escolhidas (limitadas pela velocidade da sprint anterior). Criar as tarefas como sub-issues e atribuir os pares. |
+| **Sprint planning** | Criar a milestone "Sprint N" com a data de fim. Colocar nela as HUs escolhidas (limitadas pela velocidade da sprint anterior). Criar as tarefas como sub-issues e atribuir os responsáveis. |
 | **Daily** | Abrir a milestone da sprint. Impedimento vira comentário na issue e label `bloqueada`. |
 | **Sprint review** | O Product Owner confere os critérios e fecha as HUs aceitas. Fazer a release `developer` → `main` e criar a tag (seção 5). |
 | **Retrospectiva** | Registrar no site de documentação (pelo trilho da `docs`). Cada ação de melhoria vira uma issue. |
@@ -319,12 +317,11 @@ Um item com a label errada some do filtro certo e aparece no errado, então as l
 Na planning, para cada HU, o time responde a quatro perguntas:
 
 1. **Qual é o resultado concreto?** Algo que dá para mostrar: código, um teste, uma tela, um relatório.
-2. **Cabe numa sprint para um par?** Se não couber, vira duas tarefas.
+2. **Cabe numa sprint?** Se não couber, vira duas tarefas.
 3. **Depende de outra coisa?** Anote em "Dependências" e coloque a tarefa depois dela.
 4. **Como saber que terminou?** Critérios de pronto que outra pessoa consiga verificar: "o formulário rejeita um e-mail inválido e mostra uma mensagem", e não "funciona bem".
 
-**Regras de bolso:** de 2 a 4 tarefas por HU; cada pessoa em no máximo 2 tarefas abertas ao mesmo tempo (uma como responsável, outra como par).
-
+**Regras de bolso:** de 2 a 4 tarefas por HU; cada pessoa em no máximo 2 tarefas abertas ao mesmo tempo.
 **Sinais de tarefa mal definida:**
 
 | Tarefa | Problema |
@@ -337,11 +334,11 @@ Na planning, para cada HU, o time responde a quatro perguntas:
 **Exemplo**
 
 ```
-HU: Cadastro com e-mail (#12)                           par
-├─ tarefa  Criar a tela do formulário de cadastro       A + B
-├─ tarefa  Validar o formato do e-mail no servidor      C + D
-├─ tarefa  Salvar o novo usuário no banco de dados      A + C
-└─ tarefa  Teste ponta a ponta do fluxo de cadastro     B + D
+HU: Cadastro com e-mail (#12)                      responsável
+├─ tarefa  Criar a tela do formulário de cadastro       A
+├─ tarefa  Validar o formato do e-mail no servidor      C
+├─ tarefa  Salvar o novo usuário no banco de dados      B
+└─ tarefa  Teste ponta a ponta do fluxo de cadastro     D
 ```
 
 Título da tarefa: verbo + objeto. Cada tarefa tem exatamente uma HU como pai, nunca direto um épico, e pertence a exatamente uma sprint. Não coube? Divida.
@@ -352,7 +349,6 @@ Título da tarefa: verbo + objeto. Cada tarefa tem exatamente uma HU como pai, n
 
 | Prática do XP | Como aparece no repositório |
 |---|---|
-| Programação em par | As duas pessoas nos assignees da tarefa; `Co-authored-by:` nos commits |
 | Desenvolvimento guiado por testes (TDD) | O histórico mostra: `test:` → `feat:` → `refactor:`. O CI roda os testes em todo PR. |
 | Integração contínua | Branches curtas (1 a 2 dias), PRs pequenos, `developer` sempre funcionando; CI verde antes do merge |
 | Pequenas releases | Uma tag por sprint, com notas da release |
@@ -440,13 +436,12 @@ git switch feat/18-validacao-email
 git merge developer
 ```
 
-**Commitar (em par) e enviar**
+**Commitar e enviar**
 
 ```bash
 git status
 git add src/cadastro/validacao.ts
-git commit -m "feat(cadastro): valida o e-mail antes de salvar (#18)" \
-           -m "Co-authored-by: Nome <email@exemplo.com>"
+git commit -m "feat(cadastro): valida o e-mail antes de salvar (#18)"
 git push -u origin feat/18-validacao-email
 ```
 
@@ -468,7 +463,7 @@ git branch -d feat/18-validacao-email
 
 **A sprint em uma linha**
 
-Refinamento (HUs + pontos) → planning (milestone + tarefas + pares) → execução (branch, TDD, PR em rascunho) → revisão (aprovação, squash) → sprint review (PO fecha as HUs, release, tag) → retrospectiva (ações viram issues).
+Refinamento (HUs + pontos) → planning (milestone + tarefas + responsáveis) → execução (branch, TDD, PR em rascunho) → revisão (aprovação, squash) → sprint review (PO fecha as HUs, release, tag) → retrospectiva (ações viram issues).
 
 ---
 
@@ -507,7 +502,7 @@ Pontos e prioridade entram como labels, para os filtros funcionarem. As tarefas 
 ```markdown
 ---
 name: Tarefa
-about: Parte de uma HU, feita por um par em uma sprint
+about: Parte de uma HU, realizada em uma sprint
 title: ""
 labels: tarefa
 ---
@@ -559,5 +554,4 @@ Prints, logs ou saída dos testes.
 - [ ] Revisei o meu próprio diff; não há arquivos estranhos
 - [ ] Documentação atualizada, quando necessário
 - [ ] Sem segredos (.env, chaves, senhas) no commit
-- [ ] Par registrado com Co-authored-by, se houve par
 ```
