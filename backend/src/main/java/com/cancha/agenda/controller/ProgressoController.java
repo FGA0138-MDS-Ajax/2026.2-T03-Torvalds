@@ -4,6 +4,7 @@ import com.cancha.agenda.dto.ProgressoResponse;
 import com.cancha.agenda.service.ProgressoService;
 import com.cancha.auth.service.AlunoAtual;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -32,7 +33,10 @@ public class ProgressoController {
               + " matriculado e calcula o percentual agregado.")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Progresso do aluno"),
-    @ApiResponse(responseCode = "401", description = "Sem token ou com token inválido")
+    @ApiResponse(
+        responseCode = "401",
+        description = "Sem token ou com token inválido",
+        content = @Content)
   })
   public ProgressoResponse consultar() {
     return service.calcular(alunoAtual.id());
