@@ -1,204 +1,242 @@
-# Documento de Arquitetura
+# Documento de Arquitetura do cAnCHA
 
-Versão 1.0
+**Versão 1.2**
 
-## Tabela - Integrantes do Grupo
+## Integrantes do Grupo
 
 | Matrícula | Nome | Função (responsabilidade) | Pontos de participação na elaboração |
-| :---- | :---- | :---- | :---- |
-| 232014692 | João Lucas R. Cabral | Designer/QA | 20 |
-| 242015719 | Thiago Kauã de Sousa Cardoso | Desenvolvedor | 11,5 |
-| 251036440 | Eduardo Viana Ribeiro da Silva | Product Owner/ Desenvolvedor | |
-| 232024554 | Ana Jullia Barbara Mendes Lopes | QA/Scrum Master | |
-| 232014469 | Jefferson de Souza Reis | Scrum Master | 12,5 |
-| 241040341 | Pedro Henrique Galdino de Andrade Wollmann | Desenvolvedor | |
-| 231036800 | Gustavo Linhares Lima | Desenvolvedor | |
-| 242004967 | Pedro Lucas Souza Silva | Desenvolvedor | 20 |
+| --- | --- | --- | --- |
+| 232014692 | João Lucas R. Cabral | Designer/QA | 16 |
+| 242015719 | Thiago Kauã de Sousa Cardoso | Desenvolvedor | 14 |
+| 251036440 | Eduardo Viana Ribeiro da Silva | Product Owner/Desenvolvedor | 14 |
+| 232024554 | Ana Jullia Barbara Mendes Lopes | QA/Scrum Master | 14 |
+| 232014469 | Jefferson de Souza Reis | Scrum Master | 14 |
+| 241040341 | Pedro Henrique Galdino de Andrade Wollmann | Desenvolvedor | 0 |
+| 231036800 | Gustavo Linhares Lima | Desenvolvedor | 14 |
+| 242004967 | Pedro Lucas Souza Silva | Desenvolvedor | 14 |
+| **Total de pontos** | | | **100** |
 
 ## Histórico de Revisões
 
 | Data | Versão | Descrição | Autor(es) |
-| :---- | :---- | :---- | :---- |
-| 18/10/26 | 1.1 | Troca do nome do App | João Lucas/Ana Júlia |
+| --- | --- | --- | --- |
+| 07/10/2026 | 1.0 | Versão inicial do Documento de Arquitetura. | Grupo Torvalds |
+| 18/10/2026 | 1.1 | Troca do nome do aplicativo. | João Lucas / Ana Jullia |
+| 16/11/2026 | 1.2 | Correções da avaliação do professor: tabela de participação; nome cAnCHA em todo o documento; diagramas de casos de uso, pacotes, classes, componentes e implantação refeitos em notação UML; metas da seção 2.4 com forma de verificação; seção 2.7 sem repetir a 2.4. | Eduardo |
 
 # 1 INTRODUÇÃO
 
 ## 1.1 Propósito
 
-Este documento descreve a arquitetura de software para a Plataforma de Ensino a Distância com foco em UX, desenvolvida pelo Grupo Torvalds no âmbito da disciplina de Métodos de Desenvolvimento de Software (MDS) no semestre de 2026.2. O objetivo é registrar e comunicar as decisões estruturais, organizacionais e tecnológicas do sistema, fornecendo um guia compreensível para desenvolvedores, testadores, PO e demais interessados no projeto.
+Este documento descreve a arquitetura de software do cAnCHA, aplicação web de apoio ao estudante de Ensino a Distância (EaD) desenvolvida pelo Grupo Torvalds na disciplina de Métodos de Desenvolvimento de Software (MDS), no semestre 2026.2. Ele registra as decisões estruturais, organizacionais e tecnológicas do sistema e serve de guia para desenvolvedores, testadores, Product Owner e demais interessados.
 
 ## 1.2 Escopo
 
-O detalhamento completo do escopo e requisitos encontra-se no Documento de Visão do Projeto. Em linhas gerais, o sistema consiste em uma aplicação web focada na experiência do usuário (UX) que visa resolver problemas de usabilidade no ambiente EaD, tais como a dificuldade de localização de conteúdos, acompanhamento de atividades, identificação de prazos e visualização do progresso acadêmico.
+O escopo e os requisitos estão no Documento de Visão. Em linhas gerais, o cAnCHA é uma aplicação web focada na experiência do usuário (UX) que ataca problemas de usabilidade do ambiente EaD: a dificuldade de localizar conteúdos, de acompanhar atividades e prazos e de perceber o próprio progresso.
 
 # 2 REPRESENTAÇÃO ARQUITETURAL
 
 ## 2.1 Definições
 
-O sistema adota o estilo arquitetural Cliente-Servidor em Camadas, estruturado sob o padrão MVC (Model-View-Controller) com separação entre a aplicação frontend (Single Page Application - SPA) e o backend (API RESTful):
+O sistema adota o estilo Cliente-Servidor em Camadas, com uma aplicação de página única (SPA) no cliente e uma API REST no servidor:
 
-* Frontend (Apresentação/View): Desenvolvido em React.js, responsável pela renderização da interface e pela interatividade de baixo atrito.
-* Backend (Lógica de Negócio e Controle/Controller e Service): Desenvolvido em Java com Spring Boot, responsável pela exposição de endpoints REST, regras de negócio e validações.
-* Camada de Dados (Model/Persistência): Utiliza banco de dados relacional (PostgreSQL) gerenciado via Spring Data JPA / Hibernate.
+* **Apresentação (frontend):** React com Vite, responsável pelas telas e pela interação com o aluno.
+* **Aplicação (backend):** Java 21 com Spring Boot, que expõe os endpoints REST e concentra as regras de negócio e as validações, organizadas em Controllers e Services.
+* **Dados:** PostgreSQL, acessado pelos repositórios do Spring Data JPA (Hibernate) por meio do driver JDBC.
 
-## 2.2 Justifique sua escolha
+## 2.2 Justificativa da escolha
 
-A escolha por uma arquitetura em camadas desacoplada (REST API + SPA) fundamenta-se nos seguintes aspectos do projeto:
+A arquitetura em camadas desacoplada (API REST + SPA) foi escolhida por três motivos:
 
-1. Foco em UX (Requisito Central): A adoção do React.js (SPA) permite a navegação fluida sem recarregamento de página, garantindo o cumprimento da regra dos 3 cliques e o rápido acesso visual aos prazos.
-2. Separação de Responsabilidades (Baixo Acoplamento e Alta Coesão): Conforme os princípios da disciplina, isolar a interface visual da regra de negócio simplifica a manutenção, reduz impactos em mudanças e melhora a testabilidade.
-3. Adequação à Equipe: Permite a divisão de trabalho entre membros com foco em frontend e backend, minimizando conflitos de código no repositório.
+1. **Foco em UX.** A SPA troca de tela sem recarregar a página e mantém o menu fixo, o que torna a navegação mais rápida. Ela não garante sozinha a regra dos 3 cliques: quem garante é o desenho das rotas e do menu, descrito na seção 2.4 e verificado pelo caso de teste CT-04 e pelas métricas M6 e M7 do Documento de Visão.
+2. **Separação de responsabilidades.** Isolar a interface da regra de negócio reduz o acoplamento, limita o impacto das mudanças e permite testar cada camada separadamente.
+3. **Adequação à equipe.** A divisão entre frontend e backend, e entre módulos dentro de cada um, permite que os oito integrantes trabalhem em paralelo com poucos conflitos no repositório.
 
 ## 2.3 Detalhamento
 
-A comunicação entre os componentes ocorre de forma assíncrona por meio do protocolo HTTP/HTTPS utilizando o formato JSON como contrato de interface (Figura 1).
+A comunicação entre o frontend e o backend acontece por requisições HTTPS assíncronas, com JSON como contrato de interface. A Figura 1 mostra as camadas.
 
-Figura 1 – Arquitetura em camadas do cAnCHA
+**Figura 1 – Arquitetura em camadas do cAnCHA**
+
 ![Arquitetura em camadas](imagens/camadas-arquitetura.png)
-Fonte: elaborado pelo grupo (2026)
 
-* Interfaces e Conectores: Os controllers do Spring Boot atuam como conectores que expõem endpoints REST protegidos por autenticação JWT.
+*Fonte: elaborado pelo grupo (2026)*
 
-**Responsabilidades:**
+Os Controllers do Spring Boot são os conectores da API: expõem os endpoints REST, protegidos por autenticação JWT. As responsabilidades de cada camada são:
 
-* View (React): Capturar interações do usuário e exibir dados processados de forma limpa.
-* Controller (Spring REST): Mapear requisições HTTP, validar payloads de entrada e retornar respostas com códigos de status adequados.
-* Service (Spring): Executar cálculos de progresso acadêmico, ordenação cronológica de prazos e aplicar regras do sistema.
-* Repository / Model (JPA & Database): Garantir a persistência e integridade relacional dos dados.
+* **View (React):** capturar as interações do aluno e exibir os dados recebidos da API.
+* **Controller (Spring REST):** mapear as requisições HTTP, validar os dados de entrada e responder com o código de status adequado.
+* **Service (Spring):** aplicar as regras do sistema, como o cálculo do progresso e a ordenação das entregas por prazo.
+* **Repository (Spring Data JPA):** persistir e consultar os dados no PostgreSQL, pelo driver JDBC.
 
 ## 2.4 Metas e restrições arquiteturais
 
-* Desempenho: 95% das consultas ao painel de prazos e progresso devem ser respondidas em até 2,0 segundos.
-* Usabilidade / Arquitetura de Informação: A estrutura de rotas deve garantir acesso a qualquer conteúdo principal em até 3 cliques.
-* Padrões de API: Adoção rigorosa do padrão RESTful (utilização correta dos verbos GET, POST, PUT, PATCH, DELETE e códigos HTTP).
-* Padrão de Codificação: Seguir o Google Java Style Guide no backend e padrões ESLint / Prettier no frontend.
-* Segurança: Autenticação e autorização via tokens JWT com transmissão criptografada.
-* Testabilidade: Meta de cobertura de testes unitários e de integração ≥ 80% no backend e ≥ 70% no frontend.
+O Quadro 1 apresenta as metas que orientam a arquitetura, como cada uma é atendida e como é verificada.
+
+**Quadro 1 – Metas arquiteturais e forma de verificação**
+
+| Meta | Como a arquitetura atende | Como é verificada |
+| --- | --- | --- |
+| **Desempenho:** 95% das consultas de disciplinas, agenda e progresso respondidas em até 2 segundos, com o serviço já ativo | Cada tela busca seus dados em uma única chamada (`/disciplinas`, `/agenda`, `/progresso`), e as contagens do progresso são feitas no banco, com consultas agrupadas. | No ambiente publicado (Render e Neon), com o serviço já ativo, são feitas 20 chamadas autenticadas a cada uma dessas rotas e medido o tempo total de resposta. A meta é atingida se ao menos 95% ficarem em até 2 s. O primeiro acesso depois de o serviço dormir não entra na conta (risco R7 do Documento de Visão). O resultado é registrado no relatório de testes da sprint. |
+| **Navegação:** qualquer disciplina, entrega ou material em até 3 cliques a partir do Início | Menu fixo com Início, Matérias e Agenda em todas as telas; rotas rasas (`/`, `/materias`, `/disciplinas/{id}` e `/agenda`); entregas e materiais na própria página da disciplina. | O caso de teste CT-04 conta os cliques do Início até uma disciplina, uma entrega e um material. Nos testes de usabilidade, as métricas M6 e M7 contam os cliques feitos por estudantes. |
+| **Padrão de API:** uso correto dos verbos e dos códigos HTTP | Um Controller por recurso e erros devolvidos em formato único pelo tratador global de exceções. | Testes de integração dos Controllers e documentação OpenAPI (Swagger) gerada pela própria API. |
+| **Padrão de código:** Google Java Style no backend; ESLint e Prettier no frontend | Configuração do ESLint e do Prettier no repositório. | No frontend, lint e formatação rodam na integração contínua a cada pull request. No backend, o estilo é conferido na revisão de código. |
+| **Segurança:** só usuários autenticados acessam os dados, e cada aluno vê só os seus | Autenticação por token JWT validado a cada requisição pelo Spring Security; consultas sempre filtradas pelo aluno autenticado. | Caso de teste CT-01 e testes automatizados de isolamento dos dados entre alunos. |
+| **Testabilidade:** cobertura de testes de pelo menos 80% no backend e 70% no frontend | Camadas com responsabilidades isoladas, que permitem testes unitários nos Services e de integração na API, com banco H2 em memória. | No backend, o JaCoCo mede a cobertura de linhas e de ramos a cada execução da integração contínua, que publica o relatório. No frontend, a cobertura será medida pelo Vitest. |
+
+*Fonte: elaborado pelo grupo (2026)*
 
 ## 2.5 Visões
 
-As visões a seguir comunicam a arquitetura sob quatro pontos de vista: uso (escopo do sistema), organização lógica (módulos e camadas), estrutura (classes e componentes) e implantação (ambiente de execução).
+As visões a seguir mostram a arquitetura sob quatro pontos de vista: uso (escopo do sistema), organização lógica (módulos e suas dependências), estrutura (classes e componentes) e implantação (ambiente de execução).
 
-### 2.5.1 Visão uso
+### 2.5.1 Visão de uso
 
-O Aluno consulta disciplinas, atividades, agenda e progresso e registra anotações; o Representante Escolar publica conteúdos e atividades; e o Administrador mantém contas, perfis, disciplinas e períodos. A Figura 2 apresenta o diagrama de casos de uso.
+O Aluno consulta disciplinas, entregas, agenda e progresso e registra anotações; o Representante Escolar publica conteúdos e entregas; e o Administrador mantém contas, perfis, disciplinas e períodos. Nesta versão, só o perfil Aluno é implementado; os casos de uso tracejados são previstos. A Figura 2 apresenta o diagrama de casos de uso.
 
-Figura 2 – Diagrama de casos de uso do cAnCHA
-![Diagrama de casos de uso](imagens/casos-de-uso.png)
-Fonte: elaborado pelo grupo (2026)
+**Figura 2 – Diagrama de casos de uso do cAnCHA**
 
-A funcionalidade mais complexa do ponto de vista arquitetural é marcar uma atividade como concluída e atualizar o progresso (CEN-04), pois atravessa todas as camadas: a interface, a autorização na API, a regra de negócio, a transação no banco e o recálculo dos indicadores exibidos ao aluno. A Figura 3 mostra seu diagrama de atividades.
+![Diagrama de casos de uso](imagens/casos-de-uso.svg)
 
-Figura 3 – Diagrama de atividades – marcar atividade como concluída e atualizar o progresso (CEN-04)
+*Fonte: elaborado pelo grupo (2026)*
+
+A funcionalidade mais complexa do ponto de vista arquitetural é marcar uma entrega como concluída e atualizar o progresso (CEN-04), porque atravessa todas as camadas: a interface, a autorização na API, a regra de negócio, a gravação no banco e o recálculo dos indicadores exibidos ao aluno. A Figura 3 mostra seu diagrama de atividades. A situação gravada é a ProgressoAtividade do aluno para aquela entrega, apresentada no diagrama de classes (Figura 5).
+
+**Figura 3 – Diagrama de atividades – marcar entrega como concluída e atualizar o progresso (CEN-04)**
+
 ![Diagrama de atividades](imagens/atividades-cen04.png)
-Fonte: elaborado pelo grupo (2026)
 
-Quadro 1 – Requisitos que influenciaram a arquitetura
+*Fonte: elaborado pelo grupo (2026)*
+
+O Quadro 2 relaciona os requisitos do Documento de Visão às decisões arquiteturais que eles motivaram.
+
+**Quadro 2 – Requisitos que influenciaram a arquitetura**
 
 | Requisito | Decisão arquitetural motivada |
-| :---- | :---- |
-| REQ-02 – Navegação rasa (regra dos 3 cliques) | SPA com roteamento no cliente, dados carregados sob demanda e dashboard de disciplinas como tela inicial. |
-| REQ-04 e REQ-05 – Agenda unificada e painel de progresso | Módulos de agenda e de progresso no servidor, que agregam dados de todas as disciplinas em uma única chamada, evitando várias requisições a cada tela. |
-| REQ-07 – Integração Front-end/API | API REST com contrato documentado e atualização dos dados no cliente (MR-03). |
-| Perfis do Quadro 4 (Administrador, Aluno, Representante) | Autenticação por JWT e autorização por perfil em middlewares da camada de API. |
-| Equipe de oito integrantes, sprints semanais e risco de tecnologias novas | Estilo em camadas e back-end como monólito modular, com módulos independentes que podem ser desenvolvidos em paralelo. |
-| Estratégia de testes (Seção 6) | Camadas com responsabilidades isoladas, que permitem testes unitários nos services e de integração na API. |
+| --- | --- |
+| REQ-02 – Navegação rasa (regra dos 3 cliques) | Rotas rasas, menu fixo e tela Início com as disciplinas (seção 2.4). |
+| REQ-04 e REQ-05 – Agenda unificada e painel de progresso | Módulos de agenda e de progresso no servidor, que reúnem os dados de todas as disciplinas em uma única chamada. |
+| REQ-07 – Dados sempre vindos da API | API REST com contrato documentado (OpenAPI) e atualização das telas sem recarregar a página. |
+| Perfis de acesso do Documento de Visão (Aluno, Representante Escolar e Administrador) | Autenticação por JWT e autorização por perfil nos filtros do Spring Security. |
+| Equipe de oito integrantes, sprints semanais e tecnologias novas para parte do grupo | Estilo em camadas e backend como monólito modular, com módulos que podem ser desenvolvidos em paralelo. |
+| Estratégia de testes (seção 6 do Documento de Visão) | Camadas com responsabilidades isoladas, que permitem testes unitários nos Services e de integração na API. |
 
-Fonte: elaborado pelo grupo (2026)
+*Fonte: elaborado pelo grupo (2026)*
 
 ### 2.5.2 Visão de organização lógica
 
-O sistema Folha é subdividido em módulos funcionais, cada um implementado como um pacote Java no backend (padrão package-by-feature, com Controller, Service e Repository próprios) e um módulo correspondente no frontend (pasta de feature em React). Essa organização reduz o acoplamento entre funcionalidades distintas e facilita a divisão de trabalho entre os integrantes da equipe (Seção 2.2 do Documento de Visão). A Figura 4 apresenta o diagrama de pacotes, com a organização desses módulos e suas dependências.
+O cAnCHA é dividido em módulos funcionais. No backend, cada módulo é um pacote Java dentro de `com.cancha`, com seus próprios Controllers, Services, Repositories e entidades (padrão package-by-feature). No frontend, cada tela principal é uma pasta em `features`, e o que é usado por várias telas fica em `shared`. Essa organização reduz o acoplamento entre funcionalidades e facilita a divisão do trabalho. O Quadro 3 descreve os módulos.
 
-Módulos do sistema e sua razão lógica:
+**Quadro 3 – Módulos do cAnCHA e sua razão lógica**
 
-Quadro 2 – Módulos do sistema Folha e sua razão lógica. Fonte: elaborado pela equipe (2026).
+| Pacote (backend) | Pasta (frontend) | Responsabilidade | Situação na versão v0.1.1 |
+| --- | --- | --- | --- |
+| `com.cancha.auth` | `features/auth`, `shared/auth` | Autentica o usuário, emite e valida os tokens JWT e informa quem é o aluno autenticado aos demais módulos, que não reimplementam a regra de segurança. | Implementado |
+| `com.cancha.discipline` | `features/materias`, `features/disciplinas` | Disciplinas do aluno, matrículas e conteúdos (materiais) de cada disciplina; é o módulo central da metáfora do caderno. | Implementado (leitura; a escrita de conteúdos fica com o Representante Escolar, fora desta versão) |
+| `com.cancha.agenda` | `features/agenda`, `features/inicio` | Reúne as entregas de todas as disciplinas na agenda Kanban e nas próximas entregas do Início, e registra a situação de cada entrega para cada aluno (ProgressoAtividade). | Implementado |
+| `com.cancha.progress` | barras de progresso em `features/inicio`, `features/materias` e `features/disciplinas` | Calcula o percentual concluído por disciplina e no semestre, a partir das entregas (agenda) e das matrículas (discipline). Não tem persistência própria. | Parcial: o cálculo está hoje em `com.cancha.agenda`; o pacote existe sem classes |
+| `com.cancha.annotation` | `features/anotacoes` | Anotações do aluno vinculadas a uma disciplina. | Previsto (US06a, Sprint 10, se couber) |
+| `com.cancha.notification` | — | Lembretes de prazos próximos, a partir das entregas da agenda. | Previsto; pacote criado sem classes e fora do backlog desta versão |
+| `com.cancha.common` | — | Tratamento global de erros, exceções comuns e configuração do OpenAPI. | Implementado |
+| — | `shared` (`api`, `auth`, `components`, `hooks`, `layout`) | Cliente HTTP único, que anexa o token JWT a cada requisição; sessão do usuário; componentes reutilizáveis, como cartões e barra de progresso; e o layout com o menu fixo. | Implementado |
 
-| Pacote (Backend) | Módulo (Frontend) | Responsabilidade / razão lógica |
-| :---- | :---- | :---- |
-| com.folha.auth | features/auth | Autentica o usuário (login) e emite/valida os tokens JWT, controlando os três perfis de acesso definidos no Documento de Visão (Aluno, Representante Escolar e Administrador do Sistema). Centraliza a regra de segurança para que os demais módulos não precisem reimplementá-la. |
-| com.folha.discipline | features/disciplinas | Gerencia as disciplinas do aluno (abas por matéria) e o Conteudo associado a elas (materiais, PDFs, links); é o módulo central da metáfora do caderno físico que dá nome ao produto. A escrita de Conteudo é reservada ao perfil Representante Escolar, hoje fora do MVP validado pela pesquisa do grupo (Seção 1.1 do Documento de Visão) — ver estratégia de provisionamento abaixo. |
-| com.folha.agenda | features/agenda | Consolida os prazos e entregas de todas as disciplinas em uma agenda única, em estilo kanban, atacando diretamente o problema de fragmentação de ferramentas identificado no Documento de Visão. |
-| com.folha.progress | features/progresso | Calcula e expõe o percentual do semestre concluído e as atividades pendentes do aluno; não possui persistência própria, pois agrega dados dos módulos discipline e agenda. |
-| com.folha.annotation | features/anotacoes | Mantém as anotações do aluno vinculadas a disciplinas, funcionalidade secundária de apoio definida no Documento de Visão. |
-| com.folha.notification | features/notificacoes | Gera e envia lembretes automáticos de prazos próximos, agregando dados do módulo agenda. |
-| com.folha.common | — | Pacote transversal com DTOs, tratamento de exceções e configuração de segurança compartilhados por todos os módulos. |
+*Fonte: elaborado pelo grupo (2026)*
 
-Fonte: elaborado pelo grupo (2026)
+A Figura 4 apresenta o diagrama de pacotes. As setas tracejadas são dependências («use»): o pacote de origem usa o pacote de destino.
 
-Comunicação entre os módulos (interfaces): no frontend, todos os módulos de feature consomem a API REST do backend por meio de um cliente HTTP único (shared/api), responsável por anexar o token JWT a cada requisição. No backend, a comunicação entre frontend e módulos ocorre via endpoints REST (JSON sobre HTTPS), conforme detalhado na Seção 2.3. Internamente, os módulos progress e notification não acessam diretamente os repositórios de outros módulos — eles dependem apenas das classes de Service de discipline e agenda, preservando o encapsulamento: cada módulo expõe somente sua camada de Service como interface para os demais, evitando o acoplamento direto entre camadas de persistência de módulos distintos.
+**Figura 4 – Diagrama de pacotes do cAnCHA**
 
-Estratégia de provisionamento de conteúdo: Disciplina e Conteudo são modeladas como entidades persistentes desde a primeira versão da arquitetura, com Controller, Service e Repository completos em com.folha.discipline — a escrita não é um recurso remendado depois, é parte do desenho original do módulo. Como a pesquisa do grupo (Seção 1.1 do Documento de Visão) investigou exclusivamente a experiência do Aluno, o MVP popula o Conteudo exibido por meio de uma carga inicial de dados (seed/migration com Flyway), sem exigir login nem interface do Representante Escolar. Os endpoints de escrita (POST/PUT/DELETE) já estão previstos no Controller, protegidos por controle de acesso baseado em papel (Spring Security, via @PreAuthorize("hasRole('REPRESENTANTE_ESCOLAR')")); caso o escopo do projeto seja ampliado para incluir esse perfil, habilitar a publicação de conteúdo não exige qualquer alteração nas camadas de Service e Repository, apenas a liberação do fluxo de autenticação e da interface de escrita já previstos nesta arquitetura.
+![Diagrama de pacotes](imagens/diagrama-pacotes.svg)
 
-Figura 4 – Diagrama de pacotes do sistema Folha: organização dos módulos em frontend e backend e suas dependências
-![Diagrama de pacotes](imagens/diagrama-pacotes.png)
-Fonte: elaborado pelo grupo (2026)
+*Fonte: elaborado pelo grupo (2026)*
+
+No frontend, as pastas de `features` dependem de `shared`, e `shared/api` é o único ponto que chama a API do backend. No backend, as dependências entre módulos passam sempre pela camada de Service do módulo usado, nunca pelos repositórios dele:
+
+* `discipline` depende de `auth`, para saber quem é o aluno autenticado;
+* `agenda` depende de `discipline`, porque toda entrega pertence a uma disciplina e só é mostrada a quem está matriculado nela, e de `auth`;
+* `progress` depende de `agenda` e de `discipline`, para contar as entregas concluídas de cada matrícula, e de `auth`;
+* `annotation` depende de `discipline` e de `auth`;
+* `notification` depende de `agenda`, de onde vêm os prazos;
+* todos os módulos podem usar `common`.
+
+Na versão v0.1.1, o cálculo do progresso foi implementado dentro de `agenda` (ProgressoService e PercentualConcluidoService), e `discipline` usa esse cálculo para mostrar o percentual de cada disciplina. Isso cria uma dependência mútua entre `discipline` e `agenda`. Mover o cálculo para `progress`, como prevê esta arquitetura, elimina essa dependência.
+
+**Estratégia de provisionamento de conteúdo.** Disciplina e Conteudo são entidades persistentes desde a primeira versão, com Controller, Service e Repository em `com.cancha.discipline`. Como a pesquisa do grupo investigou só a experiência do Aluno (seção 1.1 do Documento de Visão), os dados entram por carga inicial, em migrações Flyway, sem interface do Representante Escolar. Nesta versão a API só tem os endpoints de leitura. Quando o perfil Representante Escolar entrar no escopo, os endpoints de escrita (POST, PUT e DELETE) serão protegidos por papel no Spring Security, com `@PreAuthorize("hasRole('REPRESENTANTE_ESCOLAR')")`, sem mudança nas camadas de Service e Repository.
 
 ### 2.5.3 Visão estrutural
 
-Esta seção detalha os elementos internos do sistema Folha, tanto do ponto de vista dos dados manipulados (diagrama de classes) quanto da composição em unidades executáveis e suas interfaces (diagrama de componentes).
+Esta seção detalha os elementos internos do cAnCHA: os dados manipulados (diagrama de classes) e as unidades executáveis com suas interfaces (diagrama de componentes).
 
-O diagrama de classes (Figura 5) representa o modelo de domínio do sistema. A classe abstrata Usuário concentra os atributos comuns de identificação e autenticação, sendo especializada (generalização) nos três perfis de acesso definidos no Documento de Visão: Aluno, RepresentanteEscolar e AdministradorSistema. Um Aluno se matricula em uma ou mais Disciplina por meio da classe de associação Matrícula, que registra o progressoPercentual individual do aluno naquela disciplina — dado consumido pelo módulo progress (Seção 2.5.2). Cada Disciplina é de responsabilidade de um RepresentanteEscolar e agrega, por composição, suas Entrega (atividades/prazos), que deixam de existir caso a disciplina seja removida. Da mesma forma, Disciplina agrega seus Conteudo (materiais de estudo, com atributos de tipo e urlOuArquivo) — classe deliberadamente separada de Entrega, já que um material de apoio não tem prazo nem status; a escrita dessa composição é protegida pelo mesmo controle de acesso por papel discutido na Seção 2.5.2 (Representante Escolar). O Aluno pode registrar Anotacao vinculadas a uma Disciplina e recebe Notificacao geradas a partir de uma Entrega próxima do prazo.
+O diagrama de classes (Figura 5) representa o modelo de domínio. A classe abstrata Usuario reúne os atributos de identificação e autenticação e é especializada (generalização, seta com triângulo vazado) nos três perfis do Documento de Visão: Aluno, RepresentanteEscolar e AdministradorSistema. Só Aluno está implementado; as classes em cinza são previstas.
 
-Figura 5 – Diagrama de classes do domínio do sistema Folha
-![Diagrama de classes](imagens/diagrama-classes.png)
-Fonte: elaborado pelo grupo (2026)
+Um Aluno se matricula em disciplinas por meio de Matricula. Cada Disciplina é composta (composição, losango cheio) por suas Entregas e seus Conteudos, que deixam de existir se a disciplina for removida. Conteudo é separado de Entrega porque um material de apoio não tem prazo nem situação.
 
-O diagrama de componentes (Figura 6) mostra a composição do sistema em unidades executáveis de alto nível e as interfaces entre elas, refletindo a arquitetura em camadas definida na Seção 2.1. O componente Frontend SPA (React) requer a interface API Folha (REST/JSON), provida pelo componente Backend API (Spring Boot), que concentra os Controllers e Services dos módulos descritos na Seção 2.5.2. O Backend API, por sua vez, requer a interface Autenticação (JWT), provida pelo componente Segurança (Spring Security + JWT), responsável por validar o token e aplicar o controle de acesso baseado em papel — por exemplo, restringir a escrita em Disciplina/Conteúdo ao perfil Representante Escolar (Seção 2.5.3) — antes que a requisição alcance os Controllers. Por fim, o Backend API requer a interface Persistência (JPA), provida pelo componente Banco de Dados (PostgreSQL), isolando as regras de negócio dos detalhes de armazenamento.
+A conclusão de cada entrega é individual. A classe ProgressoAtividade liga um Aluno a uma Entrega e guarda a situação daquela entrega para aquele aluno (StatusEntrega: A_FAZER, EM_ANDAMENTO ou CONCLUIDA) e a data de conclusão. Existe no máximo um registro por aluno e entrega, e uma entrega sem registro está A_FAZER. Por isso a mesma entrega pode estar concluída para um aluno e pendente para outro. O percentual de progresso da Matricula é um atributo derivado (marcado com "/"): é calculado a partir das ProgressoAtividade concluídas, e não informado. Anotacao, ligada a um Aluno e a uma Disciplina, e Notificacao, ligada a um Aluno e a uma Entrega, são previstas.
 
-Figura 6 – Diagrama de componentes do sistema Folha
-![Diagrama de componentes](imagens/diagrama-componentes.png)
-Fonte: elaborado pelo grupo (2026)
+**Figura 5 – Diagrama de classes do domínio do cAnCHA**
 
-## 2.6 Visão de Implantação
+![Diagrama de classes](imagens/diagrama-classes.svg)
 
-O software Folha Digital será implantado em um ambiente de nuvem (Cloud Platform), garantindo que a aplicação seja acessível via internet a partir de diferentes dispositivos e navegadores, sem exigir qualquer tipo de instalação por parte do usuário. A infraestrutura de hardware em nuvem será dividida para suportar a arquitetura Cliente-Servidor em Camadas (desacoplada), separando a entrega estática da interface, o processamento de regras de negócio e a persistência de dados. Esse processo será suportado por pipelines de Integração Contínua (CI) e entrega contínua configurados diretamente no GitHub.
+*Fonte: elaborado pelo grupo (2026)*
 
-A implantação do software será estruturada segundo as seguintes tecnologias:
-Servidor de Frontend (Apresentação): A interface da aplicação será hospedada em um servidor web ou serviço de CDN otimizado para aplicações estáticas, executando o código desenvolvido em React.js (Single Page Application - SPA). Justificativa: Essa escolha é fundamentada no foco central em UX do projeto, pois a abordagem SPA permite uma navegação fluida e sem recarregamento de páginas, sendo essencial para cumprir a regra arquitetural e de usabilidade de permitir o acesso a qualquer conteúdo principal em até 3 cliques.
-Servidor de Aplicação (Backend / API): O backend será implantado em um servidor de aplicação capaz de executar a máquina virtual Java (podendo operar tanto em ambiente Linux quanto Windows) para rodar o framework Spring Boot. Justificativa: Essa tecnologia foi escolhida por permitir a separação clara de responsabilidades (baixo acoplamento e alta coesão), garantindo a exposição segura de endpoints RESTful comunicados via JSON (HTTPS) e protegidos por autenticação de tokens JWT.
-Servidor de Banco de Dados: A persistência utilizará um servidor dedicado executando o banco de dados relacional PostgreSQL. Justificativa: A escolha por um modelo relacional garante a integridade dos vínculos entre entidades complexas do domínio (usuários, disciplinas, tarefas, entregas e progresso), sendo facilmente gerenciada e mapeada pela aplicação através das bibliotecas Spring Data JPA e Hibernate.
+O diagrama de componentes (Figura 6) mostra as unidades executáveis e as interfaces entre elas. A notação é a da UML: o círculo é uma interface fornecida, ligado por linha cheia ao componente que a implementa, e a seta tracejada «use» parte do componente que precisa dela.
 
-### Diagrama de Implantação
+* O Frontend SPA usa a interface API REST cAnCHA (HTTPS + JSON), fornecida pelos Controllers REST do Backend API.
+* Dentro do Backend API, os Controllers usam a interface Autenticação, fornecida pelo componente Segurança (Spring Security + JWT), que valida o token e aplica o controle de acesso por perfil antes de a requisição chegar ao Controller.
+* Os Controllers usam os Services, e os Services usam os Repositórios.
+* Os Repositórios usam a API JPA, implementada pelo Hibernate dentro do próprio backend. O componente PostgreSQL fornece a interface JDBC (protocolo do PostgreSQL), usada pelos Repositórios para executar o SQL gerado pelo Hibernate. JPA, portanto, não é uma interface do banco: é uma API interna do backend.
 
-Abaixo apresenta-se o diagrama de implantação ilustrando a distribuição física e topológica do sistema:
+**Figura 6 – Diagrama de componentes do cAnCHA**
 
-Figura 7 – Diagrama de implantação da plataforma cAnCHA
-![Diagrama de implantação](imagens/diagrama-implantacao.png)
-Fonte: elaborado pelo grupo (2026)
+![Diagrama de componentes](imagens/diagrama-componentes.svg)
 
-A Figura 7 ilustra a arquitetura de implantação física e lógica da plataforma Folha Digital. O ambiente é estruturado em três camadas principais: a interface do utilizador (*Frontend* em React SPA), o servidor de aplicação (*Backend* REST API em Spring Boot) e a camada de persistência de dados (PostgreSQL). As comunicações entre o dispositivo do utilizador e os serviços em nuvem são efetuadas através de conexões seguras HTTPS com autenticação via tokens JWT, garantindo a integridade e a segurança no tráfego de dados.
+*Fonte: elaborado pelo grupo (2026)*
+
+## 2.6 Visão de implantação
+
+O cAnCHA é publicado em serviços de nuvem e acessado pelo navegador, sem instalação. A implantação separa a entrega estática da interface, a execução da API e o banco de dados, como mostra a Figura 7:
+
+* **Render — Static Site:** hospeda o build do frontend (HTML, CSS e JavaScript gerados pelo Vite), entregue ao navegador por HTTPS.
+* **Render — Web Service:** executa o backend em um contêiner Docker com JRE 21, construído a partir do `backend/Dockerfile`, que empacota a aplicação Spring Boot em um `app.jar`.
+* **Neon:** serviço gerenciado de PostgreSQL. O esquema do banco é criado e atualizado pelas migrações Flyway, executadas pelo backend ao iniciar.
+
+O navegador do aluno baixa a SPA do Static Site e chama a API no Web Service por HTTPS, com JSON e o token JWT. O backend acessa o PostgreSQL no Neon pelo driver JDBC, sobre TCP/IP. O ambiente é publicado a partir da branch `developer`, e as credenciais ficam só nas variáveis de ambiente do Render.
+
+**Figura 7 – Diagrama de implantação do cAnCHA**
+
+![Diagrama de implantação](imagens/diagrama-implantacao.svg)
+
+*Fonte: elaborado pelo grupo (2026)*
 
 ## 2.7 Restrições adicionais
 
+As metas de desempenho, navegação, segurança e testabilidade estão na seção 2.4. Esta seção registra só as restrições que não aparecem lá.
+
 ### 2.7.1 Restrições negociais e de acesso
 
-O sistema Folha Digital será acessível via internet, porém exige autenticação para acesso às funcionalidades, não havendo uso anônimo. A autenticação é realizada por meio de tokens JWT.
-O controle de acesso é baseado em três perfis distintos: Administrador, Aluno e Representante Escolar. Cada perfil possui permissões específicas, e as funcionalidades disponíveis devem respeitar essas restrições, evitando que um usuário realize operações que não correspondem às suas responsabilidades.
+* Não há uso anônimo: toda funcionalidade exige login.
+* Nesta versão, as contas, as disciplinas e as matrículas entram por migração. Não há cadastro pelo próprio aluno nem interface de administração (US11 e US12 estão fora desta versão).
+* Os perfis Representante Escolar e Administrador estão no modelo de domínio, mas suas funcionalidades não fazem parte desta versão.
 
 ### 2.7.2 Características de qualidade
 
-Usabilidade: é o requisito central. Como o público-alvo inclui usuários com diferentes níveis de conhecimento tecnológico, a arquitetura de informação precisa ser simples e direta. Por isso, a estrutura de rotas deve garantir acesso a qualquer conteúdo principal em até 3 cliques, reduzindo a profundidade de navegação que motivou o desenvolvimento do sistema.
-
-Desempenho: o sistema deverá garantir que 95% das consultas relacionadas aos prazos e ao painel de progresso sejam respondidas em até 2,0 segundos, proporcionando maior agilidade na consulta das informações acadêmicas.
-
-Testabilidade: como o projeto adota integração contínua e Definition of Done, a arquitetura deve permitir a realização de testes unitários, de integração e de sistema. A meta é de cobertura mínima de 80% no backend e 70% no frontend.
-
-Portabilidade: o sistema deve ser acessível a partir de diferentes dispositivos e sistemas operacionais, sem exigir instalação. O frontend deve funcionar nos principais navegadores, e o backend deve ser executável tanto em ambiente Linux quanto Windows.
-
-Segurança: a comunicação entre frontend e backend deve ocorrer via HTTPS, protegendo os dados transmitidos. A autenticação é feita por tokens JWT, que são validados a cada requisição. O acesso às funcionalidades é controlado pelo perfil do usuário, garantindo que operações restritas não sejam acessadas por quem não tem permissão.
+* **Portabilidade:** o frontend roda nos navegadores atuais, em computador ou celular. O backend roda em contêiner Docker, o que o torna independente do sistema operacional do servidor.
+* **Manutenibilidade:** a organização por módulos (package-by-feature) faz com que uma mudança em uma funcionalidade fique restrita, em geral, ao seu pacote e à sua pasta de feature.
 
 ### 2.7.3 Restrições técnicas
 
-O sistema adota uma arquitetura em camadas desacoplada (REST API + SPA), com frontend em React.js e backend em Java com Spring Boot, utilizando banco de dados relacional PostgreSQL. A comunicação entre os componentes ocorre via HTTP/HTTPS, com JSON como contrato de interface.
-A organização em módulos segue o padrão package-by-feature no backend e pastas de feature no frontend.
+* Backend em Java 21 com Spring Boot; frontend em React com Vite; banco PostgreSQL com migrações Flyway.
+* O plano gratuito do Render suspende o Web Service depois de um período sem acesso, e a primeira requisição seguinte demora a responder. Por isso o serviço é acordado antes de apresentações e testes (risco R7 do Documento de Visão).
+* Segredos (credenciais do banco e chave do JWT) nunca ficam no repositório, só nas variáveis de ambiente dos serviços.
 
 # REFERÊNCIAS
 
 BASS, Len; CLEMENTS, Paul; KAZMAN, Rick. **Software architecture in practice**. 4. ed. Boston: Addison-Wesley, 2021.
 
-META PLATFORMS. **React documentation**. Disponível em: https://react.dev. Acesso em: 7 out. 2026.
+META PLATFORMS. **React documentation**. Disponível em: <https://react.dev>. Acesso em: 7 out. 2026.
 
-POSTGRESQL GLOBAL DEVELOPMENT GROUP. **PostgreSQL documentation**. Disponível em: https://www.postgresql.org/docs/. Acesso em: 7 out. 2026.
+OBJECT MANAGEMENT GROUP. **OMG Unified Modeling Language (OMG UML)**: version 2.5.1. [S. l.]: OMG, 2017. Disponível em: <https://www.omg.org/spec/UML/2.5.1>. Acesso em: 16 nov. 2026.
 
-SPRING. **Spring Boot reference documentation**. Disponível em: https://docs.spring.io/spring-boot/. Acesso em: 7 out. 2026.
+POSTGRESQL GLOBAL DEVELOPMENT GROUP. **PostgreSQL documentation**. Disponível em: <https://www.postgresql.org/docs/>. Acesso em: 7 out. 2026.
+
+SPRING. **Spring Boot reference documentation**. Disponível em: <https://docs.spring.io/spring-boot/>. Acesso em: 7 out. 2026.
