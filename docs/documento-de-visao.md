@@ -12,7 +12,7 @@
 | 232014469 | Jefferson de Souza Reis | Desenvolvedor | 12.5 |
 | 242004967 | Pedro Lucas Souza Silva | Desenvolvedor | 12.5 |
 | 242015719 | Thiago Kauã de Sousa Cardoso | Desenvolvedor | 12.5 |
-| 251036440 | Eduardo Viana | Product Owner | 12.5 |
+| 251036440 | Eduardo Viana Ribeiro da Silva | Product Owner | 12.5 |
 | 232014692 | João Lucas R. Cabral | Designer/QA | 15 |
 | 232024554 | Ana Jullia B. M. Lopes | Scrum Master/QA | 12.5 |
 | 241040341 | Pedro Henrique Galdino | Desenvolvedor | 9 |
