@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import { Carregando, ErroCarregamento } from '../../shared/components/Estados'
+import { envolver, prefixarLinhas } from './formatacao'
+import TextoFormatado from './TextoFormatado'
 import { useAnotacoes } from './useAnotacoes'
 
 const doisDigitos = (numero) => String(numero).padStart(2, '0')
@@ -30,6 +32,19 @@ export default function CadernoDaDisciplina({ disciplinaId, busca }) {
   const [texto, setTexto] = useState('')
   const [enviando, setEnviando] = useState(false)
   const [erroForm, setErroForm] = useState(null)
+  const campoTexto = useRef(null)
+  const selecaoPendente = useRef(null)
+
+  // Depois de aplicar uma marcação, devolve o foco ao campo com o trecho selecionado.
+  useLayoutEffect(() => {
+    const selecao = selecaoPendente.current
+
+    if (selecao && campoTexto.current) {
+      campoTexto.current.focus()
+      campoTexto.current.setSelectionRange(selecao.inicio, selecao.fim)
+      selecaoPendente.current = null
+    }
+  }, [texto])
 
   if (carregando) return <Carregando mensagem="Carregando anotações…" />
 
@@ -48,6 +63,14 @@ export default function CadernoDaDisciplina({ disciplinaId, busca }) {
     .filter((anotacao) => !busca.trim() || contem(anotacao, busca))
   const aberta =
     visiveis.find((anotacao) => anotacao.id === escolhidaId) ?? visiveis[0]
+
+  function formatar(aplicar) {
+    const campo = campoTexto.current
+    const resultado = aplicar(texto, campo.selectionStart, campo.selectionEnd)
+
+    selecaoPendente.current = { inicio: resultado.inicio, fim: resultado.fim }
+    setTexto(resultado.texto)
+  }
 
   function abrirFormulario() {
     setErroForm(null)
@@ -106,11 +129,49 @@ export default function CadernoDaDisciplina({ disciplinaId, busca }) {
         <label>
           Texto
           <textarea
+            ref={campoTexto}
             rows="10"
             value={texto}
             onChange={(evento) => setTexto(evento.target.value)}
           />
         </label>
+        <div className="anot-barra" role="toolbar" aria-label="Formatação">
+          <button
+            type="button"
+            aria-label="Negrito"
+            title="Negrito"
+            onClick={() => formatar((t, i, f) => envolver(t, i, f, '**'))}
+          >
+            <strong>B</strong>
+          </button>
+          <button
+            type="button"
+            aria-label="Marca-texto"
+            title="Marca-texto"
+            onClick={() => formatar((t, i, f) => envolver(t, i, f, '=='))}
+          >
+            <mark>ab</mark>
+          </button>
+          <button
+            type="button"
+            aria-label="Transformar em título"
+            title="Transformar em título"
+            onClick={() => formatar((t, i, f) => prefixarLinhas(t, i, f, '# '))}
+          >
+            T
+          </button>
+          <button
+            type="button"
+            aria-label="Transformar em lista"
+            title="Transformar em lista"
+            onClick={() => formatar((t, i, f) => prefixarLinhas(t, i, f, '- '))}
+          >
+            •
+          </button>
+        </div>
+        <p className="anot-dica">
+          Dica: **negrito**, ==marca-texto==, # título e - lista.
+        </p>
         {erroForm && (
           <p className="anot-erro" role="alert">
             {erroForm}
@@ -135,7 +196,9 @@ export default function CadernoDaDisciplina({ disciplinaId, busca }) {
             {formatarDataHora(aberta.criadaEm)}
           </time>
         )}
-        <div className="anot-texto">{aberta.texto}</div>
+        <div className="anot-texto">
+          <TextoFormatado texto={aberta.texto} />
+        </div>
       </article>
     )
   } else {

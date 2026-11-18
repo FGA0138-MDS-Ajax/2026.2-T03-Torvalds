@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import TextoFormatado from '../anotacoes/TextoFormatado'
 import { criarAnotacao, listarAnotacoes } from './anotacoesApi'
 import './AnotacoesDisciplina.css'
 
@@ -109,7 +110,7 @@ export default function AnotacoesDisciplina({ disciplinaId }) {
         {anotacoes.map((anotacao) => (
           <li key={anotacao.id} className="anotacao">
             <h3>{anotacao.titulo}</h3>
-            <p>{anotacao.texto}</p>
+            <TextoFormatado texto={anotacao.texto} />
             {formatarDataHora(anotacao.criadaEm) && (
               <time className="anotacao-data" dateTime={anotacao.criadaEm}>
                 {formatarDataHora(anotacao.criadaEm)}

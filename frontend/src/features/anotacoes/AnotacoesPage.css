@@ -164,7 +164,6 @@
   background: #fff;
   line-height: 1.6;
   overflow-wrap: anywhere;
-  white-space: pre-wrap;
 }
 .anot-vazio {
   margin: 0;
@@ -332,4 +331,52 @@
   .anot-mais {
     margin: 0 0 0 8px;
   }
+}
+
+/* Texto das anotações com negrito, marca-texto, títulos e listas */
+.texto-formatado > * {
+  margin: 0 0 12px;
+}
+.texto-formatado > *:last-child {
+  margin-bottom: 0;
+}
+.texto-formatado h3 {
+  font-family: var(--fonte-titulo);
+  font-size: 1.25rem;
+}
+.texto-formatado h4 {
+  font-size: 1.0625rem;
+}
+.texto-formatado ul,
+.texto-formatado ol {
+  padding-left: 24px;
+}
+.texto-formatado mark {
+  padding: 0 2px;
+  border-radius: 3px;
+  background: linear-gradient(transparent 15%, #ffe66d 15%);
+  color: inherit;
+}
+
+/* Barra de formatação do formulário */
+.anot-barra {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.anot-barra button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 4px 12px;
+  border: 1px solid var(--cor-borda-forte);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--cor-texto);
+  font: inherit;
+  cursor: pointer;
+}
+.anot-dica {
+  margin: 0;
+  color: var(--cor-texto-suave);
+  font-size: 0.875rem;
 }

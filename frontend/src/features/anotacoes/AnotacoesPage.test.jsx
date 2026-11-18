@@ -243,6 +243,52 @@ describe('Tela de Anotações', () => {
     })
   })
 
+  it('a barra de formatação põe negrito, marca-texto e lista no texto', async () => {
+    responder()
+    abrir()
+    await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 2 })
+
+    fireEvent.click(screen.getByRole('button', { name: 'Nova anotação' }))
+
+    const campo = screen.getByLabelText('Texto')
+
+    fireEvent.change(campo, { target: { value: 'um termo importante' } })
+    campo.setSelectionRange(3, 8)
+    fireEvent.click(screen.getByRole('button', { name: 'Negrito' }))
+
+    expect(campo).toHaveValue('um **termo** importante')
+
+    campo.setSelectionRange(13, 23)
+    fireEvent.click(screen.getByRole('button', { name: 'Marca-texto' }))
+
+    expect(campo).toHaveValue('um **termo** ==importante==')
+
+    campo.setSelectionRange(0, 0)
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Transformar em lista' }),
+    )
+
+    expect(campo).toHaveValue('- um **termo** ==importante==')
+  })
+
+  it('mostra a anotação aberta com a formatação', async () => {
+    responder({
+      anotacoes: [
+        {
+          ...resumo,
+          texto: '# Etapas\nA **análise léxica** vem ==primeiro==.',
+        },
+      ],
+    })
+    abrir()
+
+    expect(
+      await screen.findByRole('heading', { name: 'Etapas', level: 3 }),
+    ).toBeInTheDocument()
+    expect(screen.getByText('análise léxica').tagName).toBe('STRONG')
+    expect(screen.getByText('primeiro').tagName).toBe('MARK')
+  })
+
   it('não envia e avisa quando falta título ou texto', async () => {
     responder()
     abrir()
