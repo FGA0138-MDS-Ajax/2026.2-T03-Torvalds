@@ -7,7 +7,7 @@
 | **Versão da aplicação** | `developer` em `2390f7a` (após os merges dos PRs #64, #65 e #71) |
 | **Casos executados** | CT-01, CT-02, CT-03, CT-04, CT-05, CT-07, CT-08 |
 | **Roteiro de referência** | [Documento de Visão v1.2](../documento-de-visao.md), seção 6.2 |
-| **Atualização** | 11/11/2026: os defeitos D1 e D2 foram corrigidos e entraram na release v0.1.0 (ver [seção 8](#8-situacao-dos-defeitos)) |
+| **Atualização** | 11/11/2026: os defeitos D1 e D2 foram corrigidos e entraram na release v0.1.0 (ver [seção 8](#8-situacao-dos-defeitos)). 18/11/2026: CT-03, CT-04 e CT-05 reexecutados em `3fdb107` e aprovados; D1 e D2 fechados (ver [seção 9](#9-reexecucao-de-ct-03-ct-04-e-ct-05)) |
 
 ## 1. Resumo
 
@@ -107,7 +107,91 @@ Atualizado em 11/11/2026, depois da release v0.1.0.
 
 | Defeito | Correção | Casos a reexecutar |
 |---|---|---|
-| D1 — Agenda em branco ([#95](https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/issues/95)) | [PR #101](https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/pull/101): a tela transforma a resposta agrupada do `GET /agenda` em uma lista. O teste da página passou a usar o formato real da resposta, como recomendado na seção 6. | CT-05 |
-| D2 — Materiais não aparecem ([#96](https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/issues/96)) | [PR #102](https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/pull/102): a página da disciplina chama `GET /disciplinas/{id}/conteudos` e mostra a seção Materiais, com o link abrindo em nova aba. | CT-03 e CT-04 (cliques até um material) |
+| D1 — Agenda em branco ([#95](https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/issues/95)) | [PR #101](https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/pull/101): a tela transforma a resposta agrupada do `GET /agenda` em uma lista. O teste da página passou a usar o formato real da resposta, como recomendado na seção 6. | CT-05 **reexecutado e aprovado em 18/11** (seção 9) |
+| D2 — Materiais não aparecem ([#96](https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/issues/96)) | [PR #102](https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/pull/102): a página da disciplina chama `GET /disciplinas/{id}/conteudos` e mostra a seção Materiais, com o link abrindo em nova aba. | CT-03 e CT-04 **reexecutados e aprovados em 18/11** (seção 9) |
 
 Os resultados da seção 3 continuam valendo para a versão testada (`2390f7a`). A reexecução de CT-03, CT-04 e CT-05 na release v0.1.0 fica com o Analista de Qualidade e deve ser registrada neste relatório ou no da Sprint 8.
+
+## 9. Reexecução de CT-03, CT-04 e CT-05
+
+| | |
+|---|---|
+| **Data** | 18/11/2026 |
+| **Versão** | `developer` em `3fdb107` (v0.1.1 e PR #109 já integrados) |
+| **Roteiro** | [Documento de Visão v1.4](../documento-de-visao.md), seção 6.2 |
+| **Ambiente** | Local (Docker Compose), `aluno1@cancha.test` |
+| **Motivo** | Reexecução dos casos afetados pelos defeitos D1 e D2 (seção 8) |
+
+| Caso | Resultado | Em resumo |
+|---|---|---|
+| CT-03 Entrega e material | **Passou** | Entregas ordenadas e completas; materiais abrem em nova aba. D2 corrigido |
+| CT-04 Limite de navegação | **Passou** | 2 cliques até as entregas e até os materiais, dentro do limite de 3 |
+| CT-05 Agenda e próximas entregas | **Passou** | Atrasadas em destaque no topo, demais por proximidade de prazo, cada uma na coluna da sua situação. D1 corrigido |
+
+### 9.1 CT-03 — Localização de entrega e material
+
+**Resultado: passou.** O defeito D2 está corrigido.
+
+#### Passo a passo
+
+| Passo | Resultado esperado | Observado |
+|---|---|---|
+| 1. Abrir MDS | Entregas ordenadas por prazo, com título, tipo, prazo (dd/mm) e situação; atrasadas em destaque | 7 entregas em ordem crescente de prazo, com os quatro campos. Situações presentes: concluída, em andamento e a fazer |
+| 2. Localizar a primeira entrega pendente | O prazo mostrado é o mesmo da Agenda | "Documento de Visão corrigido", prazo 12/11. `GET /agenda` e `GET /disciplinas/5/atividades` devolvem `2026-11-12T23:59:00` para a mesma entrega, e a coluna da Agenda corresponde à situação exibida na disciplina |
+| 3. Abrir o primeiro material | O material abre em nova aba | A seção Materiais aparece com "Scrum Guide" e "Princípios ágeis"; cada bloco abre em aba nova. Confere com `PaginaDisciplina.jsx`, que monta o link com `target="_blank"` e `rel="noopener noreferrer"` |
+
+#### Nota sobre os valores do roteiro
+
+A v1.4 substituiu os valores fixos por critérios verificáveis, como recomendado na [seção 5](#5-nota-sobre-o-roteiro-de-testes) deste relatório. Os nomes citados na v1.2 ("Trabalho 1", "Slides da aula 1") não existem na carga V7 e deixaram de ser esperados: a verificação é da ordenação, dos campos e das situações, não dos títulos. A carga mudou de quantidade e de títulos desde a redação do roteiro, e a execução garantiu o que importa para o critério — **pelo menos uma entrega em cada situação** (a fazer, em andamento e concluída) em todas as telas verificadas.
+
+### 9.2 CT-04 — Limite de navegação
+
+**Resultado: passou.** O alvo "material", que o D2 impedia de contar na Sprint 7, agora é alcançável.
+
+| Alvo | Cliques | Limite | Observado |
+|---|---|---|---|
+| Disciplina (MDS) | 2 | 3 | Do Início até a página da disciplina |
+| Entrega da disciplina | 2 | 3 | A lista de entregas já aparece na página da disciplina, sem clique extra |
+| Material de apoio | 2 | 3 | A seção Materiais aparece na mesma página; o 3º clique é o do material, que redireciona para o conteúdo |
+
+Todos os alvos ficam dentro do limite de 3 cliques exigido pelo REQ-02.
+
+**Ressalva:** ainda não existe tela expandida da tarefa. Quando ela for implementada, a contagem até o detalhe da entrega passa a 3 cliques — no limite, sem folga. Vale reavaliar este caso quando a tela entrar, porque qualquer nível a mais de navegação estoura o requisito.
+
+### 9.3 CT-05 — Agenda e próximas entregas
+
+**Resultado: passou.** O defeito D1 está corrigido: a Agenda renderiza.
+
+| Passo | Resultado esperado | Observado |
+|---|---|---|
+| 1. Ler as próximas entregas no Início | As 5 entregas não concluídas de prazo mais próximo, de todas as disciplinas, em ordem de prazo | 5 entregas de 5 disciplinas diferentes, em ordem crescente de prazo, nenhuma concluída. As atrasadas vêm primeiro e ficam destacadas no topo |
+| 2. Abrir a Agenda | Todas as entregas do aluno, cada uma na coluna da sua situação, em ordem de prazo; o total de cartões é igual ao total de entregas | Três colunas (A fazer, Em andamento, Concluídas), cada entrega na coluna da situação em que foi definida, ordenadas por proximidade de prazo. `GET /agenda` devolve 25 entregas (10 a fazer, 4 em andamento, 11 concluídas) |
+
+A ordenação e o destaque conferem com o código: [`AgendaPage.jsx`](../../frontend/src/features/agenda/AgendaPage.jsx) filtra cada coluna por situação e aplica `compararPrazo`, e `ehAtrasada` nunca marca uma entrega concluída como atrasada.
+
+**Nota sobre a carga.** Todas as entregas pendentes estão atrasadas na data da execução, porque os prazos do seed são relativos à data de criação do banco (11/11) e a reexecução ocorreu em 18/11. O destaque de atrasada ficou, portanto, verificado em todos os itens pendentes, mas sem contraste com um item no prazo. Para verificar o contraste, é preciso recarregar a carga (`docker compose down -v && docker compose up --build`), o que regenera os prazos a partir do dia. É a mesma limitação descrita na [seção 5](#5-nota-sobre-o-roteiro-de-testes).
+
+### 9.4 Observação de ambiente, não defeito
+
+Durante a execução, o botão de situação concluía uma entrega, mas não desfazia a conclusão, e arrastar o cartão não surtia efeito. **A causa era o ambiente, não a aplicação:** o contêiner do back-end rodava uma imagem de 11/11, anterior aos PRs #66, #76 e #109. Medido direto na API, com o contêiner antigo:
+
+| Chamada | Antes do rebuild | Depois do rebuild |
+|---|---|---|
+| `PATCH /atividades/{id}/status` → `CONCLUIDA` | 204 | 204 |
+| → `A_FAZER` | 400 "O status deve ser CONCLUIDA." | 204 |
+| → `EM_ANDAMENTO` | 400 "O status deve ser CONCLUIDA." | 204 |
+
+O `ConclusaoEntregaRequest` no código já aceitava os três valores; a mensagem devolvida era a da versão anterior. Depois de `docker compose up --build -d backend`, as três situações passaram a responder 204.
+
+Isso não afeta o resultado do CT-03, cujos passos não incluem alterar a situação de uma entrega. Fica registrado porque os cliques feitos com o contêiner antigo gravaram `CONCLUIDA` em duas entregas de MDS; a carga foi devolvida ao estado do seed (3 concluídas de 7 em MDS; Agenda com 10 a fazer, 4 em andamento e 11 concluídas, total de 25) antes de prosseguir.
+
+**Recomendação:** reconstruir a imagem do back-end (`docker compose up --build -d backend`) antes de cada rodada de testes. Um contêiner defasado produz falhas que parecem defeito da aplicação — o espelho do que a [seção 6](#6-observacao-sobre-a-suite-automatizada) descreve, onde o teste passa sobre uma tela quebrada.
+
+### 9.5 Situação dos defeitos após a reexecução
+
+| Defeito | Caso | Situação |
+|---|---|---|
+| D1 — Agenda em branco ([#95](https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/issues/95)) | CT-05 | **Fechado.** A Agenda renderiza as três colunas com todas as entregas |
+| D2 — Materiais não aparecem ([#96](https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/issues/96)) | CT-03, CT-04 | **Fechado.** A seção Materiais aparece e o link abre em nova aba |
+
+Com isso, os três casos que a seção 8 deixou pendentes estão reexecutados e aprovados. O CT-07, também previsto para a Sprint 8, continua pendente de reexecução.
