@@ -48,19 +48,13 @@ export default function LoginPage({ onEntrar }) {
           className="login-art"
           aria-label="Cancha: seu caderno, agora digital"
         >
-          <div className="login-art-crop">
-            <img
-              src={ilustracao}
-              alt="Cancha — Seu caderno, agora digital! Estudante com livros e notebook."
-            />
-          </div>
+          <img
+            src={ilustracao}
+            alt="Cancha — Seu caderno, agora digital! Estudante com livros e notebook."
+          />
         </section>
 
-        <div className="login-binding" aria-hidden="true">
-          {Array.from({ length: 10 }, (_, index) => (
-            <span key={index} />
-          ))}
-        </div>
+        <div className="login-binding" aria-hidden="true" />
 
         <section className="login-panel" aria-labelledby="login-title">
           <div className="login-card">

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useSearchParams } from 'react-router'
 import { listarDisciplinas } from '../disciplinas/listarDisciplinas'
 import BarraProgresso from '../../shared/components/BarraProgresso'
+import { corDaDisciplina } from '../../shared/utils/coresDisciplina'
 import {
   Carregando,
   ErroCarregamento,
@@ -9,7 +10,6 @@ import {
 } from '../../shared/components/Estados'
 import { useRequisicao } from '../../shared/hooks/useRequisicao'
 import DetalheMateria from './DetalheMateria'
-import { corDaMateria } from './materiasUtils'
 import './MateriasPage.css'
 
 export default function MateriasPage() {
@@ -20,6 +20,13 @@ export default function MateriasPage() {
   const escolhida = parametros.get('materia')
   // Progresso recalculado aqui quando o aluno move uma atividade no quadro.
   const [progressoLocal, setProgressoLocal] = useState({})
+
+  // Cada matéria tem a sua cor, a mesma no cartão da lista e no painel do conteúdo.
+  const corDe = (disciplina) =>
+    corDaDisciplina(
+      disciplina.nome,
+      dados.findIndex((item) => item.id === disciplina.id),
+    )
 
   function voltarParaLista() {
     const novos = new URLSearchParams(parametros)
@@ -77,9 +84,7 @@ export default function MateriasPage() {
           <ul className="materias-lista">
             {visiveis.map((disciplina) => {
               const ativa = disciplina.id === selecionada.id
-              const cor = corDaMateria(
-                dados.findIndex((item) => item.id === disciplina.id),
-              )
+              const cor = corDe(disciplina)
 
               return (
                 <li key={disciplina.id}>
@@ -115,6 +120,7 @@ export default function MateriasPage() {
             <DetalheMateria
               key={selecionada.id}
               disciplina={selecionada}
+              cor={corDe(selecionada)}
               aoMudarProgresso={(percentual) =>
                 setProgressoLocal((anterior) => ({
                   ...anterior,
