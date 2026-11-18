@@ -331,8 +331,10 @@
 }
 
 .login-register {
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35em;
   text-decoration: none;
 }
 
