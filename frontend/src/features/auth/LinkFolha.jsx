@@ -1,4 +1,3 @@
-import { flushSync } from 'react-dom'
 import { Link, useNavigate } from 'react-router'
 
 const DURACAO_MS = 1100
@@ -16,6 +15,23 @@ function copiarTela(raiz, deslocamentoX, largura) {
   })
   copia.appendChild(tela)
   return copia
+}
+
+/** Espera o React trocar a tela (e as imagens dela carregarem), com limite de tempo. */
+async function esperarTelaNova(raiz, telaAntiga) {
+  const limite = performance.now() + 1000
+  while (raiz.firstElementChild === telaAntiga && performance.now() < limite) {
+    await new Promise((resolver) => requestAnimationFrame(resolver))
+  }
+
+  const imagens = [...raiz.querySelectorAll('img')].map((img) =>
+    img.decode ? img.decode().catch(() => {}) : Promise.resolve(),
+  )
+  await Promise.race([
+    Promise.all(imagens),
+    new Promise((resolver) => setTimeout(resolver, 600)),
+  ])
+  await new Promise((resolver) => requestAnimationFrame(resolver))
 }
 
 function face(classe, copia) {
@@ -60,13 +76,11 @@ export default function LinkFolha({ to, onClick, ...resto }) {
     // A folha cobre a metade esquerda inteira ao pousar.
     const larguraFolha = Math.max(x, largura - x)
 
-    // 1) Foto da tela de origem e troca real para a tela de destino.
+    // 1) Foto da tela de origem, e o palco por cima já cobrindo tudo.
+    const telaAntiga = raiz.firstElementChild
     const origemFrente = copiarTela(raiz, -x, largura)
     const origemEsquerda = copiarTela(raiz, 0, largura)
-    flushSync(() => navegar(to))
-    const destinoVerso = copiarTela(raiz, larguraFolha - x, largura)
 
-    // 2) Palco por cima: capa da metade esquerda antiga + folha que vira.
     const palco = document.createElement('div')
     palco.className = 'folha-palco'
     palco.setAttribute('aria-hidden', 'true')
@@ -81,19 +95,25 @@ export default function LinkFolha({ to, onClick, ...resto }) {
     folha.className = 'folha'
     folha.style.left = `${x}px`
     folha.style.width = `${larguraFolha}px`
-    folha.append(
-      face('folha-frente', origemFrente),
-      face('folha-verso', destinoVerso),
-    )
+    folha.appendChild(face('folha-frente', origemFrente))
 
     palco.append(capa, folha)
     document.body.appendChild(palco)
 
-    const giro = folha.animate(
-      [{ transform: 'rotateY(0deg)' }, { transform: 'rotateY(-180deg)' }],
-      { duration: DURACAO_MS, easing: 'ease-in-out', fill: 'forwards' },
-    )
-    giro.onfinish = giro.oncancel = () => palco.remove()
+    // 2) Troca a rota por baixo do palco, espera a tela nova aparecer
+    //    e usa uma foto dela como verso da folha.
+    navegar(to)
+    esperarTelaNova(raiz, telaAntiga).then(() => {
+      folha.appendChild(
+        face('folha-verso', copiarTela(raiz, larguraFolha - x, largura)),
+      )
+
+      const giro = folha.animate(
+        [{ transform: 'rotateY(0deg)' }, { transform: 'rotateY(-180deg)' }],
+        { duration: DURACAO_MS, easing: 'ease-in-out', fill: 'forwards' },
+      )
+      giro.onfinish = giro.oncancel = () => palco.remove()
+    })
   }
 
   return <Link to={to} onClick={aoClicar} {...resto} />
