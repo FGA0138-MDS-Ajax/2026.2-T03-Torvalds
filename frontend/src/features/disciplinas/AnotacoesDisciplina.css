@@ -1,0 +1,71 @@
+.disciplina-anotacoes {
+  margin-top: 28px;
+}
+.anotacoes-form {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+.anotacoes-form label {
+  display: grid;
+  gap: 6px;
+  font-weight: bold;
+}
+.anotacoes-form input,
+.anotacoes-form textarea {
+  padding: 10px 12px;
+  border: 2px solid #e2ddcf;
+  border-radius: 12px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+}
+.anotacoes-form textarea {
+  resize: vertical;
+}
+.anotacoes-form input:focus-visible,
+.anotacoes-form textarea:focus-visible,
+.anotacao-botao:focus-visible {
+  outline: 3px solid #72528e;
+  outline-offset: 2px;
+}
+.anotacao-botao {
+  justify-self: start;
+  padding: 8px 20px;
+  border: 2px solid #72528e;
+  border-radius: 999px;
+  background: #cfb4ed;
+  color: #2f2438;
+  font: inherit;
+  font-weight: bold;
+  cursor: pointer;
+}
+.anotacao-botao:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.anotacoes-lista {
+  display: grid;
+  gap: 12px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.anotacao {
+  padding: 16px 20px;
+  border: 2px solid #e2ddcf;
+  border-radius: 18px;
+  overflow-wrap: anywhere;
+}
+.anotacao h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+.anotacao p {
+  margin: 0 0 8px;
+  white-space: pre-wrap;
+}
+.anotacao-data {
+  color: #665e53;
+  font-size: 14px;
+}

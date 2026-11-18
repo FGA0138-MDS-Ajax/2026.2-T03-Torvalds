@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router'
 import BarraProgresso from '../../shared/components/BarraProgresso'
+import AnotacoesDisciplina from './AnotacoesDisciplina'
 import { alterarSituacaoEntrega, carregarDisciplina } from './disciplinaApi'
 import './PaginaDisciplina.css'
 
@@ -241,6 +242,7 @@ function ConteudoDisciplina({ id }) {
           </ul>
         )}
       </section>
+      <AnotacoesDisciplina disciplinaId={id} />
     </>
   )
 }
