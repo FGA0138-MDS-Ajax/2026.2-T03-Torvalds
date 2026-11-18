@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router'
 import AgendaPage from './features/agenda/AgendaPage'
+import AnotacoesPage from './features/anotacoes/AnotacoesPage'
 import LoginPage from './features/auth/LoginPage'
 import RotaProtegida from './features/auth/RotaProtegida'
 import { useSessao } from './features/auth/useSessao'
@@ -30,15 +31,7 @@ function App() {
           <Route path="materias" element={<MateriasPage />} />
           <Route path="disciplinas/:id" element={<PaginaDisciplina />} />
           <Route path="agenda" element={<AgendaPage />} />
-          <Route
-            path="anotacoes"
-            element={
-              <EmBreve
-                titulo="Anotações"
-                descricao="Aqui você vai escrever e organizar as anotações de cada matéria."
-              />
-            }
-          />
+          <Route path="anotacoes" element={<AnotacoesPage />} />
           <Route
             path="configuracoes"
             element={

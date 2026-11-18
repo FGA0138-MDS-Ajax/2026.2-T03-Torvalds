@@ -29,12 +29,30 @@ export default function LayoutBase() {
   const navegar = useNavigate()
   const [parametros] = useSearchParams()
   const naMaterias = pathname === '/materias'
-  const busca = naMaterias ? (parametros.get('busca') ?? '') : ''
+  const naAnotacoes = pathname === '/anotacoes'
+  const busca = naMaterias || naAnotacoes ? (parametros.get('busca') ?? '') : ''
 
   // A busca do topo filtra as matérias: o termo vai na URL (?busca=...) e a
   // tela de Matérias lê de lá. Digitar em outra tela leva para Matérias.
+  // Só na tela de Anotações a mesma busca filtra as anotações.
   function aoDigitar(evento) {
     const termo = evento.target.value
+
+    if (naAnotacoes) {
+      const novos = new URLSearchParams(parametros)
+
+      if (termo) novos.set('busca', termo)
+      else novos.delete('busca')
+
+      const consulta = novos.toString()
+
+      navegar(
+        { pathname, search: consulta ? `?${consulta}` : '' },
+        { replace: true },
+      )
+      return
+    }
+
     const destino = termo
       ? `/materias?busca=${encodeURIComponent(termo)}`
       : '/materias'
@@ -76,8 +94,10 @@ export default function LayoutBase() {
               type="search"
               value={busca}
               onChange={aoDigitar}
-              placeholder="Buscar matérias…"
-              aria-label="Buscar matéria"
+              placeholder={
+                naAnotacoes ? 'Buscar anotações…' : 'Buscar matérias…'
+              }
+              aria-label={naAnotacoes ? 'Buscar anotações' : 'Buscar matéria'}
             />
           </label>
 

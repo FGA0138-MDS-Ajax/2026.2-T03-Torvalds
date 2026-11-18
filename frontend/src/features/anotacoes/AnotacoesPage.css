@@ -1,0 +1,335 @@
+.anot-pagina {
+  display: grid;
+  gap: 20px;
+}
+
+/* Cores da disciplina escolhida: claro (fundos), forte (bordas), escuro (destaques)
+   e as cinco abas, do tom mais claro ao mais forte. */
+.anot-pagina {
+  --anot-claro: var(--cor-lilas-claro);
+  --anot-forte: var(--cor-lilas);
+  --anot-escuro: var(--anot-escuro);
+  --aba-1: #e5d7f9;
+  --aba-2: #d6bff5;
+  --aba-3: #c3a1f3;
+  --aba-4: #a96af0;
+  --aba-5: #8f2cff;
+  --aba-5-texto: #fff;
+}
+.anot-cor-amarelo {
+  --anot-claro: var(--cor-amarelo-claro);
+  --anot-forte: var(--cor-amarelo);
+  --anot-escuro: #8a5a00;
+  --aba-1: #fff3cf;
+  --aba-2: #ffe7a6;
+  --aba-3: #ffd678;
+  --aba-4: #f2b83d;
+  --aba-5: #d99100;
+  --aba-5-texto: #231229;
+}
+.anot-cor-verde {
+  --anot-claro: var(--cor-verde-claro);
+  --anot-forte: var(--cor-verde);
+  --anot-escuro: #4f5e3a;
+  --aba-1: #e3f3dd;
+  --aba-2: #cde5c4;
+  --aba-3: #b0d3a3;
+  --aba-4: #8fbb80;
+  --aba-5: #4a7a3f;
+}
+.anot-cor-rosa {
+  --anot-claro: var(--cor-rosa-claro);
+  --anot-forte: #f0b8aa;
+  --anot-escuro: #a1402c;
+  --aba-1: #fde8e2;
+  --aba-2: #f9d0c6;
+  --aba-3: #f3b3a5;
+  --aba-4: #e98d7b;
+  --aba-5: #c4503b;
+}
+.anot-cor-azul {
+  --anot-claro: var(--cor-azul-claro);
+  --anot-forte: #9fd3f2;
+  --anot-escuro: #1f5f8f;
+  --aba-1: #e3f4fd;
+  --aba-2: #c5e7fa;
+  --aba-3: #9fd3f2;
+  --aba-4: #6bb6e3;
+  --aba-5: #2a79ad;
+}
+
+/* Cabeçalho: ícone, nome da disciplina com o caminho e a busca */
+.anot-cabecalho {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+.anot-icone {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border: 2px solid var(--anot-forte);
+  border-radius: 50%;
+  background: var(--anot-claro);
+  font-size: 1.75rem;
+}
+.anot-titulo {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+.anot-titulo h1 {
+  margin: 0;
+  font-family: var(--fonte-titulo);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  overflow-wrap: anywhere;
+}
+.anot-trilha {
+  font-size: 0.875rem;
+}
+.anot-trilha a {
+  color: var(--anot-escuro);
+}
+/* Coluna das disciplinas e caderno */
+.anot-corpo {
+  display: grid;
+  grid-template-columns: minmax(200px, 300px) minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+.anot-disciplinas {
+  padding: 16px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 20px;
+  background: var(--cor-papel);
+}
+.anot-disciplinas ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.anot-disciplinas button {
+  width: 100%;
+  min-height: 72px;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 16px;
+  background: transparent;
+  color: var(--cor-texto);
+  font-family: var(--fonte-titulo);
+  font-size: 1.125rem;
+  text-align: center;
+  cursor: pointer;
+}
+.anot-disciplinas button[aria-pressed='true'] {
+  background: var(--anot-claro);
+}
+.anot-escolha-celular {
+  display: none;
+}
+
+.anot-caderno {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0;
+  align-items: start;
+}
+.anot-painel {
+  min-height: 420px;
+  padding: 24px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 20px;
+  background: var(--cor-papel);
+}
+.anot-leitura h2,
+.anot-form h2 {
+  margin: 0 0 4px;
+  font-family: var(--fonte-titulo);
+  font-size: 1.5rem;
+  overflow-wrap: anywhere;
+}
+.anot-leitura time {
+  display: block;
+  margin-bottom: 16px;
+  color: var(--cor-texto-suave);
+  font-size: 0.875rem;
+}
+.anot-texto {
+  padding: 20px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 16px;
+  background: #fff;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+.anot-vazio {
+  margin: 0;
+  color: var(--cor-texto-suave);
+}
+
+/* Abas "Cap 01 ... 05", em degradê de lilás, na lateral do painel */
+.anot-abas {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  margin-top: 24px;
+}
+.anot-aba {
+  min-width: 64px;
+  min-height: 64px;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 0 14px 14px 0;
+  color: #231229;
+  font-family: var(--fonte-titulo);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.anot-aba[aria-pressed='true'] {
+  min-height: 96px;
+  box-shadow: inset 4px 0 0 var(--anot-escuro);
+}
+.anot-aba-rotulo {
+  display: block;
+  font-size: 1.125rem;
+}
+.anot-aba-1 {
+  background: var(--aba-1);
+}
+.anot-aba-2 {
+  background: var(--aba-2);
+}
+.anot-aba-3 {
+  background: var(--aba-3);
+}
+.anot-aba-4 {
+  background: var(--aba-4);
+}
+.anot-aba-5 {
+  background: var(--aba-5);
+  color: var(--aba-5-texto);
+}
+.anot-mais {
+  align-self: center;
+  width: 48px;
+  min-width: 0;
+  height: 48px;
+  margin-top: 16px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--anot-claro);
+  color: var(--cor-texto);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Formulário de nova anotação */
+.anot-form {
+  display: grid;
+  gap: 12px;
+}
+.anot-form label {
+  display: grid;
+  gap: 6px;
+  font-weight: bold;
+}
+.anot-form input,
+.anot-form textarea {
+  padding: 10px 12px;
+  border: 1px solid var(--cor-borda-forte);
+  border-radius: 12px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+}
+.anot-form textarea {
+  resize: vertical;
+}
+.anot-form-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.anot-form-acoes button {
+  min-height: 44px;
+  padding: 8px 20px;
+  border: 2px solid var(--anot-escuro);
+  border-radius: 999px;
+  background: var(--anot-claro);
+  color: var(--cor-texto);
+  font: inherit;
+  font-weight: bold;
+  cursor: pointer;
+}
+.anot-form-acoes button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.anot-erro {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: #f8ded5;
+  color: #882f20;
+}
+
+.anot-pagina button:focus-visible,
+.anot-pagina input:focus-visible,
+.anot-pagina textarea:focus-visible,
+.anot-pagina select:focus-visible,
+.anot-pagina a:focus-visible {
+  outline: 3px solid var(--anot-escuro);
+  outline-offset: 2px;
+}
+
+/* Celular: sem a coluna de disciplinas (vira um seletor) e abas no topo */
+@media (max-width: 760px) {
+  .anot-corpo {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .anot-disciplinas ul {
+    display: none;
+  }
+  .anot-escolha-celular {
+    display: grid;
+    gap: 6px;
+    font-weight: bold;
+  }
+  .anot-escolha-celular select {
+    min-height: 44px;
+    padding: 8px 12px;
+    border: 1px solid var(--cor-borda-forte);
+    border-radius: 12px;
+    background: #fff;
+    color: inherit;
+    font: inherit;
+  }
+  .anot-caderno {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .anot-abas {
+    flex-direction: row;
+    flex-wrap: wrap;
+    order: -1;
+    margin: 0 0 12px;
+  }
+  .anot-aba {
+    border-radius: 14px 14px 0 0;
+  }
+  .anot-aba[aria-pressed='true'] {
+    min-height: 64px;
+    box-shadow: inset 0 4px 0 var(--anot-escuro);
+  }
+  .anot-aba-rotulo {
+    display: inline;
+    margin-right: 4px;
+  }
+  .anot-mais {
+    margin: 0 0 0 8px;
+  }
+}
