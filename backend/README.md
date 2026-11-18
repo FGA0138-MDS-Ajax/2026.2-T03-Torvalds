@@ -153,6 +153,8 @@ Os testes usam um banco H2 em memória (ver `src/test/resources/application.yml`
 
 O JaCoCo mede a cobertura dos testes. Depois de `./mvnw test`, abra `backend/target/site/jacoco/index.html` no navegador. Na CI, o mesmo relatório fica na página da execução (aba Actions, seção Artifacts, arquivo `relatorio-jacoco`).
 
+O `./mvnw test` também confere uma cobertura mínima: 90% das linhas e 82% dos ramos do backend inteiro. Abaixo disso o build falha com a mensagem `Coverage checks have not been met`, localmente e na CI. Os limites ficam nas propriedades `jacoco.minimo.linhas` e `jacoco.minimo.ramos` do `pom.xml`. Quando a cobertura subir, suba também o limite; não o reduza para fazer um PR passar, escreva os testes que faltam.
+
 ## Banco de dados e dados de exemplo
 
 O esquema vem das migrations em `src/main/resources/db/migration/` (`V<n>__descricao.sql`). Depois que uma migration for mergeada, não edite o arquivo: crie uma nova com o próximo número.

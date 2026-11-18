@@ -15,6 +15,13 @@
   <description>API REST do Cancha</description>
   <properties>
     <java.version>21</java.version>
+    <!--
+      Cobertura mínima do backend (#135). O build falha se a cobertura cair abaixo destes valores.
+      Partem do nível medido em 11/11/2026 (90,1% das linhas e 82,9% dos ramos), arredondado para baixo.
+      Quando a cobertura subir, suba também o limite; nunca o reduza para fazer um PR passar.
+    -->
+    <jacoco.minimo.linhas>0.90</jacoco.minimo.linhas>
+    <jacoco.minimo.ramos>0.82</jacoco.minimo.ramos>
   </properties>
   <dependencies>
     <dependency>
@@ -130,6 +137,33 @@
             <goals>
               <goal>report</goal>
             </goals>
+          </execution>
+          <!-- Vem depois do relatório, então o HTML é gerado mesmo quando a cobertura fica abaixo do mínimo. -->
+          <execution>
+            <id>cobertura-minima</id>
+            <phase>test</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <rule>
+                  <element>BUNDLE</element>
+                  <limits>
+                    <limit>
+                      <counter>LINE</counter>
+                      <value>COVEREDRATIO</value>
+                      <minimum>${jacoco.minimo.linhas}</minimum>
+                    </limit>
+                    <limit>
+                      <counter>BRANCH</counter>
+                      <value>COVEREDRATIO</value>
+                      <minimum>${jacoco.minimo.ramos}</minimum>
+                    </limit>
+                  </limits>
+                </rule>
+              </rules>
+            </configuration>
           </execution>
         </executions>
       </plugin>
