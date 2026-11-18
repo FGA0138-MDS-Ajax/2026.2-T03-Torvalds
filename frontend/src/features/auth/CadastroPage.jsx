@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router'
+import { useNavigate } from 'react-router'
+import LinkFolha from './LinkFolha'
 import ilustracao from '../../assets/cadastro-ilustracao.png'
 import './LoginPage.css'
 import './CadastroPage.css'
@@ -179,7 +180,7 @@ export default function CadastroPage() {
               </button>
 
               <p className="cadastro-entrar cadastro-linha-cheia">
-                Já tem uma conta? <Link to="/login">Entrar</Link>
+                Já tem uma conta? <LinkFolha to="/login">Entrar</LinkFolha>
               </p>
             </form>
           </div>

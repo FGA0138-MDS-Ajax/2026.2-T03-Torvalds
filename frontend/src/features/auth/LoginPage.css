@@ -348,3 +348,59 @@
   font-size: 14px;
   line-height: 1.5;
 }
+
+/* Folha de caderno que vira entre Login e Cadastro (LinkFolha) */
+.folha-palco {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  overflow: hidden;
+  pointer-events: none;
+  perspective: 2400px;
+}
+
+.folha-capa {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.folha {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+}
+
+.folha-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  backface-visibility: hidden;
+  background: #faf4e8;
+}
+
+.folha-face::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #5d463030, transparent 14%);
+}
+
+.folha-verso {
+  transform: rotateY(180deg);
+}
+
+.folha-verso::after {
+  background: linear-gradient(270deg, #5d463030, transparent 14%);
+}
+
+.folha-copia {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}

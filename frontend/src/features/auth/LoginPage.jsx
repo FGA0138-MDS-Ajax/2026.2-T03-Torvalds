@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Link, useLocation } from 'react-router'
+import { useLocation } from 'react-router'
+import LinkFolha from './LinkFolha'
 import ilustracao from '../../assets/login-ilustracao.png'
 import './LoginPage.css'
 import { entrar, consultarPerfil } from './authApi'
@@ -173,9 +174,9 @@ export default function LoginPage({ onEntrar }) {
                 <span>ou</span>
               </div>
 
-              <Link className="login-register" to="/cadastro">
+              <LinkFolha className="login-register" to="/cadastro">
                 Cadastre-se <span aria-hidden="true">→</span>
-              </Link>
+              </LinkFolha>
 
               <p id="login-unavailable" className="login-unavailable">
                 Recuperação de senha indisponível no momento.
