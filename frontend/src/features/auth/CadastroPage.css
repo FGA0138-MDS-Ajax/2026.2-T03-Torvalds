@@ -1,5 +1,15 @@
 .cadastro-book {
-  grid-template-columns: minmax(0, 1.1fr) 38px minmax(0, 0.9fr);
+  grid-template-columns: minmax(0, 1.25fr) 38px minmax(0, 0.75fr);
+}
+
+/* A lombada fica entre as colunas (não no centro da tela), então nada passa por cima das argolas. */
+.cadastro-book .login-binding {
+  position: relative;
+  grid-column: 2;
+  align-self: stretch;
+  inset-block: auto;
+  left: auto;
+  transform: none;
 }
 
 .cadastro-esquerda {
@@ -8,7 +18,7 @@
   align-items: center;
   gap: 16px;
   min-width: 0;
-  padding: 16px 8px 16px 0;
+  padding: 16px 28px 16px 0;
 }
 
 .cadastro-ilustracao {
@@ -57,8 +67,8 @@
 .cadastro-info {
   grid-column: 3;
   min-width: 0;
-  padding: 24px;
-  max-width: 480px;
+  padding: 24px 24px 24px 48px;
+  max-width: 560px;
 }
 
 .cadastro-info h2 {
