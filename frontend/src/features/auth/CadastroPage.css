@@ -6,35 +6,31 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
   min-width: 0;
-  padding: 8px 8px 8px 0;
+  padding: 16px 8px 16px 0;
 }
 
 .cadastro-ilustracao {
-  width: min(100%, 440px);
+  width: min(100%, 680px, calc((100svh - 48px) * 0.9));
   height: auto;
   filter: drop-shadow(0 10px 18px #5d46301f);
 }
 
 .cadastro-card {
-  max-width: 640px;
-  padding: 24px 28px;
-}
-
-.cadastro-card .login-heading h1 {
-  font-size: 30px;
+  max-width: 680px;
+  padding: 32px;
 }
 
 .cadastro-card .login-heading p {
-  font-size: 17px;
+  max-width: none;
 }
 
 .cadastro-form {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  margin-top: 18px;
+  gap: 14px;
+  margin-top: 28px;
 }
 
 .cadastro-linha-cheia {
@@ -44,13 +40,13 @@
 .cadastro-enviar {
   grid-column: 1 / -1;
   justify-self: center;
-  width: min(100%, 260px);
+  width: min(100%, 320px);
 }
 
 .cadastro-entrar {
   margin: 0;
   text-align: center;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .cadastro-entrar a {
@@ -107,6 +103,14 @@
   .cadastro-book {
     display: flex;
     flex-direction: column;
+  }
+
+  .cadastro-ilustracao {
+    width: 100%;
+  }
+
+  .cadastro-card {
+    padding: 24px 18px;
   }
 
   .cadastro-esquerda {
