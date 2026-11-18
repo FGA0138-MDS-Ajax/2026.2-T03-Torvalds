@@ -329,3 +329,20 @@
   background: #bba7ce;
   color: #302239;
 }
+
+.login-register {
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+}
+
+.login-sucesso {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid #6f8a57;
+  border-radius: 6px;
+  background: #eef6e6;
+  color: #2f4a1c;
+  font-size: 14px;
+  line-height: 1.5;
+}

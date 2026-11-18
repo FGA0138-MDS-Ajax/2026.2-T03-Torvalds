@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router'
 import AgendaPage from './features/agenda/AgendaPage'
+import CadastroPage from './features/auth/CadastroPage'
 import LoginPage from './features/auth/LoginPage'
 import RotaProtegida from './features/auth/RotaProtegida'
 import { useSessao } from './features/auth/useSessao'
@@ -22,10 +23,21 @@ function RotaLogin() {
   return <LoginPage onEntrar={entrar} />
 }
 
+function RotaCadastro() {
+  const { perfil } = useSessao()
+
+  if (perfil) {
+    return <Navigate to="/" replace />
+  }
+
+  return <CadastroPage />
+}
+
 function App() {
   return (
     <Routes>
       <Route path="/login" element={<RotaLogin />} />
+      <Route path="/cadastro" element={<RotaCadastro />} />
       <Route element={<RotaProtegida />}>
         <Route element={<LayoutBase />}>
           <Route index element={<InicioPage />} />
