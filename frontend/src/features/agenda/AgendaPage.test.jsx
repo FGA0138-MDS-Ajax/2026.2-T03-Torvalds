@@ -456,6 +456,66 @@ describe('Filtro por matéria no Quadro (US04b)', () => {
     expect(screen.getByLabelText('2 atividades em A fazer')).toBeInTheDocument()
   })
 
+  it('com só uma matéria marcada, mostra apenas os cartões dela nas três colunas', async () => {
+    abrir()
+    await abrirQuadro()
+    await screen.findByText('Trabalho de PI')
+
+    for (const materia of ['Compiladores', 'Qualidade', 'MDS']) {
+      fireEvent.click(screen.getByRole('checkbox', { name: materia }))
+    }
+
+    expect(screen.getByText('Trabalho de PI')).toBeInTheDocument()
+    for (const titulo of [
+      'Lista 2: análise léxica',
+      'Estudo de caso ISO',
+      'Relatório atrasado',
+    ]) {
+      expect(screen.queryByText(titulo)).not.toBeInTheDocument()
+    }
+    expect(screen.getByLabelText('0 atividades em A fazer')).toBeInTheDocument()
+    expect(
+      screen.getByLabelText('1 atividades em Em andamento'),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByLabelText('0 atividades em Concluídas'),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('checkbox', { name: 'Projeto Integrador' }),
+    ).toBeChecked()
+  })
+
+  it('ao marcar de novo todas as matérias, volta a mostrar todos os cartões', async () => {
+    abrir()
+    await abrirQuadro()
+    await screen.findByText('Trabalho de PI')
+    const materias = ['Compiladores', 'Projeto Integrador', 'Qualidade', 'MDS']
+
+    for (const materia of materias.slice(0, 3)) {
+      fireEvent.click(screen.getByRole('checkbox', { name: materia }))
+    }
+    expect(screen.getByText('Relatório atrasado')).toBeInTheDocument()
+    expect(screen.queryByText('Trabalho de PI')).not.toBeInTheDocument()
+
+    for (const materia of materias.slice(0, 3)) {
+      fireEvent.click(screen.getByRole('checkbox', { name: materia }))
+    }
+
+    for (const { titulo } of itensExemplo) {
+      expect(screen.getByText(titulo)).toBeInTheDocument()
+    }
+    for (const materia of materias) {
+      expect(screen.getByRole('checkbox', { name: materia })).toBeChecked()
+    }
+    expect(screen.getByLabelText('2 atividades em A fazer')).toBeInTheDocument()
+    expect(
+      screen.getByLabelText('1 atividades em Em andamento'),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByLabelText('1 atividades em Concluídas'),
+    ).toBeInTheDocument()
+  })
+
   it('mantém as matérias desmarcadas ao trocar do Mês para o Quadro', async () => {
     abrir()
     fireEvent.click(
@@ -491,5 +551,41 @@ describe('Filtro por matéria no Quadro (US04b)', () => {
     )
 
     expect(String(chamada[0])).toContain('/atividades/4/status')
+  })
+
+  it('com o filtro ativo, arrastar um cartão muda a situação e mantém ocultas as matérias desmarcadas', async () => {
+    responderComPatch()
+    abrir()
+    await abrirQuadro()
+    await screen.findByText('Trabalho de PI')
+
+    fireEvent.click(screen.getByRole('checkbox', { name: 'Compiladores' }))
+
+    const cartao = screen.getByText('Trabalho de PI').closest('li')
+    const coluna = screen
+      .getByRole('heading', { level: 2, name: 'Concluídas' })
+      .closest('section')
+    const dataTransfer = { getData: () => '2', setData: vi.fn() }
+
+    fireEvent.dragStart(cartao, { dataTransfer })
+    fireEvent.dragOver(coluna, { dataTransfer })
+    fireEvent.drop(coluna, { dataTransfer })
+
+    expect(
+      await screen.findByLabelText('2 atividades em Concluídas'),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByLabelText('0 atividades em Em andamento'),
+    ).toBeInTheDocument()
+    expect(
+      screen.queryByText('Lista 2: análise léxica'),
+    ).not.toBeInTheDocument()
+
+    const chamada = fetch.mock.calls.find(
+      ([, opcoes]) => opcoes?.method === 'PATCH',
+    )
+
+    expect(String(chamada[0])).toContain('/atividades/2/status')
+    expect(JSON.parse(chamada[1].body)).toEqual({ status: 'CONCLUIDA' })
   })
 })
