@@ -1,7 +1,7 @@
 site_name: Documentação
 
 nav:
-  - Instruções mkdocs: "index.md"
+  - Início: "index.md"
   - Atas de Reunião:
     - Índice: "atas-reuniao/index.md"
     - Template: "atas-reuniao/template-ata.md"
