@@ -434,3 +434,61 @@ describe('Mover cartão na Agenda (US04a)', () => {
     ).toBeInTheDocument()
   })
 })
+
+describe('Filtro por matéria no Quadro (US04b)', () => {
+  it('mostra só os cartões das matérias marcadas e volta ao marcar de novo', async () => {
+    abrir()
+    await abrirQuadro()
+    await screen.findByText('Lista 2: análise léxica')
+
+    fireEvent.click(screen.getByRole('checkbox', { name: 'Compiladores' }))
+
+    expect(
+      screen.queryByText('Lista 2: análise léxica'),
+    ).not.toBeInTheDocument()
+    expect(screen.getByText('Trabalho de PI')).toBeInTheDocument()
+    expect(screen.getByLabelText('1 atividades em A fazer')).toBeInTheDocument()
+
+    fireEvent.click(screen.getByRole('checkbox', { name: 'Compiladores' }))
+
+    expect(screen.getByText('Lista 2: análise léxica')).toBeInTheDocument()
+    expect(screen.getByLabelText('2 atividades em A fazer')).toBeInTheDocument()
+  })
+
+  it('mantém as matérias desmarcadas ao trocar do Mês para o Quadro', async () => {
+    abrir()
+    fireEvent.click(
+      await screen.findByRole('checkbox', { name: 'Projeto Integrador' }),
+    )
+    await abrirQuadro()
+
+    expect(screen.queryByText('Trabalho de PI')).not.toBeInTheDocument()
+    expect(
+      screen.getByRole('checkbox', { name: 'Projeto Integrador' }),
+    ).not.toBeChecked()
+  })
+
+  it('continua movendo os cartões com o filtro ativo', async () => {
+    responderComPatch()
+    abrir()
+    await abrirQuadro()
+    await screen.findByText('Trabalho de PI')
+
+    fireEvent.click(screen.getByRole('checkbox', { name: 'Compiladores' }))
+    fireEvent.change(
+      screen.getByRole('combobox', { name: 'Mover Relatório atrasado para' }),
+      { target: { value: 'CONCLUIDA' } },
+    )
+
+    expect(
+      await screen.findByLabelText('2 atividades em Concluídas'),
+    ).toBeInTheDocument()
+    expect(screen.getByLabelText('0 atividades em A fazer')).toBeInTheDocument()
+
+    const chamada = fetch.mock.calls.find(
+      ([, opcoes]) => opcoes?.method === 'PATCH',
+    )
+
+    expect(String(chamada[0])).toContain('/atividades/4/status')
+  })
+})
