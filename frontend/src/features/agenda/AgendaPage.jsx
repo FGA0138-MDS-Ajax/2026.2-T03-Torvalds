@@ -644,15 +644,23 @@ export default function AgendaPage() {
             )}
           </div>
           {vista === 'quadro' ? (
-            <Quadro
-              itens={itens}
-              alvo={alvo}
-              setAlvo={setAlvo}
-              soltar={soltar}
-              mover={mover}
-              erroAcao={erroAcao}
-              corDe={corDe}
-            />
+            <>
+              <Filtro
+                disciplinas={disciplinas}
+                ocultas={ocultas}
+                corDe={corDe}
+                aoAlternar={alternarMateria}
+              />
+              <Quadro
+                itens={visiveis}
+                alvo={alvo}
+                setAlvo={setAlvo}
+                soltar={soltar}
+                mover={mover}
+                erroAcao={erroAcao}
+                corDe={corDe}
+              />
+            </>
           ) : vista === 'mes' ? (
             <Calendario
               ano={mostrado.ano}

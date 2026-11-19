@@ -522,6 +522,13 @@
   grid-template-columns: minmax(0, 1fr);
 }
 
+/* No Quadro, o filtro fica acima das colunas, com as matérias lado a lado */
+.agenda-grade-quadro .agenda-filtro {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+}
+
 .agenda-kanban {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
