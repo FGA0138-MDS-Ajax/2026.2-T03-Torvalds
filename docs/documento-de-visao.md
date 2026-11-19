@@ -2,7 +2,7 @@
 
 # VISÃO DO PRODUTO E DO PROJETO
 
-**Versão 1.4**
+**Versão 1.5**
 
 ## Integrantes do Grupo
 
@@ -27,6 +27,7 @@
 | 09/11/2026 | 1.2 | Correções da avaliação do professor: tecnologia do back-end, papéis, ciclo de vida, critérios de aceitação, GQM e testes. | Ana Jullia / Eduardo |
 | 11/11/2026 | 1.3 | Resultado da Sprint 7 na Sprint Review: entregáveis concluídos (100%) e release v0.1.0 publicada na main em 11/11, dois dias depois do previsto. | Eduardo |
 | 16/11/2026 | 1.4 | Processo alinhado ao praticado, sem trabalho em pares; testes de usabilidade com 2 estudantes por sprint a partir da Sprint 9, com métricas M6 a M12 e risco R6 ajustados; M4 medida nos pull requests; Ponto de Controle e Review da Sprint 7 registrados; Tabela 1, backlog, calendário e roteiro de testes atualizados; novo risco R8; quadros citados no texto. | Eduardo |
+| 18/11/2026 | 1.5 | Resultado da Sprint 8 registrado na Tabela 1, conforme a Review (ata 9): a US04b não foi entregue e passou para a Sprint 9 pelo critério 3 de replanejamento, com cenário, backlog e calendário de testes ajustados. Registro do replanejamento da Sprint 6 feito na v1.2: o plano passou de 11 para 10 sprints, e o login e as telas Início e Matérias passaram para a Sprint 7. Remissão da seção 2.1 corrigida. As versões 1.0 e 1.1 foram elaboradas antes de o documento entrar no repositório, em 30/10/2026. | Eduardo |
 
 ## Sumário
 
@@ -134,7 +135,7 @@ Docker e Docker Compose no ambiente local; Render para publicar o front-end e o 
 
 ## 2.1 Ciclo de vida do projeto de desenvolvimento de software
 
-O projeto adota uma metodologia ágil, instanciada em um ciclo de vida híbrido, iterativo e incremental baseado em Scrum e Extreme Programming (XP), com sprints semanais. A Figura 2 mostra como essa escolha se desdobra em processo, procedimentos, métodos e ferramentas, seguindo o modelo apresentado acima.
+O projeto adota uma metodologia ágil, instanciada em um ciclo de vida híbrido, iterativo e incremental baseado em Scrum e Extreme Programming (XP), com sprints semanais. A Figura 2 mostra como essa escolha se desdobra, da metodologia ao processo, aos procedimentos, aos métodos e às ferramentas.
 
 **Figura 2 – Metodologia de desenvolvimento do projeto cAnCHA**
 
@@ -184,10 +185,10 @@ O percentual é atualizado na Sprint Review de cada sprint, e toda mudança de e
 | Sprint 3 | Apresentar Doc. Visão | 08/10/26 | 14/10/26 | Apresentação do Doc. de Visão, GQM | Apresentação | Todos | 100% |
 | Sprint 4 | Apresentar Doc. Arquitetura | 15/10/26 | 21/10/26 | Apresentação do Doc. de Arquitetura | Apresentação; prova | Todos | 100% |
 | Sprint 5 | Prototipar as telas | 22/10/26 | 28/10/26 | Protótipo no Figma | - | DEV, QA, DES | 100% |
-| Sprint 6 | Base técnica e disciplinas | 29/10/26 | 04/11/26 | Estrutura do back-end, banco, CI, deploy, GET/disciplinas, autenticação no back-end | - | DEV, QA, SM | 100% |
+| Sprint 6 | Base técnica e disciplinas | 29/10/26 | 04/11/26 | Estrutura do back-end, banco, CI, deploy, GET/disciplinas, autenticação no back-end | Escopo replanejado na v1.2 (10/11): o plano anterior, de 11 sprints, previa também o login e as telas Início e Matérias, que passaram para a Sprint 7, e o plano passou a ter 10 sprints. As pendências registradas nas atas 7 e 8 foram concluídas durante a Sprint 7, e a milestone foi fechada em 10/11 | DEV, QA, SM | 100% do escopo replanejado |
 | Sprint 7 | Primeira versão utilizável pelo aluno | 05/11/26 | 11/11/26 | Tela de login, Início com disciplinas e próximas entregas, página da disciplina com entregas e materiais, Agenda Kanban, Visão v1.2; concluir entrega e progresso por disciplina, adiantados da Sprint 8 | Releases v0.1.0 e v0.1.1 na main em 11/11 (prevista para 09/11); Ponto de Controle em 11/11, sem apontamentos significativos; Review feita presencialmente em sala | Todos | 100% |
-| Sprint 8 | Agenda filtrada e documentação alinhada | 12/11/26 | 18/11/26 | Filtro por disciplina na Agenda (US04b, adiantada da Sprint 9); documentação sem trabalho em pares; registro das métricas das Sprints 6 e 7; Visão v1.4; Documento de Arquitetura com a correção do professor; reexecução de CT-03, CT-04, CT-05 e CT-07 | Inspeção mútua entre os grupos em 16/11 | Todos | 0% |
-| Sprint 9 | Validação e ajustes | 19/11/26 | 25/11/26 | Testes de usabilidade com 2 alunos (rodada 1); reparos dos defeitos da inspeção | Testes de usabilidade (rodada 1) | Todos | 0% |
+| Sprint 8 | Agenda filtrada e documentação alinhada | 12/11/26 | 18/11/26 | Filtro por disciplina na Agenda (US04b, adiantada da Sprint 9); documentação sem trabalho em pares; registro das métricas das Sprints 6 e 7; Visão v1.4; Documento de Arquitetura com a correção do professor; reexecução de CT-03, CT-04, CT-05 e CT-07 | Inspeção mútua entre os grupos em 16/11 (Perlman: aprovado com ressalvas); Review em 18/11 ([ata 9](atas-reuniao/ata-reuniao-9.md)): US04b não entregue e levada para a Sprint 9 pelo critério 3 de replanejamento; três PRs de tarefas integrados à developer em 18/11 (#115, #141 e #142) | Todos | 83% (5 de 6 entregáveis) |
+| Sprint 9 | Validação e ajustes | 19/11/26 | 25/11/26 | Filtro por disciplina na Agenda (US04b, não entregue na Sprint 8); testes de usabilidade com 2 alunos (rodada 1); reparos dos defeitos da inspeção | Testes de usabilidade (rodada 1) | Todos | 0% |
 | Sprint 10 | Entregar o produto | 26/11/26 | 02/12/26 | Anotações, se couber; testes de usabilidade com 2 alunos (rodada 2); execução de CT-01 a CT-10; correções; congelamento do código, release v1.0.0 | Testes de usabilidade (rodada 2); apresentação final | Todos | 0% |
 
 *Fonte: elaborado pelo grupo (2026)*
@@ -348,7 +349,7 @@ O Quadro 5 lista os cenários funcionais e as sprints em que cada um é desenvol
 | CEN-00 | Acesso ao sistema (Login) | Sprint 6 e 7 |
 | CEN-01 | Gestão e Visualização de Disciplinas (máximo 3 cliques) | Sprint 7 a 10 |
 | CEN-02 | Navegação e Consulta de Atividades (tarefas e materiais) | Sprint 7 |
-| CEN-03 | Acompanhamento na Agenda Unificada (Kanban) | Sprint 7 e 8 |
+| CEN-03 | Acompanhamento na Agenda Unificada (Kanban) | Sprint 7 a 9 |
 | CEN-04 | Controle e Progresso (marcar concluídas e atualizar barra) | Sprint 7 (adiantado da Sprint 8) |
 | CEN-05 | Criação e Gestão de Anotações (cadernos digitais) | Sprint 10 |
 
@@ -423,7 +424,7 @@ O Product Backlog do projeto cAnCHA está organizado por ordem de prioridade. O 
 
 ### 10. Filtro da agenda (CEN-03 / REQ-04)
 
-- **Tipo:** Funcional | **MoSCoW:** Should | **Sprint:** 8 (adiantada da 9)
+- **Tipo:** Funcional | **MoSCoW:** Should | **Sprint:** 9 (planejada para a 8 e não entregue)
 - **História:** US04b: Como aluno, quero filtrar a agenda por disciplina, para focar em uma matéria.
 - **Critérios de Aceitação:** Dado o filtro com uma disciplina marcada, então só os cartões dela aparecem; ao limpar, voltam todos.
 - **Teste:** CT-05
@@ -501,7 +502,7 @@ A estratégia de testes do cAnCHA será baseada nos níveis de teste unitário, 
 - **Ferramentas por nível:** Testes unitários usam JUnit 5 e Mockito no back-end, e Vitest e Testing Library no front-end. Testes de integração usam Spring Boot Test com banco H2 e Flyway. Testes de sistema são executados manualmente pelo roteiro da seção 6.2 no ambiente publicado (Render/Neon).
 - **Metas não funcionais:** Desempenho: 95% das consultas em até 2 segundos, medidas com o serviço já ativo. Cobertura: pelo menos 80% no back-end e 70% no front-end, medidas com JaCoCo e Vitest.
 - **Registro de defeitos:** Todo teste recusado gera uma issue com a label `bug`, ligada ao caso de teste e à história afetada.
-- **Calendário de execução:** Sprint 7: CT-01 a CT-05, CT-07 e CT-08, registrados no [relatório de testes da Sprint 7](testes/relatorio-sprint-7.md). Sprint 8: reexecução de CT-03, CT-04, CT-05 e CT-07 na versão publicada, depois da correção dos defeitos. Sprint 9: rodada 1 dos testes de usabilidade. Sprint 10: execução completa de CT-01 a CT-10 e rodada 2 dos testes de usabilidade. O CT-09 roda em toda integração contínua.
+- **Calendário de execução:** Sprint 7: CT-01 a CT-05, CT-07 e CT-08, registrados no [relatório de testes da Sprint 7](testes/relatorio-sprint-7.md). Sprint 8: reexecução de CT-03, CT-04, CT-05 e CT-07 na versão publicada, feita na Review de 18/11 ([ata 9](atas-reuniao/ata-reuniao-9.md)). Sprint 9: CT-05 com o filtro da Agenda (US04b) e rodada 1 dos testes de usabilidade. Sprint 10: execução completa de CT-01 a CT-10 e rodada 2 dos testes de usabilidade. O CT-09 roda em toda integração contínua.
 
 ## 6.2 Roteiro de teste
 
