@@ -1,5 +1,12 @@
-import { render, screen, waitFor } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+// @vitest-environment jsdom
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react'
+import '@testing-library/jest-dom/vitest'
 import { MemoryRouter, Route, Routes } from 'react-router'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import CadastroPage from './CadastroPage'
@@ -16,14 +23,19 @@ function abrir() {
   )
 }
 
-async function preencher(
-  user,
-  { senha = 'senha1234', confirmacao = senha } = {},
-) {
-  await user.type(screen.getByLabelText('Nome completo'), 'Ana Souza')
-  await user.type(screen.getByLabelText('E-mail'), 'ana@exemplo.com')
-  await user.type(screen.getByLabelText('Senha'), senha)
-  await user.type(screen.getByLabelText('Confirmar senha'), confirmacao)
+function digitar(rotulo, valor) {
+  fireEvent.change(screen.getByLabelText(rotulo), { target: { value: valor } })
+}
+
+function preencher({ senha = 'senha1234', confirmacao = senha } = {}) {
+  digitar('Nome completo', 'Ana Souza')
+  digitar('E-mail', 'ana@exemplo.com')
+  digitar('Senha', senha)
+  digitar('Confirmar senha', confirmacao)
+}
+
+function cadastrar() {
+  fireEvent.click(screen.getByRole('button', { name: 'Cadastrar' }))
 }
 
 describe('validarCadastro', () => {
@@ -54,6 +66,7 @@ describe('CadastroPage', () => {
     vi.stubGlobal('fetch', vi.fn())
   })
   afterEach(() => {
+    cleanup()
     vi.unstubAllGlobals()
   })
 
@@ -71,10 +84,9 @@ describe('CadastroPage', () => {
   })
 
   it('não envia quando as senhas não conferem', async () => {
-    const user = userEvent.setup()
     abrir()
-    await preencher(user, { senha: 'senha1234', confirmacao: 'diferente1' })
-    await user.click(screen.getByRole('button', { name: 'Cadastrar' }))
+    preencher({ senha: 'senha1234', confirmacao: 'diferente1' })
+    cadastrar()
 
     expect(await screen.findByRole('alert')).toHaveTextContent(
       'As senhas não conferem.',
@@ -89,10 +101,9 @@ describe('CadastroPage', () => {
         headers: { 'Content-Type': 'application/json' },
       }),
     )
-    const user = userEvent.setup()
     abrir()
-    await preencher(user)
-    await user.click(screen.getByRole('button', { name: 'Cadastrar' }))
+    preencher()
+    cadastrar()
 
     await waitFor(() =>
       expect(screen.getByText('Tela de login')).toBeInTheDocument(),
@@ -108,10 +119,9 @@ describe('CadastroPage', () => {
 
   it('avisa quando o servidor ainda não tem o cadastro', async () => {
     fetch.mockResolvedValue(new Response('', { status: 404 }))
-    const user = userEvent.setup()
     abrir()
-    await preencher(user)
-    await user.click(screen.getByRole('button', { name: 'Cadastrar' }))
+    preencher()
+    cadastrar()
 
     expect(await screen.findByRole('alert')).toHaveTextContent(
       'ainda não está disponível',
@@ -120,10 +130,9 @@ describe('CadastroPage', () => {
 
   it('avisa e-mail já cadastrado', async () => {
     fetch.mockResolvedValue(new Response('', { status: 409 }))
-    const user = userEvent.setup()
     abrir()
-    await preencher(user)
-    await user.click(screen.getByRole('button', { name: 'Cadastrar' }))
+    preencher()
+    cadastrar()
 
     expect(await screen.findByRole('alert')).toHaveTextContent(
       'Já existe uma conta',
