@@ -17,5 +17,6 @@ Os nomes dos integrantes seguem o cadastro do projeto usado no template. Nas tra
 | [Ata 7](ata-reuniao-7.md) | Revisão da Sprint 6 e preparação da Sprint 7 | `Reunião em _T03 - Torvalds_  (4).vtt` |
 | [Ata 8](ata-reuniao-8.md) | Redistribuição da Sprint 7 e alinhamento das pendências | `Reunião em _T03 - Torvalds_  (5).vtt` |
 | [Ata 9](ata-reuniao-9.md) | Sprint Review da Sprint 8 | — (escrita no dia da Review) |
+| [Ata 10](ata-reuniao-10.md) | Sprint Planning da Sprint 8 (13/11) | — (escrita em 18/11, a partir do plano da reunião e da distribuição de tarefas) |
 
 [Template para novas atas](template-ata.md).
