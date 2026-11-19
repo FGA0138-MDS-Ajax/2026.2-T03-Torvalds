@@ -27,7 +27,7 @@
 | 09/11/2026 | 1.2 | Correções da avaliação do professor: tecnologia do back-end, papéis, ciclo de vida, critérios de aceitação, GQM e testes. | Ana Jullia / Eduardo |
 | 11/11/2026 | 1.3 | Resultado da Sprint 7 na Sprint Review: entregáveis concluídos (100%) e release v0.1.0 publicada na main em 11/11, dois dias depois do previsto. | Eduardo |
 | 16/11/2026 | 1.4 | Processo alinhado ao praticado, sem trabalho em pares; testes de usabilidade com 2 estudantes por sprint a partir da Sprint 9, com métricas M6 a M12 e risco R6 ajustados; M4 medida nos pull requests; Ponto de Controle e Review da Sprint 7 registrados; Tabela 1, backlog, calendário e roteiro de testes atualizados; novo risco R8; quadros citados no texto. | Eduardo |
-| 18/11/2026 | 1.5 | Resultado da Sprint 8 registrado na Tabela 1, conforme a Review (ata 9): a US04b não foi entregue e passou para a Sprint 9 pelo critério 3 de replanejamento, com cenário, backlog e calendário de testes ajustados. Registro do replanejamento da Sprint 6 feito na v1.2: o plano passou de 11 para 10 sprints, e o login e as telas Início e Matérias passaram para a Sprint 7. Remissão da seção 2.1 corrigida. As versões 1.0 e 1.1 foram elaboradas antes de o documento entrar no repositório, em 30/10/2026. | Eduardo |
+| 19/11/2026 | 1.5 | Resultado da Sprint 8 registrado na Tabela 1, conforme a Review (ata 9): a US04b não foi entregue e passou para a Sprint 9 pelo critério 3 de replanejamento, com cenário, backlog e calendário de testes ajustados. Registro do replanejamento da Sprint 6 feito na v1.2: o plano passou de 11 para 10 sprints, e o login e as telas Início e Matérias passaram para a Sprint 7. Remissão da seção 2.1 corrigida. As versões 1.0 e 1.1 foram elaboradas antes de o documento entrar no repositório, em 30/10/2026. Retirada a estimativa em pontos de história, que o grupo não pratica (DEF-014): a DoR, o risco R3 e os critérios 1, 3 e 4 de replanejamento deixam de citar pontos, e a M2 passa a medir as tarefas concluídas. | Eduardo |
 
 ## Sumário
 
@@ -218,7 +218,7 @@ Os riscos são avaliados em duas escalas de 1 a 3. Probabilidade: 1 = Improváve
 
 - **R1: Atraso por outras disciplinas (Exposição 6, alta).** Mitigação: informar provas na Planning; tarefas de até dois dias. Contingência: outro integrante do grupo assume a tarefa; o PO move itens Should/Could. Responsável: Scrum Master.
 - **R2: Dificuldade técnica (Spring Boot, React, JWT) (Exposição 6, alta).** Mitigação: código de exemplo no repositório; tirar dúvidas com quem sabe. Contingência: apoio da monitoria; fatiar a história. Responsável: Scrum Master.
-- **R3: Esforço subestimado (Exposição 6, alta).** Mitigação: estimar com planning poker; histórias de até 5 pontos. Contingência: mover Should/Could; registrar no cronograma. Responsável: PO.
+- **R3: Esforço subestimado (Exposição 6, alta).** Mitigação: na Planning, quebrar cada história em tarefas com responsável e prazo, e dividir a que não couber numa sprint. Contingência: mover Should/Could; registrar no cronograma. Responsável: PO.
 - **R4: Requisitos pouco claros (Exposição 4, média).** Mitigação: critérios de aceitação antes da Planning. Contingência: congelar a história e registrar no backlog. Responsável: PO.
 - **R5: Falta de dados acadêmicos reais (Exposição 6, alta).** Mitigação: carga inicial realista, sem dados pessoais. Contingência: cadastrar por migration antes dos testes. Responsável: PO.
 - **R6: Poucos alunos para testes de usabilidade (Exposição 6, alta).** Ocorreu: o grupo conta com 2 estudantes, e não 5, e os testes passaram a ser feitos em rodadas de 2 participantes por sprint, a partir da Sprint 9. Mitigação: confirmar os participantes de cada rodada na sprint anterior, de preferência pessoas diferentes a cada rodada; sessões remotas de até 20 min. Contingência: fazer a rodada com 1 participante e registrar a limitação, ou passá-la para o início da sprint seguinte. Responsável: Analista de Qualidade.
@@ -232,7 +232,7 @@ O replanejamento do projeto será acionado sempre que desvios de cronograma, pro
 ### 1) Replanejamento por Risco de Calendário e Avaliações
 
 - **Gatilho:** Redução na disponibilidade da equipe decorrente da sobreposição com avaliações acadêmicas de outras disciplinas.
-- **Condição de Acionamento:** Quando a capacidade estimada de pontos de história da equipe para a Sprint for reduzida em mais de 30% devido ao calendário de provas.
+- **Condição de Acionamento:** Quando a disponibilidade da equipe para a Sprint (integrantes e dias livres) for reduzida em mais de 30% devido ao calendário de provas.
 - **Ação e Contingência:** O time redistribuirá as tarefas entre os membros disponíveis e acionará o Product Owner (PO) para repactuar a Sprint. A priorização utilizará a classificação MoSCoW para congelar ou remover Histórias de Usuário Should e Could, mantendo o foco exclusivo nas histórias essenciais Must Have.
 
 ### 2) Replanejamento por Incompatibilidade ou Bloqueio Técnico
@@ -243,14 +243,14 @@ O replanejamento do projeto será acionado sempre que desvios de cronograma, pro
 
 ### 3) Replanejamento por Esforço Subestimado
 
-- **Gatilho:** Identificação de que o esforço necessário para concluir uma História de Usuário é significativamente superior ao estimado inicialmente, ocasionando atraso na entrega ou comprometimento das demais atividades da Sprint.
-- **Condição de Acionamento:** Quando uma História de Usuário ultrapassar em 50% ou mais a estimativa de esforço definida no planejamento da Sprint, ou quando o desvio identificado indicar que a conclusão da história comprometerá a entrega dos demais itens planejados para a Sprint.
-- **Ação e Contingência:** O time deverá reavaliar as estimativas das histórias restantes e comunicar o impacto ao Product Owner. Os itens classificados como Should Have e Could Have poderão ser movidos para Sprints seguintes, priorizando a conclusão dos requisitos Must Have. A alteração deverá ser registrada no planejamento das fases e considerada nas estimativas das Sprints seguintes.
+- **Gatilho:** Identificação de que o esforço necessário para concluir uma História de Usuário é significativamente superior ao previsto na Planning, ocasionando atraso na entrega ou comprometimento das demais atividades da Sprint.
+- **Condição de Acionamento:** Quando as tarefas de uma História de Usuário passarem do prazo combinado na Planning da Sprint, ou quando o desvio identificado indicar que a conclusão da história comprometerá a entrega dos demais itens planejados para a Sprint.
+- **Ação e Contingência:** O time deverá reavaliar o que ainda cabe na Sprint e comunicar o impacto ao Product Owner. Os itens classificados como Should Have e Could Have poderão ser movidos para Sprints seguintes, priorizando a conclusão dos requisitos Must Have. A alteração deverá ser registrada no planejamento das fases e considerada na Planning das Sprints seguintes.
 
 ### 4) Replanejamento por Requisitos Pouco Claros ou Alterados
 
 - **Gatilho:** Identificação de ambiguidades nos requisitos, critérios de aceitação insuficientes ou alterações no escopo de uma História de Usuário durante o desenvolvimento da Sprint.
-- **Condição de Acionamento:** Quando uma alteração ou esclarecimento de requisito modificar o escopo, os critérios de aceitação ou o esforço estimado de uma História de Usuário após o início da Sprint, de modo que sua implementação não possa ser concluída conforme o planejamento original.
+- **Condição de Acionamento:** Quando uma alteração ou esclarecimento de requisito modificar o escopo, os critérios de aceitação ou o esforço previsto de uma História de Usuário após o início da Sprint, de modo que sua implementação não possa ser concluída conforme o planejamento original.
 - **Ação e Contingência:** O escopo da Sprint em andamento será congelado em relação à História de Usuário afetada, e as alterações identificadas serão registradas no Product Backlog. O Product Owner deverá priorizar as novas demandas para a Sprint seguinte, evitando alterações que comprometam o objetivo da Sprint atual.
 
 ---
@@ -281,7 +281,7 @@ Cada história percorre o seguinte fluxo de desenvolvimento, detalhado no guia d
 
 - está no formato "Como, quero, para", com o benefício explícito;
 - tem critérios de aceitação no formato "Dado, quando, então";
-- está estimada em pontos de história e tem até 5 pontos, ou foi dividida;
+- é pequena o bastante para ser concluída numa sprint, ou foi dividida;
 - tem a tela no Figma ligada, quando tem interface;
 - não depende de algo que ainda não existe, ou a dependência está na mesma sprint;
 - tem o caso de teste correspondente identificado no roteiro (Seção 6.2).
@@ -459,7 +459,7 @@ Para o acompanhamento do projeto cAnCHA, a equipe adotará o método GQM (*Goal-
 - **O1. Acompanhar o progresso do desenvolvimento**
   - **Questão:** A sprint entregou o que foi planejado?
     - **Métrica M1 (Histórias concluídas):** (Histórias aceitas pelo PO ÷ histórias planejadas) x 100. Valor esperado: ≥ 80%. Coleta: Scrum Master, na Review. Interpretação: Abaixo de 80%, discutir na Retrospectiva e aplicar o critério 3 da seção 2.6.
-    - **Métrica M2 (Velocidade):** Soma dos pontos das histórias aceitas na sprint. Valor esperado: variação de até 30% entre sprints. Coleta: Scrum Master, na Review. Interpretação: Queda maior que 30%, aplicar o critério 1 da seção 2.6.
+    - **Métrica M2 (Tarefas concluídas):** (Tarefas da sprint fechadas até a Review ÷ tarefas da sprint) x 100, contando as issues com a label `tarefa` na milestone. Valor esperado: ≥ 80%. Coleta: Scrum Master, na Review, pelo filtro de issues da milestone. Interpretação: Abaixo de 80%, discutir na Retrospectiva; se a causa for a semana de provas, aplicar o critério 1 da seção 2.6.
 - **O2. Avaliar a qualidade técnica do software**
   - **Questão:** Quantos defeitos aparecem?
     - **Métrica M3 (Defeitos por sprint):** Issues com a label `bug` abertas na sprint. Valor esperado: queda a partir da Sprint 9. Coleta: Analista de Qualidade, pelo filtro de issues do GitHub. Interpretação: Aumento de defeitos exige ação na Retrospectiva.
