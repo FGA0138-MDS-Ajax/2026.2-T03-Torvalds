@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { useLocation } from 'react-router'
+import LinkFolha from './LinkFolha'
 import ilustracao from '../../assets/login-ilustracao.png'
 import './LoginPage.css'
 import { entrar, consultarPerfil } from './authApi'
@@ -8,6 +10,7 @@ export default function LoginPage({ onEntrar }) {
   const [mostrarSenha, setMostrarSenha] = useState(false)
   const [carregando, setCarregando] = useState(false)
   const [erro, setErro] = useState('')
+  const { state } = useLocation()
 
   async function enviarLogin(event) {
     event.preventDefault()
@@ -146,6 +149,12 @@ export default function LoginPage({ onEntrar }) {
                 </button>
               </div>
 
+              {state?.cadastrado && !erro && (
+                <p className="login-sucesso" role="status">
+                  Conta criada! Entre com seu e-mail e senha.
+                </p>
+              )}
+
               {erro && (
                 <p className="login-error" role="alert">
                   {erro}
@@ -165,17 +174,12 @@ export default function LoginPage({ onEntrar }) {
                 <span>ou</span>
               </div>
 
-              <button
-                className="login-register"
-                type="button"
-                disabled
-                aria-describedby="login-unavailable"
-              >
+              <LinkFolha className="login-register" to="/cadastro">
                 Cadastre-se <span aria-hidden="true">→</span>
-              </button>
+              </LinkFolha>
 
               <p id="login-unavailable" className="login-unavailable">
-                Cadastro e recuperação de senha indisponíveis no momento.
+                Recuperação de senha indisponível no momento.
               </p>
             </form>
           </div>

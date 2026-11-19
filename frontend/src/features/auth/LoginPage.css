@@ -329,3 +329,78 @@
   background: #bba7ce;
   color: #302239;
 }
+
+.login-register {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35em;
+  text-decoration: none;
+}
+
+.login-sucesso {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid #6f8a57;
+  border-radius: 6px;
+  background: #eef6e6;
+  color: #2f4a1c;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Folha de caderno que vira entre Login e Cadastro (LinkFolha) */
+.folha-palco {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  overflow: hidden;
+  pointer-events: none;
+  perspective: 2400px;
+}
+
+.folha-capa {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.folha {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+}
+
+.folha-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  backface-visibility: hidden;
+  background: #faf4e8;
+}
+
+.folha-face::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #5d463030, transparent 14%);
+}
+
+.folha-verso {
+  transform: rotateY(180deg);
+}
+
+.folha-verso::after {
+  background: linear-gradient(270deg, #5d463030, transparent 14%);
+}
+
+.folha-copia {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
