@@ -260,8 +260,8 @@ Fazemos Scrum usando só recursos nativos do GitHub: **Issues** (com labels e su
 | Sprint | Milestone "Sprint N", com a data de fim |
 | Sprint Backlog | HUs e tarefas colocadas na milestone da sprint |
 | Release | Tag + GitHub Release na `main` |
-| Estimativa | Label `pontos: 1`, `2`, `3`, `5` ou `8` nas HUs (jogo do planejamento do XP) |
-| Burndown / velocidade | Barra de progresso da milestone; velocidade = pontos das HUs fechadas na sprint |
+| Tamanho da HU | Sem estimativa em pontos: na planning, a HU é quebrada em tarefas com responsável, e a que não cabe numa sprint é dividida |
+| Progresso da sprint | Barra de progresso da milestone; tarefas fechadas ÷ tarefas da sprint (métrica M2 da Visão) |
 | Status da tarefa | Estado da issue + PR ligado (filtros abaixo) |
 | Definition of Done | Checklist do PR + 1 aprovação, conferidos por quem revisa e pelo Product Owner na review |
 | Aceite da HU | O Product Owner confere os critérios de aceitação e fecha a HU na review |
@@ -292,7 +292,6 @@ Para os filtros funcionarem, todo mundo segue três hábitos:
 |---|---|
 | Tipo de item | `epico`, `historia`, `tarefa`, `bug` |
 | Prioridade | `prioridade: alta`, `prioridade: média`, `prioridade: baixa` (ou MoSCoW) |
-| Estimativa | `pontos: 1`, `pontos: 2`, `pontos: 3`, `pontos: 5`, `pontos: 8` |
 | Fluxo | `bloqueada` |
 
 Um item com a label errada some do filtro certo e aparece no errado, então as labels importam.
@@ -303,8 +302,8 @@ Um item com a label errada some do filtro certo e aparece no errado, então as l
 
 | Evento | O que acontece no GitHub |
 |---|---|
-| **Refinamento** | Ajustar as HUs (critérios de aceitação, pontos, prioridade) e quebrar épicos. Uma HU está **pronta** para a sprint quando é pequena, independente e testável (INVEST), tem critérios de aceitação e está estimada. |
-| **Sprint planning** | Criar a milestone "Sprint N" com a data de fim. Colocar nela as HUs escolhidas (limitadas pela velocidade da sprint anterior). Criar as tarefas como sub-issues e atribuir os responsáveis. |
+| **Refinamento** | Ajustar as HUs (critérios de aceitação e prioridade) e quebrar épicos. Uma HU está **pronta** para a sprint quando é pequena, independente e testável (INVEST) e tem critérios de aceitação. |
+| **Sprint planning** | Criar a milestone "Sprint N" com a data de fim. Colocar nela as HUs escolhidas (o que o time consegue terminar na semana, olhando o que fechou na sprint anterior). Criar as tarefas como sub-issues e atribuir os responsáveis. |
 | **Daily** | Abrir a milestone da sprint. Impedimento vira comentário na issue e label `bloqueada`. |
 | **Sprint review** | O Product Owner confere os critérios e fecha as HUs aceitas. Fazer a release `developer` → `main` e criar a tag (seção 5). |
 | **Retrospectiva** | Registrar no site de documentação (pelo trilho da `docs`). Cada ação de melhoria vira uma issue. |
@@ -355,7 +354,7 @@ Título da tarefa: verbo + objeto. Cada tarefa tem exatamente uma HU como pai, n
 | Design simples e refatoração | Refatoração em commit próprio, sem mudar comportamento; um assunto por PR |
 | Propriedade coletiva do código | Qualquer pessoa pode revisar ou alterar qualquer parte; revisores em rodízio |
 | Padrão de codificação | Linter e formatador (no CI); mudanças só de formatação usam `style:` |
-| Jogo do planejamento | Pontos como label nas HUs; a velocidade da sprint anterior limita a próxima |
+| Jogo do planejamento | O Product Owner ordena as HUs, e o time escolhe na planning as que cabem na semana, pelo que fechou na sprint anterior |
 | Ritmo sustentável | No máximo 2 tarefas abertas por pessoa |
 | Cliente presente | O Product Owner aceita as HUs pelos critérios de aceitação, na review |
 
@@ -463,7 +462,7 @@ git branch -d feat/18-validacao-email
 
 **A sprint em uma linha**
 
-Refinamento (HUs + pontos) → planning (milestone + tarefas + responsáveis) → execução (branch, TDD, PR em rascunho) → revisão (aprovação, squash) → sprint review (PO fecha as HUs, release, tag) → retrospectiva (ações viram issues).
+Refinamento (HUs + critérios) → planning (milestone + tarefas + responsáveis) → execução (branch, TDD, PR em rascunho) → revisão (aprovação, squash) → sprint review (PO fecha as HUs, release, tag) → retrospectiva (ações viram issues).
 
 ---
 
@@ -495,7 +494,7 @@ Link do protótipo, regras de negócio, dúvidas para o PO.
 - Requisito:
 ```
 
-Pontos e prioridade entram como labels, para os filtros funcionarem. As tarefas são criadas na planning, pela seção Sub-issues da HU.
+A prioridade entra como label, para os filtros funcionarem. As tarefas são criadas na planning, pela seção Sub-issues da HU.
 
 ### `.github/ISSUE_TEMPLATE/tarefa.md`
 
