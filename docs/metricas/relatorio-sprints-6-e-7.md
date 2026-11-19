@@ -5,7 +5,7 @@
 | **Período** | Sprint 6 (29/10 a 04/11/2026) e Sprint 7 (05/11 a 11/11/2026) |
 | **Plano de referência** | [Documento de Visão](../documento-de-visao.md), seção 5.1 (GQM) |
 | **Fontes dos dados** | Milestones, issues e execuções do GitHub Actions do repositório; [relatório de testes da Sprint 7](../testes/relatorio-sprint-7.md) |
-| **Data do registro** | 16/11/2026 |
+| **Data do registro** | 16/11/2026; meta da M4 alinhada à Visão v1.4 em 18/11/2026 |
 
 Este documento registra os valores das métricas do GQM (BASILI; CALDIERA; ROMBACH, 1994) definidas na seção 5.1 do Documento de Visão para as Sprints 6 e 7, compara cada valor com a meta e registra as ações decorrentes. As métricas de usabilidade (M6 a M11) dependem das sessões com estudantes, que começam na Sprint 9, e por isso não têm valores neste período.
 
@@ -20,7 +20,7 @@ O Quadro 1 resume os valores das métricas de progresso (objetivo O1) e de quali
 | M1 – Histórias concluídas | ≥ 80% | 100% (1 de 1) | 100% (6 de 6) | Meta atingida |
 | M2 – Velocidade | variação ≤ 30% | não coletada | não coletada | Sem estimativa em pontos (seção 5) |
 | M3 – Defeitos por sprint | queda a partir da Sprint 9 | 0 | 2 | Linha de base registrada |
-| M4 – Aprovação dos testes na CI | 100% | 91,7% (11 de 12) | 88,9% (32 de 36) | Abaixo da meta; nenhuma falha chegou à `developer` |
+| M4 – Aprovação dos testes na CI | nenhum pull request integrado com a CI falhando | 91,7% (11 de 12) | 88,9% (32 de 36) | Meta atingida: nenhuma falha chegou à `developer` |
 | M5 – Correção de defeitos | 100% antes da Review | sem defeitos | 100% (2 de 2) | Meta atingida |
 
 *Fonte: elaborado pelo grupo (2026), com dados do GitHub consultados em 16/11/2026.*
@@ -47,7 +47,7 @@ O Quadro 2 indica, para cada métrica, de onde o dado foi tirado e como foi calc
 
 **O2 – Qualidade técnica.** A Sprint 7 foi a primeira com execução do roteiro de testes de sistema, o que explica a passagem de zero para dois defeitos: os dois foram encontrados pelo Analista de Qualidade nos casos CT-03 e CT-05 e eram de integração entre front-end e API. Os dois foram corrigidos no mesmo dia, antes da Review, e a M5 ficou em 100%. Esses dois defeitos passam a ser a linha de base da M3, que deve cair a partir da Sprint 9.
 
-A M4 ficou abaixo da meta de 100% nas duas sprints. As cinco execuções com falha aconteceram em pull requests de três branches de trabalho, e todas foram seguidas de uma execução com sucesso na mesma branch antes do merge. A CI cumpriu o papel de barrar o código com erro: nenhuma falha chegou à `developer`. A meta de 100% foi escrita pensando na `developer`, mas o workflow só roda nos pull requests; a seção 5 registra o ajuste.
+A meta da M4, como definida na Visão v1.4, é que nenhum pull request seja integrado com a CI falhando, e ela foi atingida nas duas sprints. As cinco execuções com falha aconteceram em pull requests de três branches de trabalho, e todas foram seguidas de uma execução com sucesso na mesma branch antes do merge. A CI cumpriu o papel de barrar o código com erro: nenhuma falha chegou à `developer`. As taxas de 91,7% e 88,9% mostram com que frequência o código chegou ao pull request sem passar nos testes. A primeira versão deste registro usava a meta de 100%, anterior à v1.4; a seção 5 registra o ajuste.
 
 ## 4. Medições complementares
 
@@ -73,7 +73,7 @@ O Quadro 4 registra o que impediu ou limitou a coleta neste período e o que o g
 | Limitação | Ação | Responsável | Quando |
 |---|---|---|---|
 | As labels `pontos: 1` a `pontos: 8` previstas no CONTRIBUTING não foram criadas no repositório, e nenhuma história foi estimada; por isso a M2 não pôde ser calculada | Criar as labels e estimar as histórias com o jogo do planejamento, registrando os pontos na issue | Scrum Master | Planning da Sprint 9 |
-| A M4 mede a CI nos pull requests, mas a meta foi escrita para a `developer` | Redefinir a M4 na Visão como "execuções da CI nos pull requests para a `developer`" e manter a meta de nenhuma falha integrada | Analista de Qualidade | Visão v1.4 |
+| A M4 mede a CI nos pull requests, mas a meta foi escrita para a `developer` | Redefinir a M4 na Visão como "execuções da CI nos pull requests para a `developer`" e manter a meta de nenhuma falha integrada | Analista de Qualidade | Feito na Visão v1.4 |
 | A cobertura do front-end não é medida | Gerar a cobertura do Vitest na CI | Desenvolvedores | Sprint 9 |
 | Cinco das seis issues de histórias da Sprint 7 (#78 a #82) foram criadas em 11/11, no fim da sprint; as tarefas existiam desde 05/11 | Abrir a issue da história na Planning, antes das tarefas | PO | A partir da Sprint 8 |
 | M6 a M11 dependem das sessões de usabilidade | Coletar nas rodadas com estudantes | Analista de Qualidade | Sprints 9 e 10 |
