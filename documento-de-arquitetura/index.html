@@ -1,0 +1,1404 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../documento-de-visao/">
+      
+      
+        <link rel="next" href="../testes/relatorio-sprint-7/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Documento de Arquitetura - Documentação</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#documento-de-arquitetura-do-cancha" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Documentação" class="md-header__button md-logo" aria-label="Documentação" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentação
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Documento de Arquitetura
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Documentação" class="md-nav__button md-logo" aria-label="Documentação" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Documentação
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Início
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Atas de Reunião
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Atas de Reunião
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../atas-reuniao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Índice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../atas-reuniao/template-ata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../atas-reuniao/ata-reuniao-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 1 — Definição inicial do produto e Documento de Visão
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../atas-reuniao/ata-reuniao-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 2 — Revisão do Documento de Visão e delimitação do escopo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../atas-reuniao/ata-reuniao-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 3 — Preparação da apresentação do Documento de Visão e GQM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../atas-reuniao/ata-reuniao-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 4 — Planejamento da Sprint 4, apresentação de arquitetura e identidade visual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../atas-reuniao/ata-reuniao-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 5 — Estruturação do repositório e preparação da Sprint 6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../atas-reuniao/ata-reuniao-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 6 — Planejamento e distribuição das tarefas da Sprint 6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../atas-reuniao/ata-reuniao-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 7 — Revisão da Sprint 6 e preparação da Sprint 7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../atas-reuniao/ata-reuniao-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 8 — Redistribuição da Sprint 7 e alinhamento das pendências
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../atas-reuniao/ata-reuniao-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 9 — Sprint Review da Sprint 8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../atas-reuniao/ata-reuniao-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 10 — Sprint Planning da Sprint 8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documento-de-visao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documento de Visão
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documento de Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documento de Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#integrantes-do-grupo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integrantes do Grupo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#historico-de-revisoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Histórico de Revisões
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Testes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testes/relatorio-sprint-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Relatório de execução — Sprint 7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Métricas
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Métricas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metricas/relatorio-sprints-6-e-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sprints 6 e 7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metricas/relatorio-sprint-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sprint 8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#integrantes-do-grupo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integrantes do Grupo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#historico-de-revisoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Histórico de Revisões
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="documento-de-arquitetura-do-cancha">Documento de Arquitetura do cAnCHA</h1>
+<p><strong>Versão 1.3</strong></p>
+<h2 id="integrantes-do-grupo">Integrantes do Grupo</h2>
+<table>
+<thead>
+<tr>
+<th>Matrícula</th>
+<th>Nome</th>
+<th>Função (responsabilidade)</th>
+<th>Pontos de participação na elaboração</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>232014692</td>
+<td>João Lucas R. Cabral</td>
+<td>Designer/QA</td>
+<td>16</td>
+</tr>
+<tr>
+<td>242015719</td>
+<td>Thiago Kauã de Sousa Cardoso</td>
+<td>Desenvolvedor</td>
+<td>14</td>
+</tr>
+<tr>
+<td>251036440</td>
+<td>Eduardo Viana Ribeiro da Silva</td>
+<td>Product Owner/Desenvolvedor</td>
+<td>14</td>
+</tr>
+<tr>
+<td>232024554</td>
+<td>Ana Jullia Barbara Mendes Lopes</td>
+<td>QA/Scrum Master</td>
+<td>14</td>
+</tr>
+<tr>
+<td>232014469</td>
+<td>Jefferson de Souza Reis</td>
+<td>Scrum Master</td>
+<td>14</td>
+</tr>
+<tr>
+<td>241040341</td>
+<td>Pedro Henrique Galdino de Andrade Wollmann</td>
+<td>Desenvolvedor</td>
+<td>0</td>
+</tr>
+<tr>
+<td>231036800</td>
+<td>Gustavo Linhares Lima</td>
+<td>Desenvolvedor</td>
+<td>14</td>
+</tr>
+<tr>
+<td>242004967</td>
+<td>Pedro Lucas Souza Silva</td>
+<td>Desenvolvedor</td>
+<td>14</td>
+</tr>
+<tr>
+<td><strong>Total de pontos</strong></td>
+<td></td>
+<td></td>
+<td><strong>100</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="historico-de-revisoes">Histórico de Revisões</h2>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Versão</th>
+<th>Descrição</th>
+<th>Autor(es)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>07/10/2026</td>
+<td>1.0</td>
+<td>Versão inicial do Documento de Arquitetura.</td>
+<td>Grupo Torvalds</td>
+</tr>
+<tr>
+<td>18/10/2026</td>
+<td>1.1</td>
+<td>Troca do nome do aplicativo.</td>
+<td>João Lucas / Ana Jullia</td>
+</tr>
+<tr>
+<td>16/11/2026</td>
+<td>1.2</td>
+<td>Correções da avaliação do professor: tabela de participação; nome cAnCHA em todo o documento; diagramas de casos de uso, pacotes, classes, componentes e implantação refeitos em notação UML; metas da seção 2.4 com forma de verificação; seção 2.7 sem repetir a 2.4.</td>
+<td>Eduardo</td>
+</tr>
+<tr>
+<td>18/11/2026</td>
+<td>1.3</td>
+<td>Correções da inspeção do grupo Perlman: citações no padrão ABNT no texto e referências com data; módulo notification retirado do texto e dos diagramas de pacotes e de classes, por não ter requisito no Documento de Visão.</td>
+<td>Eduardo</td>
+</tr>
+</tbody>
+</table>
+<h1 id="1-introducao">1 INTRODUÇÃO</h1>
+<h2 id="11-proposito">1.1 Propósito</h2>
+<p>Este documento descreve a arquitetura de software do cAnCHA, aplicação web de apoio ao estudante de Ensino a Distância (EaD) desenvolvida pelo Grupo Torvalds na disciplina de Métodos de Desenvolvimento de Software (MDS), no semestre 2026.2. Ele registra as decisões estruturais, organizacionais e tecnológicas do sistema e serve de guia para desenvolvedores, testadores, Product Owner e demais interessados.</p>
+<h2 id="12-escopo">1.2 Escopo</h2>
+<p>O escopo e os requisitos estão no Documento de Visão. Em linhas gerais, o cAnCHA é uma aplicação web focada na experiência do usuário (UX) que ataca problemas de usabilidade do ambiente EaD: a dificuldade de localizar conteúdos, de acompanhar atividades e prazos e de perceber o próprio progresso.</p>
+<h1 id="2-representacao-arquitetural">2 REPRESENTAÇÃO ARQUITETURAL</h1>
+<h2 id="21-definicoes">2.1 Definições</h2>
+<p>O sistema adota o estilo Cliente-Servidor em Camadas (BASS; CLEMENTS; KAZMAN, 2021), com uma aplicação de página única (SPA) no cliente e uma API REST no servidor:</p>
+<ul>
+<li><strong>Apresentação (frontend):</strong> React (META PLATFORMS, [20--]) com Vite, responsável pelas telas e pela interação com o aluno.</li>
+<li><strong>Aplicação (backend):</strong> Java 21 com Spring Boot (SPRING, [20--]), que expõe os endpoints REST e concentra as regras de negócio e as validações, organizadas em Controllers e Services.</li>
+<li><strong>Dados:</strong> PostgreSQL (POSTGRESQL GLOBAL DEVELOPMENT GROUP, [20--]), acessado pelos repositórios do Spring Data JPA (Hibernate) por meio do driver JDBC.</li>
+</ul>
+<h2 id="22-justificativa-da-escolha">2.2 Justificativa da escolha</h2>
+<p>A arquitetura em camadas desacoplada (API REST + SPA) foi escolhida por três motivos:</p>
+<ol>
+<li><strong>Foco em UX.</strong> A SPA troca de tela sem recarregar a página e mantém o menu fixo, o que torna a navegação mais rápida. Ela não garante sozinha a regra dos 3 cliques: quem garante é o desenho das rotas e do menu, descrito na seção 2.4 e verificado pelo caso de teste CT-04 e pelas métricas M6 e M7 do Documento de Visão.</li>
+<li><strong>Separação de responsabilidades.</strong> Isolar a interface da regra de negócio reduz o acoplamento, limita o impacto das mudanças e permite testar cada camada separadamente (BASS; CLEMENTS; KAZMAN, 2021).</li>
+<li><strong>Adequação à equipe.</strong> A divisão entre frontend e backend, e entre módulos dentro de cada um, permite que os oito integrantes trabalhem em paralelo com poucos conflitos no repositório.</li>
+</ol>
+<h2 id="23-detalhamento">2.3 Detalhamento</h2>
+<p>A comunicação entre o frontend e o backend acontece por requisições HTTPS assíncronas, com JSON como contrato de interface. A Figura 1 mostra as camadas.</p>
+<p><strong>Figura 1 – Arquitetura em camadas do cAnCHA</strong></p>
+<p><img alt="Arquitetura em camadas" src="../imagens/camadas-arquitetura.png" /></p>
+<p><em>Fonte: elaborado pelo grupo (2026)</em></p>
+<p>Os Controllers do Spring Boot são os conectores da API: expõem os endpoints REST, protegidos por autenticação JWT. As responsabilidades de cada camada são:</p>
+<ul>
+<li><strong>View (React):</strong> capturar as interações do aluno e exibir os dados recebidos da API.</li>
+<li><strong>Controller (Spring REST):</strong> mapear as requisições HTTP, validar os dados de entrada e responder com o código de status adequado.</li>
+<li><strong>Service (Spring):</strong> aplicar as regras do sistema, como o cálculo do progresso e a ordenação das entregas por prazo.</li>
+<li><strong>Repository (Spring Data JPA):</strong> persistir e consultar os dados no PostgreSQL, pelo driver JDBC.</li>
+</ul>
+<h2 id="24-metas-e-restricoes-arquiteturais">2.4 Metas e restrições arquiteturais</h2>
+<p>O Quadro 1 apresenta as metas que orientam a arquitetura, como cada uma é atendida e como é verificada.</p>
+<p><strong>Quadro 1 – Metas arquiteturais e forma de verificação</strong></p>
+<table>
+<thead>
+<tr>
+<th>Meta</th>
+<th>Como a arquitetura atende</th>
+<th>Como é verificada</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Desempenho:</strong> 95% das consultas de disciplinas, agenda e progresso respondidas em até 2 segundos, com o serviço já ativo</td>
+<td>Cada tela busca seus dados em uma única chamada (<code>/disciplinas</code>, <code>/agenda</code>, <code>/progresso</code>), e as contagens do progresso são feitas no banco, com consultas agrupadas.</td>
+<td>No ambiente publicado (Render e Neon), com o serviço já ativo, são feitas 20 chamadas autenticadas a cada uma dessas rotas e medido o tempo total de resposta. A meta é atingida se ao menos 95% ficarem em até 2 s. O primeiro acesso depois de o serviço dormir não entra na conta (risco R7 do Documento de Visão). O resultado é registrado no relatório de testes da sprint.</td>
+</tr>
+<tr>
+<td><strong>Navegação:</strong> qualquer disciplina, entrega ou material em até 3 cliques a partir do Início</td>
+<td>Menu fixo com Início, Matérias e Agenda em todas as telas; rotas rasas (<code>/</code>, <code>/materias</code>, <code>/disciplinas/{id}</code> e <code>/agenda</code>); entregas e materiais na própria página da disciplina.</td>
+<td>O caso de teste CT-04 conta os cliques do Início até uma disciplina, uma entrega e um material. Nos testes de usabilidade, as métricas M6 e M7 contam os cliques feitos por estudantes.</td>
+</tr>
+<tr>
+<td><strong>Padrão de API:</strong> uso correto dos verbos e dos códigos HTTP</td>
+<td>Um Controller por recurso e erros devolvidos em formato único pelo tratador global de exceções.</td>
+<td>Testes de integração dos Controllers e documentação OpenAPI (Swagger) gerada pela própria API.</td>
+</tr>
+<tr>
+<td><strong>Padrão de código:</strong> Google Java Style (GOOGLE, [20--]) no backend; ESLint e Prettier no frontend</td>
+<td>Configuração do ESLint e do Prettier no repositório.</td>
+<td>No frontend, lint e formatação rodam na integração contínua a cada pull request. No backend, o estilo é conferido na revisão de código.</td>
+</tr>
+<tr>
+<td><strong>Segurança:</strong> só usuários autenticados acessam os dados, e cada aluno vê só os seus</td>
+<td>Autenticação por token JWT validado a cada requisição pelo Spring Security; consultas sempre filtradas pelo aluno autenticado.</td>
+<td>Caso de teste CT-01 e testes automatizados de isolamento dos dados entre alunos.</td>
+</tr>
+<tr>
+<td><strong>Testabilidade:</strong> cobertura de testes de pelo menos 80% no backend e 70% no frontend</td>
+<td>Camadas com responsabilidades isoladas, que permitem testes unitários nos Services e de integração na API, com banco H2 em memória.</td>
+<td>No backend, o JaCoCo mede a cobertura de linhas e de ramos a cada execução da integração contínua, que publica o relatório. No frontend, a cobertura será medida pelo Vitest.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Fonte: elaborado pelo grupo (2026)</em></p>
+<h2 id="25-visoes">2.5 Visões</h2>
+<p>As visões a seguir mostram a arquitetura sob quatro pontos de vista (BASS; CLEMENTS; KAZMAN, 2021): uso (escopo do sistema), organização lógica (módulos e suas dependências), estrutura (classes e componentes) e implantação (ambiente de execução).</p>
+<h3 id="251-visao-de-uso">2.5.1 Visão de uso</h3>
+<p>O Aluno consulta disciplinas, entregas, agenda e progresso e registra anotações; o Representante Escolar publica conteúdos e entregas; e o Administrador mantém contas, perfis, disciplinas e períodos. Nesta versão, só o perfil Aluno é implementado; os casos de uso tracejados são previstos. A Figura 2 apresenta o diagrama de casos de uso.</p>
+<p><strong>Figura 2 – Diagrama de casos de uso do cAnCHA</strong></p>
+<p><img alt="Diagrama de casos de uso" src="../imagens/casos-de-uso.svg" /></p>
+<p><em>Fonte: elaborado pelo grupo (2026)</em></p>
+<p>A funcionalidade mais complexa do ponto de vista arquitetural é marcar uma entrega como concluída e atualizar o progresso (CEN-04), porque atravessa todas as camadas: a interface, a autorização na API, a regra de negócio, a gravação no banco e o recálculo dos indicadores exibidos ao aluno. A Figura 3 mostra seu diagrama de atividades. A situação gravada é a ProgressoAtividade do aluno para aquela entrega, apresentada no diagrama de classes (Figura 5).</p>
+<p><strong>Figura 3 – Diagrama de atividades – marcar entrega como concluída e atualizar o progresso (CEN-04)</strong></p>
+<p><img alt="Diagrama de atividades" src="../imagens/atividades-cen04.png" /></p>
+<p><em>Fonte: elaborado pelo grupo (2026)</em></p>
+<p>O Quadro 2 relaciona os requisitos do Documento de Visão às decisões arquiteturais que eles motivaram.</p>
+<p><strong>Quadro 2 – Requisitos que influenciaram a arquitetura</strong></p>
+<table>
+<thead>
+<tr>
+<th>Requisito</th>
+<th>Decisão arquitetural motivada</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>REQ-02 – Navegação rasa (regra dos 3 cliques)</td>
+<td>Rotas rasas, menu fixo e tela Início com as disciplinas (seção 2.4).</td>
+</tr>
+<tr>
+<td>REQ-04 e REQ-05 – Agenda unificada e painel de progresso</td>
+<td>Módulos de agenda e de progresso no servidor, que reúnem os dados de todas as disciplinas em uma única chamada.</td>
+</tr>
+<tr>
+<td>REQ-07 – Dados sempre vindos da API</td>
+<td>API REST com contrato documentado (OpenAPI) e atualização das telas sem recarregar a página.</td>
+</tr>
+<tr>
+<td>Perfis de acesso do Documento de Visão (Aluno, Representante Escolar e Administrador)</td>
+<td>Autenticação por JWT e autorização por perfil nos filtros do Spring Security.</td>
+</tr>
+<tr>
+<td>Equipe de oito integrantes, sprints semanais e tecnologias novas para parte do grupo</td>
+<td>Estilo em camadas e backend como monólito modular, com módulos que podem ser desenvolvidos em paralelo.</td>
+</tr>
+<tr>
+<td>Estratégia de testes (seção 6 do Documento de Visão)</td>
+<td>Camadas com responsabilidades isoladas, que permitem testes unitários nos Services e de integração na API.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Fonte: elaborado pelo grupo (2026)</em></p>
+<h3 id="252-visao-de-organizacao-logica">2.5.2 Visão de organização lógica</h3>
+<p>O cAnCHA é dividido em módulos funcionais. No backend, cada módulo é um pacote Java dentro de <code>com.cancha</code>, com seus próprios Controllers, Services, Repositories e entidades (padrão package-by-feature). No frontend, cada tela principal é uma pasta em <code>features</code>, e o que é usado por várias telas fica em <code>shared</code>. Essa organização reduz o acoplamento entre funcionalidades e facilita a divisão do trabalho. O Quadro 3 descreve os módulos.</p>
+<p><strong>Quadro 3 – Módulos do cAnCHA e sua razão lógica</strong></p>
+<table>
+<thead>
+<tr>
+<th>Pacote (backend)</th>
+<th>Pasta (frontend)</th>
+<th>Responsabilidade</th>
+<th>Situação na versão v0.1.1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>com.cancha.auth</code></td>
+<td><code>features/auth</code>, <code>shared/auth</code></td>
+<td>Autentica o usuário, emite e valida os tokens JWT e informa quem é o aluno autenticado aos demais módulos, que não reimplementam a regra de segurança.</td>
+<td>Implementado</td>
+</tr>
+<tr>
+<td><code>com.cancha.discipline</code></td>
+<td><code>features/materias</code>, <code>features/disciplinas</code></td>
+<td>Disciplinas do aluno, matrículas e conteúdos (materiais) de cada disciplina; é o módulo central da metáfora do caderno.</td>
+<td>Implementado (leitura; a escrita de conteúdos fica com o Representante Escolar, fora desta versão)</td>
+</tr>
+<tr>
+<td><code>com.cancha.agenda</code></td>
+<td><code>features/agenda</code>, <code>features/inicio</code></td>
+<td>Reúne as entregas de todas as disciplinas na agenda Kanban e nas próximas entregas do Início, e registra a situação de cada entrega para cada aluno (ProgressoAtividade).</td>
+<td>Implementado</td>
+</tr>
+<tr>
+<td><code>com.cancha.progress</code></td>
+<td>barras de progresso em <code>features/inicio</code>, <code>features/materias</code> e <code>features/disciplinas</code></td>
+<td>Calcula o percentual concluído por disciplina e no semestre, a partir das entregas (agenda) e das matrículas (discipline). Não tem persistência própria.</td>
+<td>Parcial: o cálculo está hoje em <code>com.cancha.agenda</code>; o pacote existe sem classes</td>
+</tr>
+<tr>
+<td><code>com.cancha.annotation</code></td>
+<td><code>features/anotacoes</code></td>
+<td>Anotações do aluno vinculadas a uma disciplina.</td>
+<td>Previsto (US06a, Sprint 10, se couber)</td>
+</tr>
+<tr>
+<td><code>com.cancha.common</code></td>
+<td>—</td>
+<td>Tratamento global de erros, exceções comuns e configuração do OpenAPI.</td>
+<td>Implementado</td>
+</tr>
+<tr>
+<td>—</td>
+<td><code>shared</code> (<code>api</code>, <code>auth</code>, <code>components</code>, <code>hooks</code>, <code>layout</code>)</td>
+<td>Cliente HTTP único, que anexa o token JWT a cada requisição; sessão do usuário; componentes reutilizáveis, como cartões e barra de progresso; e o layout com o menu fixo.</td>
+<td>Implementado</td>
+</tr>
+</tbody>
+</table>
+<p><em>Fonte: elaborado pelo grupo (2026)</em></p>
+<p>A Figura 4 apresenta o diagrama de pacotes. As setas tracejadas são dependências («use»): o pacote de origem usa o pacote de destino.</p>
+<p><strong>Figura 4 – Diagrama de pacotes do cAnCHA</strong></p>
+<p><img alt="Diagrama de pacotes" src="../imagens/diagrama-pacotes.svg" /></p>
+<p><em>Fonte: elaborado pelo grupo (2026)</em></p>
+<p>No frontend, as pastas de <code>features</code> dependem de <code>shared</code>, e <code>shared/api</code> é o único ponto que chama a API do backend. No backend, as dependências entre módulos passam sempre pela camada de Service do módulo usado, nunca pelos repositórios dele:</p>
+<ul>
+<li><code>discipline</code> depende de <code>auth</code>, para saber quem é o aluno autenticado;</li>
+<li><code>agenda</code> depende de <code>discipline</code>, porque toda entrega pertence a uma disciplina e só é mostrada a quem está matriculado nela, e de <code>auth</code>;</li>
+<li><code>progress</code> depende de <code>agenda</code> e de <code>discipline</code>, para contar as entregas concluídas de cada matrícula, e de <code>auth</code>;</li>
+<li><code>annotation</code> depende de <code>discipline</code> e de <code>auth</code>;</li>
+<li>todos os módulos podem usar <code>common</code>.</li>
+</ul>
+<p>Na versão v0.1.1, o cálculo do progresso foi implementado dentro de <code>agenda</code> (ProgressoService e PercentualConcluidoService), e <code>discipline</code> usa esse cálculo para mostrar o percentual de cada disciplina. Isso cria uma dependência mútua entre <code>discipline</code> e <code>agenda</code>. Mover o cálculo para <code>progress</code>, como prevê esta arquitetura, elimina essa dependência.</p>
+<p>O pacote <code>com.cancha.notification</code>, criado vazio na estrutura inicial do backend, não corresponde a nenhum requisito do Documento de Visão e por isso não faz parte desta arquitetura. O pacote vazio deve ser removido do código.</p>
+<p><strong>Estratégia de provisionamento de conteúdo.</strong> Disciplina e Conteudo são entidades persistentes desde a primeira versão, com Controller, Service e Repository em <code>com.cancha.discipline</code>. Como a pesquisa do grupo investigou só a experiência do Aluno (seção 1.1 do Documento de Visão), os dados entram por carga inicial, em migrações Flyway, sem interface do Representante Escolar. Nesta versão a API só tem os endpoints de leitura. Quando o perfil Representante Escolar entrar no escopo, os endpoints de escrita (POST, PUT e DELETE) serão protegidos por papel no Spring Security, com <code>@PreAuthorize("hasRole('REPRESENTANTE_ESCOLAR')")</code>, sem mudança nas camadas de Service e Repository.</p>
+<h3 id="253-visao-estrutural">2.5.3 Visão estrutural</h3>
+<p>Esta seção detalha os elementos internos do cAnCHA: os dados manipulados (diagrama de classes) e as unidades executáveis com suas interfaces (diagrama de componentes).</p>
+<p>O diagrama de classes (Figura 5) representa o modelo de domínio. A classe abstrata Usuario reúne os atributos de identificação e autenticação e é especializada (generalização, seta com triângulo vazado) nos três perfis do Documento de Visão: Aluno, RepresentanteEscolar e AdministradorSistema. Só Aluno está implementado; as classes em cinza são previstas.</p>
+<p>Um Aluno se matricula em disciplinas por meio de Matricula. Cada Disciplina é composta (composição, losango cheio) por suas Entregas e seus Conteudos, que deixam de existir se a disciplina for removida. Conteudo é separado de Entrega porque um material de apoio não tem prazo nem situação.</p>
+<p>A conclusão de cada entrega é individual. A classe ProgressoAtividade liga um Aluno a uma Entrega e guarda a situação daquela entrega para aquele aluno (StatusEntrega: A_FAZER, EM_ANDAMENTO ou CONCLUIDA) e a data de conclusão. Existe no máximo um registro por aluno e entrega, e uma entrega sem registro está A_FAZER. Por isso a mesma entrega pode estar concluída para um aluno e pendente para outro. O percentual de progresso da Matricula é um atributo derivado (marcado com "/"): é calculado a partir das ProgressoAtividade concluídas, e não informado. Anotacao, ligada a um Aluno e a uma Disciplina, é prevista.</p>
+<p><strong>Figura 5 – Diagrama de classes do domínio do cAnCHA</strong></p>
+<p><img alt="Diagrama de classes" src="../imagens/diagrama-classes.svg" /></p>
+<p><em>Fonte: elaborado pelo grupo (2026)</em></p>
+<p>O diagrama de componentes (Figura 6) mostra as unidades executáveis e as interfaces entre elas. A notação é a da UML (OBJECT MANAGEMENT GROUP, 2017): o círculo é uma interface fornecida, ligado por linha cheia ao componente que a implementa, e a seta tracejada «use» parte do componente que precisa dela.</p>
+<ul>
+<li>O Frontend SPA usa a interface API REST cAnCHA (HTTPS + JSON), fornecida pelos Controllers REST do Backend API.</li>
+<li>Dentro do Backend API, os Controllers usam a interface Autenticação, fornecida pelo componente Segurança (Spring Security + JWT), que valida o token e aplica o controle de acesso por perfil antes de a requisição chegar ao Controller.</li>
+<li>Os Controllers usam os Services, e os Services usam os Repositórios.</li>
+<li>Os Repositórios usam a API JPA, implementada pelo Hibernate dentro do próprio backend. O componente PostgreSQL fornece a interface JDBC (protocolo do PostgreSQL), usada pelos Repositórios para executar o SQL gerado pelo Hibernate. JPA, portanto, não é uma interface do banco: é uma API interna do backend.</li>
+</ul>
+<p><strong>Figura 6 – Diagrama de componentes do cAnCHA</strong></p>
+<p><img alt="Diagrama de componentes" src="../imagens/diagrama-componentes.svg" /></p>
+<p><em>Fonte: elaborado pelo grupo (2026)</em></p>
+<h2 id="26-visao-de-implantacao">2.6 Visão de implantação</h2>
+<p>O cAnCHA é publicado em serviços de nuvem e acessado pelo navegador, sem instalação. A implantação separa a entrega estática da interface, a execução da API e o banco de dados, como mostra a Figura 7:</p>
+<ul>
+<li><strong>Render — Static Site:</strong> hospeda o build do frontend (HTML, CSS e JavaScript gerados pelo Vite), entregue ao navegador por HTTPS.</li>
+<li><strong>Render — Web Service:</strong> executa o backend em um contêiner Docker com JRE 21, construído a partir do <code>backend/Dockerfile</code>, que empacota a aplicação Spring Boot em um <code>app.jar</code>.</li>
+<li><strong>Neon:</strong> serviço gerenciado de PostgreSQL. O esquema do banco é criado e atualizado pelas migrações Flyway, executadas pelo backend ao iniciar.</li>
+</ul>
+<p>O navegador do aluno baixa a SPA do Static Site e chama a API no Web Service por HTTPS, com JSON e o token JWT. O backend acessa o PostgreSQL no Neon pelo driver JDBC, sobre TCP/IP. O ambiente é publicado a partir da branch <code>developer</code>, e as credenciais ficam só nas variáveis de ambiente do Render.</p>
+<p><strong>Figura 7 – Diagrama de implantação do cAnCHA</strong></p>
+<p><img alt="Diagrama de implantação" src="../imagens/diagrama-implantacao.svg" /></p>
+<p><em>Fonte: elaborado pelo grupo (2026)</em></p>
+<h2 id="27-restricoes-adicionais">2.7 Restrições adicionais</h2>
+<p>As metas de desempenho, navegação, segurança e testabilidade estão na seção 2.4. Esta seção registra só as restrições que não aparecem lá.</p>
+<h3 id="271-restricoes-negociais-e-de-acesso">2.7.1 Restrições negociais e de acesso</h3>
+<ul>
+<li>Não há uso anônimo: toda funcionalidade exige login.</li>
+<li>Nesta versão, as contas, as disciplinas e as matrículas entram por migração. Não há cadastro pelo próprio aluno nem interface de administração (US11 e US12 estão fora desta versão).</li>
+<li>Os perfis Representante Escolar e Administrador estão no modelo de domínio, mas suas funcionalidades não fazem parte desta versão.</li>
+</ul>
+<h3 id="272-caracteristicas-de-qualidade">2.7.2 Características de qualidade</h3>
+<ul>
+<li><strong>Portabilidade:</strong> o frontend roda nos navegadores atuais, em computador ou celular. O backend roda em contêiner Docker, o que o torna independente do sistema operacional do servidor.</li>
+<li><strong>Manutenibilidade:</strong> a organização por módulos (package-by-feature) faz com que uma mudança em uma funcionalidade fique restrita, em geral, ao seu pacote e à sua pasta de feature.</li>
+</ul>
+<h3 id="273-restricoes-tecnicas">2.7.3 Restrições técnicas</h3>
+<ul>
+<li>Backend em Java 21 com Spring Boot; frontend em React com Vite; banco PostgreSQL com migrações Flyway.</li>
+<li>O plano gratuito do Render suspende o Web Service depois de um período sem acesso, e a primeira requisição seguinte demora a responder. Por isso o serviço é acordado antes de apresentações e testes (risco R7 do Documento de Visão).</li>
+<li>Segredos (credenciais do banco e chave do JWT) nunca ficam no repositório, só nas variáveis de ambiente dos serviços.</li>
+</ul>
+<h1 id="referencias">REFERÊNCIAS</h1>
+<p>BASS, Len; CLEMENTS, Paul; KAZMAN, Rick. <strong>Software architecture in practice</strong>. 4. ed. Boston: Addison-Wesley, 2021.</p>
+<p>GOOGLE. <strong>Google Java Style Guide</strong>. [S. l.], [20--]. Disponível em: <a href="https://google.github.io/styleguide/javaguide.html">https://google.github.io/styleguide/javaguide.html</a>. Acesso em: 18 nov. 2026.</p>
+<p>META PLATFORMS. <strong>React documentation</strong>. [S. l.], [20--]. Disponível em: <a href="https://react.dev">https://react.dev</a>. Acesso em: 7 out. 2026.</p>
+<p>OBJECT MANAGEMENT GROUP. <strong>OMG Unified Modeling Language (OMG UML)</strong>: version 2.5.1. [S. l.]: OMG, 2017. Disponível em: <a href="https://www.omg.org/spec/UML/2.5.1">https://www.omg.org/spec/UML/2.5.1</a>. Acesso em: 16 nov. 2026.</p>
+<p>POSTGRESQL GLOBAL DEVELOPMENT GROUP. <strong>PostgreSQL documentation</strong>. [S. l.], [20--]. Disponível em: <a href="https://www.postgresql.org/docs/">https://www.postgresql.org/docs/</a>. Acesso em: 7 out. 2026.</p>
+<p>SPRING. <strong>Spring Boot reference documentation</strong>. [S. l.], [20--]. Disponível em: <a href="https://docs.spring.io/spring-boot/">https://docs.spring.io/spring-boot/</a>. Acesso em: 7 out. 2026.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>
