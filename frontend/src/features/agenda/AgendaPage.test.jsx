@@ -343,8 +343,9 @@ describe('Página Agenda com integração GET /agenda', () => {
     abrir()
     await abrirQuadro()
 
-    expect(await screen.findByText('Parser LR')).toBeInTheDocument()
-    expect(screen.getByText('Compiladores')).toBeInTheDocument()
+    const cartao = (await screen.findByText('Parser LR')).closest('li')
+
+    expect(within(cartao).getByText('Compiladores')).toBeInTheDocument()
     expect(screen.getByText(/Prazo:\s*01\/12/)).toBeInTheDocument()
   })
 })
