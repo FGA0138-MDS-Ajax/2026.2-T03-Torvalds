@@ -2,7 +2,7 @@
 
 # VISÃO DO PRODUTO E DO PROJETO
 
-**Versão 1.4**
+**Versão 1.5**
 
 ## Integrantes do Grupo
 
@@ -27,6 +27,7 @@
 | 09/11/2026 | 1.2 | Correções da avaliação do professor: tecnologia do back-end, papéis, ciclo de vida, critérios de aceitação, GQM e testes. | Ana Jullia / Eduardo |
 | 11/11/2026 | 1.3 | Resultado da Sprint 7 na Sprint Review: entregáveis concluídos (100%) e release v0.1.0 publicada na main em 11/11, dois dias depois do previsto. | Eduardo |
 | 16/11/2026 | 1.4 | Processo alinhado ao praticado, sem trabalho em pares; testes de usabilidade com 2 estudantes por sprint a partir da Sprint 9, com métricas M6 a M12 e risco R6 ajustados; M4 medida nos pull requests; Ponto de Controle e Review da Sprint 7 registrados; Tabela 1, backlog, calendário e roteiro de testes atualizados; novo risco R8; quadros citados no texto. | Eduardo |
+| 19/11/2026 | 1.5 | Resultado da Sprint 8 registrado na Tabela 1, conforme a Review (ata 9): a US04b não foi entregue e passou para a Sprint 9 pelo critério 3 de replanejamento, com cenário, backlog e calendário de testes ajustados. Registro do replanejamento da Sprint 6 feito na v1.2: o plano passou de 11 para 10 sprints, e o login e as telas Início e Matérias passaram para a Sprint 7. Remissão da seção 2.1 corrigida. As versões 1.0 e 1.1 foram elaboradas antes de o documento entrar no repositório, em 30/10/2026. Retirada a estimativa em pontos de história, que o grupo não pratica (DEF-014): a DoR, o risco R3 e os critérios 1, 3 e 4 de replanejamento deixam de citar pontos, e a M2 passa a medir as tarefas concluídas. | Eduardo |
 
 ## Sumário
 
@@ -134,7 +135,7 @@ Docker e Docker Compose no ambiente local; Render para publicar o front-end e o 
 
 ## 2.1 Ciclo de vida do projeto de desenvolvimento de software
 
-O projeto adota uma metodologia ágil, instanciada em um ciclo de vida híbrido, iterativo e incremental baseado em Scrum e Extreme Programming (XP), com sprints semanais. A Figura 2 mostra como essa escolha se desdobra em processo, procedimentos, métodos e ferramentas, seguindo o modelo apresentado acima.
+O projeto adota uma metodologia ágil, instanciada em um ciclo de vida híbrido, iterativo e incremental baseado em Scrum e Extreme Programming (XP), com sprints semanais. A Figura 2 mostra como essa escolha se desdobra, da metodologia ao processo, aos procedimentos, aos métodos e às ferramentas.
 
 **Figura 2 – Metodologia de desenvolvimento do projeto cAnCHA**
 
@@ -184,10 +185,10 @@ O percentual é atualizado na Sprint Review de cada sprint, e toda mudança de e
 | Sprint 3 | Apresentar Doc. Visão | 08/10/26 | 14/10/26 | Apresentação do Doc. de Visão, GQM | Apresentação | Todos | 100% |
 | Sprint 4 | Apresentar Doc. Arquitetura | 15/10/26 | 21/10/26 | Apresentação do Doc. de Arquitetura | Apresentação; prova | Todos | 100% |
 | Sprint 5 | Prototipar as telas | 22/10/26 | 28/10/26 | Protótipo no Figma | - | DEV, QA, DES | 100% |
-| Sprint 6 | Base técnica e disciplinas | 29/10/26 | 04/11/26 | Estrutura do back-end, banco, CI, deploy, GET/disciplinas, autenticação no back-end | - | DEV, QA, SM | 100% |
+| Sprint 6 | Base técnica e disciplinas | 29/10/26 | 04/11/26 | Estrutura do back-end, banco, CI, deploy, GET/disciplinas, autenticação no back-end | Escopo replanejado na v1.2 (10/11): o plano anterior, de 11 sprints, previa também o login e as telas Início e Matérias, que passaram para a Sprint 7, e o plano passou a ter 10 sprints. As pendências registradas nas atas 7 e 8 foram concluídas durante a Sprint 7, e a milestone foi fechada em 10/11 | DEV, QA, SM | 100% do escopo replanejado |
 | Sprint 7 | Primeira versão utilizável pelo aluno | 05/11/26 | 11/11/26 | Tela de login, Início com disciplinas e próximas entregas, página da disciplina com entregas e materiais, Agenda Kanban, Visão v1.2; concluir entrega e progresso por disciplina, adiantados da Sprint 8 | Releases v0.1.0 e v0.1.1 na main em 11/11 (prevista para 09/11); Ponto de Controle em 11/11, sem apontamentos significativos; Review feita presencialmente em sala | Todos | 100% |
-| Sprint 8 | Agenda filtrada e documentação alinhada | 12/11/26 | 18/11/26 | Filtro por disciplina na Agenda (US04b, adiantada da Sprint 9); documentação sem trabalho em pares; registro das métricas das Sprints 6 e 7; Visão v1.4; Documento de Arquitetura com a correção do professor; reexecução de CT-03, CT-04, CT-05 e CT-07 | Inspeção mútua entre os grupos em 16/11 | Todos | 0% |
-| Sprint 9 | Validação e ajustes | 19/11/26 | 25/11/26 | Testes de usabilidade com 2 alunos (rodada 1); reparos dos defeitos da inspeção | Testes de usabilidade (rodada 1) | Todos | 0% |
+| Sprint 8 | Agenda filtrada e documentação alinhada | 12/11/26 | 18/11/26 | Filtro por disciplina na Agenda (US04b, adiantada da Sprint 9); documentação sem trabalho em pares; registro das métricas das Sprints 6 e 7; Visão v1.4; Documento de Arquitetura com a correção do professor; reexecução de CT-03, CT-04, CT-05 e CT-07 | Inspeção mútua entre os grupos em 16/11 (Perlman: aprovado com ressalvas); Review em 18/11 ([ata 9](atas-reuniao/ata-reuniao-9.md)): US04b não entregue e levada para a Sprint 9 pelo critério 3 de replanejamento; três PRs de tarefas integrados à developer em 18/11 (#115, #141 e #142) | Todos | 83% (5 de 6 entregáveis) |
+| Sprint 9 | Validação e ajustes | 19/11/26 | 25/11/26 | Filtro por disciplina na Agenda (US04b, não entregue na Sprint 8); testes de usabilidade com 2 alunos (rodada 1); reparos dos defeitos da inspeção | Testes de usabilidade (rodada 1) | Todos | 0% |
 | Sprint 10 | Entregar o produto | 26/11/26 | 02/12/26 | Anotações, se couber; testes de usabilidade com 2 alunos (rodada 2); execução de CT-01 a CT-10; correções; congelamento do código, release v1.0.0 | Testes de usabilidade (rodada 2); apresentação final | Todos | 0% |
 
 *Fonte: elaborado pelo grupo (2026)*
@@ -217,7 +218,7 @@ Os riscos são avaliados em duas escalas de 1 a 3. Probabilidade: 1 = Improváve
 
 - **R1: Atraso por outras disciplinas (Exposição 6, alta).** Mitigação: informar provas na Planning; tarefas de até dois dias. Contingência: outro integrante do grupo assume a tarefa; o PO move itens Should/Could. Responsável: Scrum Master.
 - **R2: Dificuldade técnica (Spring Boot, React, JWT) (Exposição 6, alta).** Mitigação: código de exemplo no repositório; tirar dúvidas com quem sabe. Contingência: apoio da monitoria; fatiar a história. Responsável: Scrum Master.
-- **R3: Esforço subestimado (Exposição 6, alta).** Mitigação: estimar com planning poker; histórias de até 5 pontos. Contingência: mover Should/Could; registrar no cronograma. Responsável: PO.
+- **R3: Esforço subestimado (Exposição 6, alta).** Mitigação: na Planning, quebrar cada história em tarefas com responsável e prazo, e dividir a que não couber numa sprint. Contingência: mover Should/Could; registrar no cronograma. Responsável: PO.
 - **R4: Requisitos pouco claros (Exposição 4, média).** Mitigação: critérios de aceitação antes da Planning. Contingência: congelar a história e registrar no backlog. Responsável: PO.
 - **R5: Falta de dados acadêmicos reais (Exposição 6, alta).** Mitigação: carga inicial realista, sem dados pessoais. Contingência: cadastrar por migration antes dos testes. Responsável: PO.
 - **R6: Poucos alunos para testes de usabilidade (Exposição 6, alta).** Ocorreu: o grupo conta com 2 estudantes, e não 5, e os testes passaram a ser feitos em rodadas de 2 participantes por sprint, a partir da Sprint 9. Mitigação: confirmar os participantes de cada rodada na sprint anterior, de preferência pessoas diferentes a cada rodada; sessões remotas de até 20 min. Contingência: fazer a rodada com 1 participante e registrar a limitação, ou passá-la para o início da sprint seguinte. Responsável: Analista de Qualidade.
@@ -231,7 +232,7 @@ O replanejamento do projeto será acionado sempre que desvios de cronograma, pro
 ### 1) Replanejamento por Risco de Calendário e Avaliações
 
 - **Gatilho:** Redução na disponibilidade da equipe decorrente da sobreposição com avaliações acadêmicas de outras disciplinas.
-- **Condição de Acionamento:** Quando a capacidade estimada de pontos de história da equipe para a Sprint for reduzida em mais de 30% devido ao calendário de provas.
+- **Condição de Acionamento:** Quando a disponibilidade da equipe para a Sprint (integrantes e dias livres) for reduzida em mais de 30% devido ao calendário de provas.
 - **Ação e Contingência:** O time redistribuirá as tarefas entre os membros disponíveis e acionará o Product Owner (PO) para repactuar a Sprint. A priorização utilizará a classificação MoSCoW para congelar ou remover Histórias de Usuário Should e Could, mantendo o foco exclusivo nas histórias essenciais Must Have.
 
 ### 2) Replanejamento por Incompatibilidade ou Bloqueio Técnico
@@ -242,14 +243,14 @@ O replanejamento do projeto será acionado sempre que desvios de cronograma, pro
 
 ### 3) Replanejamento por Esforço Subestimado
 
-- **Gatilho:** Identificação de que o esforço necessário para concluir uma História de Usuário é significativamente superior ao estimado inicialmente, ocasionando atraso na entrega ou comprometimento das demais atividades da Sprint.
-- **Condição de Acionamento:** Quando uma História de Usuário ultrapassar em 50% ou mais a estimativa de esforço definida no planejamento da Sprint, ou quando o desvio identificado indicar que a conclusão da história comprometerá a entrega dos demais itens planejados para a Sprint.
-- **Ação e Contingência:** O time deverá reavaliar as estimativas das histórias restantes e comunicar o impacto ao Product Owner. Os itens classificados como Should Have e Could Have poderão ser movidos para Sprints seguintes, priorizando a conclusão dos requisitos Must Have. A alteração deverá ser registrada no planejamento das fases e considerada nas estimativas das Sprints seguintes.
+- **Gatilho:** Identificação de que o esforço necessário para concluir uma História de Usuário é significativamente superior ao previsto na Planning, ocasionando atraso na entrega ou comprometimento das demais atividades da Sprint.
+- **Condição de Acionamento:** Quando as tarefas de uma História de Usuário passarem do prazo combinado na Planning da Sprint, ou quando o desvio identificado indicar que a conclusão da história comprometerá a entrega dos demais itens planejados para a Sprint.
+- **Ação e Contingência:** O time deverá reavaliar o que ainda cabe na Sprint e comunicar o impacto ao Product Owner. Os itens classificados como Should Have e Could Have poderão ser movidos para Sprints seguintes, priorizando a conclusão dos requisitos Must Have. A alteração deverá ser registrada no planejamento das fases e considerada na Planning das Sprints seguintes.
 
 ### 4) Replanejamento por Requisitos Pouco Claros ou Alterados
 
 - **Gatilho:** Identificação de ambiguidades nos requisitos, critérios de aceitação insuficientes ou alterações no escopo de uma História de Usuário durante o desenvolvimento da Sprint.
-- **Condição de Acionamento:** Quando uma alteração ou esclarecimento de requisito modificar o escopo, os critérios de aceitação ou o esforço estimado de uma História de Usuário após o início da Sprint, de modo que sua implementação não possa ser concluída conforme o planejamento original.
+- **Condição de Acionamento:** Quando uma alteração ou esclarecimento de requisito modificar o escopo, os critérios de aceitação ou o esforço previsto de uma História de Usuário após o início da Sprint, de modo que sua implementação não possa ser concluída conforme o planejamento original.
 - **Ação e Contingência:** O escopo da Sprint em andamento será congelado em relação à História de Usuário afetada, e as alterações identificadas serão registradas no Product Backlog. O Product Owner deverá priorizar as novas demandas para a Sprint seguinte, evitando alterações que comprometam o objetivo da Sprint atual.
 
 ---
@@ -280,7 +281,7 @@ Cada história percorre o seguinte fluxo de desenvolvimento, detalhado no guia d
 
 - está no formato "Como, quero, para", com o benefício explícito;
 - tem critérios de aceitação no formato "Dado, quando, então";
-- está estimada em pontos de história e tem até 5 pontos, ou foi dividida;
+- é pequena o bastante para ser concluída numa sprint, ou foi dividida;
 - tem a tela no Figma ligada, quando tem interface;
 - não depende de algo que ainda não existe, ou a dependência está na mesma sprint;
 - tem o caso de teste correspondente identificado no roteiro (Seção 6.2).
@@ -348,7 +349,7 @@ O Quadro 5 lista os cenários funcionais e as sprints em que cada um é desenvol
 | CEN-00 | Acesso ao sistema (Login) | Sprint 6 e 7 |
 | CEN-01 | Gestão e Visualização de Disciplinas (máximo 3 cliques) | Sprint 7 a 10 |
 | CEN-02 | Navegação e Consulta de Atividades (tarefas e materiais) | Sprint 7 |
-| CEN-03 | Acompanhamento na Agenda Unificada (Kanban) | Sprint 7 e 8 |
+| CEN-03 | Acompanhamento na Agenda Unificada (Kanban) | Sprint 7 a 9 |
 | CEN-04 | Controle e Progresso (marcar concluídas e atualizar barra) | Sprint 7 (adiantado da Sprint 8) |
 | CEN-05 | Criação e Gestão de Anotações (cadernos digitais) | Sprint 10 |
 
@@ -423,7 +424,7 @@ O Product Backlog do projeto cAnCHA está organizado por ordem de prioridade. O 
 
 ### 10. Filtro da agenda (CEN-03 / REQ-04)
 
-- **Tipo:** Funcional | **MoSCoW:** Should | **Sprint:** 8 (adiantada da 9)
+- **Tipo:** Funcional | **MoSCoW:** Should | **Sprint:** 9 (planejada para a 8 e não entregue)
 - **História:** US04b: Como aluno, quero filtrar a agenda por disciplina, para focar em uma matéria.
 - **Critérios de Aceitação:** Dado o filtro com uma disciplina marcada, então só os cartões dela aparecem; ao limpar, voltam todos.
 - **Teste:** CT-05
@@ -458,7 +459,7 @@ Para o acompanhamento do projeto cAnCHA, a equipe adotará o método GQM (*Goal-
 - **O1. Acompanhar o progresso do desenvolvimento**
   - **Questão:** A sprint entregou o que foi planejado?
     - **Métrica M1 (Histórias concluídas):** (Histórias aceitas pelo PO ÷ histórias planejadas) x 100. Valor esperado: ≥ 80%. Coleta: Scrum Master, na Review. Interpretação: Abaixo de 80%, discutir na Retrospectiva e aplicar o critério 3 da seção 2.6.
-    - **Métrica M2 (Velocidade):** Soma dos pontos das histórias aceitas na sprint. Valor esperado: variação de até 30% entre sprints. Coleta: Scrum Master, na Review. Interpretação: Queda maior que 30%, aplicar o critério 1 da seção 2.6.
+    - **Métrica M2 (Tarefas concluídas):** (Tarefas da sprint fechadas até a Review ÷ tarefas da sprint) x 100, contando as issues com a label `tarefa` na milestone. Valor esperado: ≥ 80%. Coleta: Scrum Master, na Review, pelo filtro de issues da milestone. Interpretação: Abaixo de 80%, discutir na Retrospectiva; se a causa for a semana de provas, aplicar o critério 1 da seção 2.6.
 - **O2. Avaliar a qualidade técnica do software**
   - **Questão:** Quantos defeitos aparecem?
     - **Métrica M3 (Defeitos por sprint):** Issues com a label `bug` abertas na sprint. Valor esperado: queda a partir da Sprint 9. Coleta: Analista de Qualidade, pelo filtro de issues do GitHub. Interpretação: Aumento de defeitos exige ação na Retrospectiva.
@@ -501,7 +502,7 @@ A estratégia de testes do cAnCHA será baseada nos níveis de teste unitário, 
 - **Ferramentas por nível:** Testes unitários usam JUnit 5 e Mockito no back-end, e Vitest e Testing Library no front-end. Testes de integração usam Spring Boot Test com banco H2 e Flyway. Testes de sistema são executados manualmente pelo roteiro da seção 6.2 no ambiente publicado (Render/Neon).
 - **Metas não funcionais:** Desempenho: 95% das consultas em até 2 segundos, medidas com o serviço já ativo. Cobertura: pelo menos 80% no back-end e 70% no front-end, medidas com JaCoCo e Vitest.
 - **Registro de defeitos:** Todo teste recusado gera uma issue com a label `bug`, ligada ao caso de teste e à história afetada.
-- **Calendário de execução:** Sprint 7: CT-01 a CT-05, CT-07 e CT-08, registrados no [relatório de testes da Sprint 7](testes/relatorio-sprint-7.md). Sprint 8: reexecução de CT-03, CT-04, CT-05 e CT-07 na versão publicada, depois da correção dos defeitos. Sprint 9: rodada 1 dos testes de usabilidade. Sprint 10: execução completa de CT-01 a CT-10 e rodada 2 dos testes de usabilidade. O CT-09 roda em toda integração contínua.
+- **Calendário de execução:** Sprint 7: CT-01 a CT-05, CT-07 e CT-08, registrados no [relatório de testes da Sprint 7](testes/relatorio-sprint-7.md). Sprint 8: reexecução de CT-03, CT-04, CT-05 e CT-07 na versão publicada, feita na Review de 18/11 ([ata 9](atas-reuniao/ata-reuniao-9.md)). Sprint 9: CT-05 com o filtro da Agenda (US04b) e rodada 1 dos testes de usabilidade. Sprint 10: execução completa de CT-01 a CT-10 e rodada 2 dos testes de usabilidade. O CT-09 roda em toda integração contínua.
 
 ## 6.2 Roteiro de teste
 
