@@ -2,7 +2,7 @@
 
 # VISÃO DO PRODUTO E DO PROJETO
 
-**Versão 1.5**
+**Versão 1.6**
 
 ## Integrantes do Grupo
 
@@ -28,6 +28,7 @@
 | 11/11/2026 | 1.3 | Resultado da Sprint 7 na Sprint Review: entregáveis concluídos (100%) e release v0.1.0 publicada na main em 11/11, dois dias depois do previsto. | Eduardo |
 | 16/11/2026 | 1.4 | Processo alinhado ao praticado, sem trabalho em pares; testes de usabilidade com 2 estudantes por sprint a partir da Sprint 9, com métricas M6 a M12 e risco R6 ajustados; M4 medida nos pull requests; Ponto de Controle e Review da Sprint 7 registrados; Tabela 1, backlog, calendário e roteiro de testes atualizados; novo risco R8; quadros citados no texto. | Eduardo |
 | 19/11/2026 | 1.5 | Resultado da Sprint 8 registrado na Tabela 1, conforme a Review (ata 9): a US04b não foi entregue e passou para a Sprint 9 pelo critério 3 de replanejamento, com cenário, backlog e calendário de testes ajustados. Registro do replanejamento da Sprint 6 feito na v1.2: o plano passou de 11 para 10 sprints, e o login e as telas Início e Matérias passaram para a Sprint 7. Remissão da seção 2.1 corrigida. As versões 1.0 e 1.1 foram elaboradas antes de o documento entrar no repositório, em 30/10/2026. Retirada a estimativa em pontos de história, que o grupo não pratica (DEF-014): a DoR, o risco R3 e os critérios 1, 3 e 4 de replanejamento deixam de citar pontos, e a M2 passa a medir as tarefas concluídas. | Eduardo |
+| 23/11/2026 | 1.6 | Decisões da Planning da Sprint 9 (19/11): US04b aceita, com o critério de aceitação ajustado ao protótipo; criação de conta (US13a e US13b) no backlog como item 13, com o cenário CEN-08 e o perfil Aluno atualizado; rodada 1 de usabilidade com 3 estudantes, depois de a criação de conta estar publicada, na seção 5.1, no risco R6 e na Tabela 1; Tabela 1 com o escopo da Sprint 9 e as datas de apresentação do software; desempenho identificado como REQ-13 na seção 6.1. | Eduardo |
 
 ## Sumário
 
@@ -187,9 +188,9 @@ O percentual é atualizado na Sprint Review de cada sprint, e toda mudança de e
 | Sprint 5 | Prototipar as telas | 22/10/26 | 28/10/26 | Protótipo no Figma | - | DEV, QA, DES | 100% |
 | Sprint 6 | Base técnica e disciplinas | 29/10/26 | 04/11/26 | Estrutura do back-end, banco, CI, deploy, GET/disciplinas, autenticação no back-end | Escopo replanejado na v1.2 (10/11): o plano anterior, de 11 sprints, previa também o login e as telas Início e Matérias, que passaram para a Sprint 7, e o plano passou a ter 10 sprints. As pendências registradas nas atas 7 e 8 foram concluídas durante a Sprint 7, e a milestone foi fechada em 10/11 | DEV, QA, SM | 100% do escopo replanejado |
 | Sprint 7 | Primeira versão utilizável pelo aluno | 05/11/26 | 11/11/26 | Tela de login, Início com disciplinas e próximas entregas, página da disciplina com entregas e materiais, Agenda Kanban, Visão v1.2; concluir entrega e progresso por disciplina, adiantados da Sprint 8 | Releases v0.1.0 e v0.1.1 na main em 11/11 (prevista para 09/11); Ponto de Controle em 11/11, sem apontamentos significativos; Review feita presencialmente em sala | Todos | 100% |
-| Sprint 8 | Agenda filtrada e documentação alinhada | 12/11/26 | 18/11/26 | Filtro por disciplina na Agenda (US04b, adiantada da Sprint 9); documentação sem trabalho em pares; registro das métricas das Sprints 6 e 7; Visão v1.4; Documento de Arquitetura com a correção do professor; reexecução de CT-03, CT-04, CT-05 e CT-07 | Inspeção mútua entre os grupos em 16/11 (Perlman: aprovado com ressalvas); Review em 18/11 ([ata 9](atas-reuniao/ata-reuniao-9.md)): US04b não entregue e levada para a Sprint 9 pelo critério 3 de replanejamento; três PRs de tarefas integrados à developer em 18/11 (#115, #141 e #142) | Todos | 83% (5 de 6 entregáveis) |
-| Sprint 9 | Validação e ajustes | 19/11/26 | 25/11/26 | Filtro por disciplina na Agenda (US04b, não entregue na Sprint 8); testes de usabilidade com 2 alunos (rodada 1); reparos dos defeitos da inspeção | Testes de usabilidade (rodada 1) | Todos | 0% |
-| Sprint 10 | Entregar o produto | 26/11/26 | 02/12/26 | Anotações, se couber; testes de usabilidade com 2 alunos (rodada 2); execução de CT-01 a CT-10; correções; congelamento do código, release v1.0.0 | Testes de usabilidade (rodada 2); apresentação final | Todos | 0% |
+| Sprint 8 | Agenda filtrada e documentação alinhada | 12/11/26 | 18/11/26 | Filtro por disciplina na Agenda (US04b, adiantada da Sprint 9); documentação sem trabalho em pares; registro das métricas das Sprints 6 e 7; Visão v1.4; Documento de Arquitetura com a correção do professor; reexecução de CT-03, CT-04, CT-05 e CT-07 | Inspeção mútua entre os grupos em 16/11 (Perlman: aprovado com ressalvas); Review em 18/11 ([ata 9](atas-reuniao/ata-reuniao-9.md)): US04b não entregue e levada para a Sprint 9 pelo critério 3 de replanejamento; três PRs de tarefas integrados à developer em 18/11 (#115, #141 e #142); a US04b foi aceita depois, na Planning da Sprint 9, em 19/11 | Todos | 83% (5 de 6 entregáveis) |
+| Sprint 9 | Validação e ajustes | 19/11/26 | 25/11/26 | Criação de conta (US13a); testes de usabilidade com 3 estudantes (rodada 1), depois de a criação de conta estar publicada; reparos dos defeitos da inspeção; Visão v1.6 e Documento de Arquitetura v1.4; US13b, se couber | Planning em 19/11: US04b aceita, com o critério ajustado ao protótipo; testes de usabilidade (rodada 1) | Todos | Em andamento |
+| Sprint 10 | Entregar o produto | 26/11/26 | 02/12/26 | Anotações, se couber; testes de usabilidade (rodada 2); execução de CT-01 a CT-11 (e do CT-12, se a US13b entrar); correções; congelamento do código, release v1.0.0 | Testes de usabilidade (rodada 2); apresentação do software rodando, em 30/11 ou 02/12, conforme o cronograma da disciplina | Todos | 0% |
 
 *Fonte: elaborado pelo grupo (2026)*
 
@@ -221,7 +222,7 @@ Os riscos são avaliados em duas escalas de 1 a 3. Probabilidade: 1 = Improváve
 - **R3: Esforço subestimado (Exposição 6, alta).** Mitigação: na Planning, quebrar cada história em tarefas com responsável e prazo, e dividir a que não couber numa sprint. Contingência: mover Should/Could; registrar no cronograma. Responsável: PO.
 - **R4: Requisitos pouco claros (Exposição 4, média).** Mitigação: critérios de aceitação antes da Planning. Contingência: congelar a história e registrar no backlog. Responsável: PO.
 - **R5: Falta de dados acadêmicos reais (Exposição 6, alta).** Mitigação: carga inicial realista, sem dados pessoais. Contingência: cadastrar por migration antes dos testes. Responsável: PO.
-- **R6: Poucos alunos para testes de usabilidade (Exposição 6, alta).** Ocorreu: o grupo conta com 2 estudantes, e não 5, e os testes passaram a ser feitos em rodadas de 2 participantes por sprint, a partir da Sprint 9. Mitigação: confirmar os participantes de cada rodada na sprint anterior, de preferência pessoas diferentes a cada rodada; sessões remotas de até 20 min. Contingência: fazer a rodada com 1 participante e registrar a limitação, ou passá-la para o início da sprint seguinte. Responsável: Analista de Qualidade.
+- **R6: Poucos alunos para testes de usabilidade (Exposição 6, alta).** Ocorreu: o grupo não conseguiu os 5 estudantes previstos, e os testes passaram a ser feitos em rodadas pequenas, uma por sprint, a partir da Sprint 9; a rodada 1 tem 3 estudantes confirmados. Mitigação: confirmar os participantes de cada rodada na sprint anterior, de preferência pessoas diferentes a cada rodada; sessões remotas de até 20 min. Contingência: fazer a rodada com 1 participante e registrar a limitação, ou passá-la para o início da sprint seguinte. Responsável: Analista de Qualidade.
 - **R7: Serviço gratuito fora do ar na apresentação (Exposição 6, alta).** Mitigação: acordar o serviço 5 minutos antes. Contingência: apresentar pelo ambiente local. Responsável: Desenvolvedores.
 - **R8: Ausência de um integrante (Exposição 6, alta).** Ocorreu na Sprint 7, quando as tarefas de um integrante foram assumidas pelo PO. Mitigação: tarefas pequenas; pull requests revisados por outra pessoa; README atualizado. Contingência: outro integrante assume a tarefa, como o grupo combinou; o Scrum Master registra na ata e o PO repactua a sprint. Responsável: Scrum Master.
 
@@ -333,7 +334,7 @@ O Quadro 4 descreve os perfis de acesso previstos e suas permissões. Nesta vers
 | # | Nome do perfil | Características do perfil | Permissões de acesso |
 | --- | --- | --- | --- |
 | 1 | Administrador | Responsável por manter os perfis de acesso da aplicação, alterar usuários já existentes, fazer a gestão e manutenção interna do sistema. | Gerenciar contas e perfis de acesso; configurar disciplinas e períodos letivos; acesso de leitura irrestrito para fins de suporte |
-| 2 | Aluno | Estudante regularmente matriculado; usuário principal da plataforma, consome conteúdo, acompanha prazos e registra anotações | Visualizar agenda e conteúdos das disciplinas em que está matriculado; registrar/editar suas próprias anotações; visualizar seu painel de progresso |
+| 2 | Aluno | Estudante de EaD; usuário principal da plataforma, cria a própria conta (com a matrícula UnB opcional), consome conteúdo, acompanha prazos e registra anotações | Criar a própria conta; visualizar agenda e conteúdos das disciplinas em que está matriculado, incluindo as de exemplo, recebidas ao criar a conta; criar as próprias disciplinas; registrar/editar suas próprias anotações; visualizar seu painel de progresso |
 | 3 | Representante Escolar | Preposto da instituição de ensino responsável por publicar informações acadêmicas | Adicionar, remover e editar conteúdos e atividades |
 
 *Fonte: elaborado pelo grupo (2026)*
@@ -352,6 +353,7 @@ O Quadro 5 lista os cenários funcionais e as sprints em que cada um é desenvol
 | CEN-03 | Acompanhamento na Agenda Unificada (Kanban) | Sprint 7 a 9 |
 | CEN-04 | Controle e Progresso (marcar concluídas e atualizar barra) | Sprint 7 (adiantado da Sprint 8) |
 | CEN-05 | Criação e Gestão de Anotações (cadernos digitais) | Sprint 10 |
+| CEN-08 | Criação de conta e de disciplinas próprias | Sprint 9 (US13b, se couber) |
 
 *Fonte: elaborado pelo grupo (2026)*
 
@@ -424,9 +426,9 @@ O Product Backlog do projeto cAnCHA está organizado por ordem de prioridade. O 
 
 ### 10. Filtro da agenda (CEN-03 / REQ-04)
 
-- **Tipo:** Funcional | **MoSCoW:** Should | **Sprint:** 9 (planejada para a 8 e não entregue)
+- **Tipo:** Funcional | **MoSCoW:** Should | **Sprint:** 8 e 9 (não aceita na Review da Sprint 8; aceita em 19/11, na Planning da Sprint 9)
 - **História:** US04b: Como aluno, quero filtrar a agenda por disciplina, para focar em uma matéria.
-- **Critérios de Aceitação:** Dado o filtro com uma disciplina marcada, então só os cartões dela aparecem; ao limpar, voltam todos.
+- **Critérios de Aceitação:** Dado o filtro "Filtrar por matéria" da Agenda, com todas as matérias marcadas de início, quando o aluno desmarca uma matéria, então as entregas dela somem em todas as vistas (Mês, Semana, Lista e Quadro); quando a marca de novo, elas voltam. Dado o filtro ativo no Quadro, quando o aluno move um cartão, arrastando ou pelo seletor "Mover para", então a situação muda e é salva.
 - **Teste:** CT-05
 
 ### 11. Anotações (CEN-05 / REQ-06)
@@ -442,6 +444,13 @@ O Product Backlog do projeto cAnCHA está organizado por ordem de prioridade. O 
 - **História:** (Requisito técnico, verificado dentro de cada história.)
 - **Critérios de Aceitação:** Toda tela obtém os dados da API REST ao carregar e reflete uma alteração feita pelo aluno sem recarregar a página.
 - **Teste:** CT-08
+
+### 13. Criação de conta (CEN-08 / REQ-14)
+
+- **Tipo:** Funcional | **MoSCoW:** Should (US13a) e Could (US13b) | **Sprint:** 9 (a US13b, se couber)
+- **História:** US13a: Como aluno, quero criar a minha conta, para usar o cAnCHA sem depender de uma conta de teste. US13b: Como aluno, quero criar as minhas próprias disciplinas, para organizar no cAnCHA as matérias que eu curso de verdade.
+- **Critérios de Aceitação:** US13a: Dado o formulário com nome, e-mail, senha e confirmação válidos, quando o aluno envia, então a conta é criada e o Login mostra "Conta criada!". A matrícula UnB é opcional; se preenchida, tem 9 dígitos e não pode ser de outra conta. Dado um e-mail ou uma matrícula já cadastrados, então a conta não é criada e a tela avisa. A senha tem no mínimo 8 caracteres e é igual à confirmação, e o backend repete essas validações. Dada uma conta recém-criada, quando o aluno entra pela primeira vez, então já está matriculado nas disciplinas de exemplo, com progresso 0%, e não vê nada de outro aluno. US13b: Dado "Nova disciplina" em Matérias, quando o aluno informa nome e período, então a disciplina é criada sem entregas e aparece só para ele; o mesmo aluno não repete nome e período, e as disciplinas de exemplo continuam na conta.
+- **Teste:** CT-11 (US13a) e CT-12 (US13b)
 
 ### Fora desta versão (Won't)
 
@@ -485,9 +494,9 @@ Para o acompanhamento do projeto cAnCHA, a equipe adotará o método GQM (*Goal-
   - **Questão:** Os problemas encontrados numa rodada são corrigidos antes da seguinte?
     - **Métrica M12 (Problemas de usabilidade):** Problemas encontrados por rodada, classificados por gravidade (grave: impede concluir a tarefa; moderado: atrasa a tarefa ou exige ajuda; leve: incomoda sem atrasar). Valor esperado: todos os graves corrigidos antes da rodada seguinte. Coleta: Observador, que registra cada problema como issue no GitHub. Interpretação: Problema grave que se repete na rodada seguinte vira prioridade da próxima Planning.
 
-**Procedimento dos testes de usabilidade:** A partir da Sprint 9, cada sprint tem uma rodada com dois estudantes de EaD, de preferência pessoas diferentes a cada rodada, que usam o ambiente publicado em sessões de até 20 minutos. Cada participante executa cinco tarefas: T1, abrir uma disciplina indicada; T2, achar uma entrega e dizer o prazo; T3, dizer qual é a próxima entrega; T4, dizer quanto já concluiu; T5, marcar uma entrega como concluída. Um observador registra cliques, tempo, sucesso e respostas numa planilha, sem ajudar. Ao fim, o participante responde ao SUS. Se o mesmo estudante participar de mais de uma rodada, a disciplina e a entrega pedidas nas tarefas mudam, para reduzir o efeito de aprendizado. O serviço publicado é acordado 5 minutos antes de cada sessão (risco R7).
+**Procedimento dos testes de usabilidade:** A partir da Sprint 9, cada sprint tem uma rodada com estudantes de EaD, de preferência pessoas diferentes a cada rodada, que usam o ambiente publicado em sessões de até 20 minutos. A rodada 1, na Sprint 9, tem três estudantes e acontece depois de a criação de conta (US13a) estar publicada: cada participante começa criando a própria conta, que já recebe as disciplinas de exemplo. Cada participante executa cinco tarefas: T1, abrir uma disciplina indicada; T2, achar uma entrega e dizer o prazo; T3, dizer qual é a próxima entrega; T4, dizer quanto já concluiu; T5, marcar uma entrega como concluída. Um observador registra cliques, tempo, sucesso e respostas numa planilha, sem ajudar. Ao fim, o participante responde ao SUS. Se o mesmo estudante participar de mais de uma rodada, a disciplina e a entrega pedidas nas tarefas mudam, para reduzir o efeito de aprendizado. O serviço publicado é acordado 5 minutos antes de cada sessão (risco R7).
 
-Pela curva de Nielsen (2000), um participante encontra em média 31% dos problemas de uso, e dois encontram cerca de metade. O autor recomenda várias rodadas pequenas, com correções entre elas, e pelo menos três pessoas por perfil para cobrir a variedade de comportamentos. Por isso o grupo faz uma rodada por sprint, corrige os problemas graves antes da rodada seguinte (M12) e registra no resultado de cada rodada a limitação de ter só dois participantes. Com dois participantes, as metas de 80% de M8 e M10 só são atingidas quando os dois têm sucesso.
+Pela curva de Nielsen (2000), um participante encontra em média 31% dos problemas de uso, e dois encontram cerca de metade. O autor recomenda várias rodadas pequenas, com correções entre elas, e pelo menos três pessoas por perfil para cobrir a variedade de comportamentos. Por isso o grupo faz uma rodada por sprint, corrige os problemas graves antes da rodada seguinte (M12) e registra no resultado de cada rodada a limitação do número de participantes. Com três participantes, a rodada 1 alcança o mínimo de três pessoas por perfil que o autor recomenda; numa rodada com dois, as metas de 80% de M8 e M10 só são atingidas quando os dois têm sucesso.
 
 Os valores coletados a cada sprint ficam registrados na pasta de métricas da documentação, começando pelo [registro das Sprints 6 e 7](metricas/relatorio-sprints-6-e-7.md).
 
@@ -500,9 +509,9 @@ Os valores coletados a cada sprint ficam registrados na pasta de métricas da do
 A estratégia de testes do cAnCHA será baseada nos níveis de teste unitário, integração e sistema, complementados por testes funcionais e não funcionais. Alinhada ao processo de desenvolvimento, a estratégia preconiza:
 
 - **Ferramentas por nível:** Testes unitários usam JUnit 5 e Mockito no back-end, e Vitest e Testing Library no front-end. Testes de integração usam Spring Boot Test com banco H2 e Flyway. Testes de sistema são executados manualmente pelo roteiro da seção 6.2 no ambiente publicado (Render/Neon).
-- **Metas não funcionais:** Desempenho: 95% das consultas em até 2 segundos, medidas com o serviço já ativo. Cobertura: pelo menos 80% no back-end e 70% no front-end, medidas com JaCoCo e Vitest.
+- **Metas não funcionais:** Desempenho (REQ-13): 95% das consultas em até 2 segundos, medidas com o serviço já ativo. Cobertura: pelo menos 80% no back-end e 70% no front-end, medidas com JaCoCo e Vitest.
 - **Registro de defeitos:** Todo teste recusado gera uma issue com a label `bug`, ligada ao caso de teste e à história afetada.
-- **Calendário de execução:** Sprint 7: CT-01 a CT-05, CT-07 e CT-08, registrados no [relatório de testes da Sprint 7](testes/relatorio-sprint-7.md). Sprint 8: reexecução de CT-03, CT-04, CT-05 e CT-07 na versão publicada, feita na Review de 18/11 ([ata 9](atas-reuniao/ata-reuniao-9.md)). Sprint 9: CT-05 com o filtro da Agenda (US04b) e rodada 1 dos testes de usabilidade. Sprint 10: execução completa de CT-01 a CT-10 e rodada 2 dos testes de usabilidade. O CT-09 roda em toda integração contínua.
+- **Calendário de execução:** Sprint 7: CT-01 a CT-05, CT-07 e CT-08, registrados no [relatório de testes da Sprint 7](testes/relatorio-sprint-7.md). Sprint 8: reexecução de CT-03, CT-04, CT-05 e CT-07 na versão publicada, feita na Review de 18/11 ([ata 9](atas-reuniao/ata-reuniao-9.md)). Sprint 9: CT-05 com o filtro da Agenda (US04b), CT-11 com a criação de conta (US13a) e rodada 1 dos testes de usabilidade, com 3 estudantes. Sprint 10: execução completa de CT-01 a CT-11, mais o CT-12 se a US13b entrar, e rodada 2 dos testes de usabilidade. O CT-09 roda em toda integração contínua.
 
 ## 6.2 Roteiro de teste
 
