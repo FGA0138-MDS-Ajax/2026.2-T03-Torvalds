@@ -27,9 +27,14 @@ function digitar(rotulo, valor) {
   fireEvent.change(screen.getByLabelText(rotulo), { target: { value: valor } })
 }
 
-function preencher({ senha = 'senha1234', confirmacao = senha } = {}) {
+function preencher({
+  senha = 'senha1234',
+  confirmacao = senha,
+  matricula,
+} = {}) {
   digitar('Nome completo', 'Ana Souza')
   digitar('E-mail', 'ana@exemplo.com')
+  if (matricula !== undefined) digitar('Matrícula UnB (opcional)', matricula)
   digitar('Senha', senha)
   digitar('Confirmar senha', confirmacao)
 }
@@ -57,6 +62,17 @@ describe('validarCadastro', () => {
     ).toMatch(/pelo menos 8/)
     expect(validarCadastro({ ...ok, confirmacao: 'outra1234' })).toMatch(
       /não conferem/,
+    )
+  })
+
+  it('aceita matrícula vazia ou com 9 dígitos e recusa o resto', () => {
+    expect(validarCadastro({ ...ok, matricula: '' })).toBe('')
+    expect(validarCadastro({ ...ok, matricula: '123456789' })).toBe('')
+    expect(validarCadastro({ ...ok, matricula: '12345678' })).toMatch(
+      /9 dígitos/,
+    )
+    expect(validarCadastro({ ...ok, matricula: '12345678a' })).toMatch(
+      /9 dígitos/,
     )
   })
 })
@@ -135,7 +151,38 @@ describe('CadastroPage', () => {
     cadastrar()
 
     expect(await screen.findByRole('alert')).toHaveTextContent(
-      'Já existe uma conta',
+      'e-mail ou esta matrícula já está cadastrado',
     )
+  })
+
+  it('não envia com matrícula de menos de 9 dígitos', async () => {
+    abrir()
+    preencher({ matricula: '12345' })
+    cadastrar()
+
+    expect(await screen.findByRole('alert')).toHaveTextContent('9 dígitos')
+    expect(fetch).not.toHaveBeenCalled()
+  })
+
+  it('envia a matrícula quando preenchida', async () => {
+    fetch.mockResolvedValue(
+      new Response(JSON.stringify({ id: 1 }), {
+        status: 201,
+        headers: { 'Content-Type': 'application/json' },
+      }),
+    )
+    abrir()
+    preencher({ matricula: '123456789' })
+    cadastrar()
+
+    await waitFor(() =>
+      expect(screen.getByText('Tela de login')).toBeInTheDocument(),
+    )
+    expect(JSON.parse(fetch.mock.calls[0][1].body)).toEqual({
+      nome: 'Ana Souza',
+      email: 'ana@exemplo.com',
+      senha: 'senha1234',
+      matriculaUnB: '123456789',
+    })
   })
 })

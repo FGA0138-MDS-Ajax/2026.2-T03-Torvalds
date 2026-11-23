@@ -14,7 +14,15 @@ const DIFERENCIAIS = [
   ['Conteúdo do professor', 'Materiais e avisos junto das suas matérias.'],
 ]
 
-function Campo({ id, rotulo, tipo = 'text', autoComplete, icone }) {
+function Campo({
+  id,
+  rotulo,
+  tipo = 'text',
+  autoComplete,
+  icone,
+  obrigatorio = true,
+  ...extras
+}) {
   return (
     <div className="login-field">
       <label className="visually-hidden" htmlFor={id}>
@@ -29,7 +37,8 @@ function Campo({ id, rotulo, tipo = 'text', autoComplete, icone }) {
         type={tipo}
         placeholder={rotulo}
         autoComplete={autoComplete}
-        required
+        required={obrigatorio}
+        {...extras}
       />
     </div>
   )
@@ -59,6 +68,13 @@ const ICONE_EMAIL = iconeSvg(
     <path d="m3 7 9 6 9-6" />
   </>,
 )
+const ICONE_MATRICULA = iconeSvg(
+  <>
+    <rect x="3" y="5" width="18" height="14" rx="2" />
+    <circle cx="9" cy="11" r="2" />
+    <path d="M6 16c0-1.5 1.5-2.5 3-2.5s3 1 3 2.5M15 10h3M15 13h3" />
+  </>,
+)
 const ICONE_SENHA = iconeSvg(
   <>
     <rect x="5" y="10" width="14" height="11" rx="2" />
@@ -79,6 +95,7 @@ export default function CadastroPage() {
     const valores = {
       nome: String(dados.get('nome')),
       email: String(dados.get('email')),
+      matricula: String(dados.get('matricula')).trim(),
       senha: String(dados.get('senha')),
       confirmacao: String(dados.get('confirmacao')),
     }
@@ -93,13 +110,18 @@ export default function CadastroPage() {
     setCarregando(true)
 
     try {
-      await cadastrar(valores.nome.trim(), valores.email.trim(), valores.senha)
+      await cadastrar(
+        valores.nome.trim(),
+        valores.email.trim(),
+        valores.senha,
+        valores.matricula,
+      )
       navegar('/login', { state: { cadastrado: true } })
     } catch (falha) {
       if (falha.status === 404 || falha.status === 405) {
         setErro('O cadastro ainda não está disponível no servidor.')
       } else if (falha.status === 409) {
-        setErro('Já existe uma conta com esse e-mail.')
+        setErro('Este e-mail ou esta matrícula já está cadastrado.')
       } else {
         setErro(falha.message || 'Não foi possível cadastrar. Tente novamente.')
       }
@@ -148,6 +170,17 @@ export default function CadastroPage() {
                   tipo="email"
                   autoComplete="email"
                   icone={ICONE_EMAIL}
+                />
+              </div>
+              <div className="cadastro-linha-cheia">
+                <Campo
+                  id="matricula"
+                  rotulo="Matrícula UnB (opcional)"
+                  autoComplete="off"
+                  icone={ICONE_MATRICULA}
+                  obrigatorio={false}
+                  inputMode="numeric"
+                  maxLength={9}
                 />
               </div>
               <Campo
