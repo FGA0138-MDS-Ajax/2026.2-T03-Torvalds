@@ -12,6 +12,7 @@ import PerfilPage from './features/perfil/PerfilPage'
 import EmBreve from './shared/components/EmBreve'
 import PaginaNaoEncontrada from './shared/components/PaginaNaoEncontrada'
 import LayoutBase from './shared/layout/LayoutBase'
+import TituloDaPagina from './shared/layout/TituloDaPagina'
 
 function RotaLogin() {
   const { perfil, entrar } = useSessao()
@@ -35,30 +36,33 @@ function RotaCadastro() {
 
 function App() {
   return (
-    <Routes>
-      <Route path="/login" element={<RotaLogin />} />
-      <Route path="/cadastro" element={<RotaCadastro />} />
-      <Route element={<RotaProtegida />}>
-        <Route element={<LayoutBase />}>
-          <Route index element={<InicioPage />} />
-          <Route path="materias" element={<MateriasPage />} />
-          <Route path="disciplinas/:id" element={<PaginaDisciplina />} />
-          <Route path="agenda" element={<AgendaPage />} />
-          <Route
-            path="anotacoes"
-            element={
-              <EmBreve
-                titulo="Anotações"
-                descricao="Aqui você vai escrever e organizar as anotações de cada matéria."
-              />
-            }
-          />
-          <Route path="configuracoes" element={<ConfiguracoesPage />} />
-          <Route path="perfil" element={<PerfilPage />} />
+    <>
+      <TituloDaPagina />
+      <Routes>
+        <Route path="/login" element={<RotaLogin />} />
+        <Route path="/cadastro" element={<RotaCadastro />} />
+        <Route element={<RotaProtegida />}>
+          <Route element={<LayoutBase />}>
+            <Route index element={<InicioPage />} />
+            <Route path="materias" element={<MateriasPage />} />
+            <Route path="disciplinas/:id" element={<PaginaDisciplina />} />
+            <Route path="agenda" element={<AgendaPage />} />
+            <Route
+              path="anotacoes"
+              element={
+                <EmBreve
+                  titulo="Anotações"
+                  descricao="Aqui você vai escrever e organizar as anotações de cada matéria."
+                />
+              }
+            />
+            <Route path="configuracoes" element={<ConfiguracoesPage />} />
+            <Route path="perfil" element={<PerfilPage />} />
+          </Route>
         </Route>
-      </Route>
-      <Route path="*" element={<PaginaNaoEncontrada />} />
-    </Routes>
+        <Route path="*" element={<PaginaNaoEncontrada />} />
+      </Routes>
+    </>
   )
 }
 
