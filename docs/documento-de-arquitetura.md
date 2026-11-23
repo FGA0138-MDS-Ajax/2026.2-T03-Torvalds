@@ -1,20 +1,26 @@
 # Documento de Arquitetura do cAnCHA
 
-**Versão 1.3**
+**Versão 1.4**
 
 ## Integrantes do Grupo
+
+A Tabela 1 apresenta os integrantes do grupo, a função de cada um, igual à do Documento de Visão, e os pontos de participação na elaboração deste documento.
+
+**Tabela 1 – Integrantes do grupo e participação na elaboração do documento**
 
 | Matrícula | Nome | Função (responsabilidade) | Pontos de participação na elaboração |
 | --- | --- | --- | --- |
 | 232014692 | João Lucas R. Cabral | Designer/QA | 16 |
 | 242015719 | Thiago Kauã de Sousa Cardoso | Desenvolvedor | 14 |
-| 251036440 | Eduardo Viana Ribeiro da Silva | Product Owner/Desenvolvedor | 14 |
-| 232024554 | Ana Jullia Barbara Mendes Lopes | QA/Scrum Master | 14 |
-| 232014469 | Jefferson de Souza Reis | Scrum Master | 14 |
+| 251036440 | Eduardo Viana Ribeiro da Silva | Product Owner | 14 |
+| 232024554 | Ana Jullia Barbara Mendes Lopes | Scrum Master/QA | 14 |
+| 232014469 | Jefferson de Souza Reis | Desenvolvedor | 14 |
 | 241040341 | Pedro Henrique Galdino de Andrade Wollmann | Desenvolvedor | 0 |
 | 231036800 | Gustavo Linhares Lima | Desenvolvedor | 14 |
 | 242004967 | Pedro Lucas Souza Silva | Desenvolvedor | 14 |
 | **Total de pontos** | | | **100** |
+
+*Fonte: elaborado pelo grupo (2026)*
 
 ## Histórico de Revisões
 
@@ -24,6 +30,7 @@
 | 18/10/2026 | 1.1 | Troca do nome do aplicativo. | João Lucas / Ana Jullia |
 | 16/11/2026 | 1.2 | Correções da avaliação do professor: tabela de participação; nome cAnCHA em todo o documento; diagramas de casos de uso, pacotes, classes, componentes e implantação refeitos em notação UML; metas da seção 2.4 com forma de verificação; seção 2.7 sem repetir a 2.4. | Eduardo |
 | 18/11/2026 | 1.3 | Correções da inspeção do grupo Perlman: citações no padrão ABNT no texto e referências com data; módulo notification retirado do texto e dos diagramas de pacotes e de classes, por não ter requisito no Documento de Visão. | Eduardo |
+| 23/11/2026 | 1.4 | Criação de conta pelo aluno (US13a): caso de uso "Criar conta" na Figura 2, seção 2.5.1, Quadros 2 e 3 e seção 2.7.1. Funções da Tabela 1 iguais às do Documento de Visão, com Ana Jullia como Scrum Master; tabela de integrantes numerada, citada no texto e com fonte (DEF-002, DEF-039, DEF-052). | Eduardo |
 
 # 1 INTRODUÇÃO
 
@@ -93,7 +100,7 @@ As visões a seguir mostram a arquitetura sob quatro pontos de vista (BASS; CLEM
 
 ### 2.5.1 Visão de uso
 
-O Aluno consulta disciplinas, entregas, agenda e progresso e registra anotações; o Representante Escolar publica conteúdos e entregas; e o Administrador mantém contas, perfis, disciplinas e períodos. Nesta versão, só o perfil Aluno é implementado; os casos de uso tracejados são previstos. A Figura 2 apresenta o diagrama de casos de uso.
+O Aluno cria a própria conta, consulta disciplinas, entregas, agenda e progresso e registra anotações; o Representante Escolar publica conteúdos e entregas; e o Administrador mantém contas, perfis, disciplinas e períodos. Nesta versão, só o perfil Aluno é implementado; os casos de uso tracejados são previstos. A Figura 2 apresenta o diagrama de casos de uso.
 
 **Figura 2 – Diagrama de casos de uso do cAnCHA**
 
@@ -118,6 +125,7 @@ O Quadro 2 relaciona os requisitos do Documento de Visão às decisões arquitet
 | REQ-02 – Navegação rasa (regra dos 3 cliques) | Rotas rasas, menu fixo e tela Início com as disciplinas (seção 2.4). |
 | REQ-04 e REQ-05 – Agenda unificada e painel de progresso | Módulos de agenda e de progresso no servidor, que reúnem os dados de todas as disciplinas em uma única chamada. |
 | REQ-07 – Dados sempre vindos da API | API REST com contrato documentado (OpenAPI) e atualização das telas sem recarregar a página. |
+| REQ-14 – Criação de conta pelo aluno (US13a) | Endpoint `POST /auth/cadastro` no módulo `auth`, o único da API, além do login, que não exige token; senha guardada só como hash BCrypt; a conta nova é matriculada nas disciplinas de exemplo no próprio cadastro. |
 | Perfis de acesso do Documento de Visão (Aluno, Representante Escolar e Administrador) | Autenticação por JWT e autorização por perfil nos filtros do Spring Security. |
 | Equipe de oito integrantes, sprints semanais e tecnologias novas para parte do grupo | Estilo em camadas e backend como monólito modular, com módulos que podem ser desenvolvidos em paralelo. |
 | Estratégia de testes (seção 6 do Documento de Visão) | Camadas com responsabilidades isoladas, que permitem testes unitários nos Services e de integração na API. |
@@ -132,7 +140,7 @@ O cAnCHA é dividido em módulos funcionais. No backend, cada módulo é um paco
 
 | Pacote (backend) | Pasta (frontend) | Responsabilidade | Situação na versão v0.1.1 |
 | --- | --- | --- | --- |
-| `com.cancha.auth` | `features/auth`, `shared/auth` | Autentica o usuário, emite e valida os tokens JWT e informa quem é o aluno autenticado aos demais módulos, que não reimplementam a regra de segurança. | Implementado |
+| `com.cancha.auth` | `features/auth`, `shared/auth` | Cria a conta do aluno, autentica o usuário, emite e valida os tokens JWT e informa quem é o aluno autenticado aos demais módulos, que não reimplementam a regra de segurança. | Implementado; a criação de conta (US13a) está em desenvolvimento na Sprint 9 |
 | `com.cancha.discipline` | `features/materias`, `features/disciplinas` | Disciplinas do aluno, matrículas e conteúdos (materiais) de cada disciplina; é o módulo central da metáfora do caderno. | Implementado (leitura; a escrita de conteúdos fica com o Representante Escolar, fora desta versão) |
 | `com.cancha.agenda` | `features/agenda`, `features/inicio` | Reúne as entregas de todas as disciplinas na agenda Kanban e nas próximas entregas do Início, e registra a situação de cada entrega para cada aluno (ProgressoAtividade). | Implementado |
 | `com.cancha.progress` | barras de progresso em `features/inicio`, `features/materias` e `features/disciplinas` | Calcula o percentual concluído por disciplina e no semestre, a partir das entregas (agenda) e das matrículas (discipline). Não tem persistência própria. | Parcial: o cálculo está hoje em `com.cancha.agenda`; o pacote existe sem classes |
@@ -215,8 +223,8 @@ As metas de desempenho, navegação, segurança e testabilidade estão na seçã
 
 ### 2.7.1 Restrições negociais e de acesso
 
-* Não há uso anônimo: toda funcionalidade exige login.
-* Nesta versão, as contas, as disciplinas e as matrículas entram por migração. Não há cadastro pelo próprio aluno nem interface de administração (US11 e US12 estão fora desta versão).
+* Não há uso anônimo: toda funcionalidade exige login, exceto criar a conta.
+* O aluno cria a própria conta (US13a), com a matrícula UnB opcional, e a conta nova já recebe as disciplinas de exemplo. As demais disciplinas, as entregas e os conteúdos entram por migração. Não há interface de administração nem de publicação de conteúdos (US11 e US12 estão fora desta versão).
 * Os perfis Representante Escolar e Administrador estão no modelo de domínio, mas suas funcionalidades não fazem parte desta versão.
 
 ### 2.7.2 Características de qualidade
