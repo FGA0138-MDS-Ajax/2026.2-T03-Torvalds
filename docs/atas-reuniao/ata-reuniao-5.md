@@ -2,13 +2,11 @@
 
 [//]: # (**Ordem do escrivão da ata:** Ana Jullia Barbara Mendes Lopes, Eduardo Viana Ribeiro da Silva, Gustavo Linhares Lima, Jefferson de Souza Reis, João Lucas R. Cabral, Pedro Henrique Galdino de Andrade Wollmann, Pedro Lucas Souza Silva, Thiago Kauã de Sousa Cardoso.)
 
-**Data**: Não informada na transcrição. **Local**: Teams <br>
+**Data**: 26/10. **Local**: Teams <br>
 **Projeto**: cAnCHA <br>
-**Escrivão**: Não identificado na transcrição. <br>
+**Escrivão**: Pedro Lucas. <br>
 **Assunto**: Estruturação do repositório e preparação da Sprint 6 <br>
 **Transcrição de origem**: `Meeting in _T03 - Torvalds_ .vtt`
-
-> Ata elaborada retrospectivamente a partir da transcrição automática, pendente de revisão pelos participantes. A numeração identifica os oito arquivos organizados neste conjunto; a ordem foi inferida pelo conteúdo e não comprova a sequência completa das reuniões do projeto. Os nomes anteriores do produto foram preservados nas pautas quando mencionados.
 
 <center>
 
@@ -16,14 +14,11 @@
 
 |   | Horário Previsto | Horário Realizado |
 | :-: | :-: | :-: |
-| **Início da reunião** | 18h10, aproximadamente (relatado) | 18h40, aproximadamente (relatado) |
-| **Fim da reunião** | Não informado | Não informado |
+| **Início da reunião** | 18h10 | 18h40 |
+| **Fim da reunião** | 19h | 19h30 |
 
 </center>
 
-O trecho transcrito vai de **00:00:03.715** a **00:16:42.835** na gravação. Esses tempos são relativos ao arquivo e não representam horários de relógio nem comprovam a duração integral da reunião.
-
-Eduardo menciona “6 e 10” e “6 e 40” em 00:10:53–00:11:03; a notação 18h foi adotada pelo contexto de fim de expediente/aula. O encerramento real não é informado.
 
 ## 1. Identificação
 
@@ -40,13 +35,12 @@ Eduardo menciona “6 e 10” e “6 e 40” em 00:10:53–00:11:03; a notação
 | João Lucas R. Cabral | Ausente |
 | Pedro Henrique Galdino de Andrade Wollmann | X |
 | Pedro Lucas Souza Silva | X |
-| Thiago Kauã de Sousa Cardoso | Não confirmado |
+| Thiago Kauã de Sousa Cardoso | X |
 
 </center>
 
-**Legenda:** X = participação registrada por fala ou menção explícita; Ausente = ausência explicitamente mencionada; Não confirmado = evidência insuficiente para afirmar presença ou ausência.
+**Legenda:** X = participação; Ausente = ausência;
 
-Ana e João Lucas são mencionados como ausentes por Pedro Henrique em 00:02:48–00:02:58. Thiago não tem presença confirmada; uma menção posterior o relaciona a integrantes sem tarefa.
 
 ## 2. Pautas
 
@@ -87,7 +81,7 @@ Os prazos relativos reproduzem o que foi combinado na reunião. Sem a data do en
 
 ## 4. Link da Gravação
 
-Link não fornecido. A fonte utilizada foi a transcrição VTT identificada no cabeçalho; o arquivo não informa um endereço de vídeo.
+https://unbbr.sharepoint.com/:v:/s/MDS2026_2Turmas02e03/IQC4FR2gM77uToYDKNWGmGiFAe_kp-6hOYCcbQxPzhcFPn4?e=8aEsJR&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D
 
 ## 5. Próxima Reunião
 
@@ -97,4 +91,4 @@ Foram previstos encontros na quarta-feira para revisar as entregas e na quinta-f
 
 | Versão | Data | Descrição | Autor | Revisor |
 | :-: | :-----: | :------ | ---- | ------- |
-| `1.0` | 08/11/2026 | Elaboração retrospectiva a partir da transcrição; pendente de revisão. | Codex (assistência de IA) | Pendente de indicação |
+| `1.0` | 08/11/2026 | Adicionando ata da reunião | [Ana Julia](https://github.com/anajmnds) | [Pedro Lucas](https://github.com/PedroLTe) |

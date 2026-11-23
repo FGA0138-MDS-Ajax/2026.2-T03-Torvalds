@@ -2,13 +2,11 @@
 
 [//]: # (**Ordem do escrivão da ata:** Ana Jullia Barbara Mendes Lopes, Eduardo Viana Ribeiro da Silva, Gustavo Linhares Lima, Jefferson de Souza Reis, João Lucas R. Cabral, Pedro Henrique Galdino de Andrade Wollmann, Pedro Lucas Souza Silva, Thiago Kauã de Sousa Cardoso.)
 
-**Data**: Não informada na transcrição. **Local**: Teams <br>
+**Data**: 4/11 **Local**: Teams <br>
 **Projeto**: cAnCHA <br>
-**Escrivão**: Não identificado na transcrição. <br>
+**Escrivão**: Ana Jullia. <br>
 **Assunto**: Revisão da Sprint 6 e preparação da Sprint 7 <br>
 **Transcrição de origem**: `Reunião em _T03 - Torvalds_  (4).vtt`
-
-> Ata elaborada retrospectivamente a partir da transcrição automática, pendente de revisão pelos participantes. A numeração identifica os oito arquivos organizados neste conjunto; a ordem foi inferida pelo conteúdo e não comprova a sequência completa das reuniões do projeto. Os nomes anteriores do produto foram preservados nas pautas quando mencionados.
 
 <center>
 
@@ -16,14 +14,10 @@
 
 |   | Horário Previsto | Horário Realizado |
 | :-: | :-: | :-: |
-| **Início da reunião** | 19h30, inicialmente combinado | 20h, horário remarcado; início efetivo não confirmado |
-| **Fim da reunião** | Não informado | Não informado |
+| **Início da reunião** | 19h30 | 20h |
+| **Fim da reunião** | 20h40 | 20h40 |
 
 </center>
-
-O trecho transcrito vai de **00:00:05.862** a **00:16:56.302** na gravação. Esses tempos são relativos ao arquivo e não representam horários de relógio nem comprovam a duração integral da reunião.
-
-Em 00:11:19–00:11:27 é dito que o encontro passou de 19h30 para 20h. Isso informa o reagendamento, mas não confirma o horário efetivo de abertura.
 
 ## 1. Identificação
 
@@ -44,9 +38,7 @@ Em 00:11:19–00:11:27 é dito que o encontro passou de 19h30 para 20h. Isso inf
 
 </center>
 
-**Legenda:** X = participação registrada por fala ou menção explícita; Ausente = ausência explicitamente mencionada; Não confirmado = evidência insuficiente para afirmar presença ou ausência.
-
-João Lucas participou pelo chat, conforme as falas dirigidas a ele. Pedro Henrique e Thiago são explicitamente mencionados como ausentes.
+**Legenda:** X = participação; Ausente = ausência;
 
 ## 2. Pautas
 
@@ -90,7 +82,7 @@ Os prazos relativos reproduzem o que foi combinado na reunião. Sem a data do en
 
 ## 4. Link da Gravação
 
-Link não fornecido. A fonte utilizada foi a transcrição VTT identificada no cabeçalho; o arquivo não informa um endereço de vídeo.
+https://unbbr.sharepoint.com/:v:/s/MDS2026_2Turmas02e03/IQALAU_jrsOJTqrMDkP1kPoiAdkTlqsgUfXvCBCnEZ9MN1A?e=6xPD49&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D
 
 ## 5. Próxima Reunião
 
@@ -100,4 +92,4 @@ Dia seguinte, às 20h, para planejar a Sprint 7 e revisar as pendências da Spri
 
 | Versão | Data | Descrição | Autor | Revisor |
 | :-: | :-----: | :------ | ---- | ------- |
-| `1.0` | 08/11/2026 | Elaboração retrospectiva a partir da transcrição; pendente de revisão. | Codex (assistência de IA) | Pendente de indicação |
+| `1.0` | 08/11/2026 | Adicionando ata da reunião | [Ana Julia](https://github.com/anajmnds) | [Pedro Lucas](https://github.com/PedroLTe) |

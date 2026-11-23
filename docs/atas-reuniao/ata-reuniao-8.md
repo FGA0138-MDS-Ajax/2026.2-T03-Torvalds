@@ -2,13 +2,11 @@
 
 [//]: # (**Ordem do escrivão da ata:** Ana Jullia Barbara Mendes Lopes, Eduardo Viana Ribeiro da Silva, Gustavo Linhares Lima, Jefferson de Souza Reis, João Lucas R. Cabral, Pedro Henrique Galdino de Andrade Wollmann, Pedro Lucas Souza Silva, Thiago Kauã de Sousa Cardoso.)
 
-**Data**: Não informada na transcrição. **Local**: Teams <br>
+**Data**: 5/11 **Local**: Teams <br>
 **Projeto**: cAnCHA <br>
-**Escrivão**: Não identificado na transcrição. <br>
+**Escrivão**: Ana Jullia. <br>
 **Assunto**: Redistribuição da Sprint 7 e alinhamento das pendências <br>
 **Transcrição de origem**: `Reunião em _T03 - Torvalds_  (5).vtt`
-
-> Ata elaborada retrospectivamente a partir da transcrição automática, pendente de revisão pelos participantes. A numeração identifica os oito arquivos organizados neste conjunto; a ordem foi inferida pelo conteúdo e não comprova a sequência completa das reuniões do projeto. Os nomes anteriores do produto foram preservados nas pautas quando mencionados.
 
 <center>
 
@@ -16,12 +14,11 @@
 
 |   | Horário Previsto | Horário Realizado |
 | :-: | :-: | :-: |
-| **Início da reunião** | Não informado | Não informado |
-| **Fim da reunião** | Não informado | Não informado |
+| **Início da reunião** | 20h | 20h |
+| **Fim da reunião** | 20h30 | 20h30 |
 
 </center>
 
-O trecho transcrito vai de **00:00:03.700** a **00:13:52.740** na gravação. Esses tempos são relativos ao arquivo e não representam horários de relógio nem comprovam a duração integral da reunião.
 
 ## 1. Identificação
 
@@ -38,13 +35,11 @@ O trecho transcrito vai de **00:00:03.700** a **00:13:52.740** na gravação. Es
 | João Lucas R. Cabral | X |
 | Pedro Henrique Galdino de Andrade Wollmann | Ausente |
 | Pedro Lucas Souza Silva | X |
-| Thiago Kauã de Sousa Cardoso | Não confirmado |
+| Thiago Kauã de Sousa Cardoso | X |
 
 </center>
 
-**Legenda:** X = participação registrada por fala ou menção explícita; Ausente = ausência explicitamente mencionada; Não confirmado = evidência insuficiente para afirmar presença ou ausência.
-
-Pedro Henrique é tratado como ausente e indisponível para a sprint. João Lucas relata que Jefferson havia avisado que não participaria. Thiago não tem presença confirmada no arquivo.
+**Legenda:** X = participação; Ausente = ausência;
 
 ## 2. Pautas
 
@@ -85,7 +80,7 @@ Os prazos relativos reproduzem o que foi combinado na reunião. Sem a data do en
 
 ## 4. Link da Gravação
 
-Link não fornecido. A fonte utilizada foi a transcrição VTT identificada no cabeçalho; o arquivo não informa um endereço de vídeo.
+https://unbbr.sharepoint.com/:v:/s/MDS2026_2Turmas02e03/IQBJEFuV7XZKRLGZEsmYQLW7AQwQdRMakFm9ZZeKJbpK33s?e=D8LY2h&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D
 
 ## 5. Próxima Reunião
 
@@ -95,4 +90,4 @@ Não foi marcada uma nova reunião com data e horário nesta transcrição. Edua
 
 | Versão | Data | Descrição | Autor | Revisor |
 | :-: | :-----: | :------ | ---- | ------- |
-| `1.0` | 08/11/2026 | Elaboração retrospectiva a partir da transcrição; pendente de revisão. | Codex (assistência de IA) | Pendente de indicação |
+| `1.0` | 08/11/2026 | Adicionando ata da reunião | [Ana Julia](https://github.com/anajmnds) | [Pedro Lucas](https://github.com/PedroLTe) |

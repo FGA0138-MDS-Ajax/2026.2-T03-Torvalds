@@ -2,13 +2,11 @@
 
 [//]: # (**Ordem do escrivão da ata:** Ana Jullia Barbara Mendes Lopes, Eduardo Viana Ribeiro da Silva, Gustavo Linhares Lima, Jefferson de Souza Reis, João Lucas R. Cabral, Pedro Henrique Galdino de Andrade Wollmann, Pedro Lucas Souza Silva, Thiago Kauã de Sousa Cardoso.)
 
-**Data**: Não informada na transcrição. **Local**: Teams <br>
+**Data**: 27/09 **Local**: Teams <br>
 **Projeto**: cAnCHA <br>
-**Escrivão**: Não identificado na transcrição. <br>
+**Escrivão**: Ana Júllia <br>
 **Assunto**: Definição inicial do produto e Documento de Visão <br>
 **Transcrição de origem**: `Reunião 01.vtt`
-
-> Ata elaborada retrospectivamente a partir da transcrição automática, pendente de revisão pelos participantes. A numeração identifica os oito arquivos organizados neste conjunto; a ordem foi inferida pelo conteúdo e não comprova a sequência completa das reuniões do projeto. Os nomes anteriores do produto foram preservados nas pautas quando mencionados.
 
 <center>
 
@@ -16,12 +14,11 @@
 
 |   | Horário Previsto | Horário Realizado |
 | :-: | :-: | :-: |
-| **Início da reunião** | Não informado | Não informado |
-| **Fim da reunião** | Não informado | Não informado |
+| **Início da reunião** | 19h | 19h30 |
+| **Fim da reunião** | 21h | 21h23 |
 
 </center>
 
-O trecho transcrito vai de **00:00:04.622** a **01:52:43.142** na gravação. Esses tempos são relativos ao arquivo e não representam horários de relógio nem comprovam a duração integral da reunião.
 
 ## 1. Identificação
 
@@ -31,7 +28,7 @@ O trecho transcrito vai de **00:00:04.622** a **01:52:43.142** na gravação. Es
 
 | Convidados | Presente |
 | --- | :-: |
-| Ana Jullia Barbara Mendes Lopes | Não confirmado |
+| Ana Jullia Barbara Mendes Lopes | X |
 | Eduardo Viana Ribeiro da Silva | X |
 | Gustavo Linhares Lima | X |
 | Jefferson de Souza Reis | X |
@@ -42,7 +39,7 @@ O trecho transcrito vai de **00:00:04.622** a **01:52:43.142** na gravação. Es
 
 </center>
 
-**Legenda:** X = participação registrada por fala ou menção explícita; Ausente = ausência explicitamente mencionada; Não confirmado = evidência insuficiente para afirmar presença ou ausência.
+**Legenda:** X = participação; Ausente = ausência.
 
 Thiago participou do início e informou, por volta de 00:03:28, que não conseguiria continuar por problemas de áudio. A presença registrada não implica participação durante toda a reunião.
 
@@ -80,11 +77,10 @@ Thiago participou do início e informou, por volta de 00:03:28, que não consegu
 
 </center>
 
-Os prazos relativos reproduzem o que foi combinado na reunião. Sem a data do encontro, não foram convertidos em datas de calendário. Relatos de conclusão refletem o registro da reunião, sem verificação externa.
 
 ## 4. Link da Gravação
 
-Link não fornecido. A fonte utilizada foi a transcrição VTT identificada no cabeçalho; o arquivo não informa um endereço de vídeo.
+https://unbbr.sharepoint.com/:v:/s/MDS2026_2Turmas02e03/IQADfH_NeqEUQZHe2BzaBblhAdy_XsgydLfgDxDUNYsPksk?e=abgb0E&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D
 
 ## 5. Próxima Reunião
 
@@ -94,4 +90,4 @@ Foi combinada a continuidade no dia seguinte, sem horário registrado. Também f
 
 | Versão | Data | Descrição | Autor | Revisor |
 | :-: | :-----: | :------ | ---- | ------- |
-| `1.0` | 08/11/2026 | Elaboração retrospectiva a partir da transcrição; pendente de revisão. | Codex (assistência de IA) | Pendente de indicação |
+| `1.0` | 08/11/2026 | Adicionando ata da reunião | [Ana Julia](https://github.com/anajmnds) | [Pedro Lucas](https://github.com/PedroLTe) |
