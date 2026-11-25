@@ -33,6 +33,7 @@ Os próximos passos, como o filtro da Agenda por disciplina e a criação de con
 | [Documento de Arquitetura](documento-de-arquitetura.md) | Estilo arquitetural, tecnologias, metas e as visões de casos de uso, lógica, de classes, de componentes e de implantação |
 | [Atas de reunião](atas-reuniao/index.md) | Registro das reuniões do grupo |
 | [Relatório de testes da Sprint 7](testes/relatorio-sprint-7.md) | Execução dos casos de teste funcionais |
+| [Materiais da rodada 1 de usabilidade](testes/rodada-1-usabilidade.md) | Roteiro do facilitador, gabarito, modelo de planilha do observador e formulário SUS |
 | [Registro de métricas](metricas/relatorio-sprints-6-e-7.md) | Valores das métricas do GQM por sprint |
 
 ## Como o grupo trabalha
