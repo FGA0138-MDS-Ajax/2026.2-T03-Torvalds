@@ -28,7 +28,7 @@
 | 11/11/2026 | 1.3 | Resultado da Sprint 7 na Sprint Review: entregáveis concluídos (100%) e release v0.1.0 publicada na main em 11/11, dois dias depois do previsto. | Eduardo |
 | 16/11/2026 | 1.4 | Processo alinhado ao praticado, sem trabalho em pares; testes de usabilidade com 2 estudantes por sprint a partir da Sprint 9, com métricas M6 a M12 e risco R6 ajustados; M4 medida nos pull requests; Ponto de Controle e Review da Sprint 7 registrados; Tabela 1, backlog, calendário e roteiro de testes atualizados; novo risco R8; quadros citados no texto. | Eduardo |
 | 19/11/2026 | 1.5 | Resultado da Sprint 8 registrado na Tabela 1, conforme a Review (ata 9): a US04b não foi entregue e passou para a Sprint 9 pelo critério 3 de replanejamento, com cenário, backlog e calendário de testes ajustados. Registro do replanejamento da Sprint 6 feito na v1.2: o plano passou de 11 para 10 sprints, e o login e as telas Início e Matérias passaram para a Sprint 7. Remissão da seção 2.1 corrigida. As versões 1.0 e 1.1 foram elaboradas antes de o documento entrar no repositório, em 30/10/2026. Retirada a estimativa em pontos de história, que o grupo não pratica (DEF-014): a DoR, o risco R3 e os critérios 1, 3 e 4 de replanejamento deixam de citar pontos, e a M2 passa a medir as tarefas concluídas. | Eduardo |
-| 23/11/2026 | 1.6 | Decisões da Planning da Sprint 9 (19/11): US04b aceita, com o critério de aceitação ajustado ao protótipo; criação de conta (US13a e US13b) no backlog como item 13, com o cenário CEN-08 e o perfil Aluno atualizado; rodada 1 de usabilidade com 3 estudantes, depois de a criação de conta estar publicada, na seção 5.1, no risco R6 e na Tabela 1; Tabela 1 com o escopo da Sprint 9 e as datas de apresentação do software; desempenho identificado como REQ-13 na seção 6.1. | Eduardo |
+| 23/11/2026 | 1.6 | Decisões da Planning da Sprint 9 (19/11): US04b aceita, com o critério de aceitação ajustado ao protótipo; criação de conta (US13a e US13b) no backlog como item 13, com o cenário CEN-08 e o perfil Aluno atualizado; rodada 1 de usabilidade com 3 estudantes, depois de a criação de conta estar publicada, na seção 5.1, no risco R6 e na Tabela 1; Tabela 1 com o escopo da Sprint 9 e as datas de apresentação do software; desempenho identificado como REQ-13 na seção 6.1. Complemento ao roteiro de testes (seção 6.2), entregue depois do merge da v1.6 (#170): CT-05 passa a verificar o filtro por matéria em todas as vistas da Agenda e novo CT-11 para a criação de conta; a tarefa T4 do procedimento de usabilidade passa a pedir a porcentagem concluída de uma matéria, redação definida na Sprint 8 e aplicada aqui. | Eduardo / João Lucas |
 
 ## Sumário
 
@@ -494,7 +494,7 @@ Para o acompanhamento do projeto cAnCHA, a equipe adotará o método GQM (*Goal-
   - **Questão:** Os problemas encontrados numa rodada são corrigidos antes da seguinte?
     - **Métrica M12 (Problemas de usabilidade):** Problemas encontrados por rodada, classificados por gravidade (grave: impede concluir a tarefa; moderado: atrasa a tarefa ou exige ajuda; leve: incomoda sem atrasar). Valor esperado: todos os graves corrigidos antes da rodada seguinte. Coleta: Observador, que registra cada problema como issue no GitHub. Interpretação: Problema grave que se repete na rodada seguinte vira prioridade da próxima Planning.
 
-**Procedimento dos testes de usabilidade:** A partir da Sprint 9, cada sprint tem uma rodada com estudantes de EaD, de preferência pessoas diferentes a cada rodada, que usam o ambiente publicado em sessões de até 20 minutos. A rodada 1, na Sprint 9, tem três estudantes e acontece depois de a criação de conta (US13a) estar publicada: cada participante começa criando a própria conta, que já recebe as disciplinas de exemplo. Cada participante executa cinco tarefas: T1, abrir uma disciplina indicada; T2, achar uma entrega e dizer o prazo; T3, dizer qual é a próxima entrega; T4, dizer quanto já concluiu; T5, marcar uma entrega como concluída. Um observador registra cliques, tempo, sucesso e respostas numa planilha, sem ajudar. Ao fim, o participante responde ao SUS. Se o mesmo estudante participar de mais de uma rodada, a disciplina e a entrega pedidas nas tarefas mudam, para reduzir o efeito de aprendizado. O serviço publicado é acordado 5 minutos antes de cada sessão (risco R7).
+**Procedimento dos testes de usabilidade:** A partir da Sprint 9, cada sprint tem uma rodada com estudantes de EaD, de preferência pessoas diferentes a cada rodada, que usam o ambiente publicado em sessões de até 20 minutos. A rodada 1, na Sprint 9, tem três estudantes e acontece depois de a criação de conta (US13a) estar publicada: cada participante começa criando a própria conta, que já recebe as disciplinas de exemplo. Cada participante executa cinco tarefas: T1, abrir uma disciplina indicada; T2, achar uma entrega e dizer o prazo; T3, dizer qual é a próxima entrega; T4, dizer a porcentagem concluída de uma matéria; T5, marcar uma entrega como concluída. Um observador registra cliques, tempo, sucesso e respostas numa planilha, sem ajudar. Ao fim, o participante responde ao SUS. Se o mesmo estudante participar de mais de uma rodada, a disciplina e a entrega pedidas nas tarefas mudam, para reduzir o efeito de aprendizado. O serviço publicado é acordado 5 minutos antes de cada sessão (risco R7).
 
 Pela curva de Nielsen (2000), um participante encontra em média 31% dos problemas de uso, e dois encontram cerca de metade. O autor recomenda várias rodadas pequenas, com correções entre elas, e pelo menos três pessoas por perfil para cobrir a variedade de comportamentos. Por isso o grupo faz uma rodada por sprint, corrige os problemas graves antes da rodada seguinte (M12) e registra no resultado de cada rodada a limitação do número de participantes. Com três participantes, a rodada 1 alcança o mínimo de três pessoas por perfil que o autor recomenda; numa rodada com dois, as metas de 80% de M8 e M10 só são atingidas quando os dois têm sucesso.
 
@@ -550,10 +550,11 @@ Os casos usam a carga de teste do banco (`aluno1@cancha.test` e `aluno2@cancha.t
 
 ### CT-05. Agenda e próximas entregas
 
-- **Objetivo:** Verificar a centralização e a ordem dos prazos.
-- **Pré-condições:** Logado como aluno1; carga com entregas em situações diferentes.
-- **Passos:** 1. Ler as próximas entregas no Início. 2. Abrir a Agenda.
-- **Resultado esperado:** 1: as 5 entregas não concluídas de prazo mais próximo, de todas as disciplinas, em ordem de prazo. 2: todas as entregas do aluno, cada uma na coluna da sua situação, em ordem de prazo; o total de cartões é igual ao total de entregas.
+- **Objetivo:** Verificar a centralização e a ordem dos prazos e o filtro por matéria em todas as vistas da Agenda.
+- **Pré-condições:** Logado como aluno1; carga com entregas em situações diferentes, em mais de uma disciplina.
+- **Dados de entrada:** Uma matéria do filtro e, depois, duas matérias ao mesmo tempo.
+- **Passos:** 1. Ler as próximas entregas no Início. 2. Abrir a Agenda. 3. Em cada vista da Agenda, desmarcar uma matéria no filtro. 4. Ainda em cada vista, deixar só duas matérias marcadas. 5. Com o filtro ativo, mover um cartão de coluna. 6. Limpar o filtro.
+- **Resultado esperado:** 1: as 5 entregas não concluídas de prazo mais próximo, de todas as disciplinas, em ordem de prazo. 2: todas as entregas do aluno, cada uma na coluna da sua situação, em ordem de prazo; o total de cartões é igual ao total de entregas. 3: a matéria desmarcada deixa de aparecer, e o filtro vale igual em todas as vistas da Agenda. 4: só as entregas das duas matérias marcadas aparecem, mantida a ordem por prazo. 5: o cartão muda de coluna e a situação é gravada, sem o filtro ser perdido. 6: todas as entregas voltam a aparecer.
 
 ### CT-06. Registro de anotação
 
@@ -593,6 +594,14 @@ Os casos usam a carga de teste do banco (`aluno1@cancha.test` e `aluno2@cancha.t
 - **Dados de entrada:** Credenciais do aluno1.
 - **Passos:** 1. Entrar. 2. Abrir MDS. 3. Abrir a primeira entrega pendente e ler o prazo. 4. Concluir. 5. Voltar ao Início.
 - **Resultado esperado:** Fluxo sem erros; o prazo confere com a lista da disciplina; o progresso de MDS e o do semestre aumentam com a entrega concluída, pela regra do CT-07; cada tela-alvo em até 3 cliques.
+
+### CT-11. Criação de conta
+
+- **Objetivo:** Verificar o cadastro de um aluno, com e sem matrícula UnB, a recusa de dados já cadastrados e o estado inicial da conta nova.
+- **Pré-condições:** Ambiente publicado; ninguém logado; um e-mail ainda sem conta e outro já cadastrado.
+- **Dados de entrada:** Nome, e-mail novo, senha de no mínimo 8 caracteres e a confirmação igual; uma matrícula UnB de 9 dígitos ainda não usada; um e-mail já cadastrado.
+- **Passos:** 1. Abrir o Cadastro e criar uma conta com matrícula UnB preenchida. 2. Criar outra conta com a matrícula em branco. 3. Tentar criar uma conta com um e-mail já cadastrado. 4. Tentar criar uma conta com a matrícula UnB de outra conta. 5. Enviar o formulário com a senha menor que 8 caracteres e com a confirmação diferente. 6. Entrar com uma das contas criadas e abrir o Início.
+- **Resultado esperado:** 1 e 2: a conta é criada e o Login mostra "Conta criada!"; a matrícula em branco não impede o cadastro. 3: a conta não é criada e a tela avisa que o e-mail já está cadastrado. 4: a conta não é criada e a tela avisa que a matrícula já está em uso. 5: a tela recusa o envio nos dois casos, e o back-end repete a validação. 6: o aluno já está matriculado nas 5 disciplinas de exemplo, cada uma com progresso 0% e nenhuma entrega concluída, e não vê dados de outro aluno.
 
 ---
 
