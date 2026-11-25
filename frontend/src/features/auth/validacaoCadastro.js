@@ -22,3 +22,19 @@ export function validarCadastro({
   }
   return ''
 }
+
+// O servidor responde 409 com a mensagem do caso: "E-mail já cadastrado.",
+// "Matrícula UnB já cadastrada." ou, numa corrida entre dois cadastros, as duas juntas.
+// Sem mensagem útil, o aviso fala dos dois dados.
+export function mensagemDeCadastroDuplicado(mensagemDoServidor = '') {
+  const falaDoEmail = /e-?mail/i.test(mensagemDoServidor)
+  const falaDaMatricula = /matr[ií]cula/i.test(mensagemDoServidor)
+
+  if (falaDoEmail && !falaDaMatricula) {
+    return 'Este e-mail já está cadastrado.'
+  }
+  if (falaDaMatricula && !falaDoEmail) {
+    return 'Esta matrícula UnB já está em uso.'
+  }
+  return 'Este e-mail ou esta matrícula UnB já está cadastrado.'
+}
