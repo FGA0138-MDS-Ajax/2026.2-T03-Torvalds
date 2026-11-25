@@ -50,12 +50,24 @@ protegidas devem enviar o cabeçalho:
 Não é mais utilizado o usuário provisório `user` com senha gerada no log.
 
 Rotas públicas:
+- POST /auth/cadastro.
 - POST /auth/login.
 - GET /actuator/health.
 - Documentação Swagger: /swagger-ui.html, /swagger-ui/** e /v3/api-docs/**.
 
 As demais rotas exigem autenticação. Tokens inválidos ou expirados recebem
 HTTP 401. A autenticação é stateless, sem sessão de usuário no servidor.
+
+### Criar conta
+
+`POST /auth/cadastro` cria uma conta de aluno com `nome`, `email`, `senha` e
+`matriculaUnB` opcional. A senha deve ter pelo menos 8 caracteres; quando
+informada, a matrícula deve conter 9 dígitos. A senha é armazenada com hash,
+e a conta é matriculada nas cinco disciplinas de exemplo, com progresso zero.
+
+- `201`: conta criada; a resposta contém apenas os dados públicos do aluno.
+- `400`: campos inválidos.
+- `409`: e-mail ou matrícula já cadastrados.
 
 `GET /disciplinas/{disciplinaId}/conteudos` lista os materiais publicados para
 uma disciplina do aluno autenticado. O aluno precisa estar matriculado nela;

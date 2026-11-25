@@ -1,5 +1,6 @@
 package com.cancha.common.exception;
 
+import com.cancha.auth.exception.CadastroDuplicadoException;
 import com.cancha.common.exception.ApiError.CampoInvalido;
 import jakarta.servlet.http.HttpServletRequest;
 import java.time.Instant;
@@ -52,6 +53,12 @@ public class GlobalExceptionHandler {
   public ResponseEntity<ApiError> tratarNaoEncontrado(
       RecursoNaoEncontradoException ex, HttpServletRequest request) {
     return resposta(HttpStatus.NOT_FOUND, ex.getMessage(), request, null);
+  }
+
+  @ExceptionHandler(CadastroDuplicadoException.class)
+  public ResponseEntity<ApiError> tratarCadastroDuplicado(
+      CadastroDuplicadoException ex, HttpServletRequest request) {
+    return resposta(HttpStatus.CONFLICT, ex.getMessage(), request, null);
   }
 
   @ExceptionHandler(NoResourceFoundException.class)
