@@ -9,7 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
-/** Confere os dados de exemplo criados pela V4, ampliados pela V7 e atualizados pela V9. */
+/** Confere a coerência dos dados de exemplo das entregas criados pela V4 e ampliados pela V7. */
 @SpringBootTest
 @Transactional
 class SeedEntregasIntegrationTest {
@@ -33,13 +33,11 @@ class SeedEntregasIntegrationTest {
         .containsExactly("Lista", "Prova", "Trabalho");
   }
 
-    @Test
-    void temPrazosVencidosEFuturos() {
-      assertThat(contar("select count(*) from entrega where prazo < localtimestamp"))
-          .isEqualTo(2);
-      assertThat(contar("select count(*) from entrega where prazo > localtimestamp"))
-          .isEqualTo(23);
-    }
+  @Test
+  void temPrazosVencidosEFuturos() {
+    assertThat(contar("select count(*) from entrega where prazo < localtimestamp")).isEqualTo(11);
+    assertThat(contar("select count(*) from entrega where prazo > localtimestamp")).isEqualTo(14);
+  }
 
   @Test
   void situacoesUsamSoOsValoresCombinados() {

@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 @Table(name = "aluno")
 public class Aluno extends Usuario {
 
-  @Column(name = "matricula_unb", unique = true, length = 20)
+  @Column(name = "matricula_unb", nullable = false, unique = true, length = 20)
   private String matriculaUnB;
 
   protected Aluno() {}

@@ -12,9 +12,9 @@ export async function carregarDisciplina(id, signal) {
       return null
     }),
   ])
-  const indice = disciplinas.findIndex((item) => String(item.id) === id)
-  if (indice < 0) throw new ApiError(404, 'Disciplina não encontrada.')
-  return { disciplina: disciplinas[indice], entregas, materiais, indice }
+  const disciplina = disciplinas.find((item) => String(item.id) === id)
+  if (!disciplina) throw new ApiError(404, 'Disciplina não encontrada.')
+  return { disciplina, entregas, materiais }
 }
 
 /**

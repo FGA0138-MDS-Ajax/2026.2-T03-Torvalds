@@ -63,11 +63,6 @@ function abrir() {
   )
 }
 
-// A Agenda abre no calendário do mês; os testes abaixo são do quadro de três colunas.
-async function abrirQuadro() {
-  fireEvent.click(await screen.findByRole('button', { name: 'Quadro' }))
-}
-
 function responderComPatch(statusPatch = 200) {
   vi.stubGlobal(
     'fetch',
@@ -202,7 +197,6 @@ describe('Página Agenda com integração GET /agenda', () => {
     })
 
     abrir()
-    await abrirQuadro()
 
     expect(await screen.findByText('Lista de exercícios 1')).toBeInTheDocument()
     expect(screen.getByText('Quiz semanal')).toBeInTheDocument()
@@ -220,7 +214,6 @@ describe('Página Agenda com integração GET /agenda', () => {
 
     // Estado carregando
     expect(screen.getByRole('status')).toHaveTextContent('Carregando agenda...')
-    await abrirQuadro()
 
     // Título e colunas
     expect(
@@ -237,17 +230,14 @@ describe('Página Agenda com integração GET /agenda', () => {
     ).toBeInTheDocument()
 
     // Itens exibidos com título, disciplina, tipo e prazo dd/mm
-    const cartao = screen.getByText('Lista 2: análise léxica').closest('li')
-
-    expect(cartao).toBeInTheDocument()
-    expect(within(cartao).getByText('Compiladores')).toBeInTheDocument()
-    expect(within(cartao).getByText('Lista')).toBeInTheDocument()
+    expect(screen.getByText('Lista 2: análise léxica')).toBeInTheDocument()
+    expect(screen.getByText('Compiladores')).toBeInTheDocument()
+    expect(screen.getByText('Lista')).toBeInTheDocument()
     expect(screen.getByText(/Prazo:\s*10\/11/)).toBeInTheDocument()
   })
 
   it('destaca atividades atrasadas', async () => {
     abrir()
-    await abrirQuadro()
 
     const itemAtrasado = await screen.findByText('Relatório atrasado')
     expect(itemAtrasado).toBeInTheDocument()
@@ -297,7 +287,6 @@ describe('Página Agenda com integração GET /agenda', () => {
     // Ao clicar em Tentar de novo com o serviço recuperado
     responderSucesso()
     fireEvent.click(botaoTentar)
-    await abrirQuadro()
 
     expect(
       await screen.findByText('Lista 2: análise léxica'),
@@ -341,11 +330,9 @@ describe('Página Agenda com integração GET /agenda', () => {
     )
 
     abrir()
-    await abrirQuadro()
 
-    const cartao = (await screen.findByText('Parser LR')).closest('li')
-
-    expect(within(cartao).getByText('Compiladores')).toBeInTheDocument()
+    expect(await screen.findByText('Parser LR')).toBeInTheDocument()
+    expect(screen.getByText('Compiladores')).toBeInTheDocument()
     expect(screen.getByText(/Prazo:\s*01\/12/)).toBeInTheDocument()
   })
 })
@@ -353,7 +340,6 @@ describe('Página Agenda com integração GET /agenda', () => {
 describe('Mover cartão na Agenda (US04a)', () => {
   it('mostra cada coluna ordenada pelo prazo', async () => {
     abrir()
-    await abrirQuadro()
 
     const coluna = (
       await screen.findByRole('heading', { level: 2, name: 'A fazer' })
@@ -368,7 +354,6 @@ describe('Mover cartão na Agenda (US04a)', () => {
   it('muda a situação ao escolher outra coluna no seletor', async () => {
     responderComPatch()
     abrir()
-    await abrirQuadro()
 
     fireEvent.change(
       await screen.findByRole('combobox', {
@@ -393,7 +378,6 @@ describe('Mover cartão na Agenda (US04a)', () => {
   it('muda a situação ao soltar o cartão em outra coluna', async () => {
     responderComPatch()
     abrir()
-    await abrirQuadro()
 
     const cartao = (await screen.findByText('Trabalho de PI')).closest('li')
     const coluna = screen
@@ -417,7 +401,6 @@ describe('Mover cartão na Agenda (US04a)', () => {
   it('desfaz a mudança e avisa quando a API recusa', async () => {
     responderComPatch(503)
     abrir()
-    await abrirQuadro()
 
     fireEvent.change(
       await screen.findByRole('combobox', {
@@ -433,159 +416,5 @@ describe('Mover cartão na Agenda (US04a)', () => {
     expect(
       screen.getByLabelText('1 atividades em Concluídas'),
     ).toBeInTheDocument()
-  })
-})
-
-describe('Filtro por matéria no Quadro (US04b)', () => {
-  it('mostra só os cartões das matérias marcadas e volta ao marcar de novo', async () => {
-    abrir()
-    await abrirQuadro()
-    await screen.findByText('Lista 2: análise léxica')
-
-    fireEvent.click(screen.getByRole('checkbox', { name: 'Compiladores' }))
-
-    expect(
-      screen.queryByText('Lista 2: análise léxica'),
-    ).not.toBeInTheDocument()
-    expect(screen.getByText('Trabalho de PI')).toBeInTheDocument()
-    expect(screen.getByLabelText('1 atividades em A fazer')).toBeInTheDocument()
-
-    fireEvent.click(screen.getByRole('checkbox', { name: 'Compiladores' }))
-
-    expect(screen.getByText('Lista 2: análise léxica')).toBeInTheDocument()
-    expect(screen.getByLabelText('2 atividades em A fazer')).toBeInTheDocument()
-  })
-
-  it('com só uma matéria marcada, mostra apenas os cartões dela nas três colunas', async () => {
-    abrir()
-    await abrirQuadro()
-    await screen.findByText('Trabalho de PI')
-
-    for (const materia of ['Compiladores', 'Qualidade', 'MDS']) {
-      fireEvent.click(screen.getByRole('checkbox', { name: materia }))
-    }
-
-    expect(screen.getByText('Trabalho de PI')).toBeInTheDocument()
-    for (const titulo of [
-      'Lista 2: análise léxica',
-      'Estudo de caso ISO',
-      'Relatório atrasado',
-    ]) {
-      expect(screen.queryByText(titulo)).not.toBeInTheDocument()
-    }
-    expect(screen.getByLabelText('0 atividades em A fazer')).toBeInTheDocument()
-    expect(
-      screen.getByLabelText('1 atividades em Em andamento'),
-    ).toBeInTheDocument()
-    expect(
-      screen.getByLabelText('0 atividades em Concluídas'),
-    ).toBeInTheDocument()
-    expect(
-      screen.getByRole('checkbox', { name: 'Projeto Integrador' }),
-    ).toBeChecked()
-  })
-
-  it('ao marcar de novo todas as matérias, volta a mostrar todos os cartões', async () => {
-    abrir()
-    await abrirQuadro()
-    await screen.findByText('Trabalho de PI')
-    const materias = ['Compiladores', 'Projeto Integrador', 'Qualidade', 'MDS']
-
-    for (const materia of materias.slice(0, 3)) {
-      fireEvent.click(screen.getByRole('checkbox', { name: materia }))
-    }
-    expect(screen.getByText('Relatório atrasado')).toBeInTheDocument()
-    expect(screen.queryByText('Trabalho de PI')).not.toBeInTheDocument()
-
-    for (const materia of materias.slice(0, 3)) {
-      fireEvent.click(screen.getByRole('checkbox', { name: materia }))
-    }
-
-    for (const { titulo } of itensExemplo) {
-      expect(screen.getByText(titulo)).toBeInTheDocument()
-    }
-    for (const materia of materias) {
-      expect(screen.getByRole('checkbox', { name: materia })).toBeChecked()
-    }
-    expect(screen.getByLabelText('2 atividades em A fazer')).toBeInTheDocument()
-    expect(
-      screen.getByLabelText('1 atividades em Em andamento'),
-    ).toBeInTheDocument()
-    expect(
-      screen.getByLabelText('1 atividades em Concluídas'),
-    ).toBeInTheDocument()
-  })
-
-  it('mantém as matérias desmarcadas ao trocar do Mês para o Quadro', async () => {
-    abrir()
-    fireEvent.click(
-      await screen.findByRole('checkbox', { name: 'Projeto Integrador' }),
-    )
-    await abrirQuadro()
-
-    expect(screen.queryByText('Trabalho de PI')).not.toBeInTheDocument()
-    expect(
-      screen.getByRole('checkbox', { name: 'Projeto Integrador' }),
-    ).not.toBeChecked()
-  })
-
-  it('continua movendo os cartões com o filtro ativo', async () => {
-    responderComPatch()
-    abrir()
-    await abrirQuadro()
-    await screen.findByText('Trabalho de PI')
-
-    fireEvent.click(screen.getByRole('checkbox', { name: 'Compiladores' }))
-    fireEvent.change(
-      screen.getByRole('combobox', { name: 'Mover Relatório atrasado para' }),
-      { target: { value: 'CONCLUIDA' } },
-    )
-
-    expect(
-      await screen.findByLabelText('2 atividades em Concluídas'),
-    ).toBeInTheDocument()
-    expect(screen.getByLabelText('0 atividades em A fazer')).toBeInTheDocument()
-
-    const chamada = fetch.mock.calls.find(
-      ([, opcoes]) => opcoes?.method === 'PATCH',
-    )
-
-    expect(String(chamada[0])).toContain('/atividades/4/status')
-  })
-
-  it('com o filtro ativo, arrastar um cartão muda a situação e mantém ocultas as matérias desmarcadas', async () => {
-    responderComPatch()
-    abrir()
-    await abrirQuadro()
-    await screen.findByText('Trabalho de PI')
-
-    fireEvent.click(screen.getByRole('checkbox', { name: 'Compiladores' }))
-
-    const cartao = screen.getByText('Trabalho de PI').closest('li')
-    const coluna = screen
-      .getByRole('heading', { level: 2, name: 'Concluídas' })
-      .closest('section')
-    const dataTransfer = { getData: () => '2', setData: vi.fn() }
-
-    fireEvent.dragStart(cartao, { dataTransfer })
-    fireEvent.dragOver(coluna, { dataTransfer })
-    fireEvent.drop(coluna, { dataTransfer })
-
-    expect(
-      await screen.findByLabelText('2 atividades em Concluídas'),
-    ).toBeInTheDocument()
-    expect(
-      screen.getByLabelText('0 atividades em Em andamento'),
-    ).toBeInTheDocument()
-    expect(
-      screen.queryByText('Lista 2: análise léxica'),
-    ).not.toBeInTheDocument()
-
-    const chamada = fetch.mock.calls.find(
-      ([, opcoes]) => opcoes?.method === 'PATCH',
-    )
-
-    expect(String(chamada[0])).toContain('/atividades/2/status')
-    expect(JSON.parse(chamada[1].body)).toEqual({ status: 'CONCLUIDA' })
   })
 })
