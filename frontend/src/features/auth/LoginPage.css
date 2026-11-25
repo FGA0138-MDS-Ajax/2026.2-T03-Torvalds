@@ -16,7 +16,7 @@
 .login-book {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 32px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) 38px minmax(0, 1fr);
   align-items: center;
   max-width: 1440px;
   min-height: 100svh;
@@ -26,49 +26,28 @@
 
 .login-art {
   min-width: 0;
-  padding: 16px;
-  mix-blend-mode: multiply;
+  padding: 16px 8px 16px 0;
 }
 
-/* Recorta as margens do PNG original sem esticar a ilustração. */
-.login-art-crop {
-  position: relative;
-  width: min(100%, calc((100svh - 80px) * 0.9538));
-  margin-inline: auto;
-  aspect-ratio: 1240 / 1300;
-  overflow: hidden;
-}
-
-.login-art-crop img {
-  position: absolute;
-  width: 116.13%;
-  max-width: none;
+/* A ilustração já vem recortada e com fundo transparente. */
+.login-art img {
+  width: min(100%, calc((100svh - 80px) * 0.9638));
   height: auto;
-  left: -8.06%;
-  top: -32.31%;
+  margin-inline: auto;
+  filter: drop-shadow(0 10px 18px #5d46301f);
 }
 
 .login-binding {
   position: absolute;
   inset-block: 0;
   left: 50%;
-  width: 32px;
+  width: 38px;
   transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  border-left: 2px solid #cdbc9f;
-}
 
-.login-binding span {
-  width: 32px;
-  height: 9px;
-  margin-left: -2px;
-  border: 1px solid #8f8b87;
-  border-radius: 8px;
-  background: linear-gradient(#ddd9d4, #aaa5a0, #e5e1dc);
-  box-shadow: 0 1px 2px #0002;
+  /* Primeira camada fica por cima: as argolas passam sobre a linha da lombada */
+  background:
+    var(--argolas-caderno) 0 40px / 100% 96px repeat-y,
+    linear-gradient(#cdbc9f, #cdbc9f) center / 2px 100% no-repeat;
 }
 
 .login-panel {
@@ -80,17 +59,17 @@
 .login-card {
   width: 100%;
   max-width: 480px;
-  min-height: 0px;
   margin-inline: auto;
-  padding: 24px;
+  padding: 32px;
   border: 1px solid #e5dacb;
-  border-radius: 12px;
+  border-radius: 16px;
   background: #fcf6ec;
+  box-shadow: 0 8px 24px #5d463014;
 }
 
 .login-heading h1 {
-  margin: 0 0 6px;
-  font-size: 28px;
+  margin: 0 0 8px;
+  font-size: 36px;
   letter-spacing: 2px;
 }
 
@@ -262,8 +241,12 @@
 
   .login-art {
     width: 100%;
-    max-width: 420px;
+    max-width: 380px;
     padding: 0;
+  }
+
+  .login-art img {
+    width: 100%;
   }
 
   .login-binding {
@@ -274,7 +257,7 @@
     z-index: 1;
     width: 100%;
     max-width: 420px;
-    margin-top: -12px;
+    margin-top: 8px;
     padding: 0;
   }
 
@@ -294,10 +277,6 @@
 
   .login-form {
     margin-top: 28px;
-  }
-
-  .login-art-crop {
-    width: 100%;
   }
 }
 
@@ -349,4 +328,79 @@
   border-radius: 6px;
   background: #bba7ce;
   color: #302239;
+}
+
+.login-register {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35em;
+  text-decoration: none;
+}
+
+.login-sucesso {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid #6f8a57;
+  border-radius: 6px;
+  background: #eef6e6;
+  color: #2f4a1c;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Folha de caderno que vira entre Login e Cadastro (LinkFolha) */
+.folha-palco {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  overflow: hidden;
+  pointer-events: none;
+  perspective: 2400px;
+}
+
+.folha-capa {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.folha {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+}
+
+.folha-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  backface-visibility: hidden;
+  background: #faf4e8;
+}
+
+.folha-face::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #5d463030, transparent 14%);
+}
+
+.folha-verso {
+  transform: rotateY(180deg);
+}
+
+.folha-verso::after {
+  background: linear-gradient(270deg, #5d463030, transparent 14%);
+}
+
+.folha-copia {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
 }

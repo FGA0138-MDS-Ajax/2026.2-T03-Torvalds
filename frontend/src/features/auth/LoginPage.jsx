@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { useLocation } from 'react-router'
+import LinkFolha from './LinkFolha'
 import ilustracao from '../../assets/login-ilustracao.png'
 import './LoginPage.css'
 import { entrar, consultarPerfil } from './authApi'
@@ -8,6 +10,7 @@ export default function LoginPage({ onEntrar }) {
   const [mostrarSenha, setMostrarSenha] = useState(false)
   const [carregando, setCarregando] = useState(false)
   const [erro, setErro] = useState('')
+  const { state } = useLocation()
 
   async function enviarLogin(event) {
     event.preventDefault()
@@ -48,19 +51,13 @@ export default function LoginPage({ onEntrar }) {
           className="login-art"
           aria-label="Cancha: seu caderno, agora digital"
         >
-          <div className="login-art-crop">
-            <img
-              src={ilustracao}
-              alt="Cancha — Seu caderno, agora digital! Estudante com livros e notebook."
-            />
-          </div>
+          <img
+            src={ilustracao}
+            alt="Cancha — Seu caderno, agora digital! Estudante com livros e notebook."
+          />
         </section>
 
-        <div className="login-binding" aria-hidden="true">
-          {Array.from({ length: 10 }, (_, index) => (
-            <span key={index} />
-          ))}
-        </div>
+        <div className="login-binding" aria-hidden="true" />
 
         <section className="login-panel" aria-labelledby="login-title">
           <div className="login-card">
@@ -152,6 +149,12 @@ export default function LoginPage({ onEntrar }) {
                 </button>
               </div>
 
+              {state?.cadastrado && !erro && (
+                <p className="login-sucesso" role="status">
+                  Conta criada! Entre com seu e-mail e senha.
+                </p>
+              )}
+
               {erro && (
                 <p className="login-error" role="alert">
                   {erro}
@@ -171,17 +174,12 @@ export default function LoginPage({ onEntrar }) {
                 <span>ou</span>
               </div>
 
-              <button
-                className="login-register"
-                type="button"
-                disabled
-                aria-describedby="login-unavailable"
-              >
+              <LinkFolha className="login-register" to="/cadastro">
                 Cadastre-se <span aria-hidden="true">→</span>
-              </button>
+              </LinkFolha>
 
               <p id="login-unavailable" className="login-unavailable">
-                Cadastro e recuperação de senha indisponíveis no momento.
+                Recuperação de senha indisponível no momento.
               </p>
             </form>
           </div>

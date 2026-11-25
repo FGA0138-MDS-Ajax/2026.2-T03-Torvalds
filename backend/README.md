@@ -50,12 +50,24 @@ protegidas devem enviar o cabeçalho:
 Não é mais utilizado o usuário provisório `user` com senha gerada no log.
 
 Rotas públicas:
+- POST /auth/cadastro.
 - POST /auth/login.
 - GET /actuator/health.
 - Documentação Swagger: /swagger-ui.html, /swagger-ui/** e /v3/api-docs/**.
 
 As demais rotas exigem autenticação. Tokens inválidos ou expirados recebem
 HTTP 401. A autenticação é stateless, sem sessão de usuário no servidor.
+
+### Criar conta
+
+`POST /auth/cadastro` cria uma conta de aluno com `nome`, `email`, `senha` e
+`matriculaUnB` opcional. A senha deve ter pelo menos 8 caracteres; quando
+informada, a matrícula deve conter 9 dígitos. A senha é armazenada com hash,
+e a conta é matriculada nas cinco disciplinas de exemplo, com progresso zero.
+
+- `201`: conta criada; a resposta contém apenas os dados públicos do aluno.
+- `400`: campos inválidos.
+- `409`: e-mail ou matrícula já cadastrados.
 
 `GET /disciplinas/{disciplinaId}/conteudos` lista os materiais publicados para
 uma disciplina do aluno autenticado. O aluno precisa estar matriculado nela;
@@ -152,6 +164,8 @@ No Windows, utilize .\mvnw.cmd spring-boot:run.
 Os testes usam um banco H2 em memória (ver `src/test/resources/application.yml`) e não dependem do Docker. O Flyway roda as migrations também nos testes e o Hibernate valida as entidades contra as tabelas, então uma entidade que não bate com a migration quebra o build. O `MigracoesIntegrationTest` é o exemplo de teste de integração com o banco, e o `DisciplinaIntegracaoTest` mostra como testar uma regra de negócio (um aluno só vê as próprias disciplinas) com o seed.
 
 O JaCoCo mede a cobertura dos testes. Depois de `./mvnw test`, abra `backend/target/site/jacoco/index.html` no navegador. Na CI, o mesmo relatório fica na página da execução (aba Actions, seção Artifacts, arquivo `relatorio-jacoco`).
+
+O `./mvnw test` também confere uma cobertura mínima: 90% das linhas e 82% dos ramos do backend inteiro. Abaixo disso o build falha com a mensagem `Coverage checks have not been met`, localmente e na CI. Os limites ficam nas propriedades `jacoco.minimo.linhas` e `jacoco.minimo.ramos` do `pom.xml`. Quando a cobertura subir, suba também o limite; não o reduza para fazer um PR passar, escreva os testes que faltam.
 
 ## Banco de dados e dados de exemplo
 

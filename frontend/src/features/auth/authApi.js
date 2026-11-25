@@ -17,3 +17,11 @@ export async function entrar(email, senha) {
 export function consultarPerfil(signal) {
   return requisicao('/me', { signal })
 }
+
+export function cadastrar(nome, email, senha, matriculaUnB) {
+  return requisicao('/auth/cadastro', {
+    method: 'POST',
+    dados: { nome, email, senha, ...(matriculaUnB ? { matriculaUnB } : {}) },
+    autenticada: false,
+  })
+}

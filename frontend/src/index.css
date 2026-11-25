@@ -1,3 +1,5 @@
+@import './shared/estilos/argolas.css';
+
 :root {
   font-family: var(--fonte-texto);
   color: var(--cor-texto);

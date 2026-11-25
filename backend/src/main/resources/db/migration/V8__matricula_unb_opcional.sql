@@ -1,0 +1,1 @@
+ALTER TABLE aluno ALTER COLUMN matricula_unb DROP NOT NULL;

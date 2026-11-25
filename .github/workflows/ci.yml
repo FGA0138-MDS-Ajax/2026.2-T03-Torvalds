@@ -36,7 +36,9 @@ jobs:
           cache: maven
 
       # Os testes usam H2 em memória; não precisa de PostgreSQL no runner.
-      - name: Compila e roda os testes
+      # O `test` também roda o `jacoco:check`: o passo falha se a cobertura ficar abaixo do mínimo
+      # definido no pom.xml (propriedades jacoco.minimo.linhas e jacoco.minimo.ramos).
+      - name: Compila, roda os testes e confere a cobertura mínima
         run: ./mvnw -B test
 
       # O JaCoCo gera o relatório em HTML durante o `test`. Fica disponível para baixar na página
