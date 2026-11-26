@@ -132,7 +132,7 @@
    as outras ficam um pouco mais suaves */
 .anot-cartao[aria-pressed='true'] {
   box-shadow:
-    0 0 0 3px var(--cor-texto),
+    0 0 0 3px var(--cartao-forte),
     0 8px 16px rgb(67 45 30 / 0.22);
   transform: translateX(8px);
 }
@@ -151,22 +151,27 @@
   }
 }
 .anot-cartao-lilas {
+  --cartao-forte: #b49bd6;
   border-top-color: #b49bd6;
   background: var(--cor-lilas-claro);
 }
 .anot-cartao-amarelo {
+  --cartao-forte: #f2c96b;
   border-top-color: #f2c96b;
   background: var(--cor-amarelo-claro);
 }
 .anot-cartao-verde {
+  --cartao-forte: #7fbf95;
   border-top-color: #7fbf95;
   background: var(--cor-verde-claro);
 }
 .anot-cartao-rosa {
+  --cartao-forte: #e8a597;
   border-top-color: #e8a597;
   background: var(--cor-rosa-claro);
 }
 .anot-cartao-azul {
+  --cartao-forte: #8fcdf2;
   border-top-color: #8fcdf2;
   background: var(--cor-azul-claro);
 }

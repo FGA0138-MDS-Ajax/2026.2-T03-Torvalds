@@ -80,7 +80,7 @@
 
 .materia-cartao-ativo {
   box-shadow:
-    0 0 0 3px var(--cor-texto),
+    0 0 0 3px var(--cartao-forte),
     0 8px 16px rgb(67 45 30 / 0.22);
   transform: translateX(8px);
 }
@@ -111,26 +111,31 @@
 }
 
 .materia-cartao-lilas {
+  --cartao-forte: var(--lilas-forte);
   border-top-color: var(--lilas-forte);
   background: var(--cor-lilas-claro);
 }
 
 .materia-cartao-amarelo {
+  --cartao-forte: var(--amarelo-forte);
   border-top-color: var(--amarelo-forte);
   background: var(--cor-amarelo-claro);
 }
 
 .materia-cartao-verde {
+  --cartao-forte: var(--verde-forte);
   border-top-color: var(--verde-forte);
   background: var(--cor-verde-claro);
 }
 
 .materia-cartao-rosa {
+  --cartao-forte: var(--rosa-forte);
   border-top-color: var(--rosa-forte);
   background: var(--cor-rosa-claro);
 }
 
 .materia-cartao-azul {
+  --cartao-forte: var(--azul-forte);
   border-top-color: var(--azul-forte);
   background: var(--cor-azul-claro);
 }
