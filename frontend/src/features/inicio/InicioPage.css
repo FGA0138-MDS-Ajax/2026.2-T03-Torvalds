@@ -600,6 +600,7 @@
   place-items: center;
   padding: 16px;
   background: rgb(67 45 30 / 0.45);
+  animation: mes-fundo-entra 0.2s ease-out both;
 }
 
 .mes-janela {
@@ -621,9 +622,10 @@
   padding: 24px 28px;
   overflow: auto;
   border-radius: 16px;
-  background: var(--cor-lilas);
+  background: var(--cor-verde);
   color: var(--cor-texto);
   font-family: var(--fonte-texto);
+  animation: mes-janela-entra 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 .mes-topo {
@@ -662,7 +664,7 @@
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: var(--cor-lilas-claro);
+  background: var(--cor-verde-claro);
   color: var(--cor-texto);
   font-size: 1.5rem;
   line-height: 1;
@@ -696,6 +698,7 @@
 
 .mes-numero {
   font-size: 0.8rem;
+  animation: mes-aparece 0.4s ease-out both;
 }
 
 .mes-coluna {
@@ -714,6 +717,8 @@
   border: 2px solid;
   border-bottom-width: 0;
   box-sizing: border-box;
+  transform-origin: bottom;
+  animation: mes-barra-cresce 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 .mes-rotulo {
@@ -791,5 +796,39 @@
 
   .mes-dia:not(:nth-child(5n), .mes-dia-hoje) .mes-rotulo {
     visibility: hidden;
+  }
+}
+
+@keyframes mes-fundo-entra {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes mes-janela-entra {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.96);
+  }
+}
+
+@keyframes mes-barra-cresce {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes mes-aparece {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mes-fundo,
+  .mes-janela,
+  .mes-barra,
+  .mes-numero {
+    animation: none;
   }
 }

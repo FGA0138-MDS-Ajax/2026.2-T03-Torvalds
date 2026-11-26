@@ -121,8 +121,9 @@ export default function EntregasDoMes({ entregas, aoFechar }) {
             gridTemplateColumns: `repeat(${dias.length}, minmax(0, 1fr))`,
           }}
         >
-          {dias.map((dia) => {
+          {dias.map((dia, posicao) => {
             const classes = ['mes-dia']
+            const atraso = { animationDelay: `${posicao * 18}ms` }
 
             if (dia.chave === chaveDeHoje) classes.push('mes-dia-hoje')
 
@@ -139,7 +140,7 @@ export default function EntregasDoMes({ entregas, aoFechar }) {
                         )
                         .join(', ')}
                 </span>
-                <span className="mes-numero" aria-hidden="true">
+                <span className="mes-numero" style={atraso} aria-hidden="true">
                   {dia.total > 0 ? dia.total : ''}
                 </span>
                 <span className="mes-coluna" aria-hidden="true">
@@ -147,7 +148,10 @@ export default function EntregasDoMes({ entregas, aoFechar }) {
                     <span
                       key={id}
                       className={`mes-barra mes-cor-${nomeDe.get(id)?.cor ?? 0}`}
-                      style={{ height: `${(quantidade / maior) * 100}%` }}
+                      style={{
+                        height: `${(quantidade / maior) * 100}%`,
+                        ...atraso,
+                      }}
                     />
                   ))}
                 </span>
