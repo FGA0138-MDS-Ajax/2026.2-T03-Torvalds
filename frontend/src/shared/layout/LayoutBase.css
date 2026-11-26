@@ -292,8 +292,7 @@
   }
 }
 
-/* Destaque nos títulos das telas: um pedaço de fita adesiva translúcida no canto
-   e um sublinhado ondulado feito à mão, no verde do tema */
+/* Destaque nos títulos das telas: um sublinhado ondulado feito à mão, no verde do tema */
 .inicio-cabecalho h1,
 .materias > h1,
 .anot-h1,
@@ -305,12 +304,6 @@
   margin-bottom: 0 !important;
 }
 
-.inicio-cabecalho h1::before,
-.materias > h1::before,
-.anot-h1::before,
-.agenda-pagina > .titulo-pagina::before,
-.configuracoes > h1::before,
-.perfil > h1::before,
 .inicio-cabecalho h1::after,
 .materias > h1::after,
 .anot-h1::after,
@@ -320,25 +313,6 @@
   content: '';
   position: absolute;
   pointer-events: none;
-}
-
-.inicio-cabecalho h1::before,
-.materias > h1::before,
-.anot-h1::before,
-.agenda-pagina > .titulo-pagina::before,
-.configuracoes > h1::before,
-.perfil > h1::before {
-  top: -0.375rem;
-  left: -1rem;
-  width: 3.625rem;
-  height: 1.125rem;
-  background: var(--tema, var(--cor-verde));
-  opacity: 0.45;
-  transform: rotate(-8deg);
-  -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2060%2020'%20preserveAspectRatio='none'%3E%3Cpath%20d='M0%202%203%200%206%202%209%200%2012%202%20V18%20L9%2020%206%2018%203%2020%200%2018Z%20M48%202%2051%200%2054%202%2057%200%2060%202%20V18%20L57%2020%2054%2018%2051%2020%2048%2018Z%20M12%202H48V18H12Z'/%3E%3C/svg%3E")
-    no-repeat center / 100% 100%;
-  mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2060%2020'%20preserveAspectRatio='none'%3E%3Cpath%20d='M0%202%203%200%206%202%209%200%2012%202%20V18%20L9%2020%206%2018%203%2020%200%2018Z%20M48%202%2051%200%2054%202%2057%200%2060%202%20V18%20L57%2020%2054%2018%2051%2020%2048%2018Z%20M12%202H48V18H12Z'/%3E%3C/svg%3E")
-    no-repeat center / 100% 100%;
 }
 
 .inicio-cabecalho h1::after,
