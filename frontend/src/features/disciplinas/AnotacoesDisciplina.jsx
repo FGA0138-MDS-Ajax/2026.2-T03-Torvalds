@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react'
 import TextoFormatado from '../anotacoes/TextoFormatado'
-import { criarAnotacao, listarAnotacoes } from './anotacoesApi'
+import { listarAnotacoes } from './anotacoesApi'
 import './AnotacoesDisciplina.css'
-
-const LIMITE_TITULO = 120
 
 const formatarDataHora = (valor) => {
   const data = new Date(valor)
@@ -23,14 +21,11 @@ const formatarDataHora = (valor) => {
 const maisRecentePrimeiro = (a, b) =>
   new Date(b.criadaEm ?? 0).getTime() - new Date(a.criadaEm ?? 0).getTime()
 
+// Aqui as anotações são só para ler; criar e organizar fica na tela Anotações.
 export default function AnotacoesDisciplina({ disciplinaId }) {
   const [anotacoes, setAnotacoes] = useState(null)
   const [erroCarga, setErroCarga] = useState(null)
   const [tentativa, setTentativa] = useState(0)
-  const [titulo, setTitulo] = useState('')
-  const [texto, setTexto] = useState('')
-  const [enviando, setEnviando] = useState(false)
-  const [erroForm, setErroForm] = useState(null)
 
   useEffect(() => {
     const controller = new AbortController()
@@ -51,40 +46,6 @@ export default function AnotacoesDisciplina({ disciplinaId }) {
     setErroCarga(null)
     setAnotacoes(null)
     setTentativa((atual) => atual + 1)
-  }
-
-  async function enviar(evento) {
-    evento.preventDefault()
-
-    const tituloLimpo = titulo.trim()
-    const textoLimpo = texto.trim()
-
-    if (!tituloLimpo || !textoLimpo) {
-      setErroForm('Preencha o título e o texto da anotação.')
-      return
-    }
-
-    setErroForm(null)
-    setEnviando(true)
-
-    try {
-      const criada = await criarAnotacao(disciplinaId, {
-        titulo: tituloLimpo,
-        texto: textoLimpo,
-      })
-
-      setAnotacoes((atuais) => [
-        { criadaEm: new Date().toISOString(), ...criada },
-        ...(atuais ?? []),
-      ])
-      setTitulo('')
-      setTexto('')
-    } catch (falha) {
-      // Mantém o que foi digitado para o aluno tentar de novo sem perder o texto.
-      setErroForm(`Não foi possível salvar a anotação: ${falha.message}`)
-    } finally {
-      setEnviando(false)
-    }
   }
 
   let lista
@@ -136,34 +97,6 @@ export default function AnotacoesDisciplina({ disciplinaId }) {
           </span>
         )}
       </div>
-
-      <form className="anotacoes-form" onSubmit={enviar} noValidate>
-        <label>
-          Título
-          <input
-            type="text"
-            value={titulo}
-            maxLength={LIMITE_TITULO}
-            onChange={(evento) => setTitulo(evento.target.value)}
-          />
-        </label>
-        <label>
-          Texto
-          <textarea
-            rows="4"
-            value={texto}
-            onChange={(evento) => setTexto(evento.target.value)}
-          />
-        </label>
-        {erroForm && (
-          <p className="disciplina-erro-acao" role="alert">
-            {erroForm}
-          </p>
-        )}
-        <button type="submit" className="anotacao-botao" disabled={enviando}>
-          {enviando ? 'Salvando...' : 'Adicionar anotação'}
-        </button>
-      </form>
 
       {lista}
     </section>
