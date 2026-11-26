@@ -25,17 +25,17 @@ export const PASSOS = [
       'Seu caderno digital do semestre: matérias, anotações e entregas no mesmo lugar. Bora dar uma volta rápida?',
   },
   {
-    // O dashboard inteiro em destaque (só no Início; nas outras telas é pulado)
-    alvo: '.inicio',
+    alvo: '.layout-links a[href="/"]',
     titulo: 'Início',
     texto:
-      'Este é o seu painel: o que mudou hoje, a próxima prova, as entregas da semana, as próximas tarefas, as suas matérias e o progresso no semestre. Tudo num lugar só.',
+      'A primeira tela do cAnCHA: o resumo do seu semestre. Clique aqui sempre que quiser voltar a ela.',
   },
   {
-    alvo: '.inicio-semana',
-    titulo: 'Entregas da semana',
+    // O dashboard inteiro em destaque (só no Início; nas outras telas é pulado)
+    alvo: '.inicio',
+    titulo: 'Seu painel',
     texto:
-      'Cada barra é um dia, na cor da matéria. Clique no cartão (ou no ⤢) para ver as entregas do mês inteiro.',
+      'O que mudou hoje, a próxima prova, as entregas da semana (clique no cartão para ver o mês inteiro), as próximas tarefas, as suas matérias e o progresso no semestre. Tudo num lugar só.',
   },
   {
     alvo: '.layout-links a[href$="/materias"]',
