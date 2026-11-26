@@ -94,7 +94,8 @@
 .layout-links a.active {
   border-color: transparent;
   background: transparent;
-  color: var(--cor-texto);
+  color: #fff;
+  transition: color 0.25s ease;
 }
 
 /* Destaque da tela atual: corre de um link para o outro (posição e tamanho
