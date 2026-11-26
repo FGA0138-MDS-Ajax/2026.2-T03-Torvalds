@@ -100,15 +100,10 @@ describe('Layout base', () => {
     expect(screen.getByText('Conteúdo do início')).toBeInTheDocument()
   })
 
-  it('leva a busca do topo para as matérias', () => {
+  it('não mostra mais a barra de busca no topo', () => {
     abrir()
 
-    const busca = screen.getByRole('searchbox', { name: /Buscar matéria/ })
-
-    fireEvent.change(busca, { target: { value: 'comp' } })
-
-    expect(screen.getByText('Tela de matérias')).toBeInTheDocument()
-    expect(busca).toHaveValue('comp')
+    expect(screen.queryByRole('searchbox')).not.toBeInTheDocument()
   })
 
   it('abre a tela "Em breve" das anotações', () => {

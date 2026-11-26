@@ -1,10 +1,4 @@
-import {
-  NavLink,
-  Outlet,
-  useLocation,
-  useNavigate,
-  useSearchParams,
-} from 'react-router'
+import { NavLink, Outlet } from 'react-router'
 import AcoesDoTopo from './AcoesDoTopo'
 import Icone from './Icone'
 import './LayoutBase.css'
@@ -18,27 +12,10 @@ const itens = [
 
 /**
  * Moldura das telas do aluno logado, como no protótipo: menu de caderno na
- * lateral (barra inferior no celular) e uma barra no topo. O conteúdo de cada
+ * lateral (barra inferior no celular) e uma barra de ações no topo. O conteúdo de cada
  * tela entra no lugar do <Outlet />.
  */
 export default function LayoutBase() {
-  const { pathname } = useLocation()
-  const navegar = useNavigate()
-  const [parametros] = useSearchParams()
-  const naMaterias = pathname === '/materias'
-  const busca = naMaterias ? (parametros.get('busca') ?? '') : ''
-
-  // A busca do topo filtra as matérias: o termo vai na URL (?busca=...) e a
-  // tela de Matérias lê de lá. Digitar em outra tela leva para Matérias.
-  function aoDigitar(evento) {
-    const termo = evento.target.value
-    const destino = termo
-      ? `/materias?busca=${encodeURIComponent(termo)}`
-      : '/materias'
-
-    navegar(destino, { replace: naMaterias })
-  }
-
   return (
     <div className="layout">
       <nav className="layout-menu" aria-label="Menu principal">
@@ -67,17 +44,6 @@ export default function LayoutBase() {
 
       <div className="layout-coluna">
         <header className="layout-topo">
-          <label className="layout-busca">
-            <Icone nome="lupa" />
-            <input
-              type="search"
-              value={busca}
-              onChange={aoDigitar}
-              placeholder="Buscar matérias…"
-              aria-label="Buscar matéria"
-            />
-          </label>
-
           <AcoesDoTopo />
         </header>
 

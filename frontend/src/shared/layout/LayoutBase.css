@@ -101,7 +101,7 @@
   background: var(--cor-fundo);
 }
 
-/* Manchas verdes do protótipo: uma grande atrás da busca e uma pequena no canto */
+/* Manchas verdes do protótipo: uma grande no canto de cima e uma pequena no outro */
 .layout-coluna::before,
 .layout-coluna::after {
   content: '';
@@ -140,27 +140,9 @@
 .layout-topo {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 16px;
   padding: 24px clamp(20px, 4vw, 48px) 8px;
-}
-
-.layout-busca {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  gap: 8px;
-  max-width: 640px;
-  padding: 8px 14px;
-  border: 1px solid var(--cor-borda);
-  border-radius: 8px;
-  background: #fff;
-}
-
-.layout-busca input {
-  flex: 1;
-  min-width: 0;
-  border: 0;
-  background: transparent;
 }
 
 .layout-conteudo {

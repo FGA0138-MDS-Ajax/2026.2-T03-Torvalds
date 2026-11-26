@@ -13,12 +13,12 @@
 
 /* Cabeçalho: saudação, data e entregas de hoje */
 .inicio-cabecalho {
-  margin: 8px 0 22px;
+  margin: 0 0 16px;
 }
 
 .inicio-cabecalho h1 {
   margin: 0 0 6px;
-  font-size: 2.6rem;
+  font-size: 2.1rem;
   line-height: 1.1;
 }
 
@@ -46,9 +46,13 @@
   font-weight: 700;
 }
 
-.inicio h2 {
+.inicio h2,
+.resumo-titulo {
   margin: 0;
-  font-size: 1.2rem;
+  font-family: var(--fonte-titulo);
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.2;
 }
 
 /* Duas colunas no computador: conteúdo principal e a lateral */
@@ -62,7 +66,7 @@
 .inicio-principal,
 .inicio-lateral {
   display: grid;
-  gap: 24px;
+  gap: 20px;
   min-width: 0;
 }
 
@@ -92,7 +96,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
   grid-template-rows: auto auto;
-  gap: 20px;
+  gap: 14px;
 }
 
 .inicio-destaques .inicio-semana {
@@ -102,9 +106,8 @@
 .resumo {
   display: grid;
   align-content: start;
-  gap: 4px;
-  min-height: 150px;
-  padding: 20px 22px;
+  gap: 2px;
+  padding: 14px 18px;
   border-radius: 16px;
   color: var(--cor-texto);
   text-decoration: none;
@@ -128,21 +131,19 @@
 }
 
 .resumo-titulo {
-  margin-bottom: 8px;
-  font-family: var(--fonte-titulo);
-  font-size: 1.15rem;
+  margin-bottom: 4px;
 }
 
 .resumo-valor {
   font-family: var(--fonte-titulo);
-  font-size: 2.4rem;
+  font-size: 1.9rem;
   line-height: 1.1;
 }
 
 .resumo-legenda {
   display: grid;
   gap: 2px;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .resumo-nome {
@@ -162,12 +163,10 @@
 
 .inicio-semana {
   align-content: start;
+  gap: 10px;
+  padding: 14px 18px;
   border: 0;
   background: var(--cor-verde);
-}
-
-.inicio-semana h2 {
-  font-family: var(--fonte-titulo);
 }
 
 .semana-grafico {
@@ -182,9 +181,9 @@
 .semana-dia {
   position: relative;
   display: grid;
-  grid-template-rows: 1.2em 150px auto;
+  grid-template-rows: 1.2em 84px auto;
   justify-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 
 .semana-numero {
