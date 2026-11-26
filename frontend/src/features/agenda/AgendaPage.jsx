@@ -376,36 +376,46 @@ function Filtro({ disciplinas, ocultas, corDe, aoAlternar }) {
   )
 }
 
-// Sem backend para criar atividades ainda: o formulário do protótipo aparece desativado.
-function AdicionarTarefa() {
+// Post-its com as entregas pendentes da semana atual, na cor da matéria.
+// São só para olhar: não têm clique nem edição.
+function PostItsDaSemana({ itens, corDe, agora }) {
+  const inicio = inicioDaSemana(agora)
+  const fim = new Date(inicio)
+
+  fim.setDate(inicio.getDate() + 7)
+
+  const daSemana = itens
+    .filter((item) => {
+      if (!item.prazo || ehConcluida(item.status)) return false
+
+      const prazo = new Date(item.prazo)
+
+      return prazo >= inicio && prazo < fim
+    })
+    .sort(compararPrazo)
+
   return (
-    <section className="agenda-caixa agenda-adicionar">
-      <h2>Adicionar tarefas</h2>
-      <p className="agenda-nota">
-        <span className="agenda-em-breve">Em breve</span>
-        Você poderá cadastrar suas próprias tarefas aqui.
-      </p>
-      <fieldset disabled>
-        <label>
-          Matéria
-          <select>
-            <option>Escolha a matéria</option>
-          </select>
-        </label>
-        <label>
-          Tipo
-          <input type="text" placeholder="Entrega de trabalho" />
-        </label>
-        <label>
-          Data de entrega
-          <input type="text" placeholder="dd/mm/aaaa" />
-        </label>
-        <label>
-          Observação
-          <textarea rows="3" />
-        </label>
-        <button type="button">Adicionar</button>
-      </fieldset>
+    <section className="agenda-caixa agenda-postits">
+      <h2>Entregas da semana</h2>
+      {daSemana.length === 0 ? (
+        <p className="agenda-nota">Nada pendente esta semana 🎉</p>
+      ) : (
+        <ul className="agenda-postits-lista">
+          {daSemana.map((item) => (
+            <li
+              key={item.id ?? `${item.disciplina}-${item.titulo}`}
+              className={`agenda-postit agenda-postit-${corDe(item.disciplina)}`}
+            >
+              <span className="agenda-postit-data">
+                {DIAS_POR_EXTENSO[(new Date(item.prazo).getDay() + 6) % 7]},{' '}
+                {formatarPrazoDdMm(item.prazo)} · {formatarHora(item.prazo)}
+              </span>
+              <strong>{item.titulo}</strong>
+              <span>{item.disciplina}</span>
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   )
 }
@@ -874,7 +884,11 @@ export default function AgendaPage() {
               corDe={corDe}
               aoAlternar={alternarMateria}
             />
-            <AdicionarTarefa />
+            <PostItsDaSemana
+              itens={visiveis}
+              corDe={corDe}
+              agora={new Date()}
+            />
           </aside>
         )}
         {diaAberto && vista === 'mes' && (

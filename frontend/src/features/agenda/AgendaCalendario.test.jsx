@@ -320,12 +320,16 @@ describe('Agenda: Mês, Semana e Lista', () => {
     ).toBeInTheDocument()
   })
 
-  it('mostra o formulário de adicionar tarefa desativado e como Em breve', async () => {
+  it('não mostra mais o formulário de adicionar tarefa e sim os post-its da semana', async () => {
     abrir()
     await screen.findByText(/Lista 2: análise léxica/)
 
-    expect(screen.getByText('Em breve')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Adicionar' })).toBeDisabled()
+    expect(
+      screen.queryByRole('button', { name: 'Adicionar' }),
+    ).not.toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', { name: 'Entregas da semana' }),
+    ).toBeInTheDocument()
   })
 })
 

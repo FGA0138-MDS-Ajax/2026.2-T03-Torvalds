@@ -641,61 +641,11 @@ button.agenda-dia-numero:focus-visible {
 }
 
 /* Adicionar tarefas */
-.agenda-adicionar form {
-  display: grid;
-  gap: 10px;
-  min-width: 0;
-  margin: 0;
-}
-
 .agenda-aviso {
   margin: 0;
   color: var(--cor-alerta);
   font-size: 0.875rem;
   font-weight: 700;
-}
-
-.agenda-adicionar label {
-  display: grid;
-  gap: 5px;
-  font-size: 0.78rem;
-  font-weight: 700;
-}
-
-.agenda-adicionar input,
-.agenda-adicionar select,
-.agenda-adicionar textarea {
-  width: 100%;
-  min-width: 0;
-  min-height: 36px;
-  padding: 6px 10px;
-  border: 1px solid var(--cor-borda-forte);
-  border-radius: 8px;
-  background: var(--cor-superficie);
-  color: var(--cor-texto);
-  font: inherit;
-  font-size: 0.82rem;
-  font-weight: 400;
-}
-
-.agenda-adicionar textarea {
-  resize: vertical;
-}
-
-.agenda-adicionar button {
-  justify-self: start;
-  padding: 7px 18px;
-  border: 1px solid var(--cor-lilas);
-  border-radius: 999px;
-  background: var(--cor-lilas);
-  color: var(--cor-texto);
-  font: inherit;
-  font-size: 0.8rem;
-  font-weight: 700;
-}
-
-.agenda-adicionar button:hover {
-  border-color: var(--cor-lilas-escuro);
 }
 
 /* Carregando, erro e vazio */
@@ -1179,16 +1129,6 @@ button.agenda-dia-numero:focus-visible {
 
 /* Ajustes do cAnCHA sobre a tela do Wolf Study */
 /* Adicionar tarefas (ainda sem backend) */
-.agenda-adicionar fieldset {
-  display: grid;
-  gap: 10px;
-  min-width: 0;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  opacity: 0.6;
-}
-
 .agenda-badge-disciplina {
   border-radius: 8px;
   padding: 3px 8px;
@@ -1237,4 +1177,68 @@ button.agenda-dia-numero:focus-visible {
     margin-top: -44px;
     padding-right: 180px;
   }
+}
+
+/* Post-its da semana (só visual) */
+.agenda-postits-lista {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 4px 2px;
+  list-style: none;
+}
+
+.agenda-postit {
+  display: grid;
+  gap: 3px;
+  padding: 12px 14px 14px;
+  border-top: 6px solid var(--postit-forte, var(--cor-lilas));
+  border-radius: 4px 4px 12px 4px;
+  background: var(--postit-fundo, var(--cor-lilas-claro));
+  box-shadow: 2px 4px 8px rgb(67 45 30 / 0.18);
+  color: var(--cor-texto);
+  font-size: 0.85rem;
+  pointer-events: none;
+  user-select: none;
+  transform: rotate(-1deg);
+}
+
+.agenda-postit:nth-child(even) {
+  transform: rotate(1deg);
+}
+
+.agenda-postit strong {
+  font-family: var(--fonte-titulo);
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.agenda-postit-data {
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.agenda-postit-lilas {
+  --postit-forte: var(--ponto-lilas);
+  --postit-fundo: var(--cor-lilas-claro);
+}
+
+.agenda-postit-amarelo {
+  --postit-forte: var(--ponto-amarelo);
+  --postit-fundo: var(--cor-amarelo-claro);
+}
+
+.agenda-postit-verde {
+  --postit-forte: var(--ponto-verde);
+  --postit-fundo: var(--cor-verde-claro);
+}
+
+.agenda-postit-rosa {
+  --postit-forte: var(--ponto-rosa);
+  --postit-fundo: var(--cor-rosa-claro);
+}
+
+.agenda-postit-azul {
+  --postit-forte: var(--ponto-azul);
+  --postit-fundo: var(--cor-azul-claro);
 }
