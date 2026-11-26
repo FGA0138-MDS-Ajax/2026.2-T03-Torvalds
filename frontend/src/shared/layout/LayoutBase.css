@@ -337,3 +337,21 @@
 .perfil > h1 {
   margin-bottom: 0.75rem !important;
 }
+
+/* Ao escolher uma tela no menu, ela aparece subindo de leve (como no Wolf Study) */
+.layout-conteudo > * {
+  animation: layout-tela-entra 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+}
+
+@keyframes layout-tela-entra {
+  from {
+    opacity: 0;
+    transform: translateY(0.625rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .layout-conteudo > * {
+    animation: none;
+  }
+}
