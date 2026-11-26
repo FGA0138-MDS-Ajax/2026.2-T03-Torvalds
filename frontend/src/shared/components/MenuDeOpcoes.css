@@ -3,8 +3,8 @@
   display: inline-grid;
   flex-shrink: 0;
   place-items: center;
-  width: 26px;
-  height: 26px;
+  width: 1.625rem;
+  height: 1.625rem;
   border-radius: 50%;
   color: inherit;
 }
@@ -14,7 +14,7 @@
 }
 
 .menu-opcoes:focus-within {
-  outline: 3px solid var(--cor-lilas-escuro);
+  outline: 0.1875rem solid var(--cor-lilas-escuro);
   outline-offset: 1px;
 }
 

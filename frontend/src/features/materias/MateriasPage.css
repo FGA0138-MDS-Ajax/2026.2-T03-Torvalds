@@ -8,33 +8,33 @@
 
 /* Título no mesmo estilo e na mesma altura do nome "cAnCHA" do menu, como no Início */
 .materias > h1 {
-  margin: 0 0 6px;
+  margin: 0 0 0.375rem;
   font-size: 2rem;
   line-height: normal;
 }
 
 .materias-subtitulo {
-  margin: 0 0 20px;
+  margin: 0 0 1.25rem;
   color: var(--cor-texto-suave);
 }
 
 @media (min-width: 761px) {
   .materias > h1 {
-    margin-top: -44px;
-    padding-right: 180px;
+    margin-top: -2.75rem;
+    padding-right: 11.25rem;
   }
 }
 
 .materias-grade {
   display: grid;
-  grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
-  gap: 24px;
+  grid-template-columns: minmax(13.75rem, 17.5rem) minmax(0, 1fr);
+  gap: 1.5rem;
   align-items: start;
 }
 
 .materias-lista {
   display: grid;
-  gap: 14px;
+  gap: 0.875rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -42,12 +42,12 @@
 
 .materia-cartao {
   display: grid;
-  gap: 12px;
+  gap: 0.75rem;
   width: 100%;
-  padding: 16px;
+  padding: 1rem;
   border: 0;
-  border-top: 5px solid transparent;
-  border-radius: 12px;
+  border-top: 0.3125rem solid transparent;
+  border-radius: 0.75rem;
   color: var(--cor-texto);
   font: inherit;
   font-size: 0.875rem;
@@ -65,8 +65,8 @@
 }
 
 .materia-cartao:focus-visible {
-  outline: 3px solid var(--cor-lilas-escuro);
-  outline-offset: 3px;
+  outline: 0.1875rem solid var(--cor-lilas-escuro);
+  outline-offset: 0.1875rem;
 }
 
 .materia-cartao-ativo {
@@ -75,7 +75,7 @@
 
 .materia-cartao .barra-progresso-trilho {
   min-width: 0;
-  height: 8px;
+  height: 0.5rem;
 }
 
 .materia-cartao-lilas {
@@ -136,11 +136,11 @@
 
 .materia-detalhe {
   display: grid;
-  gap: 18px;
+  gap: 1.125rem;
   min-width: 0;
-  padding: 20px;
-  border-top: 5px solid var(--painel-forte);
-  border-radius: 14px;
+  padding: 1.25rem;
+  border-top: 0.3125rem solid var(--painel-forte);
+  border-radius: 0.875rem;
   background: var(--painel-fundo);
 }
 
@@ -149,7 +149,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 0.75rem;
 }
 
 .materia-detalhe h2 {
@@ -161,12 +161,12 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 6px;
+  gap: 0.375rem;
 }
 
 .materia-capitulo {
-  padding: 4px 12px;
-  border-radius: 999px;
+  padding: 0.25rem 0.75rem;
+  border-radius: 62.4375rem;
   background: var(--painel-forte);
   color: var(--cor-texto);
   font-size: 0.875rem;
@@ -174,23 +174,23 @@
 }
 
 .materia-em-breve {
-  margin-left: 4px;
+  margin-left: 0.25rem;
   font-size: 0.875rem;
   color: var(--painel-destaque);
   font-weight: 700;
 }
 
 .materia-nome-selecionada {
-  margin: -8px 0 0;
+  margin: -0.5rem 0 0;
   font-weight: 700;
 }
 
 .materia-caixa {
   display: grid;
-  gap: 12px;
-  padding: 16px;
+  gap: 0.75rem;
+  padding: 1rem;
   border: 1px solid var(--cor-borda);
-  border-radius: 12px;
+  border-radius: 0.75rem;
   background: var(--cor-papel);
 }
 
@@ -205,8 +205,8 @@
 
 .materia-aulas {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(10.625rem, 1fr));
+  gap: 0.75rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -214,11 +214,11 @@
 
 .materia-aulas a {
   display: grid;
-  gap: 8px;
+  gap: 0.5rem;
   height: 100%;
-  min-height: 110px;
-  padding: 12px;
-  border-radius: 8px;
+  min-height: 6.875rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
   background: var(--painel-fundo);
   color: var(--cor-texto);
   font-size: 0.875rem;
@@ -230,7 +230,7 @@
 }
 
 .materia-aulas a:focus-visible {
-  outline: 3px solid var(--cor-lilas-escuro);
+  outline: 0.1875rem solid var(--cor-lilas-escuro);
   outline-offset: 2px;
 }
 
@@ -245,7 +245,7 @@
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .materia-quadro-topo a {
@@ -256,12 +256,12 @@
 .materia-quadro {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
+  gap: 0.75rem;
 }
 
 .materia-coluna ul {
   display: grid;
-  gap: 8px;
+  gap: 0.5rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -272,9 +272,9 @@
   place-content: center;
   /* Mesma altura nas três colunas, mesmo quando um título quebra em duas linhas */
   min-height: 3.5rem;
-  margin: 0 0 8px;
-  padding: 6px 10px;
-  border-radius: 8px;
+  margin: 0 0 0.5rem;
+  padding: 0.375rem 0.625rem;
+  border-radius: 0.5rem;
   background: var(--painel-fundo);
   font-size: 0.875rem;
   text-align: center;
@@ -283,8 +283,8 @@
 .materia-item {
   display: grid;
   gap: 2px;
-  padding: 8px 10px;
-  border-radius: 8px;
+  padding: 0.5rem 0.625rem;
+  border-radius: 0.5rem;
   font-size: 0.875rem;
   overflow-wrap: anywhere;
 }
@@ -317,18 +317,18 @@
 
 .materia-erro {
   margin: 0;
-  padding: 8px 12px;
-  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
   background: #fbeaea;
   color: var(--cor-alerta);
   font-size: 0.875rem;
 }
 
 .materia-coluna {
-  min-height: 80px;
-  padding: 4px;
+  min-height: 5rem;
+  padding: 0.25rem;
   border: 2px dashed transparent;
-  border-radius: 10px;
+  border-radius: 0.625rem;
 }
 
 .materia-coluna-alvo {
@@ -341,13 +341,13 @@
 }
 
 .materia-item:focus-visible {
-  outline: 3px solid var(--painel-destaque);
+  outline: 0.1875rem solid var(--painel-destaque);
   outline-offset: 2px;
 }
 
 .materias-painel {
   display: grid;
-  gap: 12px;
+  gap: 0.75rem;
   min-width: 0;
 }
 
@@ -378,10 +378,10 @@
     display: inline-flex;
     align-items: center;
     justify-self: start;
-    min-height: 44px;
-    padding: 8px 16px;
+    min-height: 2.75rem;
+    padding: 0.5rem 1rem;
     border: 1px solid var(--cor-borda-forte);
-    border-radius: 12px;
+    border-radius: 0.75rem;
     background: var(--cor-papel);
     color: var(--cor-texto);
     font: inherit;

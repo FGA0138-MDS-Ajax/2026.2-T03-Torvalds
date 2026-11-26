@@ -13,11 +13,11 @@
 
 /* Cabeçalho: saudação, data e entregas de hoje */
 .inicio-cabecalho {
-  margin: 0 0 16px;
+  margin: 0 0 1rem;
 }
 
 .inicio-cabecalho h1 {
-  margin: 0 0 6px;
+  margin: 0 0 0.375rem;
   font-size: 2rem;
   line-height: normal;
 }
@@ -25,21 +25,21 @@
 .inicio-cabecalho h1 span {
   text-decoration: underline wavy var(--cor-verde);
   text-decoration-thickness: 2px;
-  text-underline-offset: 8px;
+  text-underline-offset: 0.5rem;
 }
 
 .inicio-cabecalho p {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px 12px;
+  gap: 0.5rem 0.75rem;
   margin: 0;
   color: var(--cor-texto-suave);
 }
 
 .inicio-aviso-hoje {
-  padding: 3px 12px;
-  border-radius: 999px;
+  padding: 0.1875rem 0.75rem;
+  border-radius: 62.4375rem;
   background: var(--cor-lilas-claro);
   color: var(--cor-lilas-escuro);
   font-size: 0.875rem;
@@ -59,32 +59,32 @@
    (as ações do topo ficam à direita, então ela deixa espaço para elas) */
 @media (min-width: 761px) {
   .inicio-cabecalho {
-    margin-top: -44px;
-    padding-right: 180px;
+    margin-top: -2.75rem;
+    padding-right: 11.25rem;
   }
 }
 
 /* Duas colunas no computador: conteúdo principal e a lateral */
 .inicio-grade {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
-  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) minmax(18.75rem, 23.75rem);
+  gap: 1.5rem;
   align-items: start;
 }
 
 .inicio-principal,
 .inicio-lateral {
   display: grid;
-  gap: 20px;
+  gap: 1.25rem;
   min-width: 0;
 }
 
 .inicio-caixa {
   display: grid;
-  gap: 14px;
-  padding: 20px 22px;
+  gap: 0.875rem;
+  padding: 1.25rem 1.375rem;
   border: 1px solid var(--cor-borda);
-  border-radius: 16px;
+  border-radius: 1rem;
   background: var(--cor-papel);
 }
 
@@ -92,7 +92,7 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 12px;
+  gap: 0.75rem;
 }
 
 .inicio-caixa-topo a {
@@ -105,7 +105,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
   grid-template-rows: auto auto;
-  gap: 14px;
+  gap: 0.875rem;
 }
 
 .inicio-destaques .inicio-semana {
@@ -116,8 +116,8 @@
   display: grid;
   align-content: start;
   gap: 2px;
-  padding: 14px 18px;
-  border-radius: 16px;
+  padding: 0.875rem 1.125rem;
+  border-radius: 1rem;
   color: var(--cor-texto);
   text-decoration: none;
 }
@@ -127,8 +127,8 @@
 }
 
 .resumo:focus-visible {
-  outline: 3px solid var(--cor-lilas-escuro);
-  outline-offset: 3px;
+  outline: 0.1875rem solid var(--cor-lilas-escuro);
+  outline-offset: 0.1875rem;
 }
 
 .resumo-lilas {
@@ -140,7 +140,7 @@
 }
 
 .resumo-titulo {
-  margin-bottom: 4px;
+  margin-bottom: 0.25rem;
 }
 
 .resumo-valor {
@@ -173,18 +173,18 @@
 .inicio-semana {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 14px 18px;
+  gap: 0.625rem;
+  padding: 0.875rem 1.125rem;
   border: 0;
   background: var(--cor-verde);
 }
 
 .semana-grafico {
   flex: 1;
-  min-height: 120px;
+  min-height: 7.5rem;
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 8px;
+  gap: 0.5rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -195,7 +195,7 @@
   display: grid;
   grid-template-rows: 1.2em minmax(0, 1fr) auto;
   justify-items: center;
-  gap: 4px;
+  gap: 0.25rem;
 }
 
 .semana-numero {
@@ -206,9 +206,9 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  width: min(100%, 34px);
+  width: min(100%, 2.125rem);
   height: 100%;
-  border-bottom: 3px solid rgb(67 45 30 / 0.18);
+  border-bottom: 0.1875rem solid rgb(67 45 30 / 0.18);
 }
 
 .semana-pilha {
@@ -218,14 +218,14 @@
   overflow: hidden;
   border: 2px solid var(--cor-texto);
   border-bottom-width: 0;
-  border-radius: 6px 6px 0 0;
+  border-radius: 0.375rem 0.375rem 0 0;
   box-sizing: border-box;
   transition: height 0.4s ease;
 }
 
 .semana-parte {
   display: block;
-  min-height: 3px;
+  min-height: 0.1875rem;
   background: var(--lilas-forte);
 }
 
@@ -256,7 +256,7 @@
 .semana-hoje .semana-rotulo {
   font-weight: 700;
   text-decoration: underline;
-  text-underline-offset: 4px;
+  text-underline-offset: 0.25rem;
 }
 
 .semana-legenda {
@@ -272,14 +272,14 @@
 .semana-acoes {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
 }
 
 .semana-expandir {
   display: grid;
   place-items: center;
-  width: 32px;
-  height: 32px;
+  width: 2rem;
+  height: 2rem;
   padding: 0;
   border: 0;
   border-radius: 50%;
@@ -294,15 +294,15 @@
 }
 
 .semana-expandir:focus-visible {
-  outline: 3px solid var(--cor-lilas-escuro);
+  outline: 0.1875rem solid var(--cor-lilas-escuro);
   outline-offset: 2px;
 }
 
 /* Minhas matérias */
 .inicio-materias {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(10.625rem, 1fr));
+  gap: 0.875rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -311,12 +311,12 @@
 .materia {
   display: grid;
   grid-template-rows: 1fr auto auto;
-  gap: 10px;
+  gap: 0.625rem;
   height: 100%;
-  min-height: 150px;
-  padding: 16px;
-  border-top: 5px solid transparent;
-  border-radius: 12px;
+  min-height: 9.375rem;
+  padding: 1rem;
+  border-top: 0.3125rem solid transparent;
+  border-radius: 0.75rem;
   color: var(--cor-texto);
   font-size: 0.875rem;
   text-decoration: none;
@@ -332,8 +332,8 @@
 }
 
 .materia:focus-visible {
-  outline: 3px solid var(--cor-lilas-escuro);
-  outline-offset: 3px;
+  outline: 0.1875rem solid var(--cor-lilas-escuro);
+  outline-offset: 0.1875rem;
 }
 
 .materia-lilas {
@@ -363,26 +363,26 @@
 
 .materia .barra-progresso {
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 0.375rem;
 }
 
 .materia .barra-progresso-trilho {
   min-width: 0;
-  height: 8px;
+  height: 0.5rem;
 }
 
 /* Meu progresso */
 .inicio-progresso-corpo {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 1rem;
 }
 
 .progresso-geral {
   position: relative;
-  flex: 0 0 130px;
-  width: 130px;
-  height: 130px;
+  flex: 0 0 8.125rem;
+  width: 8.125rem;
+  height: 8.125rem;
 }
 
 .progresso-geral svg {
@@ -411,7 +411,7 @@
   display: grid;
   place-content: center;
   margin: 0;
-  padding: 0 24px;
+  padding: 0 1.5rem;
   text-align: center;
 }
 
@@ -428,7 +428,7 @@
 .inicio-numeros {
   display: grid;
   flex: 1;
-  gap: 8px;
+  gap: 0.5rem;
   min-width: 0;
   margin: 0;
 }
@@ -437,9 +437,9 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 8px;
-  padding: 8px 12px;
-  border-radius: 8px;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
   background: #f1ece1;
 }
 
@@ -469,8 +469,8 @@
 /* Próximas tarefas */
 .inicio-alerta-atrasadas {
   margin: 0;
-  padding: 10px 14px;
-  border-radius: 8px;
+  padding: 0.625rem 0.875rem;
+  border-radius: 0.5rem;
   background: var(--cor-rosa-claro);
   color: var(--cor-alerta);
   font-weight: 700;
@@ -478,7 +478,7 @@
 
 .inicio-proximas ul {
   display: grid;
-  gap: 4px;
+  gap: 0.25rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -487,8 +487,8 @@
 .inicio-proxima {
   display: flex;
   align-items: flex-start;
-  gap: 14px;
-  padding: 8px 0;
+  gap: 0.875rem;
+  padding: 0.5rem 0;
   color: var(--cor-texto);
   text-decoration: none;
 }
@@ -498,19 +498,19 @@
 }
 
 .inicio-proxima:focus-visible {
-  outline: 3px solid var(--cor-lilas-escuro);
+  outline: 0.1875rem solid var(--cor-lilas-escuro);
   outline-offset: 2px;
 }
 
 .selo-data {
   display: grid;
-  flex: 0 0 50px;
+  flex: 0 0 3.125rem;
   justify-items: center;
   align-content: center;
-  width: 50px;
-  height: 54px;
-  border-top: 6px solid var(--lilas-forte);
-  border-radius: 10px;
+  width: 3.125rem;
+  height: 3.375rem;
+  border-top: 0.375rem solid var(--lilas-forte);
+  border-radius: 0.625rem;
   background: var(--cor-lilas-claro);
   line-height: 1.1;
 }
@@ -634,7 +634,7 @@
   z-index: 100;
   display: grid;
   place-items: center;
-  padding: 16px;
+  padding: 1rem;
   background: rgb(67 45 30 / 0.45);
   animation: mes-fundo-entra 0.2s ease-out both;
 }
@@ -652,12 +652,12 @@
   --mes-borda-rosa: #b4574a;
 
   display: grid;
-  gap: 16px;
-  width: min(1040px, 100%);
+  gap: 1rem;
+  width: min(65rem, 100%);
   max-height: 92vh;
-  padding: 24px 28px;
+  padding: 1.5rem 1.75rem;
   overflow: auto;
-  border-radius: 16px;
+  border-radius: 1rem;
   background: var(--cor-verde);
   color: var(--cor-texto);
   font-family: var(--fonte-texto);
@@ -668,7 +668,7 @@
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
 }
 
 .mes-titulos {
@@ -689,14 +689,14 @@
 
 .mes-navegacao {
   display: flex;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 .mes-botao {
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  width: 2.75rem;
+  height: 2.75rem;
   padding: 0;
   border: 0;
   border-radius: 50%;
@@ -712,13 +712,13 @@
 }
 
 .mes-botao:focus-visible {
-  outline: 3px solid var(--cor-lilas-escuro);
+  outline: 0.1875rem solid var(--cor-lilas-escuro);
   outline-offset: 2px;
 }
 
 .mes-grafico {
   display: grid;
-  gap: 4px;
+  gap: 0.25rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -727,9 +727,9 @@
 .mes-dia {
   position: relative;
   display: grid;
-  grid-template-rows: 1.2em 240px auto;
+  grid-template-rows: 1.2em 15rem auto;
   justify-items: center;
-  gap: 6px;
+  gap: 0.375rem;
 }
 
 .mes-numero {
@@ -743,12 +743,12 @@
   justify-content: flex-start;
   width: 100%;
   height: 100%;
-  border-bottom: 3px solid rgb(67 45 30 / 0.18);
+  border-bottom: 0.1875rem solid rgb(67 45 30 / 0.18);
 }
 
 .mes-barra {
   display: block;
-  width: min(100%, 24px);
+  width: min(100%, 1.5rem);
   margin: 0 auto;
   border: 2px solid;
   border-bottom-width: 0;
@@ -764,7 +764,7 @@
 .mes-dia-hoje .mes-rotulo {
   font-weight: 700;
   text-decoration: underline;
-  text-underline-offset: 4px;
+  text-underline-offset: 0.25rem;
 }
 
 .mes-cor-verde {
@@ -795,7 +795,7 @@
 .mes-legenda {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 24px;
+  gap: 0.5rem 1.5rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -805,24 +805,24 @@
 .mes-legenda li {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .mes-quadrado {
   display: inline-block;
-  width: 16px;
-  height: 16px;
+  width: 1rem;
+  height: 1rem;
   border: 2px solid;
-  border-radius: 3px;
+  border-radius: 0.1875rem;
 }
 
 @media (max-width: 760px) {
   .mes-janela {
-    padding: 16px;
+    padding: 1rem;
   }
 
   .mes-dia {
-    grid-template-rows: 1.2em 180px auto;
+    grid-template-rows: 1.2em 11.25rem auto;
   }
 
   .mes-rotulo,
@@ -844,7 +844,7 @@
 @keyframes mes-janela-entra {
   from {
     opacity: 0;
-    transform: translateY(28px) scale(0.96);
+    transform: translateY(1.75rem) scale(0.96);
   }
 }
 

@@ -1,6 +1,6 @@
 .layout {
   display: grid;
-  grid-template-columns: 250px minmax(0, 1fr);
+  grid-template-columns: 15.625rem minmax(0, 1fr);
   min-height: 100svh;
   background: var(--cor-fundo);
   color: var(--cor-texto);
@@ -18,14 +18,14 @@
   z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 2rem;
   height: 100svh;
-  padding: 40px 20px 24px;
+  padding: 2.5rem 1.25rem 1.5rem;
   border-right: 1px solid var(--cor-borda-forte);
   background: var(--cor-menu);
 
   /* Largura de cada argola: mude só este número para aumentar ou diminuir */
-  --argola-largura: 38px;
+  --argola-largura: 2.375rem;
 }
 
 /* Argolas de metal do protótipo (duas pontas ligadas por uma alça), repetidas
@@ -33,11 +33,11 @@
 .layout-menu::after {
   content: '';
   position: absolute;
-  top: 52px;
-  bottom: 24px;
+  top: 3.25rem;
+  bottom: 1.5rem;
   right: calc(var(--argola-largura) / -2);
   width: var(--argola-largura);
-  background: var(--argolas-caderno) 0 0 / 100% 96px repeat-y;
+  background: var(--argolas-caderno) 0 0 / 100% 6rem repeat-y;
   pointer-events: none;
 }
 
@@ -50,7 +50,7 @@
 }
 
 .layout-lema {
-  margin: 4px 0 0;
+  margin: 0.25rem 0 0;
   font-size: 0.875rem;
   text-align: center;
 }
@@ -58,7 +58,7 @@
 .layout-links {
   position: relative;
   display: grid;
-  gap: 8px;
+  gap: 0.5rem;
   margin: auto 0;
   padding: 0 0 24svh;
   list-style: none;
@@ -69,11 +69,11 @@
   z-index: 1;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
   min-width: 0;
-  padding: 14px 16px;
+  padding: 0.875rem 1rem;
   border: 1px solid transparent;
-  border-radius: 12px;
+  border-radius: 0.75rem;
   color: inherit;
   font-family: var(--fonte-titulo);
   font-size: 1.05rem;
@@ -99,9 +99,9 @@
   position: absolute;
   top: 0;
   left: 0;
-  border-radius: 12px;
+  border-radius: 0.75rem;
   background: var(--tema);
-  box-shadow: 0 2px 6px rgb(var(--sombra) / 0.18);
+  box-shadow: 0 2px 0.375rem rgb(var(--sombra) / 0.18);
   opacity: 0;
   pointer-events: none;
 }
@@ -122,7 +122,7 @@
 
 .layout-links a:focus-visible,
 .layout-acoes a:focus-visible {
-  outline: 3px solid var(--cor-lilas-escuro);
+  outline: 0.1875rem solid var(--cor-lilas-escuro);
   outline-offset: 2px;
 }
 
@@ -154,14 +154,14 @@
 
 .layout-coluna::before {
   left: 0;
-  width: 300px;
-  height: 205px;
+  width: 18.75rem;
+  height: 12.8125rem;
 }
 
 .layout-coluna::after {
   right: 0;
-  width: 130px;
-  height: 90px;
+  width: 8.125rem;
+  height: 5.625rem;
   transform: scaleX(-1);
 }
 
@@ -180,14 +180,14 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 16px;
-  padding: 24px clamp(20px, 4vw, 48px) 8px;
+  gap: 1rem;
+  padding: 1.5rem clamp(1.25rem, 4vw, 3rem) 0.5rem;
 }
 
 .layout-conteudo {
   flex: 1;
   min-width: 0;
-  padding: 8px clamp(20px, 4vw, 48px) 40px;
+  padding: 0.5rem clamp(1.25rem, 4vw, 3rem) 2.5rem;
 }
 
 .layout-conteudo h1 {
@@ -198,26 +198,26 @@
 @media (max-width: 760px) {
   .layout {
     grid-template-columns: 1fr;
-    padding-bottom: calc(96px + env(safe-area-inset-bottom));
+    padding-bottom: calc(6rem + env(safe-area-inset-bottom));
   }
 
   /* Barra flutuante em forma de pílula, solta das bordas, só com ícones */
   .layout-menu {
     position: fixed;
-    inset: auto 14px calc(12px + env(safe-area-inset-bottom));
+    inset: auto 0.875rem calc(0.75rem + env(safe-area-inset-bottom));
     flex-direction: row;
     gap: 0;
-    height: 64px;
+    height: 4rem;
     margin-block: 0;
-    padding: 6px;
+    padding: 0.375rem;
     border: 1px solid var(--cor-borda);
-    border-radius: 999px;
+    border-radius: 62.4375rem;
     background: rgb(250 238 219 / 0.88);
     box-shadow:
-      0 10px 28px rgb(var(--sombra) / 0.18),
-      0 2px 6px rgb(var(--sombra) / 0.08);
-    -webkit-backdrop-filter: blur(14px) saturate(1.4);
-    backdrop-filter: blur(14px) saturate(1.4);
+      0 0.625rem 1.75rem rgb(var(--sombra) / 0.18),
+      0 2px 0.375rem rgb(var(--sombra) / 0.08);
+    -webkit-backdrop-filter: blur(0.875rem) saturate(1.4);
+    backdrop-filter: blur(0.875rem) saturate(1.4);
   }
 
   .layout-menu::after,
@@ -229,14 +229,14 @@
   .layout-links {
     display: flex;
     flex: 1;
-    gap: 4px;
+    gap: 0.25rem;
     margin: 0;
     padding: 0;
   }
 
   /* Destaque da tela atual: uma pílula clarinha atrás do ícone */
   .layout-links-marcador {
-    border-radius: 999px;
+    border-radius: 62.4375rem;
     background: color-mix(in srgb, var(--tema) 20%, transparent);
     box-shadow: none;
   }
@@ -254,7 +254,7 @@
     height: 100%;
     padding: 0;
     border: 0;
-    border-radius: 999px;
+    border-radius: 62.4375rem;
   }
 
   .layout-links a:hover {
@@ -266,8 +266,8 @@
   }
 
   .layout-links a svg {
-    width: 27px;
-    height: 27px;
+    width: 1.6875rem;
+    height: 1.6875rem;
     transition: scale 0.15s ease;
   }
 
@@ -286,16 +286,16 @@
   }
 
   .layout-coluna::before {
-    width: 190px;
-    height: 130px;
+    width: 11.875rem;
+    height: 8.125rem;
   }
 
   .layout-coluna::after {
-    width: 90px;
-    height: 62px;
+    width: 5.625rem;
+    height: 3.875rem;
   }
 
   .layout-topo {
-    padding: 16px 16px 4px;
+    padding: 1rem 1rem 0.25rem;
   }
 }

@@ -1,16 +1,16 @@
 .barra-progresso {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
   width: 100%;
   min-width: 0;
 }
 
 .barra-progresso-trilho {
   flex: 1;
-  min-width: 80px;
-  height: 12px;
-  border-radius: 999px;
+  min-width: 5rem;
+  height: 0.75rem;
+  border-radius: 62.4375rem;
   background: #e2ddcf;
   overflow: hidden;
 }
@@ -24,7 +24,7 @@
 
 .barra-progresso-texto {
   flex-shrink: 0;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
   color: #30251e;
   white-space: nowrap;

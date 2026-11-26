@@ -1,12 +1,12 @@
 .counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
+  font-size: 1rem;
+  padding: 0.3125rem 0.625rem;
+  border-radius: 0.3125rem;
   color: var(--accent);
   background: var(--accent-bg);
   border: 2px solid transparent;
   transition: border-color 0.3s;
-  margin-bottom: 24px;
+  margin-bottom: 1.5rem;
 
   &:hover {
     border-color: var(--accent-border);
@@ -28,7 +28,7 @@
   }
 
   .base {
-    width: 170px;
+    width: 10.625rem;
     position: relative;
     z-index: 0;
   }
@@ -40,18 +40,18 @@
 
   .framework {
     z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
+    top: 2.125rem;
+    height: 1.75rem;
+    transform: perspective(125rem) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
       scale(1.4);
   }
 
   .vite {
     z-index: 0;
-    top: 107px;
-    height: 26px;
+    top: 6.6875rem;
+    height: 1.625rem;
     width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
+    transform: perspective(125rem) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
       scale(0.8);
   }
 }
@@ -59,14 +59,14 @@
 #center {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 1.5625rem;
   place-content: center;
   place-items: center;
   flex-grow: 1;
 
   @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
+    padding: 2rem 1.25rem 1.5rem;
+    gap: 1.125rem;
   }
 }
 
@@ -77,16 +77,16 @@
 
   & > div {
     flex: 1 1 0;
-    padding: 32px;
+    padding: 2rem;
     @media (max-width: 1024px) {
-      padding: 24px 20px;
+      padding: 1.5rem 1.25rem;
     }
   }
 
   .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
+    margin-bottom: 1rem;
+    width: 1.375rem;
+    height: 1.375rem;
   }
 
   @media (max-width: 1024px) {
@@ -108,22 +108,22 @@
   list-style: none;
   padding: 0;
   display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
+  gap: 0.5rem;
+  margin: 2rem 0 0;
 
   .logo {
-    height: 18px;
+    height: 1.125rem;
   }
 
   a {
     color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
+    font-size: 1rem;
+    border-radius: 0.375rem;
     background: var(--social-bg);
     display: flex;
-    padding: 6px 12px;
+    padding: 0.375rem 0.75rem;
     align-items: center;
-    gap: 8px;
+    gap: 0.5rem;
     text-decoration: none;
     transition: box-shadow 0.3s;
 
@@ -131,18 +131,18 @@
       box-shadow: var(--shadow);
     }
     .button-icon {
-      height: 18px;
-      width: 18px;
+      height: 1.125rem;
+      width: 1.125rem;
     }
   }
 
   @media (max-width: 1024px) {
-    margin-top: 20px;
+    margin-top: 1.25rem;
     flex-wrap: wrap;
     justify-content: center;
 
     li {
-      flex: 1 1 calc(50% - 8px);
+      flex: 1 1 calc(50% - 0.5rem);
     }
 
     a {
@@ -154,10 +154,10 @@
 }
 
 #spacer {
-  height: 88px;
+  height: 5.5rem;
   border-top: 1px solid var(--border);
   @media (max-width: 1024px) {
-    height: 48px;
+    height: 3rem;
   }
 }
 
@@ -169,8 +169,8 @@
   &::after {
     content: '';
     position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
+    top: -0.2812rem;
+    border: 0.3125rem solid transparent;
   }
 
   &::before {

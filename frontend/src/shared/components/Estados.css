@@ -1,7 +1,7 @@
 .estado {
-  padding: 24px;
+  padding: 1.5rem;
   border: 1px dashed #c9b9a3;
-  border-radius: 12px;
+  border-radius: 0.75rem;
   background: #fcf6ec;
   text-align: center;
 }
@@ -11,7 +11,7 @@
 }
 
 .estado h2 {
-  margin: 0 0 8px;
+  margin: 0 0 0.5rem;
   font-size: 1.1rem;
 }
 
@@ -21,11 +21,11 @@
 }
 
 .estado-erro button {
-  min-height: 44px;
-  margin-top: 12px;
-  padding: 10px 18px;
+  min-height: 2.75rem;
+  margin-top: 0.75rem;
+  padding: 0.625rem 1.125rem;
   border: 1px solid #756184;
-  border-radius: 6px;
+  border-radius: 0.375rem;
   background: #bba7ce;
   color: #302239;
 }

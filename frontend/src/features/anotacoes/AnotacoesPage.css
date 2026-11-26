@@ -55,25 +55,25 @@
 
 /* Título no mesmo estilo e na mesma altura do nome "cAnCHA" do menu, como em Início e Matérias */
 .anot-h1 {
-  margin: 0 0 6px;
+  margin: 0 0 0.375rem;
   font-size: 2rem;
   line-height: normal;
 }
 .anot-subtitulo {
-  margin: 0 0 20px;
+  margin: 0 0 1.25rem;
   color: var(--cor-texto-suave);
 }
 @media (min-width: 761px) {
   .anot-h1 {
-    margin-top: -44px;
-    padding-right: 180px;
+    margin-top: -2.75rem;
+    padding-right: 11.25rem;
   }
 }
 
 /* Nome da matéria e busca, em cima do caderno */
 .anot-principal {
   display: grid;
-  gap: 14px;
+  gap: 0.875rem;
   min-width: 0;
 }
 .anot-cabecalho {
@@ -81,7 +81,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 12px 16px;
+  gap: 0.75rem 1rem;
 }
 .anot-nome {
   margin: 0;
@@ -94,23 +94,23 @@
 /* Coluna das matérias (cartões com a faixa na cor fixa da matéria) e caderno */
 .anot-corpo {
   display: grid;
-  grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
-  gap: 24px;
+  grid-template-columns: minmax(13.75rem, 17.5rem) minmax(0, 1fr);
+  gap: 1.5rem;
   align-items: start;
 }
 .anot-disciplinas ul {
   display: grid;
-  gap: 14px;
+  gap: 0.875rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 .anot-cartao {
   width: 100%;
-  padding: 16px;
+  padding: 1rem;
   border: 0;
-  border-top: 5px solid transparent;
-  border-radius: 12px;
+  border-top: 0.3125rem solid transparent;
+  border-radius: 0.75rem;
   color: var(--cor-texto);
   font: inherit;
   font-size: 1.05rem;
@@ -156,30 +156,30 @@
   align-items: start;
 }
 .anot-painel {
-  min-height: 420px;
-  padding: 24px;
-  border-top: 5px solid var(--anot-forte);
-  border-radius: 12px;
+  min-height: 26.25rem;
+  padding: 1.5rem;
+  border-top: 0.3125rem solid var(--anot-forte);
+  border-radius: 0.75rem;
   background: var(--anot-claro);
 }
 .anot-leitura h2,
 .anot-form h2 {
-  margin: 0 0 4px;
+  margin: 0 0 0.25rem;
   font-family: var(--fonte-titulo);
   font-size: 1.5rem;
   overflow-wrap: anywhere;
 }
 .anot-leitura time {
   display: block;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
   color: var(--cor-texto-suave);
   font-size: 0.875rem;
 }
 .anot-texto {
-  padding: 20px;
-  border-radius: 10px;
+  padding: 1.25rem;
+  border-radius: 0.625rem;
   background: #fff;
-  box-shadow: 0 2px 6px rgb(67 45 30 / 0.12);
+  box-shadow: 0 2px 0.375rem rgb(67 45 30 / 0.12);
   line-height: 1.6;
   overflow-wrap: anywhere;
 }
@@ -194,22 +194,22 @@
   flex-direction: column;
   align-items: stretch;
   gap: 0;
-  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 .anot-aba {
-  min-width: 64px;
-  min-height: 64px;
-  padding: 10px 12px;
+  min-width: 4rem;
+  min-height: 4rem;
+  padding: 0.625rem 0.75rem;
   border: 0;
-  border-radius: 0 14px 14px 0;
+  border-radius: 0 0.875rem 0.875rem 0;
   color: #231229;
   font-family: var(--fonte-titulo);
   font-size: 1.5rem;
   cursor: pointer;
 }
 .anot-aba[aria-pressed='true'] {
-  min-height: 96px;
-  box-shadow: inset 4px 0 0 var(--anot-escuro);
+  min-height: 6rem;
+  box-shadow: inset 0.25rem 0 0 var(--anot-escuro);
 }
 .anot-aba-rotulo {
   display: block;
@@ -233,10 +233,10 @@
 }
 .anot-mais {
   align-self: center;
-  width: 48px;
+  width: 3rem;
   min-width: 0;
-  height: 48px;
-  margin-top: 16px;
+  height: 3rem;
+  margin-top: 1rem;
   border: 0;
   border-radius: 50%;
   background: var(--anot-claro);
@@ -248,18 +248,18 @@
 /* Formulário de nova anotação */
 .anot-form {
   display: grid;
-  gap: 12px;
+  gap: 0.75rem;
 }
 .anot-form label {
   display: grid;
-  gap: 6px;
+  gap: 0.375rem;
   font-weight: bold;
 }
 .anot-form input,
 .anot-form textarea {
-  padding: 10px 12px;
+  padding: 0.625rem 0.75rem;
   border: 1px solid var(--cor-borda-forte);
-  border-radius: 12px;
+  border-radius: 0.75rem;
   background: #fff;
   color: inherit;
   font: inherit;
@@ -270,13 +270,13 @@
 .anot-form-acoes {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 0.625rem;
 }
 .anot-form-acoes button {
-  min-height: 44px;
-  padding: 8px 20px;
+  min-height: 2.75rem;
+  padding: 0.5rem 1.25rem;
   border: 2px solid var(--anot-escuro);
-  border-radius: 999px;
+  border-radius: 62.4375rem;
   background: var(--anot-claro);
   color: var(--cor-texto);
   font: inherit;
@@ -289,8 +289,8 @@
 }
 .anot-erro {
   margin: 0;
-  padding: 10px 14px;
-  border-radius: 12px;
+  padding: 0.625rem 0.875rem;
+  border-radius: 0.75rem;
   background: #f8ded5;
   color: #882f20;
 }
@@ -300,7 +300,7 @@
 .anot-pagina textarea:focus-visible,
 .anot-pagina select:focus-visible,
 .anot-pagina a:focus-visible {
-  outline: 3px solid var(--anot-escuro);
+  outline: 0.1875rem solid var(--anot-escuro);
   outline-offset: 2px;
 }
 
@@ -314,14 +314,14 @@
   }
   .anot-escolha-celular {
     display: grid;
-    gap: 6px;
+    gap: 0.375rem;
     font-weight: bold;
   }
   .anot-escolha-celular select {
-    min-height: 44px;
-    padding: 8px 12px;
+    min-height: 2.75rem;
+    padding: 0.5rem 0.75rem;
     border: 1px solid var(--cor-borda-forte);
-    border-radius: 12px;
+    border-radius: 0.75rem;
     background: #fff;
     color: inherit;
     font: inherit;
@@ -333,27 +333,27 @@
     flex-direction: row;
     flex-wrap: wrap;
     order: -1;
-    margin: 0 0 12px;
+    margin: 0 0 0.75rem;
   }
   .anot-aba {
-    border-radius: 14px 14px 0 0;
+    border-radius: 0.875rem 0.875rem 0 0;
   }
   .anot-aba[aria-pressed='true'] {
-    min-height: 64px;
-    box-shadow: inset 0 4px 0 var(--anot-escuro);
+    min-height: 4rem;
+    box-shadow: inset 0 0.25rem 0 var(--anot-escuro);
   }
   .anot-aba-rotulo {
     display: inline;
-    margin-right: 4px;
+    margin-right: 0.25rem;
   }
   .anot-mais {
-    margin: 0 0 0 8px;
+    margin: 0 0 0 0.5rem;
   }
 }
 
 /* Texto das anotações com negrito, marca-texto, títulos e listas */
 .texto-formatado > * {
-  margin: 0 0 12px;
+  margin: 0 0 0.75rem;
 }
 .texto-formatado > *:last-child {
   margin-bottom: 0;
@@ -367,11 +367,11 @@
 }
 .texto-formatado ul,
 .texto-formatado ol {
-  padding-left: 24px;
+  padding-left: 1.5rem;
 }
 .texto-formatado mark {
   padding: 0 2px;
-  border-radius: 3px;
+  border-radius: 0.1875rem;
   background: linear-gradient(transparent 15%, #ffe66d 15%);
   color: inherit;
 }
@@ -380,14 +380,14 @@
 .anot-barra {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 0.5rem;
 }
 .anot-barra button {
-  min-width: 44px;
-  min-height: 44px;
-  padding: 4px 12px;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0.25rem 0.75rem;
   border: 1px solid var(--cor-borda-forte);
-  border-radius: 12px;
+  border-radius: 0.75rem;
   background: #fff;
   color: var(--cor-texto);
   font: inherit;
@@ -400,16 +400,16 @@
 }
 
 .anot-busca {
-  flex: 0 1 260px;
+  flex: 0 1 16.25rem;
   margin-left: auto;
 }
 
 .anot-busca input {
   width: 100%;
-  min-height: 38px;
-  padding: 6px 12px;
+  min-height: 2.375rem;
+  padding: 0.375rem 0.75rem;
   border: 1px solid var(--anot-forte);
-  border-radius: 999px;
+  border-radius: 62.4375rem;
   background: #fff;
   color: var(--cor-texto);
   font: inherit;
