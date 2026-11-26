@@ -58,74 +58,97 @@
   --aba-5: #2a79ad;
 }
 
-/* Cabeçalho: ícone, nome da disciplina com o caminho e a busca */
+/* Título no mesmo estilo e na mesma altura do nome "cAnCHA" do menu, como em Início e Matérias */
+.anot-h1 {
+  margin: 0 0 6px;
+  font-size: 2rem;
+  line-height: normal;
+}
+.anot-subtitulo {
+  margin: 0 0 20px;
+  color: var(--cor-texto-suave);
+}
+@media (min-width: 761px) {
+  .anot-h1 {
+    margin-top: -44px;
+    padding-right: 180px;
+  }
+}
+
+/* Nome da matéria e busca, em cima do caderno */
+.anot-principal {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+}
 .anot-cabecalho {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 16px;
+  justify-content: space-between;
+  gap: 12px 16px;
 }
-.anot-icone {
-  display: grid;
-  place-items: center;
-  width: 64px;
-  height: 64px;
-  border: 2px solid var(--anot-forte);
-  border-radius: 50%;
-  background: var(--anot-claro);
-  font-size: 1.75rem;
-}
-.anot-titulo {
-  flex: 1 1 260px;
-  min-width: 0;
-}
-.anot-titulo h1 {
+.anot-nome {
   margin: 0;
   font-family: var(--fonte-titulo);
-  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-size: 1.5rem;
+  font-weight: 400;
   overflow-wrap: anywhere;
 }
-.anot-trilha {
-  font-size: 0.875rem;
-}
-.anot-trilha a {
-  color: var(--anot-escuro);
-}
-/* Coluna das disciplinas e caderno */
+
+/* Coluna das matérias (cartões com a faixa na cor fixa da matéria) e caderno */
 .anot-corpo {
   display: grid;
-  grid-template-columns: minmax(200px, 300px) minmax(0, 1fr);
-  gap: 20px;
+  grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
+  gap: 24px;
   align-items: start;
-}
-.anot-disciplinas {
-  padding: 16px;
-  border: 1px solid var(--cor-borda);
-  border-radius: 20px;
-  background: var(--cor-papel);
 }
 .anot-disciplinas ul {
   display: grid;
-  gap: 8px;
+  gap: 14px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
-.anot-disciplinas button {
+.anot-cartao {
   width: 100%;
-  min-height: 72px;
-  padding: 12px 16px;
+  padding: 16px;
   border: 0;
-  border-radius: 16px;
-  background: transparent;
+  border-top: 5px solid transparent;
+  border-radius: 12px;
   color: var(--cor-texto);
-  font-family: var(--fonte-titulo);
-  font-size: 1.125rem;
-  text-align: center;
+  font: inherit;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-align: left;
+  overflow-wrap: anywhere;
   cursor: pointer;
 }
-.anot-disciplinas button[aria-pressed='true'] {
-  background: var(--anot-claro);
+.anot-cartao:hover {
+  filter: brightness(0.97);
+}
+.anot-cartao[aria-pressed='true'] {
+  box-shadow: 0 0 0 2px var(--cor-borda-forte);
+}
+.anot-cartao-lilas {
+  border-top-color: #b49bd6;
+  background: var(--cor-lilas-claro);
+}
+.anot-cartao-amarelo {
+  border-top-color: #f2c96b;
+  background: var(--cor-amarelo-claro);
+}
+.anot-cartao-verde {
+  border-top-color: #7fbf95;
+  background: var(--cor-verde-claro);
+}
+.anot-cartao-rosa {
+  border-top-color: #e8a597;
+  background: var(--cor-rosa-claro);
+}
+.anot-cartao-azul {
+  border-top-color: #8fcdf2;
+  background: var(--cor-azul-claro);
 }
 .anot-escolha-celular {
   display: none;
@@ -140,9 +163,9 @@
 .anot-painel {
   min-height: 420px;
   padding: 24px;
-  border: 1px solid var(--cor-borda);
-  border-radius: 20px;
-  background: var(--cor-papel);
+  border-top: 5px solid var(--anot-forte);
+  border-radius: 12px;
+  background: var(--anot-claro);
 }
 .anot-leitura h2,
 .anot-form h2 {
@@ -159,9 +182,9 @@
 }
 .anot-texto {
   padding: 20px;
-  border: 1px solid var(--cor-borda);
-  border-radius: 16px;
+  border-radius: 10px;
   background: #fff;
+  box-shadow: 0 2px 6px rgb(67 45 30 / 0.12);
   line-height: 1.6;
   overflow-wrap: anywhere;
 }
@@ -383,6 +406,7 @@
 
 .anot-busca {
   flex: 0 1 260px;
+  margin-left: auto;
 }
 
 .anot-busca input {

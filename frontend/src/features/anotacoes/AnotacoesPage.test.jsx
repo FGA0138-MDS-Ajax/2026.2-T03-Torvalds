@@ -99,7 +99,7 @@ describe('Tela de Anotações', () => {
     abrir()
 
     expect(
-      await screen.findByRole('heading', { name: 'Compiladores', level: 1 }),
+      await screen.findByRole('heading', { name: 'Compiladores', level: 2 }),
     ).toBeInTheDocument()
     expect(
       await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 2 }),
@@ -114,10 +114,9 @@ describe('Tela de Anotações', () => {
     expect(
       screen.getByRole('button', { name: 'Cap 02: Etapas da compilação' }),
     ).toHaveAttribute('aria-pressed', 'false')
-    expect(screen.getByRole('link', { name: 'Matérias' })).toHaveAttribute(
-      'href',
-      '/materias',
-    )
+    expect(
+      screen.getByRole('heading', { name: 'Anotações', level: 1 }),
+    ).toBeInTheDocument()
   })
 
   it('abre outra anotação ao clicar na aba', async () => {
@@ -145,7 +144,7 @@ describe('Tela de Anotações', () => {
     expect(
       await screen.findByRole('heading', {
         name: 'Gestão de Projetos',
-        level: 1,
+        level: 2,
       }),
     ).toBeInTheDocument()
     expect(
@@ -183,7 +182,7 @@ describe('Tela de Anotações', () => {
     expect(
       await screen.findByRole('heading', {
         name: 'Gestão de Projetos',
-        level: 1,
+        level: 2,
       }),
     ).toBeInTheDocument()
   })
@@ -394,7 +393,7 @@ describe('Tela de Anotações', () => {
 
     await waitFor(() =>
       expect(
-        screen.getByRole('heading', { name: 'Compiladores', level: 1 }),
+        screen.getByRole('heading', { name: 'Compiladores', level: 2 }),
       ).toBeInTheDocument(),
     )
   })

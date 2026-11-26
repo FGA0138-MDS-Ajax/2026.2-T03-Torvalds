@@ -291,7 +291,9 @@ function ConteudoDisciplina({ id }) {
           )}
         </section>
       </div>
-      <AnotacoesDisciplina disciplinaId={id} />
+      <div className={`materia-detalhe-${cor}`}>
+        <AnotacoesDisciplina disciplinaId={id} />
+      </div>
     </>
   )
 }

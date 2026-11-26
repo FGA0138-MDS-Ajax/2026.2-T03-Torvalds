@@ -14,8 +14,8 @@
 .anotacoes-form input,
 .anotacoes-form textarea {
   padding: 10px 12px;
-  border: 2px solid #e2ddcf;
-  border-radius: 12px;
+  border: 1px solid var(--cor-borda-forte);
+  border-radius: 10px;
   background: #fff;
   color: inherit;
   font: inherit;
@@ -26,16 +26,16 @@
 .anotacoes-form input:focus-visible,
 .anotacoes-form textarea:focus-visible,
 .anotacao-botao:focus-visible {
-  outline: 3px solid #72528e;
+  outline: 3px solid var(--painel-destaque, var(--cor-lilas-escuro));
   outline-offset: 2px;
 }
 .anotacao-botao {
   justify-self: start;
   padding: 8px 20px;
-  border: 2px solid #72528e;
+  border: 1px solid var(--painel-forte, var(--cor-lilas));
   border-radius: 999px;
-  background: #cfb4ed;
-  color: #2f2438;
+  background: var(--painel-forte, var(--cor-lilas));
+  color: var(--cor-texto);
   font: inherit;
   font-weight: bold;
   cursor: pointer;
@@ -53,8 +53,10 @@
 }
 .anotacao {
   padding: 16px 20px;
-  border: 2px solid #e2ddcf;
-  border-radius: 18px;
+  border-top: 5px solid var(--painel-forte, var(--cor-lilas));
+  border-radius: 12px;
+  background: var(--painel-fundo, var(--cor-lilas-claro));
+  box-shadow: 0 2px 6px rgb(67 45 30 / 0.12);
   overflow-wrap: anywhere;
 }
 .anotacao h3 {
@@ -66,6 +68,6 @@
   white-space: pre-wrap;
 }
 .anotacao-data {
-  color: #665e53;
+  color: var(--cor-texto-suave);
   font-size: 14px;
 }

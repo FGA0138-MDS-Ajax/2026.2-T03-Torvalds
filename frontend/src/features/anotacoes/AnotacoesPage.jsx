@@ -1,4 +1,4 @@
-import { Link, useSearchParams } from 'react-router'
+import { useSearchParams } from 'react-router'
 import { listarDisciplinas } from '../disciplinas/listarDisciplinas'
 import {
   Carregando,
@@ -60,26 +60,10 @@ export default function AnotacoesPage() {
 
   return (
     <section className={`anot-pagina anot-cor-${cor}`}>
-      <header className="anot-cabecalho">
-        <span className="anot-icone" aria-hidden="true">
-          ▤
-        </span>
-        <div className="anot-titulo">
-          <h1>{escolhida.nome}</h1>
-          <nav className="anot-trilha" aria-label="Você está em">
-            <Link to="/materias">Matérias</Link> / Anotações / {escolhida.nome}
-          </nav>
-        </div>
-        <label className="anot-busca">
-          <span className="anot-so-leitor">Buscar anotações</span>
-          <input
-            type="search"
-            value={busca}
-            onChange={digitar}
-            placeholder="Buscar anotações…"
-          />
-        </label>
-      </header>
+      <h1 className="anot-h1">Anotações</h1>
+      <p className="anot-subtitulo">
+        Escreva e organize as anotações de cada matéria.
+      </p>
 
       <div className="anot-corpo">
         <aside className="anot-disciplinas" aria-label="Disciplinas">
@@ -97,10 +81,11 @@ export default function AnotacoesPage() {
             </select>
           </label>
           <ul>
-            {dados.map((disciplina) => (
+            {dados.map((disciplina, indice) => (
               <li key={disciplina.id}>
                 <button
                   type="button"
+                  className={`anot-cartao anot-cartao-${corDaDisciplina(disciplina.nome, indice)}`}
                   aria-pressed={disciplina.id === escolhida.id}
                   onClick={() => escolher(disciplina.id)}
                 >
@@ -111,11 +96,26 @@ export default function AnotacoesPage() {
           </ul>
         </aside>
 
-        <CadernoDaDisciplina
-          key={escolhida.id}
-          disciplinaId={escolhida.id}
-          busca={busca}
-        />
+        <div className="anot-principal">
+          <header className="anot-cabecalho">
+            <h2 className="anot-nome">{escolhida.nome}</h2>
+            <label className="anot-busca">
+              <span className="anot-so-leitor">Buscar anotações</span>
+              <input
+                type="search"
+                value={busca}
+                onChange={digitar}
+                placeholder="Buscar anotações…"
+              />
+            </label>
+          </header>
+
+          <CadernoDaDisciplina
+            key={escolhida.id}
+            disciplinaId={escolhida.id}
+            busca={busca}
+          />
+        </div>
       </div>
     </section>
   )
