@@ -236,6 +236,20 @@ describe('Layout base', () => {
     ).not.toBeInTheDocument()
   })
 
+  it('o botão Rever o tutorial, na engrenagem, abre o tutorial', () => {
+    abrir()
+
+    fireEvent.click(screen.getByRole('button', { name: 'Configurações' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Rever o tutorial' }))
+
+    expect(
+      screen.queryByRole('region', { name: 'Configurações' }),
+    ).not.toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', { name: 'Bem-vindo ao cAnCHA!' }),
+    ).toBeInTheDocument()
+  })
+
   it('muda o tamanho do texto pelas configurações e lembra da escolha', () => {
     abrir()
 

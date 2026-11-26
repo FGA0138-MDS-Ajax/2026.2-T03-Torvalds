@@ -104,6 +104,25 @@
   font-weight: 700;
 }
 
+.layout-painel-botao {
+  justify-self: start;
+  min-height: 2.25rem;
+  padding: 0.25rem 1rem;
+  border: 1px solid var(--cor-verde);
+  border-radius: 999px;
+  background: var(--cor-verde);
+  color: var(--cor-texto);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.layout-painel-botao:hover {
+  background: var(--cor-verde-escuro);
+  color: #fff;
+}
+
 .layout-painel-aviso {
   margin: 0;
   padding: 1.125rem;
