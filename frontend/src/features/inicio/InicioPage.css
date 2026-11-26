@@ -4,22 +4,57 @@
   --ponto-verde: #5fb286;
   --ponto-amarelo: #f2b94a;
   --anel-verde: #79ad66;
+  --lilas-forte: #b49bd6;
+  --azul-forte: #8fcdf2;
+  --verde-forte: #7fbf95;
+  --amarelo-forte: #f2c96b;
+  --rosa-forte: #e8a597;
 }
 
-.inicio h1 {
-  margin: 16px 0 20px;
-  font-size: 1.6rem;
+/* Cabeçalho: saudação, data e entregas de hoje */
+.inicio-cabecalho {
+  margin: 8px 0 22px;
+}
+
+.inicio-cabecalho h1 {
+  margin: 0 0 6px;
+  font-size: 2.6rem;
+  line-height: 1.1;
+}
+
+.inicio-cabecalho h1 span {
+  text-decoration: underline wavy var(--cor-verde);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 8px;
+}
+
+.inicio-cabecalho p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin: 0;
+  color: var(--cor-texto-suave);
+}
+
+.inicio-aviso-hoje {
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: var(--cor-lilas-claro);
+  color: var(--cor-lilas-escuro);
+  font-size: 0.875rem;
+  font-weight: 700;
 }
 
 .inicio h2 {
   margin: 0;
-  font-size: 1.15rem;
+  font-size: 1.2rem;
 }
 
 /* Duas colunas no computador: conteúdo principal e a lateral */
 .inicio-grade {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
   gap: 24px;
   align-items: start;
 }
@@ -34,9 +69,9 @@
 .inicio-caixa {
   display: grid;
   gap: 14px;
-  padding: 18px 20px;
+  padding: 20px 22px;
   border: 1px solid var(--cor-borda);
-  border-radius: 14px;
+  border-radius: 16px;
   background: var(--cor-papel);
 }
 
@@ -52,7 +87,7 @@
   font-size: 0.875rem;
 }
 
-/* Destaques: entregas da semana (verde) ao lado da prova (amarelo) e das matérias (roxo) */
+/* Destaques: entregas da semana (verde), prova (amarelo) e matérias (roxo) */
 .inicio-destaques {
   display: grid;
   grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
@@ -65,13 +100,12 @@
 }
 
 .resumo {
-  position: relative;
   display: grid;
   align-content: start;
   gap: 4px;
-  min-height: 190px;
-  padding: 20px 22px 64px;
-  border-radius: 14px;
+  min-height: 150px;
+  padding: 20px 22px;
+  border-radius: 16px;
   color: var(--cor-texto);
   text-decoration: none;
 }
@@ -93,34 +127,26 @@
   background: var(--cor-amarelo);
 }
 
-.resumo-verde {
-  background: var(--cor-verde);
-}
-
 .resumo-titulo {
-  margin-bottom: 16px;
-  font-size: 1.05rem;
+  margin-bottom: 8px;
+  font-family: var(--fonte-titulo);
+  font-size: 1.15rem;
 }
 
 .resumo-valor {
-  font-size: 2.6rem;
-  line-height: 1;
+  font-family: var(--fonte-titulo);
+  font-size: 2.4rem;
+  line-height: 1.1;
 }
 
 .resumo-legenda {
+  display: grid;
+  gap: 2px;
   font-size: 1rem;
 }
 
-.resumo-seta {
-  position: absolute;
-  right: 16px;
-  bottom: 16px;
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: rgb(67 45 30 / 0.18);
+.resumo-nome {
+  font-size: 1.05rem;
 }
 
 /* Entregas da semana */
@@ -138,6 +164,10 @@
   align-content: start;
   border: 0;
   background: var(--cor-verde);
+}
+
+.inicio-semana h2 {
+  font-family: var(--fonte-titulo);
 }
 
 .semana-grafico {
@@ -201,20 +231,10 @@
   font-size: 0.875rem;
 }
 
-/* Texto do cartão da próxima prova */
-.resumo-legenda {
-  display: grid;
-  gap: 2px;
-}
-
-.resumo-nome {
-  font-size: 1.05rem;
-}
-
 /* Minhas matérias */
 .inicio-materias {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
   gap: 14px;
   margin: 0;
   padding: 0;
@@ -223,18 +243,20 @@
 
 .materia {
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: 1fr auto auto;
   gap: 10px;
   height: 100%;
-  min-height: 140px;
-  padding: 14px;
-  border-radius: 10px;
+  min-height: 150px;
+  padding: 16px;
+  border-top: 5px solid transparent;
+  border-radius: 12px;
   color: var(--cor-texto);
   font-size: 0.875rem;
   text-decoration: none;
 }
 
 .materia strong {
+  font-size: 1.05rem;
   overflow-wrap: anywhere;
 }
 
@@ -248,23 +270,33 @@
 }
 
 .materia-lilas {
+  border-top-color: var(--lilas-forte);
   background: var(--cor-lilas-claro);
 }
 
 .materia-amarelo {
+  border-top-color: var(--amarelo-forte);
   background: var(--cor-amarelo-claro);
 }
 
 .materia-verde {
+  border-top-color: var(--verde-forte);
   background: var(--cor-verde-claro);
 }
 
 .materia-azul {
+  border-top-color: var(--azul-forte);
   background: var(--cor-azul-claro);
 }
 
 .materia-rosa {
+  border-top-color: var(--rosa-forte);
   background: var(--cor-rosa-claro);
+}
+
+.materia .barra-progresso {
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .materia .barra-progresso-trilho {
@@ -272,19 +304,18 @@
   height: 8px;
 }
 
-/* Meu progresso: donut */
+/* Meu progresso */
 .inicio-progresso-corpo {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  gap: 16px;
 }
 
 .progresso-geral {
   position: relative;
-  flex: 0 0 150px;
-  width: 150px;
-  height: 150px;
+  flex: 0 0 130px;
+  width: 130px;
+  height: 130px;
 }
 
 .progresso-geral svg {
@@ -299,7 +330,7 @@
 }
 
 .progresso-geral-trilho {
-  stroke: #b3b1ad;
+  stroke: #e2ddcf;
 }
 
 .progresso-geral-anel {
@@ -313,60 +344,84 @@
   display: grid;
   place-content: center;
   margin: 0;
-  padding: 0 28px;
+  padding: 0 24px;
   text-align: center;
 }
 
 .progresso-geral-centro strong {
-  font-size: 1.5rem;
+  font-family: var(--fonte-titulo);
+  font-size: 1.7rem;
+  line-height: 1.1;
 }
 
 .progresso-geral-centro span {
-  font-size: 0.875rem;
-  line-height: 1.2;
+  font-size: 0.8rem;
 }
 
-.inicio-progresso-contagem {
+.inicio-numeros {
   display: grid;
-  gap: 2px;
+  flex: 1;
+  gap: 8px;
+  min-width: 0;
   margin: 0;
-  text-align: center;
 }
 
-.inicio-progresso-contagem strong {
-  font-size: 1.4rem;
+.inicio-numeros div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #f1ece1;
 }
 
-.inicio-progresso-contagem span {
+.inicio-numeros dt {
   font-size: 0.875rem;
 }
 
-.inicio-progresso-mensagem {
+.inicio-numeros dd {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 0.8rem;
+  white-space: nowrap;
 }
 
-.inicio-progresso-mensagem span {
-  color: #e8b923;
+.inicio-numeros dd strong {
+  font-family: var(--fonte-titulo);
+  font-size: 1.3rem;
 }
 
-/* Próximas atividades */
+.inicio-numero-atrasadas {
+  background: var(--cor-rosa-claro) !important;
+}
+
+.inicio-numero-atrasadas dd strong {
+  color: var(--cor-alerta);
+}
+
+/* Próximas tarefas */
+.inicio-alerta-atrasadas {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: var(--cor-rosa-claro);
+  color: var(--cor-alerta);
+  font-weight: 700;
+}
+
 .inicio-proximas ul {
   display: grid;
+  gap: 4px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.inicio-proximas li {
-  border-top: 1px solid var(--cor-borda);
-}
-
 .inicio-proxima {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
-  padding: 12px 0;
+  gap: 14px;
+  padding: 8px 0;
   color: var(--cor-texto);
   text-decoration: none;
 }
@@ -380,76 +435,88 @@
   outline-offset: 2px;
 }
 
+.selo-data {
+  display: grid;
+  flex: 0 0 50px;
+  justify-items: center;
+  align-content: center;
+  width: 50px;
+  height: 54px;
+  border-top: 6px solid var(--lilas-forte);
+  border-radius: 10px;
+  background: var(--cor-lilas-claro);
+  line-height: 1.1;
+}
+
+.selo-data strong {
+  font-family: var(--fonte-titulo);
+  font-size: 1.25rem;
+}
+
+.selo-data small {
+  font-size: 0.65rem;
+}
+
+.selo-data-azul {
+  border-top-color: var(--azul-forte);
+  background: var(--cor-azul-claro);
+}
+
+.selo-data-verde {
+  border-top-color: var(--verde-forte);
+  background: var(--cor-verde-claro);
+}
+
+.selo-data-amarelo {
+  border-top-color: var(--amarelo-forte);
+  background: var(--cor-amarelo-claro);
+}
+
+.selo-data-atrasada {
+  border-top-color: var(--cor-alerta);
+  background: var(--cor-rosa-claro);
+}
+
 .inicio-proxima-texto {
   display: grid;
-  flex: 1;
-  gap: 2px;
+  gap: 1px;
   min-width: 0;
+  font-size: 0.875rem;
 }
 
 .inicio-proxima-texto strong {
-  overflow-wrap: anywhere;
+  font-size: 1rem;
 }
 
-.inicio-proxima-texto span,
-.inicio-proxima-texto small {
-  font-size: 0.875rem;
+.inicio-proxima-texto > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .inicio-proxima-texto small {
   color: var(--cor-texto-suave);
+  font-size: 0.8rem;
 }
 
-.inicio-proxima-texto .atrasada {
+.inicio-proxima-texto small.atrasada {
   color: var(--cor-alerta);
   font-weight: 700;
 }
 
-.ponto {
-  flex: 0 0 16px;
-  width: 16px;
-  height: 16px;
-  margin-top: 2px;
-  border-radius: 50%;
+.tipo-azul {
+  color: #1f6fa8;
 }
 
-.ponto-lilas {
-  background: var(--ponto-lilas);
+.tipo-verde {
+  color: #2f7d52;
 }
 
-.ponto-azul {
-  background: var(--ponto-azul);
+.tipo-lilas {
+  color: var(--cor-lilas-escuro);
 }
 
-.ponto-verde {
-  background: var(--ponto-verde);
-}
-
-.ponto-amarelo {
-  background: var(--ponto-amarelo);
-}
-
-.etiqueta {
-  flex-shrink: 0;
-  padding: 1px 10px;
-  border: 1px solid currentColor;
-  border-radius: 999px;
-  font-size: 0.875rem;
-}
-
-.etiqueta-lilas {
-  color: #6f49b8;
-}
-
-.etiqueta-azul {
-  color: #236db1;
-}
-
-.etiqueta-verde {
-  color: #367b58;
-}
-
-.etiqueta-amarelo {
+.tipo-amarelo {
   color: #946509;
 }
 
@@ -471,15 +538,14 @@
   }
 }
 
-@media (max-width: 600px) {
-  .resumo {
-    min-height: 0;
-    padding-bottom: 20px;
+@media (max-width: 420px) {
+  .inicio-progresso-corpo {
+    flex-direction: column;
+    align-items: stretch;
   }
 
-  .resumo-seta {
-    bottom: auto;
-    top: 16px;
+  .progresso-geral {
+    align-self: center;
   }
 }
 

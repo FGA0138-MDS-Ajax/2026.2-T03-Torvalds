@@ -1,12 +1,17 @@
 import { describe, expect, it } from 'vitest'
 import {
   corDoTipo,
+  contarAtrasadas,
+  contarEntregasDeHoje,
+  descreverDataLonga,
   descreverDiasAte,
   entregasDaSemana,
+  formatarHora,
   formatarPrazoCurto,
-  mensagemDeProgresso,
   proximaProva,
   resumirEntregas,
+  saudacao,
+  seloDoPrazo,
 } from './inicioUtils'
 
 const entregas = [
@@ -63,17 +68,6 @@ describe('corDoTipo', () => {
     expect(corDoTipo('Exercício')).toBe('amarelo')
     expect(corDoTipo('Trabalho')).toBe('lilas')
     expect(corDoTipo(undefined)).toBe('lilas')
-  })
-})
-
-describe('mensagemDeProgresso', () => {
-  it('muda o incentivo conforme o progresso', () => {
-    expect(mensagemDeProgresso({ total: 0, percentual: 0 })).toMatch(/Nenhuma/)
-    expect(mensagemDeProgresso({ total: 4, percentual: 0 })).toMatch(/começar/)
-    expect(mensagemDeProgresso({ total: 4, percentual: 25 })).toMatch(/começo/)
-    expect(mensagemDeProgresso({ total: 4, percentual: 68 })).toBe(
-      'Você está indo muito bem!',
-    )
   })
 })
 
@@ -139,5 +133,48 @@ describe('entregasDaSemana', () => {
     expect(seg).toMatchObject({ concluidas: 0, pendentes: 0 })
     expect(qua).toMatchObject({ concluidas: 0, pendentes: 1 })
     expect(qui).toMatchObject({ concluidas: 1, pendentes: 1 })
+  })
+})
+
+describe('saudacao', () => {
+  it('muda conforme a hora do dia', () => {
+    expect(saudacao(new Date(2026, 10, 26, 8))).toBe('Bom dia!')
+    expect(saudacao(new Date(2026, 10, 26, 15))).toBe('Boa tarde!')
+    expect(saudacao(new Date(2026, 10, 26, 21))).toBe('Boa noite!')
+  })
+})
+
+describe('descreverDataLonga', () => {
+  it('escreve o dia da semana, o dia e o mês', () => {
+    expect(descreverDataLonga(agora)).toMatch(/^Quinta-feira, 26 de novembro/)
+  })
+})
+
+describe('contagens do painel', () => {
+  const lista = [
+    { id: 1, prazo: '2026-11-26T23:59:00', status: 'A_FAZER' },
+    { id: 2, prazo: '2026-11-26T08:00:00', status: 'CONCLUIDA' },
+    { id: 3, prazo: '2026-11-25T23:59:00', status: 'A_FAZER' },
+    { id: 4, prazo: '2026-12-01T10:00:00', status: 'A_FAZER' },
+    { id: 5, status: 'A_FAZER' },
+  ]
+
+  it('conta as entregas pendentes que vencem hoje', () => {
+    expect(contarEntregasDeHoje(lista, agora)).toBe(1)
+  })
+
+  it('conta as atrasadas e ignora as concluídas', () => {
+    expect(contarAtrasadas(lista, agora)).toBe(1)
+  })
+})
+
+describe('seloDoPrazo e formatarHora', () => {
+  it('separa dia e mês e escreve a hora', () => {
+    expect(seloDoPrazo('2026-11-26T23:59:00')).toEqual({
+      dia: '26',
+      mes: 'NOV',
+    })
+    expect(formatarHora('2026-11-26T09:05:00')).toBe('09:05')
+    expect(formatarHora(undefined)).toBe('')
   })
 })

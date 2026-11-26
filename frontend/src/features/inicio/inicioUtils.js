@@ -53,15 +53,6 @@ export function corDoTipo(tipo) {
   return 'lilas'
 }
 
-/** Mensagem de incentivo abaixo do donut de progresso. */
-export function mensagemDeProgresso({ total, percentual }) {
-  if (total === 0) return 'Nenhuma atividade por aqui ainda.'
-  if (percentual >= 50) return 'Você está indo muito bem!'
-  if (percentual > 0) return 'Bom começo, continue assim!'
-
-  return 'Vamos começar? A primeira entrega espera por você.'
-}
-
 const ROTULOS_DA_SEMANA = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom']
 
 function semAcento(texto) {
@@ -130,4 +121,85 @@ export function entregasDaSemana(entregas, agora = new Date()) {
       pendentes: doDia.length - concluidas,
     }
   })
+}
+
+const MESES = [
+  'JAN',
+  'FEV',
+  'MAR',
+  'ABR',
+  'MAI',
+  'JUN',
+  'JUL',
+  'AGO',
+  'SET',
+  'OUT',
+  'NOV',
+  'DEZ',
+]
+
+/** "Bom dia!", "Boa tarde!" ou "Boa noite!", pela hora de quem abre a tela. */
+export function saudacao(agora = new Date()) {
+  const hora = agora.getHours()
+
+  if (hora < 12) return 'Bom dia!'
+  if (hora < 18) return 'Boa tarde!'
+
+  return 'Boa noite!'
+}
+
+/** "Quinta-feira, 26 de novembro". */
+export function descreverDataLonga(agora = new Date()) {
+  const texto = agora.toLocaleDateString('pt-BR', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+  })
+
+  return texto.charAt(0).toUpperCase() + texto.slice(1)
+}
+
+/** Quantas entregas ainda não concluídas vencem hoje. */
+export function contarEntregasDeHoje(entregas, agora = new Date()) {
+  const chaveDeHoje = chaveDoDia(agora)
+
+  return entregas.filter((item) => {
+    if (ehConcluida(item.status) || !item.prazo) return false
+
+    const prazo = new Date(item.prazo)
+
+    return !Number.isNaN(prazo.getTime()) && chaveDoDia(prazo) === chaveDeHoje
+  }).length
+}
+
+/** Quantas entregas passaram do prazo sem serem concluídas. */
+export function contarAtrasadas(entregas, agora = new Date()) {
+  return entregas.filter((item) => {
+    if (ehConcluida(item.status) || !item.prazo) return false
+
+    const prazo = new Date(item.prazo)
+
+    return !Number.isNaN(prazo.getTime()) && prazo < agora
+  }).length
+}
+
+/** Dia e mês do selo de data: `{ dia: '26', mes: 'NOV' }`. */
+export function seloDoPrazo(prazo) {
+  const data = new Date(prazo)
+
+  if (!prazo || Number.isNaN(data.getTime())) return { dia: '–', mes: '' }
+
+  return { dia: String(data.getDate()), mes: MESES[data.getMonth()] }
+}
+
+/** "23:59", ou vazio quando não há prazo. */
+export function formatarHora(prazo) {
+  const data = new Date(prazo)
+
+  if (!prazo || Number.isNaN(data.getTime())) return ''
+
+  const hora = String(data.getHours()).padStart(2, '0')
+  const minuto = String(data.getMinutes()).padStart(2, '0')
+
+  return `${hora}:${minuto}`
 }

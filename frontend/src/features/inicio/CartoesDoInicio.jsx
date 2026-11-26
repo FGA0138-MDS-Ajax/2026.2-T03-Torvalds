@@ -13,9 +13,6 @@ export function CartaoResumo({ cor, titulo, valor, legenda, para, rotulo }) {
       <span className="resumo-titulo">{titulo}</span>
       <span className="resumo-valor">{valor}</span>
       <span className="resumo-legenda">{legenda}</span>
-      <span className="resumo-seta" aria-hidden="true">
-        →
-      </span>
     </Link>
   )
 }

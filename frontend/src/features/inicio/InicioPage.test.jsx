@@ -121,7 +121,10 @@ describe('Início', () => {
     abrir()
 
     expect(
-      screen.getByRole('heading', { name: 'Olá, Maria!' }),
+      screen.getByRole('heading', {
+        level: 1,
+        name: /^(Bom dia|Boa tarde|Boa noite)!$/,
+      }),
     ).toBeInTheDocument()
 
     const materias = await screen.findByRole('link', {
@@ -166,14 +169,40 @@ describe('Início', () => {
     expect(cartao).toHaveTextContent('10/12, 23:59')
   })
 
+  it('avisa quantas entregas vencem hoje', async () => {
+    const hoje = new Date()
+    hoje.setHours(23, 59, 0, 0)
+    const ano = hoje.getFullYear()
+    const mes = String(hoje.getMonth() + 1).padStart(2, '0')
+    const dia = String(hoje.getDate()).padStart(2, '0')
+
+    responder({
+      entregasDa1: [
+        {
+          id: 7,
+          titulo: 'Revisão',
+          tipo: 'Lista',
+          prazo: `${ano}-${mes}-${dia}T23:59:00`,
+          status: 'A_FAZER',
+        },
+      ],
+    })
+    abrir()
+
+    expect(await screen.findByText('1 entrega para hoje')).toBeInTheDocument()
+  })
+
   it('mostra o progresso do semestre vindo do GET /progresso', async () => {
     abrir()
 
-    expect(await screen.findByText('1/2')).toBeInTheDocument()
+    const feitas = (await screen.findByText('Feitas')).closest('div')
+
+    expect(feitas).toHaveTextContent('1 de 2')
+    expect(screen.getByText('Pendentes').closest('div')).toHaveTextContent('1')
+    expect(screen.getByText('Atrasadas').closest('div')).toHaveTextContent('0')
     expect(
       screen.getByRole('img', { name: '50% do semestre concluído' }),
     ).toBeInTheDocument()
-    expect(screen.getByText(/Você está indo muito bem!/)).toBeInTheDocument()
   })
 
   it('usa o valor do back-end, e não a soma das entregas da tela', async () => {
@@ -184,11 +213,13 @@ describe('Início', () => {
     })
     abrir()
 
-    expect(await screen.findByText('9/12')).toBeInTheDocument()
+    const feitas = (await screen.findByText('Feitas')).closest('div')
+
+    expect(feitas).toHaveTextContent('9 de 12')
+    expect(screen.getByText('Pendentes').closest('div')).toHaveTextContent('3')
     expect(
       screen.getByRole('img', { name: '75% do semestre concluído' }),
     ).toBeInTheDocument()
-    expect(screen.queryByText('1/2')).not.toBeInTheDocument()
   })
 
   it('mostra o estado vazio quando o aluno não tem atividades', async () => {
@@ -198,7 +229,7 @@ describe('Início', () => {
     expect(
       await screen.findByText('Você ainda não tem atividades no semestre.'),
     ).toBeInTheDocument()
-    expect(screen.queryByText('0/0')).not.toBeInTheDocument()
+    expect(screen.queryByText('Feitas')).not.toBeInTheDocument()
   })
 
   it('lista as próximas atividades vindas do backend e leva à matéria', async () => {
@@ -208,11 +239,13 @@ describe('Início', () => {
 
     expect(item).toHaveAttribute('href', '/disciplinas/1')
     expect(item).toHaveTextContent('Compiladores')
-    expect(item).toHaveTextContent('10/11, 18:00')
+    expect(item).toHaveTextContent('18:00')
+    expect(item).toHaveTextContent('NOV')
     expect(
       screen.getByRole('link', { name: /Relatório parcial/ }),
     ).toHaveAttribute('href', '/disciplinas/2')
     expect(screen.getByText(/\(atrasada\)/)).toBeInTheDocument()
+    expect(screen.getByRole('status')).toHaveTextContent('1 tarefa atrasada')
     expect(screen.getByRole('link', { name: /Ver tudo/ })).toHaveAttribute(
       'href',
       '/agenda',
@@ -223,12 +256,11 @@ describe('Início', () => {
     abrir()
 
     const cartao = await screen.findByRole('link', {
-      name: /1\/2 Atividades/,
+      name: /Compiladores\s+1 pendente/,
     })
 
     expect(cartao).toHaveAttribute('href', '/disciplinas/1')
-    expect(cartao).toHaveTextContent('1/2 Atividades')
-    expect(cartao).toHaveTextContent('40%')
+    expect(cartao).toHaveTextContent('1 de 2 · 40%')
   })
 
   it('avisa quando o aluno não tem matérias', async () => {
@@ -255,7 +287,7 @@ describe('Início', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Tentar novamente' }))
 
     expect(
-      await screen.findByRole('link', { name: /1\/2 Atividades/ }),
+      await screen.findByRole('link', { name: /Compiladores\s+1 pendente/ }),
     ).toBeInTheDocument()
   })
 })
