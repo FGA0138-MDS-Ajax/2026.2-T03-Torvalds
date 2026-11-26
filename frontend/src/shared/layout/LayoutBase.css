@@ -59,8 +59,8 @@
   position: relative;
   display: grid;
   gap: 8px;
-  margin: 0;
-  padding: 0;
+  margin: auto 0;
+  padding: 0 0 40px;
   list-style: none;
 }
 
@@ -230,6 +230,8 @@
     display: flex;
     flex: 1;
     gap: 4px;
+    margin: 0;
+    padding: 0;
   }
 
   /* Destaque da tela atual: uma pílula clarinha atrás do ícone */
