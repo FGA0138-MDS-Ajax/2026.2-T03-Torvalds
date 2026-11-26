@@ -94,7 +94,7 @@ afterEach(() => {
 })
 
 describe('Tela de Anotações', () => {
-  it('abre a primeira disciplina com a primeira anotação, data e abas', async () => {
+  it('abre a primeira disciplina com a primeira anotação aberta e a data', async () => {
     responder()
     abrir()
 
@@ -102,42 +102,48 @@ describe('Tela de Anotações', () => {
       await screen.findByRole('heading', { name: 'Compiladores', level: 2 }),
     ).toBeInTheDocument()
     expect(
-      await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 2 }),
+      await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 3 }),
     ).toBeInTheDocument()
     expect(
       screen.getByText('Um compilador traduz o código-fonte.'),
     ).toBeInTheDocument()
     expect(screen.getByText('21/10/2026 - 14:00')).toBeInTheDocument()
     expect(
-      screen.getByRole('button', { name: 'Cap 01: Resumo - CAP 01' }),
-    ).toHaveAttribute('aria-pressed', 'true')
+      screen.getByRole('button', { name: 'Resumo - CAP 01' }),
+    ).toHaveAttribute('aria-expanded', 'true')
     expect(
-      screen.getByRole('button', { name: 'Cap 02: Etapas da compilação' }),
-    ).toHaveAttribute('aria-pressed', 'false')
+      screen.getByRole('button', { name: 'Etapas da compilação' }),
+    ).toHaveAttribute('aria-expanded', 'false')
     expect(
       screen.getByRole('heading', { name: 'Anotações', level: 1 }),
     ).toBeInTheDocument()
   })
 
-  it('abre outra anotação ao clicar na aba', async () => {
+  it('abre outra anotação pela setinha sem fechar a primeira, e fecha ao clicar de novo', async () => {
     responder()
     abrir()
-    await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 2 })
+    await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 3 })
 
-    fireEvent.click(
-      screen.getByRole('button', { name: 'Cap 02: Etapas da compilação' }),
-    )
+    const etapas = screen.getByRole('button', { name: 'Etapas da compilação' })
 
-    expect(
-      screen.getByRole('heading', { name: 'Etapas da compilação', level: 2 }),
-    ).toBeInTheDocument()
+    fireEvent.click(etapas)
+
+    expect(etapas).toHaveAttribute('aria-expanded', 'true')
     expect(screen.getByText('22/10/2026 - 09:30')).toBeInTheDocument()
+    expect(
+      screen.getByText('Um compilador traduz o código-fonte.'),
+    ).toBeInTheDocument()
+
+    fireEvent.click(etapas)
+
+    expect(etapas).toHaveAttribute('aria-expanded', 'false')
+    expect(screen.queryByText('22/10/2026 - 09:30')).not.toBeInTheDocument()
   })
 
   it('troca de disciplina pela coluna da esquerda', async () => {
     responder()
     abrir()
-    await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 2 })
+    await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 3 })
 
     fireEvent.click(screen.getByRole('button', { name: 'Gestão de Projetos' }))
 
@@ -150,7 +156,7 @@ describe('Tela de Anotações', () => {
     expect(
       await screen.findByRole('heading', {
         name: 'Planejamento da sprint',
-        level: 2,
+        level: 3,
       }),
     ).toBeInTheDocument()
   })
@@ -158,7 +164,7 @@ describe('Tela de Anotações', () => {
   it('a cor da página segue a disciplina escolhida', async () => {
     responder()
     const { container } = abrir()
-    await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 2 })
+    await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 3 })
 
     expect(container.querySelector('.anot-pagina')).toHaveClass(
       'anot-cor-lilas',
@@ -167,7 +173,7 @@ describe('Tela de Anotações', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Gestão de Projetos' }))
     await screen.findByRole('heading', {
       name: 'Planejamento da sprint',
-      level: 2,
+      level: 3,
     })
 
     expect(container.querySelector('.anot-pagina')).toHaveClass(
@@ -187,28 +193,28 @@ describe('Tela de Anotações', () => {
     ).toBeInTheDocument()
   })
 
-  it('a busca (?busca=) filtra as abas por título e texto, sem mudar o número', async () => {
+  it('a busca (?busca=) filtra a lista por título e texto', async () => {
     responder()
     abrir('/anotacoes?busca=SEMÂNTICA')
 
     expect(
       await screen.findByRole('heading', {
         name: 'Etapas da compilação',
-        level: 2,
+        level: 3,
       }),
     ).toBeInTheDocument()
     expect(
-      screen.queryByRole('button', { name: /Cap 01/ }),
+      screen.queryByRole('button', { name: /Resumo/ }),
     ).not.toBeInTheDocument()
     expect(
-      screen.getByRole('button', { name: 'Cap 02: Etapas da compilação' }),
+      screen.getByRole('button', { name: 'Etapas da compilação' }),
     ).toBeInTheDocument()
   })
 
   it('digitar no campo de busca da tela filtra as anotações', async () => {
     responder()
     abrir('/anotacoes')
-    await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 2 })
+    await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 3 })
 
     fireEvent.change(screen.getByRole('searchbox'), {
       target: { value: 'nada disso' },
@@ -228,10 +234,10 @@ describe('Tela de Anotações', () => {
     ).toBeInTheDocument()
   })
 
-  it('cria uma anotação pelo + e abre a nova aba', async () => {
+  it('cria uma anotação pelo botão e deixa a nova aberta', async () => {
     responder()
     abrir()
-    await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 2 })
+    await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 3 })
 
     fireEvent.click(screen.getByRole('button', { name: 'Nova anotação' }))
     fireEvent.change(screen.getByLabelText('Título'), {
@@ -243,11 +249,12 @@ describe('Tela de Anotações', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Salvar anotação' }))
 
     expect(
-      await screen.findByRole('heading', { name: 'Revisão', level: 2 }),
+      await screen.findByRole('heading', { name: 'Revisão', level: 3 }),
     ).toBeInTheDocument()
-    expect(
-      screen.getByRole('button', { name: 'Cap 03: Revisão' }),
-    ).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByRole('button', { name: 'Revisão' })).toHaveAttribute(
+      'aria-expanded',
+      'true',
+    )
     expect(posts()).toHaveLength(1)
     expect(posts()[0][0]).toContain('/disciplinas/7/anotacoes')
     expect(JSON.parse(posts()[0][1].body)).toEqual({
@@ -259,7 +266,7 @@ describe('Tela de Anotações', () => {
   it('a barra de formatação põe negrito, marca-texto e lista no texto', async () => {
     responder()
     abrir()
-    await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 2 })
+    await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 3 })
 
     fireEvent.click(screen.getByRole('button', { name: 'Nova anotação' }))
 
@@ -305,7 +312,7 @@ describe('Tela de Anotações', () => {
   it('não envia e avisa quando falta título ou texto', async () => {
     responder()
     abrir()
-    await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 2 })
+    await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 3 })
 
     fireEvent.click(screen.getByRole('button', { name: 'Nova anotação' }))
     fireEvent.change(screen.getByLabelText('Título'), {
@@ -322,7 +329,7 @@ describe('Tela de Anotações', () => {
   it('mantém o que foi digitado quando a API recusa e deixa cancelar', async () => {
     responder({ post: () => json({ mensagem: 'Título muito longo' }, 400) })
     abrir()
-    await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 2 })
+    await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 3 })
 
     fireEvent.click(screen.getByRole('button', { name: 'Nova anotação' }))
     fireEvent.change(screen.getByLabelText('Título'), {
@@ -342,7 +349,7 @@ describe('Tela de Anotações', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Cancelar' }))
 
     expect(
-      screen.getByRole('heading', { name: 'Resumo - CAP 01', level: 2 }),
+      screen.getByRole('heading', { name: 'Resumo - CAP 01', level: 3 }),
     ).toBeInTheDocument()
   })
 
@@ -367,7 +374,7 @@ describe('Tela de Anotações', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Tentar novamente' }))
 
     expect(
-      await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 2 }),
+      await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 3 }),
     ).toBeInTheDocument()
   })
 
