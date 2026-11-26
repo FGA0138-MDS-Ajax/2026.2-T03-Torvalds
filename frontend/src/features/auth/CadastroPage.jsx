@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 import LinkFolha from './LinkFolha'
 import ilustracao from '../../assets/cadastro-ilustracao.png'
 import './LoginPage.css'
@@ -94,6 +94,7 @@ const ICONE_SENHA = iconeSvg(
 
 export default function CadastroPage() {
   const navegar = useNavigate()
+  const { state } = useLocation()
   const [carregando, setCarregando] = useState(false)
   const [erro, setErro] = useState('')
   const [mostrarSenha, setMostrarSenha] = useState(false)
@@ -184,6 +185,7 @@ export default function CadastroPage() {
                   rotulo="E-mail"
                   tipo="email"
                   autoComplete="email"
+                  defaultValue={state?.email ?? ''}
                   autoCapitalize="none"
                   autoCorrect="off"
                   spellCheck={false}

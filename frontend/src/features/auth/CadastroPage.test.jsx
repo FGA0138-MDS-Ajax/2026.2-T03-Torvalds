@@ -12,9 +12,9 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import CadastroPage from './CadastroPage'
 import { validarCadastro } from './validacaoCadastro'
 
-function abrir() {
+function abrir(entrada = '/cadastro') {
   return render(
-    <MemoryRouter initialEntries={['/cadastro']}>
+    <MemoryRouter initialEntries={[entrada]}>
       <Routes>
         <Route path="/cadastro" element={<CadastroPage />} />
         <Route path="/login" element={<p>Tela de login</p>} />
@@ -84,6 +84,12 @@ describe('CadastroPage', () => {
   afterEach(() => {
     cleanup()
     vi.unstubAllGlobals()
+  })
+
+  it('vem com o e-mail preenchido quando a pessoa chega do login', () => {
+    abrir({ pathname: '/cadastro', state: { email: 'ana@exemplo.com' } })
+
+    expect(screen.getByLabelText('E-mail')).toHaveValue('ana@exemplo.com')
   })
 
   it('mostra e esconde as senhas com o botão do olho', () => {

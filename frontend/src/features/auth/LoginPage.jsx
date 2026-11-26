@@ -10,6 +10,8 @@ export default function LoginPage({ onEntrar }) {
   const [mostrarSenha, setMostrarSenha] = useState(false)
   const [carregando, setCarregando] = useState(false)
   const [erro, setErro] = useState('')
+  // E-mail da última tentativa recusada: vai junto se a pessoa decidir se cadastrar
+  const [emailRecusado, setEmailRecusado] = useState('')
   const { state } = useLocation()
 
   async function enviarLogin(event) {
@@ -25,6 +27,7 @@ export default function LoginPage({ onEntrar }) {
     const lembrar = formulario.get('lembrar') === 'on'
 
     setErro('')
+    setEmailRecusado('')
     setCarregando(true)
 
     try {
@@ -35,6 +38,8 @@ export default function LoginPage({ onEntrar }) {
       onEntrar(perfil)
     } catch (falha) {
       removerToken()
+
+      if (falha.status === 401) setEmailRecusado(email)
 
       setErro(
         falha.status === 401
@@ -161,9 +166,20 @@ export default function LoginPage({ onEntrar }) {
               )}
 
               {erro && (
-                <p className="login-error" role="alert">
-                  {erro}
-                </p>
+                <div className="login-error" role="alert">
+                  <p>{erro}</p>
+                  {emailRecusado && (
+                    <p className="login-sem-conta">
+                      Ainda não tem conta?{' '}
+                      <LinkFolha
+                        to="/cadastro"
+                        state={{ email: emailRecusado }}
+                      >
+                        Cadastre-se com este e-mail
+                      </LinkFolha>
+                    </p>
+                  )}
+                </div>
               )}
 
               <button

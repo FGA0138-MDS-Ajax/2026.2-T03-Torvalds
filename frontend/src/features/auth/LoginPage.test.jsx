@@ -5,6 +5,7 @@ import {
   render,
   screen,
   waitFor,
+  within,
 } from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
 import { MemoryRouter } from 'react-router'
@@ -92,5 +93,25 @@ describe('LoginPage', () => {
         'segredo123',
       ),
     )
+  })
+
+  it('quando o login é recusado, oferece o cadastro com o mesmo e-mail', async () => {
+    entrar.mockRejectedValue(Object.assign(new Error('x'), { status: 401 }))
+    abrir()
+
+    fireEvent.change(screen.getByLabelText('E-mail'), {
+      target: { value: 'nova@exemplo.com' },
+    })
+    fireEvent.change(screen.getByLabelText('Senha'), {
+      target: { value: 'segredo123' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: /Entrar/ }))
+
+    const alerta = await screen.findByRole('alert')
+
+    expect(alerta).toHaveTextContent('E-mail ou senha inválidos')
+    expect(
+      within(alerta).getByRole('link', { name: /Cadastre-se com este e-mail/ }),
+    ).toHaveAttribute('href', '/cadastro')
   })
 })
