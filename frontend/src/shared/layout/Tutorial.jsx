@@ -31,6 +31,11 @@ function posicaoDoCartao(caixa) {
 
   const largura = window.innerWidth
   const altura = window.innerHeight
+  // Destaque quase do tamanho da tela (o painel inteiro): o balão vai para o canto
+  if (caixa.height > altura * 0.6 && caixa.width > largura * 0.5) {
+    return { right: 24, bottom: 24 }
+  }
+
   const cabeAoLado = caixa.right + 16 + LARGURA_DO_CARTAO < largura - 16
 
   if (cabeAoLado) {

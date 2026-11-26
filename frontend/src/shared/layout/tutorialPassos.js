@@ -25,10 +25,11 @@ export const PASSOS = [
       'Seu caderno digital do semestre: matérias, anotações e entregas no mesmo lugar. Bora dar uma volta rápida?',
   },
   {
-    alvo: '.layout-links a[href="/"]',
+    // O dashboard inteiro em destaque (só no Início; nas outras telas é pulado)
+    alvo: '.inicio',
     titulo: 'Início',
     texto:
-      'O resumo do dia: a próxima prova, as entregas da semana, as próximas tarefas e o seu progresso no semestre.',
+      'Este é o seu painel: o que mudou hoje, a próxima prova, as entregas da semana, as próximas tarefas, as suas matérias e o progresso no semestre. Tudo num lugar só.',
   },
   {
     alvo: '.inicio-semana',
