@@ -1,6 +1,6 @@
 .layout {
   display: grid;
-  grid-template-columns: 15.625rem minmax(0, 1fr);
+  grid-template-columns: 250px minmax(0, 1fr);
   min-height: 100svh;
   background: var(--cor-fundo);
   color: var(--cor-texto);
@@ -18,14 +18,14 @@
   z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 32px;
   height: 100svh;
-  padding: 2.5rem 1.25rem 1.5rem;
+  padding: 40px 20px 24px;
   border-right: 1px solid var(--cor-borda-forte);
   background: var(--cor-menu);
 
   /* Largura de cada argola: mude só este número para aumentar ou diminuir */
-  --argola-largura: 2.375rem;
+  --argola-largura: 38px;
 }
 
 /* Argolas de metal do protótipo (duas pontas ligadas por uma alça), repetidas
@@ -33,11 +33,11 @@
 .layout-menu::after {
   content: '';
   position: absolute;
-  top: 3.25rem;
-  bottom: 1.5rem;
+  top: 52px;
+  bottom: 24px;
   right: calc(var(--argola-largura) / -2);
   width: var(--argola-largura);
-  background: var(--argolas-caderno) 0 0 / 100% 6rem repeat-y;
+  background: var(--argolas-caderno) 0 0 / 100% 96px repeat-y;
   pointer-events: none;
 }
 
@@ -50,7 +50,7 @@
 }
 
 .layout-lema {
-  margin: 0.25rem 0 0;
+  margin: 4px 0 0;
   font-size: 0.875rem;
   text-align: center;
 }
@@ -58,7 +58,7 @@
 .layout-links {
   position: relative;
   display: grid;
-  gap: 0.5rem;
+  gap: 8px;
   margin: auto 0;
   padding: 0 0 24svh;
   list-style: none;
@@ -69,11 +69,11 @@
   z-index: 1;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 12px;
   min-width: 0;
-  padding: 0.875rem 1rem;
+  padding: 14px 16px;
   border: 1px solid transparent;
-  border-radius: 0.75rem;
+  border-radius: 12px;
   color: inherit;
   font-family: var(--fonte-titulo);
   font-size: 1.05rem;
@@ -99,9 +99,9 @@
   position: absolute;
   top: 0;
   left: 0;
-  border-radius: 0.75rem;
+  border-radius: 12px;
   background: var(--tema);
-  box-shadow: 0 2px 0.375rem rgb(var(--sombra) / 0.18);
+  box-shadow: 0 2px 6px rgb(var(--sombra) / 0.18);
   opacity: 0;
   pointer-events: none;
 }
@@ -204,20 +204,20 @@
   /* Barra flutuante em forma de pílula, solta das bordas, só com ícones */
   .layout-menu {
     position: fixed;
-    inset: auto 0.875rem calc(0.75rem + env(safe-area-inset-bottom));
+    inset: auto 14px calc(12px + env(safe-area-inset-bottom));
     flex-direction: row;
     gap: 0;
-    height: 4rem;
+    height: 64px;
     margin-block: 0;
-    padding: 0.375rem;
+    padding: 6px;
     border: 1px solid var(--cor-borda);
-    border-radius: 62.4375rem;
+    border-radius: 999px;
     background: rgb(250 238 219 / 0.88);
     box-shadow:
-      0 0.625rem 1.75rem rgb(var(--sombra) / 0.18),
-      0 2px 0.375rem rgb(var(--sombra) / 0.08);
-    -webkit-backdrop-filter: blur(0.875rem) saturate(1.4);
-    backdrop-filter: blur(0.875rem) saturate(1.4);
+      0 10px 28px rgb(var(--sombra) / 0.18),
+      0 2px 6px rgb(var(--sombra) / 0.08);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    backdrop-filter: blur(14px) saturate(1.4);
   }
 
   .layout-menu::after,
@@ -229,14 +229,14 @@
   .layout-links {
     display: flex;
     flex: 1;
-    gap: 0.25rem;
+    gap: 4px;
     margin: 0;
     padding: 0;
   }
 
   /* Destaque da tela atual: uma pílula clarinha atrás do ícone */
   .layout-links-marcador {
-    border-radius: 62.4375rem;
+    border-radius: 999px;
     background: color-mix(in srgb, var(--tema) 20%, transparent);
     box-shadow: none;
   }
@@ -254,7 +254,7 @@
     height: 100%;
     padding: 0;
     border: 0;
-    border-radius: 62.4375rem;
+    border-radius: 999px;
   }
 
   .layout-links a:hover {
@@ -266,8 +266,8 @@
   }
 
   .layout-links a svg {
-    width: 1.6875rem;
-    height: 1.6875rem;
+    width: 27px;
+    height: 27px;
     transition: scale 0.15s ease;
   }
 
