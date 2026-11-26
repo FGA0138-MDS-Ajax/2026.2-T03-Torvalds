@@ -18,9 +18,9 @@
   z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 32px;
   height: 100svh;
-  padding: 40px 24px 16px;
+  padding: 40px 20px 24px;
   border-right: 1px solid var(--cor-borda-forte);
   background: var(--cor-menu);
 
@@ -58,7 +58,7 @@
 .layout-links {
   position: relative;
   display: grid;
-  gap: 2px;
+  gap: 8px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -69,14 +69,14 @@
   z-index: 1;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   min-width: 0;
-  padding: 8px 10px;
+  padding: 14px 16px;
   border: 1px solid transparent;
   border-radius: 12px;
   color: inherit;
   font-family: var(--fonte-titulo);
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   font-weight: 700;
   white-space: nowrap;
   text-decoration: none;
