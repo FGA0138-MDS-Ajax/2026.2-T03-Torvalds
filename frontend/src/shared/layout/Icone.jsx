@@ -9,6 +9,8 @@ const caminhos = {
   lupa: 'M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM21 21l-5-5',
   seta: 'M6 9l6 6 6-6',
   mover: 'M4 8h14l-4-4M20 16H6l4 4',
+  check: 'M5 12.5l4.5 4.5L19 7',
+  desfazer: 'M9 14L4 9l5-5M4 9h11a5 5 0 0 1 0 10h-3',
 }
 
 /** Ícone simples, desenhado em SVG, que herda a cor do texto. */
