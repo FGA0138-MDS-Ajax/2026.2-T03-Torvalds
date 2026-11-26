@@ -70,7 +70,12 @@ class AuthServiceCadastroTest {
   }
 
   private CadastroRequest request(String matriculaUnB) {
-    return new CadastroRequest("Novo Aluno", "novo@cancha.test", "senha-segura-123", matriculaUnB);
+    return new CadastroRequest(
+        "Novo Aluno",
+        "novo@cancha.test",
+        "senha-segura-123",
+        "senha-segura-123",
+        matriculaUnB);
   }
 
   private List<Disciplina> disciplinasDeExemplo() {

@@ -155,6 +155,7 @@ describe('CadastroPage', () => {
       nome: 'Ana Souza',
       email: 'ana@exemplo.com',
       senha: 'senha1234',
+      confirmacaoSenha: 'senha1234',
     })
   })
 
@@ -238,6 +239,7 @@ describe('CadastroPage', () => {
       nome: 'Ana Souza',
       email: 'ana@exemplo.com',
       senha: 'senha1234',
+      confirmacaoSenha: 'senha1234',
       matriculaUnB: '123456789',
     })
   })
