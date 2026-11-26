@@ -1,9 +1,21 @@
 // @vitest-environment jsdom
-import { cleanup, render, screen } from '@testing-library/react'
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
 import { MemoryRouter } from 'react-router'
-import { afterEach, describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import LoginPage from './LoginPage'
+import { consultarPerfil, entrar } from './authApi'
+
+vi.mock('./authApi', () => ({
+  entrar: vi.fn(),
+  consultarPerfil: vi.fn(),
+}))
 
 function abrir(entrada = '/login') {
   return render(
@@ -59,5 +71,26 @@ describe('LoginPage', () => {
     abrir()
 
     expect(screen.queryByText(/Conta criada!/)).not.toBeInTheDocument()
+  })
+
+  it('aceita o e-mail com maiúsculas e entra com ele em minúsculas', async () => {
+    entrar.mockResolvedValue('token')
+    consultarPerfil.mockResolvedValue({ nome: 'Jefferson' })
+    abrir()
+
+    fireEvent.change(screen.getByLabelText('E-mail'), {
+      target: { value: ' Jefferson@Exemplo.com ' },
+    })
+    fireEvent.change(screen.getByLabelText('Senha'), {
+      target: { value: 'segredo123' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: /Entrar/ }))
+
+    await waitFor(() =>
+      expect(entrar).toHaveBeenCalledWith(
+        'jefferson@exemplo.com',
+        'segredo123',
+      ),
+    )
   })
 })

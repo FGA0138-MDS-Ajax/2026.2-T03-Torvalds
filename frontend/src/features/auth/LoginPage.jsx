@@ -18,7 +18,9 @@ export default function LoginPage({ onEntrar }) {
     if (carregando) return
 
     const formulario = new FormData(event.currentTarget)
-    const email = String(formulario.get('email')).trim()
+    // O cadastro guarda o e-mail em minúsculas, então "Jefferson@..." e
+    // "jefferson@..." entram na mesma conta.
+    const email = String(formulario.get('email')).trim().toLowerCase()
     const senha = String(formulario.get('senha'))
     const lembrar = formulario.get('lembrar') === 'on'
 
