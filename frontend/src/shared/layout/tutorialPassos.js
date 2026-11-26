@@ -15,8 +15,7 @@ export function marcarTutorialPendente() {
 
 /**
  * Os passos do tour: `alvo` é o que fica em destaque (sem alvo, o cartão
- * aparece no meio da tela; `senao` é o destaque de reserva, se o alvo não
- * estiver na tela). Passos cujo alvo não está na tela (as entregas
+ * aparece no meio da tela; Passos cujo alvo não está na tela (as entregas
  * da semana, fora do Início, por exemplo) são pulados.
  */
 export const PASSOS = [
@@ -32,18 +31,23 @@ export const PASSOS = [
       'O resumo do dia: a próxima prova, as entregas da semana, as próximas tarefas e o seu progresso no semestre.',
   },
   {
+    alvo: '.layout-links a[href$="/materias"]',
+    titulo: 'Matérias',
+    texto:
+      'Aqui ficam as matérias do semestre, cada uma com a sua cor. Escolha uma para ver as entregas, os materiais e as anotações dela.',
+  },
+  {
+    // Só no Início: o quadro das matérias; nas outras telas o passo é pulado
+    alvo: '.inicio-materias-caixa',
+    titulo: 'Suas matérias no Início',
+    texto:
+      'O Início também mostra as suas matérias, com o que falta entregar em cada uma. A cor é a mesma em todas as telas. Clique numa para abrir.',
+  },
+  {
     alvo: '.inicio-semana',
     titulo: 'Entregas da semana',
     texto:
       'Cada barra é um dia, na cor da matéria. Clique no cartão (ou no ⤢) para ver as entregas do mês inteiro.',
-  },
-  {
-    // No Início, destaca o quadro das matérias; nas outras telas, o item do menu
-    alvo: '.inicio-materias-caixa',
-    senao: '.layout-links a[href$="/materias"]',
-    titulo: 'Matérias',
-    texto:
-      'As matérias do semestre, cada uma com a sua cor (a mesma em todas as telas). Clique numa para ver as entregas, os materiais e as anotações dela, ou use o item Matérias do menu.',
   },
   {
     alvo: '.layout-links a[href$="/anotacoes"]',
