@@ -31,9 +31,12 @@
 
 /* A ilustração já vem recortada e com fundo transparente. */
 .login-art img {
-  width: min(100%, calc((100svh - 5rem) * 0.9638));
+  width: auto;
+  max-width: min(100%, 32rem);
   height: auto;
+  max-height: min(70svh, 36rem);
   margin-inline: auto;
+  object-fit: contain;
   filter: drop-shadow(0 0.625rem 1.125rem #5d46301f);
 }
 
