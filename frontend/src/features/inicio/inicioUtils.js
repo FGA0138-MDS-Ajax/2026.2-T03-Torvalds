@@ -138,14 +138,19 @@ const MESES = [
   'DEZ',
 ]
 
-/** "Bom dia!", "Boa tarde!" ou "Boa noite!", pela hora de quem abre a tela. */
-export function saudacao(agora = new Date()) {
+/**
+ * "Bom dia, Maria!", "Boa tarde, Maria!" ou "Boa noite, Maria!", pela hora de
+ * quem abre a tela e com o primeiro nome. Sem nome, fica só "Bom dia!".
+ */
+export function saudacao(agora = new Date(), nome = '') {
   const hora = agora.getHours()
+  const primeiroNome = (nome ?? '').trim().split(/\s+/)[0]
+  let texto = 'Boa noite'
 
-  if (hora < 12) return 'Bom dia!'
-  if (hora < 18) return 'Boa tarde!'
+  if (hora < 12) texto = 'Bom dia'
+  else if (hora < 18) texto = 'Boa tarde'
 
-  return 'Boa noite!'
+  return primeiroNome ? `${texto}, ${primeiroNome}!` : `${texto}!`
 }
 
 /** "Quinta-feira, 26 de novembro". */

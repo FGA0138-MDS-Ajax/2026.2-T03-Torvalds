@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import { useSessao } from '../auth/useSessao'
 import {
   Carregando,
   ErroCarregamento,
@@ -24,7 +25,7 @@ import './InicioPage.css'
 
 const CORES_DAS_MATERIAS = ['verde', 'amarelo', 'azul', 'rosa', 'lilas']
 
-function Cabecalho({ disciplinas, entregas }) {
+function Cabecalho({ disciplinas, entregas, nome }) {
   const agora = new Date()
   const hoje = contarEntregasDeHoje(entregas, agora)
   const semestre = disciplinas[0]?.periodoLetivo
@@ -36,7 +37,7 @@ function Cabecalho({ disciplinas, entregas }) {
   return (
     <header className="inicio-cabecalho">
       <h1>
-        <span>{saudacao(agora)}</span>
+        <span>{saudacao(agora, nome)}</span>
       </h1>
       <p>
         {descreverDataLonga(agora)}
@@ -207,6 +208,7 @@ function MinhasMaterias({ disciplinas, entregas }) {
 }
 
 function Conteudo() {
+  const { perfil } = useSessao()
   const { dados, erro, carregando, tentarNovamente } =
     useRequisicao(carregarInicio)
 
@@ -226,7 +228,11 @@ function Conteudo() {
 
   return (
     <>
-      <Cabecalho disciplinas={disciplinas} entregas={entregas} />
+      <Cabecalho
+        disciplinas={disciplinas}
+        entregas={entregas}
+        nome={perfil?.nome}
+      />
 
       <div className="inicio-grade">
         <div className="inicio-principal">

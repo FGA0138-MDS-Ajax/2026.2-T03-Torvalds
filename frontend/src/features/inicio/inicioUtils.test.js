@@ -143,6 +143,13 @@ describe('saudacao', () => {
     expect(saudacao(new Date(2026, 10, 26, 15))).toBe('Boa tarde!')
     expect(saudacao(new Date(2026, 10, 26, 21))).toBe('Boa noite!')
   })
+
+  it('usa só o primeiro nome', () => {
+    expect(
+      saudacao(new Date(2026, 10, 26, 8), '  Jefferson de Souza Reis '),
+    ).toBe('Bom dia, Jefferson!')
+    expect(saudacao(new Date(2026, 10, 26, 15), 'Ana')).toBe('Boa tarde, Ana!')
+  })
 })
 
 describe('descreverDataLonga', () => {

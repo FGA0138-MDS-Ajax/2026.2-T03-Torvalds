@@ -18,8 +18,8 @@
 
 .inicio-cabecalho h1 {
   margin: 0 0 6px;
-  font-size: 2.1rem;
-  line-height: 1.1;
+  font-size: 2rem;
+  line-height: normal;
 }
 
 .inicio-cabecalho h1 span {
@@ -53,6 +53,15 @@
   font-size: 1.1rem;
   font-weight: 400;
   line-height: 1.2;
+}
+
+/* No computador, a saudação sobe para ficar na altura do nome "cAnCHA" do menu
+   (as ações do topo ficam à direita, então ela deixa espaço para elas) */
+@media (min-width: 761px) {
+  .inicio-cabecalho {
+    margin-top: -44px;
+    padding-right: 180px;
+  }
 }
 
 /* Duas colunas no computador: conteúdo principal e a lateral */

@@ -138,7 +138,7 @@ describe('Início', () => {
     expect(
       screen.getByRole('heading', {
         level: 1,
-        name: /^(Bom dia|Boa tarde|Boa noite)!$/,
+        name: /^(Bom dia|Boa tarde|Boa noite), Maria!$/,
       }),
     ).toBeInTheDocument()
 
