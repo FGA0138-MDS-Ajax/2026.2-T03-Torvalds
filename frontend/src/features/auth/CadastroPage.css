@@ -40,7 +40,37 @@
 .cadastro-enviar {
   grid-column: 1 / -1;
   justify-self: center;
-  width: min(100%, 20rem);
+  width: min(100%, 22rem);
+  min-height: 3.25rem;
+  background: #72528e;
+  box-shadow: 0 0.375rem 0.875rem #72528e4d;
+  color: #fff;
+  font-size: 1.1875rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.cadastro-enviar:hover:not(:disabled) {
+  background: #5f4278;
+  box-shadow: 0 0.5rem 1.125rem #72528e66;
+  transform: translateY(-2px);
+}
+
+.cadastro-enviar:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.cadastro-enviar:focus-visible {
+  outline: 3px solid #302239;
+  outline-offset: 3px;
+}
+
+.cadastro-enviar:disabled {
+  opacity: 0.7;
 }
 
 .cadastro-entrar {

@@ -209,8 +209,14 @@
 }
 
 .login-register {
-  background: #909f76;
-  color: #1f2919;
+  background: #6f7d55;
+  box-shadow: 0 0.25rem 0.625rem #6f7d554d;
+  color: #fff;
+  font-weight: 700;
+}
+
+.login-register:hover {
+  background: #5f6c47;
 }
 
 .login-divider {
