@@ -406,6 +406,25 @@
     display: none;
   }
 
+  /* Só a lista, sem matéria aberta: nenhuma aparece escolhida (a primeira só
+     fica marcada no computador, onde o painel dela já está na tela) */
+  .materias-grade:not(.materias-grade-detalhe) .materia-cartao-ativo {
+    box-shadow: none;
+    transform: none;
+  }
+
+  .materias-grade:not(.materias-grade-detalhe)
+    .materia-cartao-ativo
+    strong::before {
+    content: none;
+  }
+
+  .materias-grade:not(.materias-grade-detalhe)
+    .materias-lista:has(.materia-cartao-ativo)
+    .materia-cartao:not(.materia-cartao-ativo) {
+    opacity: 1;
+  }
+
   .materias-com-detalhe > h1,
   .materias-com-detalhe > .materias-subtitulo {
     display: none;
