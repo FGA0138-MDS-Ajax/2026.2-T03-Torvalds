@@ -1,8 +1,11 @@
 import { describe, expect, it } from 'vitest'
 import {
   corDoTipo,
+  descreverDiasAte,
+  entregasDaSemana,
   formatarPrazoCurto,
   mensagemDeProgresso,
+  proximaProva,
   resumirEntregas,
 } from './inicioUtils'
 
@@ -71,5 +74,70 @@ describe('mensagemDeProgresso', () => {
     expect(mensagemDeProgresso({ total: 4, percentual: 68 })).toBe(
       'Você está indo muito bem!',
     )
+  })
+})
+
+// Quinta-feira, 26/11/2026, 10:00
+const agora = new Date(2026, 10, 26, 10, 0)
+
+describe('proximaProva', () => {
+  const provas = [
+    { id: 1, tipo: 'Prova', prazo: '2026-12-10T23:59:00', status: 'A_FAZER' },
+    { id: 2, tipo: 'prova', prazo: '2026-12-01T09:00:00', status: 'A_FAZER' },
+    { id: 3, tipo: 'Prova', prazo: '2026-11-27T09:00:00', status: 'CONCLUIDA' },
+    { id: 4, tipo: 'Prova', prazo: '2026-11-20T09:00:00', status: 'A_FAZER' },
+    { id: 5, tipo: 'Lista', prazo: '2026-11-27T09:00:00', status: 'A_FAZER' },
+  ]
+
+  it('escolhe a prova mais próxima que ainda não passou nem foi concluída', () => {
+    expect(proximaProva(provas, agora).id).toBe(2)
+  })
+
+  it('devolve null quando não há prova futura', () => {
+    expect(proximaProva(provas.slice(2), agora)).toBeNull()
+    expect(proximaProva([], agora)).toBeNull()
+  })
+})
+
+describe('descreverDiasAte', () => {
+  it('conta dias de calendário', () => {
+    expect(descreverDiasAte('2026-11-26T23:59:00', agora)).toBe('hoje')
+    expect(descreverDiasAte('2026-11-27T08:00:00', agora)).toBe('amanhã')
+    expect(descreverDiasAte('2026-12-10T23:59:00', agora)).toBe('em 14 dias')
+  })
+})
+
+describe('entregasDaSemana', () => {
+  const doDia = [
+    { id: 1, prazo: '2026-11-25T23:59:00', status: 'A_FAZER' },
+    { id: 2, prazo: '2026-11-26T12:00:00', status: 'A_FAZER' },
+    { id: 3, prazo: '2026-11-26T18:00:00', status: 'CONCLUIDA' },
+    { id: 4, prazo: '2026-12-07T10:00:00', status: 'A_FAZER' },
+    { id: 5, status: 'A_FAZER' },
+  ]
+
+  it('monta de segunda a domingo e marca o dia de hoje', () => {
+    const semana = entregasDaSemana(doDia, agora)
+
+    expect(semana.map((dia) => dia.rotulo)).toEqual([
+      'Seg',
+      'Ter',
+      'Qua',
+      'Qui',
+      'Sex',
+      'Sáb',
+      'Dom',
+    ])
+    expect(semana.filter((dia) => dia.ehHoje).map((dia) => dia.rotulo)).toEqual(
+      ['Qui'],
+    )
+  })
+
+  it('conta pendentes e concluídas em cada dia e ignora outras semanas', () => {
+    const [seg, , qua, qui] = entregasDaSemana(doDia, agora)
+
+    expect(seg).toMatchObject({ concluidas: 0, pendentes: 0 })
+    expect(qua).toMatchObject({ concluidas: 0, pendentes: 1 })
+    expect(qui).toMatchObject({ concluidas: 1, pendentes: 1 })
   })
 })

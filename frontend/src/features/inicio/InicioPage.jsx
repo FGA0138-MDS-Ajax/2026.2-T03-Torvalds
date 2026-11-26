@@ -14,23 +14,11 @@ import {
   mensagemDeProgresso,
   resumirEntregas,
 } from './inicioUtils'
+import { CartaoResumo, EntregasDaSemana, ProximaProva } from './CartoesDoInicio'
 import ProgressoGeral from './ProgressoGeral'
 import './InicioPage.css'
 
 const CORES_DAS_MATERIAS = ['lilas', 'amarelo', 'verde', 'azul', 'rosa']
-
-function CartaoResumo({ cor, titulo, valor, legenda, para, rotulo }) {
-  return (
-    <Link className={`resumo resumo-${cor}`} to={para} aria-label={rotulo}>
-      <span className="resumo-titulo">{titulo}</span>
-      <span className="resumo-valor">{valor}</span>
-      <span className="resumo-legenda">{legenda}</span>
-      <span className="resumo-seta" aria-hidden="true">
-        →
-      </span>
-    </Link>
-  )
-}
 
 /**
  * Card do progresso no semestre. Os números vêm do GET /progresso, somados
@@ -166,45 +154,22 @@ function Conteudo() {
   }
 
   const { disciplinas, entregas, proximas, progresso } = dados
-  const resumo = resumirEntregas(entregas)
 
   return (
     <div className="inicio-grade">
       <div className="inicio-principal">
-        <div className="inicio-resumos">
+        <div className="inicio-destaques">
+          <EntregasDaSemana entregas={entregas} />
+          <ProximaProva entregas={entregas} />
           <CartaoResumo
             cor="lilas"
             titulo="Matérias"
             valor={disciplinas.length}
-            legenda="Cursando"
+            legenda="Em curso"
             para="/materias"
-            rotulo={`Matérias: ${disciplinas.length} cursando`}
-          />
-          <CartaoResumo
-            cor="amarelo"
-            titulo="Atividades"
-            valor={resumo.pendentes}
-            legenda="Pendentes"
-            para="/agenda"
-            rotulo={`Atividades: ${resumo.pendentes} pendentes`}
-          />
-          <CartaoResumo
-            cor="verde"
-            titulo="Anotações"
-            valor="—"
-            legenda="Em breve"
-            para="/anotacoes"
-            rotulo="Anotações: em breve"
+            rotulo={`Matérias: ${disciplinas.length} em curso`}
           />
         </div>
-
-        <section className="inicio-caixa inicio-tarde">
-          <h2>Sua tarde de hoje</h2>
-          <p>
-            <span className="inicio-em-breve">Em breve</span> Aqui vão aparecer
-            as suas aulas do dia.
-          </p>
-        </section>
 
         <MinhasMaterias disciplinas={disciplinas} entregas={entregas} />
       </div>

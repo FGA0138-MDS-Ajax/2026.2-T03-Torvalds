@@ -1,4 +1,9 @@
-import { ehConcluida } from '../agenda/agendaUtils'
+import {
+  chaveDoDia,
+  diasDaSemana,
+  ehConcluida,
+  inicioDaSemana,
+} from '../agenda/agendaUtils'
 
 /** Conta as entregas e calcula o percentual concluído (0 a 100). */
 export function resumirEntregas(entregas) {
@@ -55,4 +60,74 @@ export function mensagemDeProgresso({ total, percentual }) {
   if (percentual > 0) return 'Bom começo, continue assim!'
 
   return 'Vamos começar? A primeira entrega espera por você.'
+}
+
+const ROTULOS_DA_SEMANA = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom']
+
+function semAcento(texto) {
+  return (texto ?? '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+}
+
+/**
+ * A prova ainda por vir que está mais perto: entre as entregas do tipo
+ * "Prova" que não foram concluídas e cujo prazo não passou, a de prazo menor.
+ * Devolve `null` quando não há nenhuma.
+ */
+export function proximaProva(entregas, agora = new Date()) {
+  const futuras = entregas.filter((item) => {
+    if (!semAcento(item.tipo).startsWith('prova')) return false
+    if (ehConcluida(item.status) || !item.prazo) return false
+
+    const prazo = new Date(item.prazo)
+
+    return !Number.isNaN(prazo.getTime()) && prazo >= agora
+  })
+
+  futuras.sort((a, b) => new Date(a.prazo) - new Date(b.prazo))
+
+  return futuras[0] ?? null
+}
+
+/** "hoje", "amanhã" ou "em 14 dias", contando dias de calendário. */
+export function descreverDiasAte(prazo, agora = new Date()) {
+  const dias = Math.round(
+    (inicioDoDia(new Date(prazo)) - inicioDoDia(agora)) / 86400000,
+  )
+
+  if (dias <= 0) return 'hoje'
+  if (dias === 1) return 'amanhã'
+
+  return `em ${dias} dias`
+}
+
+/**
+ * Entregas da semana atual (de segunda a domingo), um item por dia, com
+ * quantas estão concluídas e quantas ainda pendentes.
+ */
+export function entregasDaSemana(entregas, agora = new Date()) {
+  const dias = diasDaSemana(inicioDaSemana(agora))
+  const chaveDeHoje = chaveDoDia(agora)
+
+  return dias.map((dia, indice) => {
+    const chave = chaveDoDia(dia)
+    const doDia = entregas.filter((item) => {
+      if (!item.prazo) return false
+
+      const prazo = new Date(item.prazo)
+
+      return !Number.isNaN(prazo.getTime()) && chaveDoDia(prazo) === chave
+    })
+    const concluidas = doDia.filter((item) => ehConcluida(item.status)).length
+
+    return {
+      chave,
+      rotulo: ROTULOS_DA_SEMANA[indice],
+      ehHoje: chave === chaveDeHoje,
+      concluidas,
+      pendentes: doDia.length - concluidas,
+    }
+  })
 }

@@ -69,6 +69,7 @@ function responder({
   statusLista = 200,
   proximasDoAluno = proximas,
   progressoDoAluno = progresso,
+  entregasDa1 = entregasDaDisciplina1,
 } = {}) {
   vi.stubGlobal(
     'fetch',
@@ -83,7 +84,7 @@ function responder({
         return new Response(JSON.stringify(proximasDoAluno), { status: 200 })
       }
       if (url.endsWith('/disciplinas/1/atividades')) {
-        return new Response(JSON.stringify(entregasDaDisciplina1), {
+        return new Response(JSON.stringify(entregasDa1), {
           status: 200,
         })
       }
@@ -116,7 +117,7 @@ afterEach(() => {
 })
 
 describe('Início', () => {
-  it('mostra a saudação e os três cartões de resumo', async () => {
+  it('mostra a saudação e os três cartões de destaque', async () => {
     abrir()
 
     expect(
@@ -124,17 +125,45 @@ describe('Início', () => {
     ).toBeInTheDocument()
 
     const materias = await screen.findByRole('link', {
-      name: 'Matérias: 2 cursando',
-    })
-    const atividades = screen.getByRole('link', {
-      name: 'Atividades: 1 pendentes',
+      name: 'Matérias: 2 em curso',
     })
 
     expect(materias).toHaveAttribute('href', '/materias')
-    expect(atividades).toHaveAttribute('href', '/agenda')
     expect(
-      screen.getByRole('link', { name: 'Anotações: em breve' }),
-    ).toHaveAttribute('href', '/anotacoes')
+      screen.getByRole('heading', { name: 'Entregas da semana' }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('link', { name: 'Próxima prova: nenhuma marcada' }),
+    ).toHaveAttribute('href', '/agenda')
+    expect(
+      screen.queryByRole('link', { name: /Anotações/ }),
+    ).not.toBeInTheDocument()
+    expect(
+      screen.queryByRole('heading', { name: 'Sua tarde de hoje' }),
+    ).not.toBeInTheDocument()
+  })
+
+  it('mostra a próxima prova e leva à matéria dela', async () => {
+    responder({
+      entregasDa1: [
+        ...entregasDaDisciplina1,
+        {
+          id: 3,
+          titulo: 'Prova 03',
+          tipo: 'Prova',
+          prazo: '2099-12-10T23:59:00',
+          status: 'A_FAZER',
+        },
+      ],
+    })
+    abrir()
+
+    const cartao = await screen.findByRole('link', {
+      name: /Próxima prova: Prova 03, Compiladores, em \d+ dias/,
+    })
+
+    expect(cartao).toHaveAttribute('href', '/disciplinas/1')
+    expect(cartao).toHaveTextContent('10/12, 23:59')
   })
 
   it('mostra o progresso do semestre vindo do GET /progresso', async () => {
@@ -200,9 +229,6 @@ describe('Início', () => {
     expect(cartao).toHaveAttribute('href', '/disciplinas/1')
     expect(cartao).toHaveTextContent('1/2 Atividades')
     expect(cartao).toHaveTextContent('40%')
-    expect(
-      screen.getByRole('heading', { name: 'Sua tarde de hoje' }),
-    ).toBeInTheDocument()
   })
 
   it('avisa quando o aluno não tem matérias', async () => {
