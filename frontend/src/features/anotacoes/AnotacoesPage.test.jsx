@@ -188,7 +188,7 @@ describe('Tela de Anotações', () => {
     ).toBeInTheDocument()
   })
 
-  it('a busca do topo (?busca=) filtra as abas por título e texto, sem mudar o número', async () => {
+  it('a busca (?busca=) filtra as abas por título e texto, sem mudar o número', async () => {
     responder()
     abrir('/anotacoes?busca=SEMÂNTICA')
 
@@ -203,6 +203,20 @@ describe('Tela de Anotações', () => {
     ).not.toBeInTheDocument()
     expect(
       screen.getByRole('button', { name: 'Cap 02: Etapas da compilação' }),
+    ).toBeInTheDocument()
+  })
+
+  it('digitar no campo de busca da tela filtra as anotações', async () => {
+    responder()
+    abrir('/anotacoes')
+    await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 2 })
+
+    fireEvent.change(screen.getByRole('searchbox'), {
+      target: { value: 'nada disso' },
+    })
+
+    expect(
+      await screen.findByText('Nenhuma anotação encontrada para essa busca.'),
     ).toBeInTheDocument()
   })
 
