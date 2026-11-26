@@ -1,28 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router'
-import {
-  agruparPorDia,
-  chaveDoDia,
-  ehAtrasada,
-  ehConcluida,
-  montarSemanas,
-  nomeDoMes,
-} from '../agenda/agendaUtils'
-
-const DIAS_DA_SEMANA = ['SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB', 'DOM']
-const POR_CELULA = 2
-
-function classeDoItem(item) {
-  if (ehConcluida(item.status)) return 'mes-item mes-item-concluida'
-  if (ehAtrasada(item)) return 'mes-item mes-item-atrasada'
-
-  return 'mes-item'
-}
+import { chaveDoDia, nomeDoMes } from '../agenda/agendaUtils'
+import { entregasDoMes } from './inicioUtils'
 
 /**
- * Janela com as entregas do mês inteiro, em calendário. Abre a partir do card
- * "Entregas da semana"; Esc, o botão Fechar ou um clique fora fecham. O foco
- * fica dentro da janela enquanto ela está aberta.
+ * Janela com as entregas do mês inteiro: uma barra por dia, dividida pelas
+ * matérias, e a legenda com quantas entregas cada matéria tem no mês. Abre a
+ * partir do card "Entregas da semana"; Esc, o botão Fechar ou um clique fora
+ * fecham. O foco fica dentro da janela enquanto ela está aberta.
  */
 export default function EntregasDoMes({ entregas, aoFechar }) {
   const hoje = new Date()
@@ -33,12 +17,9 @@ export default function EntregasDoMes({ entregas, aoFechar }) {
   const janela = useRef(null)
   const botaoFechar = useRef(null)
   const chaveDeHoje = chaveDoDia(hoje)
-  const porDia = agruparPorDia(entregas)
-  const semanas = montarSemanas(ano, mes)
-  const doMes = semanas
-    .flat()
-    .filter((dia) => !dia.foraDoMes)
-    .reduce((soma, dia) => soma + (porDia.get(dia.chave)?.length ?? 0), 0)
+  const { dias, materias, total, pendentes } = entregasDoMes(entregas, ano, mes)
+  const maior = Math.max(1, ...dias.map((dia) => dia.total))
+  const nomeDe = new Map(materias.map((materia) => [materia.id, materia]))
 
   useEffect(() => {
     botaoFechar.current?.focus()
@@ -53,7 +34,7 @@ export default function EntregasDoMes({ entregas, aoFechar }) {
 
       if (evento.key !== 'Tab' || !janela.current) return
 
-      const focaveis = janela.current.querySelectorAll('button, a[href]')
+      const focaveis = janela.current.querySelectorAll('button')
       const primeiro = focaveis[0]
       const ultimo = focaveis[focaveis.length - 1]
 
@@ -77,6 +58,14 @@ export default function EntregasDoMes({ entregas, aoFechar }) {
     definirMes({ ano: data.getFullYear(), mes: data.getMonth() })
   }
 
+  let resumo = 'Nenhuma entrega neste mês'
+  if (total > 0) {
+    resumo =
+      pendentes === 0
+        ? 'Tudo concluído'
+        : `${pendentes} ${pendentes === 1 ? 'pendente' : 'pendentes'}`
+  }
+
   return (
     <div
       className="mes-fundo"
@@ -92,88 +81,95 @@ export default function EntregasDoMes({ entregas, aoFechar }) {
         aria-labelledby="mes-titulo"
       >
         <div className="mes-topo">
-          <h2 id="mes-titulo">Entregas de {nomeDoMes(ano, mes)}</h2>
+          <button type="button" className="mes-botao" onClick={() => mover(-1)}>
+            <span aria-hidden="true">‹</span>
+            <span className="inicio-so-leitor">Mês anterior</span>
+          </button>
+
+          <div className="mes-titulos">
+            <h2 id="mes-titulo">
+              Entregas de{' '}
+              {nomeDoMes(ano, mes).replace(' ', ' de ').toLowerCase()}
+            </h2>
+            <p role="status">{resumo}</p>
+          </div>
+
           <div className="mes-navegacao">
-            <button type="button" onClick={() => mover(-1)}>
-              <span aria-hidden="true">‹</span>
-              <span className="inicio-so-leitor">Mês anterior</span>
-            </button>
-            <button type="button" onClick={() => mover(1)}>
+            <button
+              type="button"
+              className="mes-botao"
+              onClick={() => mover(1)}
+            >
               <span aria-hidden="true">›</span>
               <span className="inicio-so-leitor">Próximo mês</span>
             </button>
             <button
               ref={botaoFechar}
               type="button"
-              className="mes-fechar"
+              className="mes-botao"
               onClick={aoFechar}
             >
-              Fechar
+              <span aria-hidden="true">×</span>
+              <span className="inicio-so-leitor">Fechar</span>
             </button>
           </div>
         </div>
 
-        <p className="mes-resumo" role="status">
-          {doMes === 0
-            ? 'Nenhuma entrega neste mês.'
-            : `${doMes} ${doMes === 1 ? 'entrega' : 'entregas'} neste mês`}
-        </p>
+        <ul
+          className="mes-grafico"
+          style={{
+            gridTemplateColumns: `repeat(${dias.length}, minmax(0, 1fr))`,
+          }}
+        >
+          {dias.map((dia) => {
+            const classes = ['mes-dia']
 
-        <table className="mes-tabela">
-          <thead>
-            <tr>
-              {DIAS_DA_SEMANA.map((dia) => (
-                <th key={dia} scope="col">
-                  {dia}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {semanas.map((semana) => (
-              <tr key={semana[0].chave}>
-                {semana.map((dia) => {
-                  const itens = porDia.get(dia.chave) ?? []
-                  const classes = ['mes-celula']
+            if (dia.chave === chaveDeHoje) classes.push('mes-dia-hoje')
 
-                  if (dia.foraDoMes) classes.push('mes-celula-fora')
-                  if (dia.chave === chaveDeHoje) classes.push('mes-celula-hoje')
+            return (
+              <li key={dia.chave} className={classes.join(' ')}>
+                <span className="inicio-so-leitor">
+                  Dia {dia.dia}:{' '}
+                  {dia.total === 0
+                    ? 'sem entregas'
+                    : [...dia.porMateria]
+                        .map(
+                          ([id, quantidade]) =>
+                            `${nomeDe.get(id)?.nome} ${quantidade}`,
+                        )
+                        .join(', ')}
+                </span>
+                <span className="mes-numero" aria-hidden="true">
+                  {dia.total > 0 ? dia.total : ''}
+                </span>
+                <span className="mes-coluna" aria-hidden="true">
+                  {[...dia.porMateria].map(([id, quantidade]) => (
+                    <span
+                      key={id}
+                      className={`mes-barra mes-cor-${nomeDe.get(id)?.cor ?? 0}`}
+                      style={{ height: `${(quantidade / maior) * 100}%` }}
+                    />
+                  ))}
+                </span>
+                <span className="mes-rotulo" aria-hidden="true">
+                  {dia.dia}
+                </span>
+              </li>
+            )
+          })}
+        </ul>
 
-                  return (
-                    <td key={dia.chave} className={classes.join(' ')}>
-                      <span className="mes-dia">{dia.data.getDate()}</span>
-                      {itens.length > 0 && (
-                        <>
-                          <span className="mes-contagem" aria-hidden="true">
-                            {itens.length}
-                          </span>
-                          <ul className="mes-lista">
-                            {itens.slice(0, POR_CELULA).map((item) => (
-                              <li key={`${item.disciplinaId}-${item.id}`}>
-                                <Link
-                                  className={classeDoItem(item)}
-                                  to={`/disciplinas/${item.disciplinaId}`}
-                                  title={`${item.titulo} · ${item.disciplina}`}
-                                >
-                                  {item.titulo}
-                                </Link>
-                              </li>
-                            ))}
-                            {itens.length > POR_CELULA && (
-                              <li className="mes-mais">
-                                +{itens.length - POR_CELULA} mais
-                              </li>
-                            )}
-                          </ul>
-                        </>
-                      )}
-                    </td>
-                  )
-                })}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <ul className="mes-legenda">
+          {materias.map((materia) => (
+            <li key={materia.id}>
+              <span
+                className={`mes-quadrado mes-cor-${materia.cor}`}
+                aria-hidden="true"
+              />
+              {materia.nome} <strong>{materia.total}</strong>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   )

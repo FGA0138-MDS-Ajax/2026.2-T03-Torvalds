@@ -89,7 +89,6 @@ export function EntregasDaSemana({ entregas }) {
       <div className="inicio-caixa-topo">
         <h2>Entregas da semana</h2>
         <div className="semana-acoes">
-          <Link to="/agenda">Ver agenda →</Link>
           <button
             ref={gatilho}
             type="button"

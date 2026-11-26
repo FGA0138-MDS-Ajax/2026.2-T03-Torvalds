@@ -203,3 +203,65 @@ export function formatarHora(prazo) {
 
   return `${hora}:${minuto}`
 }
+
+/**
+ * Entregas de um mês (`mes` de 0 a 11), um item por dia, cada dia dividido por
+ * matéria, mais a lista das matérias que têm entrega no mês. A ordem das
+ * matérias vem de todas as entregas, para a cor de cada uma não mudar ao
+ * trocar de mês.
+ */
+export function entregasDoMes(entregas, ano, mes) {
+  const ordem = []
+
+  for (const item of entregas) {
+    if (!ordem.some((materia) => materia.id === item.disciplinaId)) {
+      ordem.push({ id: item.disciplinaId, nome: item.disciplina })
+    }
+  }
+
+  const diasNoMes = new Date(ano, mes + 1, 0).getDate()
+  const dias = Array.from({ length: diasNoMes }, (_, indice) => ({
+    dia: indice + 1,
+    chave: chaveDoDia(new Date(ano, mes, indice + 1)),
+    total: 0,
+    porMateria: new Map(),
+  }))
+  const totais = new Map()
+  let pendentes = 0
+
+  for (const item of entregas) {
+    if (!item.prazo) continue
+
+    const prazo = new Date(item.prazo)
+
+    if (
+      Number.isNaN(prazo.getTime()) ||
+      prazo.getFullYear() !== ano ||
+      prazo.getMonth() !== mes
+    ) {
+      continue
+    }
+
+    const dia = dias[prazo.getDate() - 1]
+
+    dia.total += 1
+    dia.porMateria.set(
+      item.disciplinaId,
+      (dia.porMateria.get(item.disciplinaId) ?? 0) + 1,
+    )
+    totais.set(item.disciplinaId, (totais.get(item.disciplinaId) ?? 0) + 1)
+    if (!ehConcluida(item.status)) pendentes += 1
+  }
+
+  const materias = ordem
+    .map((materia, indice) => ({
+      ...materia,
+      cor: indice % 5,
+      total: totais.get(materia.id) ?? 0,
+    }))
+    .filter((materia) => materia.total > 0)
+
+  const total = dias.reduce((soma, dia) => soma + dia.total, 0)
+
+  return { dias, materias, total, pendentes }
+}

@@ -227,12 +227,11 @@ describe('Início', () => {
 
       const janela = screen.getByRole('dialog', { name: /^Entregas de / })
 
-      expect(within(janela).getByRole('status')).toHaveTextContent(
-        /^\d+ entregas? neste mês$/,
-      )
+      expect(within(janela).getByRole('status')).toHaveTextContent('1 pendente')
+      expect(within(janela).getByText('Compiladores')).toBeInTheDocument()
       expect(
-        within(janela).getByRole('link', { name: /Revisão/ }),
-      ).toHaveAttribute('href', '/disciplinas/1')
+        screen.queryByRole('link', { name: /Ver agenda/ }),
+      ).not.toBeInTheDocument()
 
       fireEvent.keyDown(document, { key: 'Escape' })
 

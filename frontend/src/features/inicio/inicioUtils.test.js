@@ -5,6 +5,7 @@ import {
   contarEntregasDeHoje,
   descreverDataLonga,
   descreverDiasAte,
+  entregasDoMes,
   entregasDaSemana,
   formatarHora,
   formatarPrazoCurto,
@@ -176,5 +177,65 @@ describe('seloDoPrazo e formatarHora', () => {
     })
     expect(formatarHora('2026-11-26T09:05:00')).toBe('09:05')
     expect(formatarHora(undefined)).toBe('')
+  })
+})
+
+describe('entregasDoMes', () => {
+  const lista = [
+    {
+      id: 1,
+      disciplinaId: 1,
+      disciplina: 'Cálculo',
+      prazo: '2026-11-26T10:00:00',
+      status: 'A_FAZER',
+    },
+    {
+      id: 2,
+      disciplinaId: 2,
+      disciplina: 'Física',
+      prazo: '2026-11-26T12:00:00',
+      status: 'CONCLUIDA',
+    },
+    {
+      id: 3,
+      disciplinaId: 2,
+      disciplina: 'Física',
+      prazo: '2026-11-30T12:00:00',
+      status: 'A_FAZER',
+    },
+    {
+      id: 4,
+      disciplinaId: 1,
+      disciplina: 'Cálculo',
+      prazo: '2026-12-02T12:00:00',
+      status: 'A_FAZER',
+    },
+    { id: 5, disciplinaId: 3, disciplina: 'Química', status: 'A_FAZER' },
+  ]
+
+  it('divide o mês em dias, cada um com as entregas por matéria', () => {
+    const { dias, total, pendentes } = entregasDoMes(lista, 2026, 10)
+
+    expect(dias).toHaveLength(30)
+    expect(dias[25]).toMatchObject({ dia: 26, total: 2 })
+    expect([...dias[25].porMateria]).toEqual([
+      [1, 1],
+      [2, 1],
+    ])
+    expect(dias[29].total).toBe(1)
+    expect(total).toBe(3)
+    expect(pendentes).toBe(2)
+  })
+
+  it('lista só as matérias com entrega no mês, com cor estável entre meses', () => {
+    const novembro = entregasDoMes(lista, 2026, 10).materias
+    const dezembro = entregasDoMes(lista, 2026, 11).materias
+
+    expect(novembro.map((m) => [m.nome, m.total])).toEqual([
+      ['Cálculo', 1],
+      ['Física', 2],
+    ])
+    expect(dezembro).toHaveLength(1)
+    expect(dezembro[0].cor).toBe(novembro[0].cor)
   })
 })
