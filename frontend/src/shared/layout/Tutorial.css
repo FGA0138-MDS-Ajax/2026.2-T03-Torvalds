@@ -159,6 +159,19 @@
   outline-offset: 2px;
 }
 
+/* Celular: o balão nunca passa da tela; se o texto for grande, rola dentro dele */
+@media (max-width: 760px) {
+  .tutorial-cartao {
+    max-height: calc(100svh - 10rem);
+    overflow-y: auto;
+  }
+
+  .tutorial-pular {
+    top: 0.75rem;
+    right: 0.75rem;
+  }
+}
+
 @keyframes tutorial-cartao-entra {
   from {
     opacity: 0;

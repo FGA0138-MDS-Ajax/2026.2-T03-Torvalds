@@ -31,6 +31,17 @@ function posicaoDoCartao(caixa) {
 
   const largura = window.innerWidth
   const altura = window.innerHeight
+
+  // Celular: o balão fica sempre à vista, no alto ou embaixo (acima da barra
+  // de menu), do lado oposto ao destaque, para o botão Próximo nunca sumir
+  if (largura <= 760) {
+    const meio = caixa.top + caixa.height / 2
+    const esquerda = Math.max(16, (largura - LARGURA_DO_CARTAO) / 2)
+
+    return meio > altura / 2
+      ? { left: esquerda, top: 64 }
+      : { left: esquerda, bottom: 96 }
+  }
   // Destaque quase do tamanho da tela (o painel inteiro): o balão vai para o canto
   if (caixa.height > altura * 0.6 && caixa.width > largura * 0.5) {
     return { right: 24, bottom: 24 }
@@ -107,6 +118,15 @@ export default function Tutorial() {
     return () => window.removeEventListener(EVENTO_TUTORIAL, abrir)
   }, [])
 
+  // Traz o destaque para a tela (no celular a página pode estar rolada)
+  useEffect(() => {
+    if (!passo?.alvo) return
+
+    document
+      .querySelector(passo.alvo)
+      ?.scrollIntoView?.({ block: 'center', inline: 'nearest' })
+  }, [passo])
+
   // Mede o destaque a cada passo (e quando a janela muda de tamanho)
   useEffect(() => {
     if (!passo) return undefined
@@ -115,10 +135,12 @@ export default function Tutorial() {
     const quadro = requestAnimationFrame(medir)
 
     window.addEventListener('resize', medir)
+    window.addEventListener('scroll', medir, true)
 
     return () => {
       cancelAnimationFrame(quadro)
       window.removeEventListener('resize', medir)
+      window.removeEventListener('scroll', medir, true)
     }
   }, [passo])
 
