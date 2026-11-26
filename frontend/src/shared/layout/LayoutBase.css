@@ -144,8 +144,7 @@
   background: var(--cor-fundo);
 }
 
-/* Manchas verdes do protótipo: uma grande no canto de cima e uma pequena no outro */
-.layout-coluna::before,
+/* Mancha verde do protótipo, só no canto de cima à direita */
 .layout-coluna::after {
   content: '';
   position: absolute;
@@ -154,12 +153,6 @@
   background: url('../../assets/decoracao-superior.png') no-repeat top left /
     100% auto;
   pointer-events: none;
-}
-
-.layout-coluna::before {
-  left: 0;
-  width: 18.75rem;
-  height: 12.8125rem;
 }
 
 .layout-coluna::after {
@@ -287,11 +280,6 @@
     overflow: hidden;
     clip-path: inset(50%);
     white-space: nowrap;
-  }
-
-  .layout-coluna::before {
-    width: 11.875rem;
-    height: 8.125rem;
   }
 
   .layout-coluna::after {
