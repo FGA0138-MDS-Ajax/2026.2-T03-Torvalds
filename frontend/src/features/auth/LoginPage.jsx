@@ -85,6 +85,9 @@ export default function LoginPage({ onEntrar }) {
                     type="email"
                     placeholder="nome@email.com"
                     autoComplete="username"
+                    autoCapitalize="none"
+                    autoCorrect="off"
+                    spellCheck={false}
                     defaultValue={state?.email ?? ''}
                     autoFocus={!state?.email}
                     required
