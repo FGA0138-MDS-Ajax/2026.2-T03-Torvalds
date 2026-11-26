@@ -1,3 +1,4 @@
+import { corDaDisciplina } from '../../shared/utils/coresDisciplina'
 import {
   chaveDoDia,
   diasDaSemana,
@@ -211,11 +212,11 @@ export function formatarHora(prazo) {
 
 /**
  * Entregas de um mês (`mes` de 0 a 11), um item por dia, cada dia dividido por
- * matéria, mais a lista das matérias que têm entrega no mês. A ordem das
- * matérias vem de todas as entregas, para a cor de cada uma não mudar ao
- * trocar de mês.
+ * matéria, mais a lista das matérias que têm entrega no mês. A cor de cada
+ * matéria vem de `cores` (veja `coresDasDisciplinas`), a mesma de Matérias e
+ * da Agenda, e por isso não muda ao trocar de mês.
  */
-export function entregasDoMes(entregas, ano, mes) {
+export function entregasDoMes(entregas, ano, mes, cores = new Map()) {
   const ordem = []
 
   for (const item of entregas) {
@@ -259,9 +260,9 @@ export function entregasDoMes(entregas, ano, mes) {
   }
 
   const materias = ordem
-    .map((materia, indice) => ({
+    .map((materia) => ({
       ...materia,
-      cor: indice % 5,
+      cor: cores.get(materia.id) ?? 'lilas',
       total: totais.get(materia.id) ?? 0,
     }))
     .filter((materia) => materia.total > 0)
@@ -269,4 +270,18 @@ export function entregasDoMes(entregas, ano, mes) {
   const total = dias.reduce((soma, dia) => soma + dia.total, 0)
 
   return { dias, materias, total, pendentes }
+}
+
+/**
+ * Cor fixa de cada matéria (lilas, amarelo, verde, rosa ou azul), pelo id.
+ * É a mesma regra de Matérias e da Agenda, então a matéria tem a mesma cor em
+ * todas as telas.
+ */
+export function coresDasDisciplinas(disciplinas) {
+  return new Map(
+    disciplinas.map((disciplina, indice) => [
+      disciplina.id,
+      corDaDisciplina(disciplina.nome, indice),
+    ]),
+  )
 }

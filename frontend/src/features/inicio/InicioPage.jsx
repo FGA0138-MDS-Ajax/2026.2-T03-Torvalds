@@ -11,6 +11,7 @@ import { carregarInicio } from './inicioApi'
 import {
   contarAtrasadas,
   contarEntregasDeHoje,
+  coresDasDisciplinas,
   corDoTipo,
   descreverDataLonga,
   descreverDiasAte,
@@ -22,8 +23,6 @@ import {
 import { CartaoResumo, EntregasDaSemana, ProximaProva } from './CartoesDoInicio'
 import ProgressoGeral from './ProgressoGeral'
 import './InicioPage.css'
-
-const CORES_DAS_MATERIAS = ['verde', 'amarelo', 'azul', 'rosa', 'lilas']
 
 function Cabecalho({ disciplinas, entregas, nome }) {
   const agora = new Date()
@@ -163,7 +162,7 @@ function Proximas({ proximas }) {
   )
 }
 
-function MinhasMaterias({ disciplinas, entregas }) {
+function MinhasMaterias({ disciplinas, entregas, cores }) {
   return (
     <section className="inicio-caixa">
       <h2>Minhas matérias</h2>
@@ -172,7 +171,7 @@ function MinhasMaterias({ disciplinas, entregas }) {
         <EstadoVazio mensagem="Você ainda não tem matérias." />
       ) : (
         <ul className="inicio-materias">
-          {disciplinas.map((disciplina, indice) => {
+          {disciplinas.map((disciplina) => {
             const { total, concluidas, pendentes } = resumirEntregas(
               entregas.filter((item) => item.disciplinaId === disciplina.id),
             )
@@ -180,9 +179,7 @@ function MinhasMaterias({ disciplinas, entregas }) {
             return (
               <li key={disciplina.id}>
                 <Link
-                  className={`materia materia-${
-                    CORES_DAS_MATERIAS[indice % CORES_DAS_MATERIAS.length]
-                  }`}
+                  className={`materia materia-${cores.get(disciplina.id)}`}
                   to={`/disciplinas/${disciplina.id}`}
                 >
                   <strong>{disciplina.nome}</strong>
@@ -225,6 +222,7 @@ function Conteudo() {
   }
 
   const { disciplinas, entregas, proximas, progresso } = dados
+  const cores = coresDasDisciplinas(disciplinas)
 
   return (
     <>
@@ -237,7 +235,7 @@ function Conteudo() {
       <div className="inicio-grade">
         <div className="inicio-principal">
           <div className="inicio-destaques">
-            <EntregasDaSemana entregas={entregas} />
+            <EntregasDaSemana entregas={entregas} cores={cores} />
             <ProximaProva entregas={entregas} />
             <CartaoResumo
               cor="lilas"
@@ -249,7 +247,11 @@ function Conteudo() {
             />
           </div>
 
-          <MinhasMaterias disciplinas={disciplinas} entregas={entregas} />
+          <MinhasMaterias
+            disciplinas={disciplinas}
+            entregas={entregas}
+            cores={cores}
+          />
         </div>
 
         <aside className="inicio-lateral">

@@ -8,7 +8,7 @@ import { entregasDoMes } from './inicioUtils'
  * partir do card "Entregas da semana"; Esc, o botão Fechar ou um clique fora
  * fecham. O foco fica dentro da janela enquanto ela está aberta.
  */
-export default function EntregasDoMes({ entregas, aoFechar }) {
+export default function EntregasDoMes({ entregas, cores, aoFechar }) {
   const hoje = new Date()
   const [{ ano, mes }, definirMes] = useState({
     ano: hoje.getFullYear(),
@@ -17,7 +17,12 @@ export default function EntregasDoMes({ entregas, aoFechar }) {
   const janela = useRef(null)
   const botaoFechar = useRef(null)
   const chaveDeHoje = chaveDoDia(hoje)
-  const { dias, materias, total, pendentes } = entregasDoMes(entregas, ano, mes)
+  const { dias, materias, total, pendentes } = entregasDoMes(
+    entregas,
+    ano,
+    mes,
+    cores,
+  )
   const maior = Math.max(1, ...dias.map((dia) => dia.total))
   const nomeDe = new Map(materias.map((materia) => [materia.id, materia]))
 
@@ -147,7 +152,7 @@ export default function EntregasDoMes({ entregas, aoFechar }) {
                   {[...dia.porMateria].map(([id, quantidade]) => (
                     <span
                       key={id}
-                      className={`mes-barra mes-cor-${nomeDe.get(id)?.cor ?? 0}`}
+                      className={`mes-barra mes-cor-${nomeDe.get(id)?.cor ?? 'lilas'}`}
                       style={{
                         height: `${(quantidade / maior) * 100}%`,
                         ...atraso,

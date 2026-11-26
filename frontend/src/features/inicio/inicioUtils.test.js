@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   corDoTipo,
   contarAtrasadas,
+  coresDasDisciplinas,
   contarEntregasDeHoje,
   descreverDataLonga,
   descreverDiasAte,
@@ -234,15 +235,33 @@ describe('entregasDoMes', () => {
     expect(pendentes).toBe(2)
   })
 
-  it('lista só as matérias com entrega no mês, com cor estável entre meses', () => {
-    const novembro = entregasDoMes(lista, 2026, 10).materias
-    const dezembro = entregasDoMes(lista, 2026, 11).materias
+  it('lista só as matérias com entrega no mês, com a cor recebida', () => {
+    const cores = new Map([
+      [1, 'verde'],
+      [2, 'azul'],
+    ])
+    const novembro = entregasDoMes(lista, 2026, 10, cores).materias
+    const dezembro = entregasDoMes(lista, 2026, 11, cores).materias
 
-    expect(novembro.map((m) => [m.nome, m.total])).toEqual([
-      ['Cálculo', 1],
-      ['Física', 2],
+    expect(novembro.map((m) => [m.nome, m.total, m.cor])).toEqual([
+      ['Cálculo', 1, 'verde'],
+      ['Física', 2, 'azul'],
     ])
     expect(dezembro).toHaveLength(1)
-    expect(dezembro[0].cor).toBe(novembro[0].cor)
+    expect(dezembro[0].cor).toBe('verde')
+  })
+})
+
+describe('coresDasDisciplinas', () => {
+  it('usa a cor fixa das matérias conhecidas, igual a Matérias e Agenda', () => {
+    const cores = coresDasDisciplinas([
+      { id: 5, nome: 'Compiladores 1' },
+      { id: 6, nome: 'Teoria dos Números 1' },
+      { id: 7, nome: 'Métodos de Desenvolvimento de Software' },
+    ])
+
+    expect(cores.get(5)).toBe('lilas')
+    expect(cores.get(6)).toBe('azul')
+    expect(cores.get(7)).toBe('rosa')
   })
 })

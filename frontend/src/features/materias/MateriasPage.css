@@ -1,5 +1,28 @@
+.materias {
+  --lilas-forte: #b49bd6;
+  --azul-forte: #8fcdf2;
+  --verde-forte: #7fbf95;
+  --amarelo-forte: #f2c96b;
+  --rosa-forte: #e8a597;
+}
+
+/* Título no mesmo estilo e na mesma altura do nome "cAnCHA" do menu, como no Início */
+.materias > h1 {
+  margin: 0 0 6px;
+  font-size: 2rem;
+  line-height: normal;
+}
+
 .materias-subtitulo {
-  margin: -12px 0 20px;
+  margin: 0 0 20px;
+  color: var(--cor-texto-suave);
+}
+
+@media (min-width: 761px) {
+  .materias > h1 {
+    margin-top: -44px;
+    padding-right: 180px;
+  }
 }
 
 .materias-grade {
@@ -21,14 +44,20 @@
   display: grid;
   gap: 12px;
   width: 100%;
-  padding: 14px 16px;
-  border: 2px solid transparent;
+  padding: 16px;
+  border: 0;
+  border-top: 5px solid transparent;
   border-radius: 12px;
   color: var(--cor-texto);
   font: inherit;
   font-size: 0.875rem;
   text-align: left;
   cursor: pointer;
+}
+
+.materia-cartao strong {
+  font-size: 1.05rem;
+  overflow-wrap: anywhere;
 }
 
 .materia-cartao:hover {
@@ -41,7 +70,7 @@
 }
 
 .materia-cartao-ativo {
-  border-color: var(--cor-borda-forte);
+  box-shadow: 0 0 0 2px var(--cor-borda-forte);
 }
 
 .materia-cartao .barra-progresso-trilho {
@@ -50,22 +79,27 @@
 }
 
 .materia-cartao-lilas {
+  border-top-color: var(--lilas-forte);
   background: var(--cor-lilas-claro);
 }
 
 .materia-cartao-amarelo {
+  border-top-color: var(--amarelo-forte);
   background: var(--cor-amarelo-claro);
 }
 
 .materia-cartao-verde {
+  border-top-color: var(--verde-forte);
   background: var(--cor-verde-claro);
 }
 
 .materia-cartao-rosa {
+  border-top-color: var(--rosa-forte);
   background: var(--cor-rosa-claro);
 }
 
 .materia-cartao-azul {
+  border-top-color: var(--azul-forte);
   background: var(--cor-azul-claro);
 }
 
@@ -105,6 +139,7 @@
   gap: 18px;
   min-width: 0;
   padding: 20px;
+  border-top: 5px solid var(--painel-forte);
   border-radius: 14px;
   background: var(--painel-fundo);
 }

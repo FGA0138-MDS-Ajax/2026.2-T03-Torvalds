@@ -58,7 +58,7 @@ export function ProximaProva({ entregas }) {
 }
 
 /** Verde: quantas entregas vencem em cada dia da semana atual. */
-export function EntregasDaSemana({ entregas }) {
+export function EntregasDaSemana({ entregas, cores }) {
   const [aberto, setAberto] = useState(false)
   const gatilho = useRef(null)
   const fechar = useCallback(() => {
@@ -147,7 +147,7 @@ export function EntregasDaSemana({ entregas }) {
 
       {aberto &&
         createPortal(
-          <EntregasDoMes entregas={entregas} aoFechar={fechar} />,
+          <EntregasDoMes entregas={entregas} cores={cores} aoFechar={fechar} />,
           document.body,
         )}
     </section>
