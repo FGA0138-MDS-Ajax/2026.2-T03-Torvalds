@@ -96,7 +96,9 @@ function Proximas({ proximas }) {
     <section className="inicio-caixa inicio-proximas">
       <div className="inicio-caixa-topo">
         <h2>Próximas tarefas</h2>
-        <Link to="/agenda">Ver tudo →</Link>
+        <Link to="/agenda" state={{ abrindo: true }}>
+          Ver tudo →
+        </Link>
       </div>
 
       {atrasadas > 0 && (
