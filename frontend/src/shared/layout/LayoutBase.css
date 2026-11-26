@@ -60,7 +60,7 @@
   display: grid;
   gap: 8px;
   margin: auto 0;
-  padding: 0 0 40px;
+  padding: 0 0 24svh;
   list-style: none;
 }
 
