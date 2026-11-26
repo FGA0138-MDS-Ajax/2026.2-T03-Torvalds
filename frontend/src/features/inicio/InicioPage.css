@@ -211,20 +211,42 @@
   border-bottom: 3px solid rgb(67 45 30 / 0.18);
 }
 
-.semana-barra {
-  display: block;
+.semana-pilha {
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  overflow: hidden;
   border: 2px solid var(--cor-texto);
   border-bottom-width: 0;
+  border-radius: 6px 6px 0 0;
   box-sizing: border-box;
+  transition: height 0.4s ease;
 }
 
-.semana-barra-concluida {
-  background: var(--cor-verde-claro);
+.semana-parte {
+  display: block;
+  min-height: 3px;
+  background: var(--lilas-forte);
 }
 
-.semana-barra-pendente {
-  background: var(--cor-lilas-claro);
+.semana-parte-azul {
+  background: var(--azul-forte);
+}
+
+.semana-parte-verde {
+  background: var(--verde-forte);
+}
+
+.semana-parte-amarelo {
+  background: var(--amarelo-forte);
+}
+
+.semana-parte-rosa {
+  background: var(--rosa-forte, var(--cor-alerta));
+}
+
+.semana-parte + .semana-parte {
+  border-top: 2px solid var(--cor-texto);
 }
 
 .semana-rotulo {
@@ -436,11 +458,11 @@
   font-size: 1.3rem;
 }
 
-.inicio-numero-atrasadas {
-  background: var(--cor-rosa-claro) !important;
+.inicio-numero-atrasadas.tem-atraso {
+  background: var(--cor-rosa-claro);
 }
 
-.inicio-numero-atrasadas dd strong {
+.inicio-numero-atrasadas.tem-atraso dd strong {
   color: var(--cor-alerta);
 }
 
@@ -500,6 +522,11 @@
 
 .selo-data small {
   font-size: 0.65rem;
+}
+
+.selo-data-rosa {
+  border-top-color: var(--rosa-forte, var(--cor-alerta));
+  background: var(--cor-rosa-claro);
 }
 
 .selo-data-azul {

@@ -76,7 +76,13 @@ function Progresso({ progresso, atrasadas }) {
                 <strong>{total - concluidas}</strong>
               </dd>
             </div>
-            <div className="inicio-numero-atrasadas">
+            <div
+              className={
+                atrasadas > 0
+                  ? 'inicio-numero-atrasadas tem-atraso'
+                  : 'inicio-numero-atrasadas'
+              }
+            >
               <dt>Atrasadas</dt>
               <dd>
                 <strong>{atrasadas}</strong>
@@ -89,7 +95,7 @@ function Progresso({ progresso, atrasadas }) {
   )
 }
 
-function Proximas({ proximas }) {
+function Proximas({ proximas, cores }) {
   const atrasadas = proximas.filter((item) => item.atrasada).length
 
   return (
@@ -130,7 +136,7 @@ function Proximas({ proximas }) {
                     className={
                       item.atrasada
                         ? 'selo-data selo-data-atrasada'
-                        : `selo-data selo-data-${corDoTipo(item.tipo)}`
+                        : `selo-data selo-data-${cores.get(item.disciplinaId) ?? 'lilas'}`
                     }
                     aria-hidden="true"
                   >
@@ -261,7 +267,7 @@ function Conteudo() {
             progresso={progresso}
             atrasadas={contarAtrasadas(entregas)}
           />
-          <Proximas proximas={proximas} />
+          <Proximas proximas={proximas} cores={cores} />
         </aside>
       </div>
     </>

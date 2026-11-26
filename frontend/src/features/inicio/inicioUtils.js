@@ -112,14 +112,22 @@ export function entregasDaSemana(entregas, agora = new Date()) {
 
       return !Number.isNaN(prazo.getTime()) && chaveDoDia(prazo) === chave
     })
-    const concluidas = doDia.filter((item) => ehConcluida(item.status)).length
+    const pendentes = doDia.filter((item) => !ehConcluida(item.status))
+    const porMateria = new Map()
+
+    for (const item of pendentes) {
+      porMateria.set(
+        item.disciplinaId,
+        (porMateria.get(item.disciplinaId) ?? 0) + 1,
+      )
+    }
 
     return {
       chave,
       rotulo: ROTULOS_DA_SEMANA[indice],
       ehHoje: chave === chaveDeHoje,
-      concluidas,
-      pendentes: doDia.length - concluidas,
+      pendentes: pendentes.length,
+      porMateria,
     }
   })
 }
@@ -248,6 +256,9 @@ export function entregasDoMes(entregas, ano, mes, cores = new Map()) {
       continue
     }
 
+    // Como no Wolf Study, o mês mostra só o que ainda está pendente.
+    if (ehConcluida(item.status)) continue
+
     const dia = dias[prazo.getDate() - 1]
 
     dia.total += 1
@@ -256,7 +267,7 @@ export function entregasDoMes(entregas, ano, mes, cores = new Map()) {
       (dia.porMateria.get(item.disciplinaId) ?? 0) + 1,
     )
     totais.set(item.disciplinaId, (totais.get(item.disciplinaId) ?? 0) + 1)
-    if (!ehConcluida(item.status)) pendentes += 1
+    pendentes += 1
   }
 
   const materias = ordem

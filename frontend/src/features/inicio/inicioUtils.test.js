@@ -129,12 +129,12 @@ describe('entregasDaSemana', () => {
     )
   })
 
-  it('conta pendentes e concluídas em cada dia e ignora outras semanas', () => {
+  it('conta só as pendentes em cada dia e ignora outras semanas', () => {
     const [seg, , qua, qui] = entregasDaSemana(doDia, agora)
 
-    expect(seg).toMatchObject({ concluidas: 0, pendentes: 0 })
-    expect(qua).toMatchObject({ concluidas: 0, pendentes: 1 })
-    expect(qui).toMatchObject({ concluidas: 1, pendentes: 1 })
+    expect(seg.pendentes).toBe(0)
+    expect(qua.pendentes).toBe(1)
+    expect(qui.pendentes).toBe(1)
   })
 })
 
@@ -225,13 +225,10 @@ describe('entregasDoMes', () => {
     const { dias, total, pendentes } = entregasDoMes(lista, 2026, 10)
 
     expect(dias).toHaveLength(30)
-    expect(dias[25]).toMatchObject({ dia: 26, total: 2 })
-    expect([...dias[25].porMateria]).toEqual([
-      [1, 1],
-      [2, 1],
-    ])
+    expect(dias[25]).toMatchObject({ dia: 26, total: 1 })
+    expect([...dias[25].porMateria]).toEqual([[1, 1]])
     expect(dias[29].total).toBe(1)
-    expect(total).toBe(3)
+    expect(total).toBe(2)
     expect(pendentes).toBe(2)
   })
 
@@ -245,7 +242,7 @@ describe('entregasDoMes', () => {
 
     expect(novembro.map((m) => [m.nome, m.total, m.cor])).toEqual([
       ['Cálculo', 1, 'verde'],
-      ['Física', 2, 'azul'],
+      ['Física', 1, 'azul'],
     ])
     expect(dezembro).toHaveLength(1)
     expect(dezembro[0].cor).toBe('verde')

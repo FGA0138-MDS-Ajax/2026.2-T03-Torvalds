@@ -66,14 +66,8 @@ export function EntregasDaSemana({ entregas, cores }) {
     gatilho.current?.focus()
   }, [])
   const dias = entregasDaSemana(entregas)
-  const maior = Math.max(
-    1,
-    ...dias.map((dia) => dia.concluidas + dia.pendentes),
-  )
-  const total = dias.reduce(
-    (soma, dia) => soma + dia.concluidas + dia.pendentes,
-    0,
-  )
+  const maior = Math.max(1, ...dias.map((dia) => dia.pendentes))
+  const total = dias.reduce((soma, dia) => soma + dia.pendentes, 0)
 
   return (
     <section
@@ -102,46 +96,42 @@ export function EntregasDaSemana({ entregas, cores }) {
       </div>
 
       <ul className="semana-grafico">
-        {dias.map((dia) => {
-          const quantidade = dia.concluidas + dia.pendentes
-
-          return (
-            <li
-              key={dia.chave}
-              className={dia.ehHoje ? 'semana-dia semana-hoje' : 'semana-dia'}
-            >
-              <span className="inicio-so-leitor">
-                {dia.rotulo}: {dia.pendentes} pendentes, {dia.concluidas}{' '}
-                concluídas
-              </span>
-              <span className="semana-numero" aria-hidden="true">
-                {quantidade > 0 ? quantidade : ''}
-              </span>
-              <span className="semana-coluna" aria-hidden="true">
-                {dia.pendentes > 0 && (
+        {dias.map((dia) => (
+          <li
+            key={dia.chave}
+            className={dia.ehHoje ? 'semana-dia semana-hoje' : 'semana-dia'}
+          >
+            <span className="inicio-so-leitor">
+              {dia.rotulo}: {dia.pendentes}{' '}
+              {dia.pendentes === 1 ? 'pendente' : 'pendentes'}
+            </span>
+            <span className="semana-numero" aria-hidden="true">
+              {dia.pendentes > 0 ? dia.pendentes : ''}
+            </span>
+            <span className="semana-coluna" aria-hidden="true">
+              <span
+                className="semana-pilha"
+                style={{ height: `${(dia.pendentes / maior) * 100}%` }}
+              >
+                {[...dia.porMateria].map(([id, quantidade]) => (
                   <span
-                    className="semana-barra semana-barra-pendente"
-                    style={{ height: `${(dia.pendentes / maior) * 100}%` }}
+                    key={id}
+                    className={`semana-parte semana-parte-${cores.get(id) ?? 'lilas'}`}
+                    style={{ flexGrow: quantidade }}
                   />
-                )}
-                {dia.concluidas > 0 && (
-                  <span
-                    className="semana-barra semana-barra-concluida"
-                    style={{ height: `${(dia.concluidas / maior) * 100}%` }}
-                  />
-                )}
+                ))}
               </span>
-              <span className="semana-rotulo" aria-hidden="true">
-                {dia.rotulo}
-              </span>
-            </li>
-          )
-        })}
+            </span>
+            <span className="semana-rotulo" aria-hidden="true">
+              {dia.rotulo}
+            </span>
+          </li>
+        ))}
       </ul>
 
       <p className="semana-legenda">
         {total === 0
-          ? 'Nenhuma entrega nesta semana.'
+          ? 'Nada pendente esta semana 🎉'
           : `${total} ${total === 1 ? 'entrega' : 'entregas'} nesta semana`}
       </p>
 
