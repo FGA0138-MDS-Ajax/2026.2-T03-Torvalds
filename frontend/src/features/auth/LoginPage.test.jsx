@@ -35,6 +35,26 @@ describe('LoginPage', () => {
     expect(screen.getByRole('status')).toHaveTextContent('Conta criada!')
   })
 
+  it('mostra os campos com rótulo visível e sem botão de senha desativado', () => {
+    abrir()
+
+    expect(screen.getByLabelText('E-mail')).toBeInTheDocument()
+    expect(screen.getByLabelText('Senha')).toBeInTheDocument()
+    expect(
+      screen.queryByRole('button', { name: 'Esqueceu a senha?' }),
+    ).not.toBeInTheDocument()
+  })
+
+  it('preenche o e-mail cadastrado e leva o foco para a senha', () => {
+    abrir({
+      pathname: '/login',
+      state: { cadastrado: true, email: 'ana@exemplo.com' },
+    })
+
+    expect(screen.getByLabelText('E-mail')).toHaveValue('ana@exemplo.com')
+    expect(screen.getByLabelText('Senha')).toHaveFocus()
+  })
+
   it('não mostra "Conta criada!" num acesso comum ao login', () => {
     abrir()
 

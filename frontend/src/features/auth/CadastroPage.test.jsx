@@ -86,6 +86,20 @@ describe('CadastroPage', () => {
     vi.unstubAllGlobals()
   })
 
+  it('mostra e esconde as senhas com o botão do olho', () => {
+    abrir()
+
+    expect(screen.getByLabelText('Senha')).toHaveAttribute('type', 'password')
+
+    fireEvent.click(screen.getByRole('button', { name: 'Mostrar senhas' }))
+
+    expect(screen.getByLabelText('Senha')).toHaveAttribute('type', 'text')
+    expect(screen.getByLabelText('Confirmar senha')).toHaveAttribute(
+      'type',
+      'text',
+    )
+  })
+
   it('mostra o formulário, o painel informativo e o link para entrar', () => {
     abrir()
     expect(

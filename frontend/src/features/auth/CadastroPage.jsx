@@ -21,25 +21,35 @@ function Campo({
   autoComplete,
   icone,
   obrigatorio = true,
+  ajuda,
+  acao,
   ...extras
 }) {
   return (
-    <div className="login-field">
-      <label className="visually-hidden" htmlFor={id}>
+    <div className="login-campo">
+      <label className="login-rotulo" htmlFor={id}>
         {rotulo}
       </label>
-      <span className="login-field-icon" aria-hidden="true">
-        {icone}
-      </span>
-      <input
-        id={id}
-        name={id}
-        type={tipo}
-        placeholder={rotulo}
-        autoComplete={autoComplete}
-        required={obrigatorio}
-        {...extras}
-      />
+      <div className="login-field">
+        <span className="login-field-icon" aria-hidden="true">
+          {icone}
+        </span>
+        <input
+          id={id}
+          name={id}
+          type={tipo}
+          autoComplete={autoComplete}
+          required={obrigatorio}
+          aria-describedby={ajuda ? `${id}-ajuda` : undefined}
+          {...extras}
+        />
+        {acao}
+      </div>
+      {ajuda && (
+        <small id={`${id}-ajuda`} className="login-ajuda">
+          {ajuda}
+        </small>
+      )}
     </div>
   )
 }
@@ -86,6 +96,7 @@ export default function CadastroPage() {
   const navegar = useNavigate()
   const [carregando, setCarregando] = useState(false)
   const [erro, setErro] = useState('')
+  const [mostrarSenha, setMostrarSenha] = useState(false)
 
   async function enviar(event) {
     event.preventDefault()
@@ -116,7 +127,9 @@ export default function CadastroPage() {
         valores.senha,
         valores.matricula,
       )
-      navegar('/login', { state: { cadastrado: true } })
+      navegar('/login', {
+        state: { cadastrado: true, email: valores.email.trim() },
+      })
     } catch (falha) {
       if (falha.status === 404 || falha.status === 405) {
         setErro('O cadastro ainda não está disponível no servidor.')
@@ -160,6 +173,8 @@ export default function CadastroPage() {
                   id="nome"
                   rotulo="Nome completo"
                   autoComplete="name"
+                  placeholder="Como você se chama"
+                  autoFocus
                   icone={ICONE_PESSOA}
                 />
               </div>
@@ -169,6 +184,7 @@ export default function CadastroPage() {
                   rotulo="E-mail"
                   tipo="email"
                   autoComplete="email"
+                  placeholder="nome@email.com"
                   icone={ICONE_EMAIL}
                 />
               </div>
@@ -181,20 +197,43 @@ export default function CadastroPage() {
                   obrigatorio={false}
                   inputMode="numeric"
                   maxLength={9}
+                  placeholder="9 dígitos"
+                  ajuda="Só números. Você pode preencher depois."
                 />
               </div>
               <Campo
                 id="senha"
                 rotulo="Senha"
-                tipo="password"
+                tipo={mostrarSenha ? 'text' : 'password'}
                 autoComplete="new-password"
+                placeholder="Mínimo de 8 caracteres"
                 icone={ICONE_SENHA}
+                acao={
+                  <button
+                    className="login-password-toggle"
+                    type="button"
+                    aria-label={
+                      mostrarSenha ? 'Ocultar senhas' : 'Mostrar senhas'
+                    }
+                    aria-pressed={mostrarSenha}
+                    onClick={() => setMostrarSenha(!mostrarSenha)}
+                  >
+                    {iconeSvg(
+                      <>
+                        <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z" />
+                        <circle cx="12" cy="12" r="3" />
+                        {!mostrarSenha && <path d="m3 21 18-18" />}
+                      </>,
+                    )}
+                  </button>
+                }
               />
               <Campo
                 id="confirmacao"
                 rotulo="Confirmar senha"
-                tipo="password"
+                tipo={mostrarSenha ? 'text' : 'password'}
                 autoComplete="new-password"
+                placeholder="Repita a senha"
                 icone={ICONE_SENHA}
               />
 

@@ -87,6 +87,22 @@
   margin-top: 1.75rem;
 }
 
+.login-campo {
+  display: grid;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.login-rotulo {
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.login-ajuda {
+  color: #655c52;
+  font-size: 0.8rem;
+}
+
 .login-field {
   display: flex;
   align-items: center;
