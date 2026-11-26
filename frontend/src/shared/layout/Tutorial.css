@@ -25,6 +25,11 @@
   animation: tutorial-pulsa 1.8s ease-in-out infinite;
 }
 
+/* Destaque de um ícone do menu no celular: pílula */
+.tutorial-foco.redondo {
+  border-radius: 999px;
+}
+
 /* Sem alvo (boas-vindas e final): a tela toda escurecida */
 .tutorial-foco.sem-alvo {
   top: 50%;

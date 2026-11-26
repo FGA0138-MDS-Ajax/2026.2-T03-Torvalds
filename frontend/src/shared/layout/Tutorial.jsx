@@ -161,20 +161,27 @@ export default function Tutorial() {
   if (!passo) return null
 
   const destaque = passo.alvo ? caixa : null
+  // No celular o menu é uma pílula de ícones: o destaque também vira uma pílula,
+  // colada no ícone, em vez de um retângulo que sobra para fora da barra
+  const noMenuDoCelular =
+    window.innerWidth <= 760 && passo.alvo?.startsWith('.layout-links')
+  const folga = noMenuDoCelular ? 3 : ESPACO
   const lugar = posicaoDoCartao(destaque)
 
   // Fora do layout (direto no body), para nada da página recortar a sombra
   return createPortal(
     <div className="tutorial">
       <div
-        className={`tutorial-foco${destaque ? '' : ' sem-alvo'}`}
+        className={`tutorial-foco${destaque ? '' : ' sem-alvo'}${
+          noMenuDoCelular ? ' redondo' : ''
+        }`}
         style={
           destaque
             ? {
-                top: destaque.top - ESPACO,
-                left: destaque.left - ESPACO,
-                width: destaque.width + ESPACO * 2,
-                height: destaque.height + ESPACO * 2,
+                top: destaque.top - folga,
+                left: destaque.left - folga,
+                width: destaque.width + folga * 2,
+                height: destaque.height + folga * 2,
               }
             : undefined
         }
