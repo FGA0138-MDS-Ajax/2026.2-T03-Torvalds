@@ -86,14 +86,6 @@ describe('CadastroPage', () => {
     vi.unstubAllGlobals()
   })
 
-  it('coloca a primeira letra do nome em maiúscula ao digitar', () => {
-    abrir()
-
-    digitar('Nome completo', 'ana souza')
-
-    expect(screen.getByLabelText('Nome completo')).toHaveValue('Ana souza')
-  })
-
   it('mostra e esconde as senhas com o botão do olho', () => {
     abrir()
 

@@ -54,16 +54,6 @@ function Campo({
   )
 }
 
-/** Põe a primeira letra em maiúscula, sem mexer no resto (nem na posição do cursor). */
-function capitalizarPrimeiraLetra(evento) {
-  const campo = evento.target
-  const texto = campo.value
-
-  if (texto && texto[0] !== texto[0].toUpperCase()) {
-    campo.value = texto[0].toUpperCase() + texto.slice(1)
-  }
-}
-
 const iconeSvg = (children) => (
   <svg
     viewBox="0 0 24 24"
@@ -184,8 +174,6 @@ export default function CadastroPage() {
                   rotulo="Nome completo"
                   autoComplete="name"
                   placeholder="Como você se chama"
-                  autoCapitalize="words"
-                  onChange={capitalizarPrimeiraLetra}
                   autoFocus
                   icone={ICONE_PESSOA}
                 />
