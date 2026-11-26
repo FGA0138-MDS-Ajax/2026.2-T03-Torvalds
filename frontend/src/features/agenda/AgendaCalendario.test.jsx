@@ -1,6 +1,12 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  within,
+} from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
 import { MemoryRouter, Route, Routes } from 'react-router'
 import AgendaPage from './AgendaPage'
@@ -320,5 +326,57 @@ describe('Agenda: Mês, Semana e Lista', () => {
 
     expect(screen.getByText('Em breve')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Adicionar' })).toBeDisabled()
+  })
+})
+
+describe('Agenda: dia ampliado', () => {
+  it('abre a janela do dia ao clicar nele e fecha com Esc ou no ×', async () => {
+    abrir()
+    await screen.findByRole('heading', { name: NOME_DO_MES_ATUAL })
+
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: /^Abrir \d{2}\/\d{2}, 3 atividades$/,
+      }),
+    )
+
+    const janela = screen.getByRole('dialog')
+
+    expect(
+      within(janela).getByText('Lista 2: análise léxica'),
+    ).toBeInTheDocument()
+    expect(within(janela).getByText('Trabalho de PI')).toBeInTheDocument()
+
+    fireEvent.keyDown(document, { key: 'Escape' })
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: /^Abrir \d{2}\/\d{2}, 3 atividades$/,
+      }),
+    )
+    fireEvent.click(screen.getByRole('button', { name: 'Fechar' }))
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+  })
+
+  it('marca a vista escolhida e troca de vista', async () => {
+    abrir()
+    await screen.findByRole('heading', { name: NOME_DO_MES_ATUAL })
+
+    expect(screen.getByRole('button', { name: 'Mês' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    )
+
+    fireEvent.click(screen.getByRole('button', { name: 'Lista' }))
+
+    expect(screen.getByRole('button', { name: 'Lista' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    )
+    expect(screen.getByRole('button', { name: 'Mês' })).toHaveAttribute(
+      'aria-pressed',
+      'false',
+    )
   })
 })
