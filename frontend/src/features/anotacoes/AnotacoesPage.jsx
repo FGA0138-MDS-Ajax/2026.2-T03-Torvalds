@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useSearchParams } from 'react-router'
 import { listarDisciplinas } from '../disciplinas/listarDisciplinas'
 import {
@@ -18,6 +19,13 @@ export default function AnotacoesPage() {
   // A busca fica no cabeçalho desta tela e vai na URL (?busca=).
   const busca = parametros.get('busca') ?? ''
   const pedida = parametros.get('disciplina')
+
+  // No celular as matérias formam uma fileira que rola: traz a escolhida para a vista
+  useEffect(() => {
+    document
+      .querySelector('.anot-disciplinas [aria-pressed="true"]')
+      ?.scrollIntoView?.({ inline: 'center', block: 'nearest' })
+  }, [pedida, dados])
 
   if (carregando) {
     return <Carregando mensagem="Carregando suas matérias…" />
@@ -67,19 +75,6 @@ export default function AnotacoesPage() {
 
       <div className="anot-corpo">
         <aside className="anot-disciplinas" aria-label="Disciplinas">
-          <label className="anot-escolha-celular">
-            Disciplina
-            <select
-              value={escolhida.id}
-              onChange={(evento) => escolher(evento.target.value)}
-            >
-              {dados.map((disciplina) => (
-                <option key={disciplina.id} value={disciplina.id}>
-                  {disciplina.nome}
-                </option>
-              ))}
-            </select>
-          </label>
           <ul>
             {dados.map((disciplina, indice) => (
               <li key={disciplina.id}>
