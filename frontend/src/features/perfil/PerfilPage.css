@@ -1,3 +1,16 @@
+.perfil > h1 {
+  margin: 0 0 20px;
+  font-size: 2rem;
+  line-height: normal;
+}
+
+@media (min-width: 761px) {
+  .perfil > h1 {
+    margin-top: -44px;
+    padding-right: 180px;
+  }
+}
+
 .perfil-caixa {
   display: grid;
   gap: 16px;

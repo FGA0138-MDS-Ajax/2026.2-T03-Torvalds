@@ -1162,7 +1162,8 @@ button.agenda-dia-numero:focus-visible {
 }
 
 .agenda-subtitulo {
-  margin: -12px 0 20px;
+  margin: 0 0 20px;
+  color: var(--cor-texto-suave);
 }
 
 /* Título na mesma altura do nome "cAnCHA" do menu, como no Início */
