@@ -8,7 +8,7 @@
 .anot-pagina {
   --anot-claro: var(--cor-lilas-claro);
   --anot-forte: var(--cor-lilas);
-  --anot-escuro: var(--anot-escuro);
+  --anot-escuro: var(--cor-lilas-escuro);
   --aba-1: #e5d7f9;
   --aba-2: #d6bff5;
   --aba-3: #c3a1f3;
@@ -379,4 +379,28 @@
   margin: 0;
   color: var(--cor-texto-suave);
   font-size: 0.875rem;
+}
+
+.anot-busca {
+  flex: 0 1 260px;
+}
+
+.anot-busca input {
+  width: 100%;
+  min-height: 38px;
+  padding: 6px 12px;
+  border: 1px solid var(--anot-forte);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--cor-texto);
+  font: inherit;
+  font-size: 0.875rem;
+}
+
+.anot-so-leitor {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
 }

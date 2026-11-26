@@ -6,7 +6,7 @@ import {
   EstadoVazio,
 } from '../../shared/components/Estados'
 import { useRequisicao } from '../../shared/hooks/useRequisicao'
-import { corDaMateria } from '../materias/materiasUtils'
+import { corDaDisciplina } from '../../shared/utils/coresDisciplina'
 import CadernoDaDisciplina from './CadernoDaDisciplina'
 import './AnotacoesPage.css'
 
@@ -15,7 +15,7 @@ export default function AnotacoesPage() {
   const { dados, erro, carregando, tentarNovamente } =
     useRequisicao(listarDisciplinas)
   const [parametros, setParametros] = useSearchParams()
-  // A busca fica na barra do topo (LayoutBase) e chega aqui pela URL.
+  // A busca fica no cabeçalho desta tela e vai na URL (?busca=).
   const busca = parametros.get('busca') ?? ''
   const pedida = parametros.get('disciplina')
 
@@ -42,10 +42,20 @@ export default function AnotacoesPage() {
     dados.find((disciplina) => String(disciplina.id) === pedida) ?? dados[0]
 
   // A cor segue a disciplina escolhida, a mesma do cartão dela em Matérias.
-  const cor = corDaMateria(dados.indexOf(escolhida))
+  const cor = corDaDisciplina(escolhida.nome, dados.indexOf(escolhida))
 
   function escolher(id) {
     setParametros({ disciplina: String(id) })
+  }
+
+  function digitar(evento) {
+    const novos = new URLSearchParams(parametros)
+    const termo = evento.target.value
+
+    if (termo) novos.set('busca', termo)
+    else novos.delete('busca')
+
+    setParametros(novos, { replace: true })
   }
 
   return (
@@ -60,6 +70,15 @@ export default function AnotacoesPage() {
             <Link to="/materias">Matérias</Link> / Anotações / {escolhida.nome}
           </nav>
         </div>
+        <label className="anot-busca">
+          <span className="anot-so-leitor">Buscar anotações</span>
+          <input
+            type="search"
+            value={busca}
+            onChange={digitar}
+            placeholder="Buscar anotações…"
+          />
+        </label>
       </header>
 
       <div className="anot-corpo">
