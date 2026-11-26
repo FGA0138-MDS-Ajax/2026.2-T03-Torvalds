@@ -42,11 +42,11 @@
 }
 
 .agenda-pagina {
-  --ponto-lilas: #a178de;
-  --ponto-amarelo: #f2b94a;
-  --ponto-verde: #5fb286;
-  --ponto-rosa: #e8806c;
-  --ponto-azul: #48a6ed;
+  --ponto-lilas: #b49bd6;
+  --ponto-amarelo: #f2c96b;
+  --ponto-verde: #7fbf95;
+  --ponto-rosa: #e8a597;
+  --ponto-azul: #8fcdf2;
 }
 
 .agenda-so-leitor {
@@ -485,8 +485,8 @@ button.agenda-dia-numero:focus-visible {
 }
 
 .agenda-chip-lilas {
-  --chip: #bca9d2;
-  border-color: #bca9d2;
+  --chip: var(--ponto-lilas);
+  border-color: var(--ponto-lilas);
   background: var(--cor-lilas-claro);
 }
 
@@ -497,20 +497,20 @@ button.agenda-dia-numero:focus-visible {
 }
 
 .agenda-chip-verde {
-  --chip: var(--cor-verde);
-  border-color: var(--cor-verde);
+  --chip: var(--ponto-verde);
+  border-color: var(--ponto-verde);
   background: var(--cor-verde-claro);
 }
 
 .agenda-chip-rosa {
-  --chip: #e8a99b;
-  border-color: #e8a99b;
+  --chip: var(--ponto-rosa);
+  border-color: var(--ponto-rosa);
   background: var(--cor-rosa-claro);
 }
 
 .agenda-chip-azul {
-  --chip: #7fbbe0;
-  border-color: #7fbbe0;
+  --chip: var(--ponto-azul);
+  border-color: var(--ponto-azul);
   background: var(--cor-azul-claro);
 }
 
