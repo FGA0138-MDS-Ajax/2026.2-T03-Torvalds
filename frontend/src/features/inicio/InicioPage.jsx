@@ -172,7 +172,7 @@ function Proximas({ proximas, cores }) {
 
 function MinhasMaterias({ disciplinas, entregas, cores }) {
   return (
-    <section className="inicio-caixa">
+    <section className="inicio-caixa inicio-materias-caixa">
       <h2>Minhas matérias</h2>
 
       {disciplinas.length === 0 ? (

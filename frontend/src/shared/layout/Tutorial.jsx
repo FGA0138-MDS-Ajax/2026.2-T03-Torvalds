@@ -15,14 +15,17 @@ function estaPendente() {
   }
 }
 
-/** O elemento do passo, se estiver na tela (com tamanho). */
+/** O elemento do passo (ou o de reserva), se estiver na tela (com tamanho). */
 function alvoDoPasso(passo) {
-  if (!passo?.alvo) return null
+  for (const seletor of [passo?.alvo, passo?.senao]) {
+    if (!seletor) continue
 
-  const elemento = document.querySelector(passo.alvo)
-  const caixa = elemento?.getBoundingClientRect()
+    const caixa = document.querySelector(seletor)?.getBoundingClientRect()
 
-  return caixa && caixa.width > 0 && caixa.height > 0 ? caixa : null
+    if (caixa && caixa.width > 0 && caixa.height > 0) return caixa
+  }
+
+  return null
 }
 
 /** Onde o cartão fica: do lado do destaque, se couber; senão, embaixo ou em cima. */
