@@ -233,6 +233,40 @@
   font-size: 0.875rem;
 }
 
+/* Abrir o mês inteiro */
+.inicio-semana {
+  cursor: pointer;
+}
+
+.semana-acoes {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.semana-expandir {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.55);
+  color: var(--cor-texto);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.semana-expandir:hover {
+  background: rgb(255 255 255 / 0.85);
+}
+
+.semana-expandir:focus-visible {
+  outline: 3px solid var(--cor-lilas-escuro);
+  outline-offset: 2px;
+}
+
 /* Minhas matérias */
 .inicio-materias {
   display: grid;
@@ -554,5 +588,187 @@
 @media (prefers-reduced-motion: reduce) {
   .progresso-geral-anel {
     transition: none;
+  }
+}
+
+/* Janela com as entregas do mês */
+.mes-fundo {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgb(67 45 30 / 0.45);
+}
+
+.mes-janela {
+  display: grid;
+  gap: 12px;
+  width: min(960px, 100%);
+  max-height: 92vh;
+  padding: 20px 22px;
+  overflow: auto;
+  border-radius: 16px;
+  background: var(--cor-papel);
+  color: var(--cor-texto);
+  font-family: var(--fonte-texto);
+}
+
+.mes-topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.mes-topo h2 {
+  margin: 0;
+  font-family: var(--fonte-titulo);
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+
+.mes-navegacao {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mes-navegacao button {
+  min-width: 36px;
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--cor-borda-forte);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--cor-texto);
+  font: inherit;
+  cursor: pointer;
+}
+
+.mes-navegacao button:hover {
+  background: var(--cor-lilas-claro);
+}
+
+.mes-navegacao button:focus-visible,
+.mes-item:focus-visible {
+  outline: 3px solid var(--cor-lilas-escuro);
+  outline-offset: 2px;
+}
+
+.mes-resumo {
+  margin: 0;
+  color: var(--cor-texto-suave);
+  font-size: 0.875rem;
+}
+
+.mes-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.mes-tabela th {
+  padding: 6px 0;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.mes-celula {
+  position: relative;
+  height: 92px;
+  padding: 6px;
+  border: 1px solid var(--cor-borda);
+  vertical-align: top;
+  background: #fff;
+}
+
+.mes-celula-fora {
+  background: transparent;
+  opacity: 0.5;
+}
+
+.mes-celula-hoje {
+  background: var(--cor-amarelo-claro);
+}
+
+.mes-dia {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.mes-celula-hoje .mes-dia {
+  color: var(--cor-lilas-escuro);
+}
+
+.mes-lista {
+  display: grid;
+  gap: 3px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mes-item {
+  display: block;
+  overflow: hidden;
+  padding: 2px 6px;
+  border-left: 3px solid var(--lilas-forte);
+  border-radius: 4px;
+  background: var(--cor-lilas-claro);
+  color: var(--cor-texto);
+  font-size: 0.72rem;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mes-item:hover {
+  filter: brightness(0.96);
+}
+
+.mes-item-concluida {
+  border-left-color: var(--verde-forte);
+  background: var(--cor-verde-claro);
+  text-decoration: line-through;
+}
+
+.mes-item-atrasada {
+  border-left-color: var(--cor-alerta);
+  background: var(--cor-rosa-claro);
+}
+
+.mes-mais {
+  font-size: 0.7rem;
+  color: var(--cor-texto-suave);
+}
+
+.mes-contagem {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .mes-celula {
+    height: 56px;
+    padding: 4px;
+  }
+
+  .mes-lista {
+    display: none;
+  }
+
+  .mes-contagem {
+    display: inline-grid;
+    place-items: center;
+    min-width: 20px;
+    height: 20px;
+    border-radius: 999px;
+    background: var(--lilas-forte);
+    font-size: 0.7rem;
+    font-weight: 700;
   }
 }

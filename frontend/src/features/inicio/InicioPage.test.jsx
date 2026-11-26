@@ -1,6 +1,12 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  within,
+} from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
 import { MemoryRouter } from 'react-router'
 import { SessaoContext } from '../auth/SessaoContext'
@@ -63,6 +69,15 @@ const proximas = [
 
 // O GET /progresso devolve o resumo do semestre já somado pelo back-end.
 const progresso = { concluidas: 1, total: 2, percentual: 50 }
+
+// Hoje às 23:59, no fuso de quem roda o teste.
+function prazoDeHoje() {
+  const hoje = new Date()
+  const mes = String(hoje.getMonth() + 1).padStart(2, '0')
+  const dia = String(hoje.getDate()).padStart(2, '0')
+
+  return `${hoje.getFullYear()}-${mes}-${dia}T23:59:00`
+}
 
 function responder({
   lista = disciplinas,
@@ -170,19 +185,13 @@ describe('Início', () => {
   })
 
   it('avisa quantas entregas vencem hoje', async () => {
-    const hoje = new Date()
-    hoje.setHours(23, 59, 0, 0)
-    const ano = hoje.getFullYear()
-    const mes = String(hoje.getMonth() + 1).padStart(2, '0')
-    const dia = String(hoje.getDate()).padStart(2, '0')
-
     responder({
       entregasDa1: [
         {
           id: 7,
           titulo: 'Revisão',
           tipo: 'Lista',
-          prazo: `${ano}-${mes}-${dia}T23:59:00`,
+          prazo: prazoDeHoje(),
           status: 'A_FAZER',
         },
       ],
@@ -190,6 +199,78 @@ describe('Início', () => {
     abrir()
 
     expect(await screen.findByText('1 entrega para hoje')).toBeInTheDocument()
+  })
+
+  describe('entregas do mês inteiro', () => {
+    beforeEach(() => {
+      responder({
+        entregasDa1: [
+          {
+            id: 7,
+            titulo: 'Revisão',
+            tipo: 'Lista',
+            prazo: prazoDeHoje(),
+            status: 'A_FAZER',
+          },
+        ],
+      })
+    })
+
+    it('abre pelo botão do card, lista as entregas e fecha com Esc', async () => {
+      abrir()
+
+      const botao = await screen.findByRole('button', {
+        name: 'Ver as entregas do mês',
+      })
+
+      fireEvent.click(botao)
+
+      const janela = screen.getByRole('dialog', { name: /^Entregas de / })
+
+      expect(within(janela).getByRole('status')).toHaveTextContent(
+        /^\d+ entregas? neste mês$/,
+      )
+      expect(
+        within(janela).getByRole('link', { name: /Revisão/ }),
+      ).toHaveAttribute('href', '/disciplinas/1')
+
+      fireEvent.keyDown(document, { key: 'Escape' })
+
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+      expect(botao).toHaveFocus()
+    })
+
+    it('abre ao clicar no card e fecha pelo botão Fechar', async () => {
+      abrir()
+
+      fireEvent.click(
+        await screen.findByRole('heading', { name: 'Entregas da semana' }),
+      )
+
+      const janela = screen.getByRole('dialog')
+
+      fireEvent.click(within(janela).getByRole('button', { name: 'Fechar' }))
+
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+    })
+
+    it('troca de mês pelos botões de navegação', async () => {
+      abrir()
+
+      fireEvent.click(
+        await screen.findByRole('button', { name: 'Ver as entregas do mês' }),
+      )
+
+      const titulo = screen.getByRole('heading', { name: /^Entregas de / })
+      const antes = titulo.textContent
+
+      fireEvent.click(screen.getByRole('button', { name: 'Próximo mês' }))
+
+      expect(titulo.textContent).not.toBe(antes)
+      expect(
+        within(screen.getByRole('dialog')).getByRole('status'),
+      ).toHaveTextContent('Nenhuma entrega neste mês.')
+    })
   })
 
   it('mostra o progresso do semestre vindo do GET /progresso', async () => {

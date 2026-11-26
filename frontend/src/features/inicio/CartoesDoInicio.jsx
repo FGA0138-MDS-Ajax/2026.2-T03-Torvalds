@@ -1,4 +1,7 @@
+import { useCallback, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Link } from 'react-router'
+import EntregasDoMes from './EntregasDoMes'
 import {
   descreverDiasAte,
   entregasDaSemana,
@@ -56,6 +59,12 @@ export function ProximaProva({ entregas }) {
 
 /** Verde: quantas entregas vencem em cada dia da semana atual. */
 export function EntregasDaSemana({ entregas }) {
+  const [aberto, setAberto] = useState(false)
+  const gatilho = useRef(null)
+  const fechar = useCallback(() => {
+    setAberto(false)
+    gatilho.current?.focus()
+  }, [])
   const dias = entregasDaSemana(entregas)
   const maior = Math.max(
     1,
@@ -67,10 +76,30 @@ export function EntregasDaSemana({ entregas }) {
   )
 
   return (
-    <section className="inicio-caixa inicio-semana">
+    <section
+      className="inicio-caixa inicio-semana"
+      onClick={(evento) => {
+        // A janela do mês é um portal: os cliques nela também chegam aqui pelo
+        // React, mas só os cliques dentro do próprio card devem abri-la.
+        const dentro = evento.currentTarget.contains(evento.target)
+
+        if (dentro && !evento.target.closest('a, button')) setAberto(true)
+      }}
+    >
       <div className="inicio-caixa-topo">
         <h2>Entregas da semana</h2>
-        <Link to="/agenda">Ver agenda →</Link>
+        <div className="semana-acoes">
+          <Link to="/agenda">Ver agenda →</Link>
+          <button
+            ref={gatilho}
+            type="button"
+            className="semana-expandir"
+            aria-label="Ver as entregas do mês"
+            onClick={() => setAberto(true)}
+          >
+            <span aria-hidden="true">⤢</span>
+          </button>
+        </div>
       </div>
 
       <ul className="semana-grafico">
@@ -116,6 +145,12 @@ export function EntregasDaSemana({ entregas }) {
           ? 'Nenhuma entrega nesta semana.'
           : `${total} ${total === 1 ? 'entrega' : 'entregas'} nesta semana`}
       </p>
+
+      {aberto &&
+        createPortal(
+          <EntregasDoMes entregas={entregas} aoFechar={fechar} />,
+          document.body,
+        )}
     </section>
   )
 }
