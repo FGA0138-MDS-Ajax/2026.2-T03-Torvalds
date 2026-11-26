@@ -48,6 +48,7 @@ function responder(
       if (opcoes.method === 'PATCH') return patch(url, opcoes)
       if (url.endsWith('/disciplinas'))
         return json([{ id: 7, nome: 'Compiladores', periodoLetivo: '2026.2' }])
+      if (url.endsWith('/anotacoes')) return json([])
       if (url.endsWith('/conteudos'))
         return materiais === null
           ? json({ mensagem: 'Falha nos materiais' }, 500)

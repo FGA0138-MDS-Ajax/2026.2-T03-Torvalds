@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router'
 import BarraProgresso from '../../shared/components/BarraProgresso'
 import { corDaDisciplina } from '../../shared/utils/coresDisciplina'
+import AnotacoesDisciplina from './AnotacoesDisciplina'
 import { alterarSituacaoEntrega, carregarDisciplina } from './disciplinaApi'
 import {
   categoriaDaEntrega,
@@ -173,117 +174,125 @@ function ConteudoDisciplina({ id }) {
   )
 
   return (
-    <div className={`disciplina-pagina materia-detalhe-${cor}`}>
-      <header className="disciplina-cabecalho">
-        <span className="disciplina-icone" aria-hidden="true">
-          ▤
-        </span>
-        <div className="disciplina-cabecalho-texto">
-          <h1>{disciplina.nome}</h1>
-          <p>Período letivo · {disciplina.periodoLetivo}</p>
-          <BarraProgresso
-            concluidas={contagem.concluida}
-            total={contagem.todas}
-            rotulo={`Progresso em ${disciplina.nome}`}
-          />
-          {pendencias && <p className="disciplina-pendencias">{pendencias}</p>}
-        </div>
-      </header>
-      <section className="disciplina-painel" aria-labelledby="entregas-titulo">
-        <div className="disciplina-titulo">
-          <h2 id="entregas-titulo">Entregas</h2>
-          <span>{entregas.length} atividades</span>
-        </div>
-        <div
-          className="disciplina-filtros"
-          role="group"
-          aria-label="Filtrar entregas"
+    <>
+      <div className={`disciplina-pagina materia-detalhe-${cor}`}>
+        <header className="disciplina-cabecalho">
+          <span className="disciplina-icone" aria-hidden="true">
+            ▤
+          </span>
+          <div className="disciplina-cabecalho-texto">
+            <h1>{disciplina.nome}</h1>
+            <p>Período letivo · {disciplina.periodoLetivo}</p>
+            <BarraProgresso
+              concluidas={contagem.concluida}
+              total={contagem.todas}
+              rotulo={`Progresso em ${disciplina.nome}`}
+            />
+            {pendencias && (
+              <p className="disciplina-pendencias">{pendencias}</p>
+            )}
+          </div>
+        </header>
+        <section
+          className="disciplina-painel"
+          aria-labelledby="entregas-titulo"
         >
-          {FILTROS.map((opcao) => (
-            <button
-              key={opcao.chave}
-              type="button"
-              aria-pressed={filtro === opcao.chave}
-              onClick={() => setFiltro(opcao.chave)}
-            >
-              {opcao.titulo} ({contagem[opcao.chave]})
-            </button>
-          ))}
-        </div>
-        {erroAcao && (
-          <p className="disciplina-erro-acao" role="alert">
-            {erroAcao}
-          </p>
-        )}
-        {visiveis.length === 0 ? (
-          <p className="disciplina-vazio">
-            {entregas.length === 0
-              ? 'Nenhuma entrega encontrada.'
-              : 'Nenhuma entrega neste filtro.'}
-          </p>
-        ) : (
-          <ul className="disciplina-entregas">
-            {visiveis.map((entrega, posicao) => (
-              <Entrega
-                key={entrega.id}
-                entrega={entrega}
-                numero={posicao + 1}
-                agora={agora}
-                pendente={pendente === entrega.id}
-                onAlternar={alternarConclusao}
-              />
+          <div className="disciplina-titulo">
+            <h2 id="entregas-titulo">Entregas</h2>
+            <span>{entregas.length} atividades</span>
+          </div>
+          <div
+            className="disciplina-filtros"
+            role="group"
+            aria-label="Filtrar entregas"
+          >
+            {FILTROS.map((opcao) => (
+              <button
+                key={opcao.chave}
+                type="button"
+                aria-pressed={filtro === opcao.chave}
+                onClick={() => setFiltro(opcao.chave)}
+              >
+                {opcao.titulo} ({contagem[opcao.chave]})
+              </button>
             ))}
-          </ul>
-        )}
-      </section>
-      <section
-        className="disciplina-painel disciplina-materiais"
-        aria-labelledby="materiais-titulo"
-      >
-        <div className="disciplina-titulo">
-          <h2 id="materiais-titulo">Materiais</h2>
-          {materiais && (
-            <span>
-              {materiais.length}{' '}
-              {materiais.length === 1 ? 'material' : 'materiais'}
-            </span>
+          </div>
+          {erroAcao && (
+            <p className="disciplina-erro-acao" role="alert">
+              {erroAcao}
+            </p>
           )}
-        </div>
-        {materiais === null ? (
-          <p className="disciplina-vazio">
-            Não foi possível carregar os materiais. Recarregue a página para
-            tentar de novo.
-          </p>
-        ) : materiais.length === 0 ? (
-          <p className="disciplina-vazio">Nenhum material publicado ainda.</p>
-        ) : (
-          <ul className="disciplina-lista-materiais">
-            {materiais.map((material) => (
-              <li key={material.id} className="material">
-                <a
-                  href={material.urlOuArquivo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`${material.titulo} (abre em nova aba)`}
-                >
-                  {material.titulo}
-                  <span aria-hidden="true"> ↗</span>
-                </a>
-                <div className="entrega-meta">
-                  <span>{material.tipo}</span>
-                  <span>
-                    Publicado em{' '}
-                    <time dateTime={material.dataPublicacao}>
-                      {formatarDia(material.dataPublicacao)}
-                    </time>
-                  </span>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
-    </div>
+          {visiveis.length === 0 ? (
+            <p className="disciplina-vazio">
+              {entregas.length === 0
+                ? 'Nenhuma entrega encontrada.'
+                : 'Nenhuma entrega neste filtro.'}
+            </p>
+          ) : (
+            <ul className="disciplina-entregas">
+              {visiveis.map((entrega, posicao) => (
+                <Entrega
+                  key={entrega.id}
+                  entrega={entrega}
+                  numero={posicao + 1}
+                  agora={agora}
+                  pendente={pendente === entrega.id}
+                  onAlternar={alternarConclusao}
+                />
+              ))}
+            </ul>
+          )}
+        </section>
+        <section
+          className="disciplina-painel disciplina-materiais"
+          aria-labelledby="materiais-titulo"
+        >
+          <div className="disciplina-titulo">
+            <h2 id="materiais-titulo">Materiais</h2>
+            {materiais && (
+              <span>
+                {materiais.length}{' '}
+                {materiais.length === 1 ? 'material' : 'materiais'}
+              </span>
+            )}
+          </div>
+          {materiais === null ? (
+            <p className="disciplina-vazio">
+              Não foi possível carregar os materiais. Recarregue a página para
+              tentar de novo.
+            </p>
+          ) : materiais.length === 0 ? (
+            <p className="disciplina-vazio">Nenhum material publicado ainda.</p>
+          ) : (
+            <ul className="disciplina-lista-materiais">
+              {materiais.map((material) => (
+                <li key={material.id} className="material">
+                  <a
+                    href={material.urlOuArquivo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${material.titulo} (abre em nova aba)`}
+                  >
+                    {material.titulo}
+                    <span aria-hidden="true"> ↗</span>
+                  </a>
+                  <div className="entrega-meta">
+                    <span>{material.tipo}</span>
+                    <span>
+                      Publicado em{' '}
+                      <time dateTime={material.dataPublicacao}>
+                        {formatarDia(material.dataPublicacao)}
+                      </time>
+                    </span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      </div>
+      <AnotacoesDisciplina disciplinaId={id} />
+    </>
   )
 }
 
