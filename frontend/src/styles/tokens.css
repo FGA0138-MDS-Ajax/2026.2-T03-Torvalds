@@ -11,13 +11,11 @@
   --cor-borda: #e2d7c6;
   --cor-borda-forte: #cabca6;
 
-  /* --cor-lilas-escuro e --cor-verde foram ajustadas para dar contraste de pelo menos 4,5:1
-     com os textos que ficam sobre elas ou ao lado delas (WCAG 1.4.3, #159). */
   --cor-lilas: #bca9d2;
   --cor-lilas-claro: #ede4f8;
-  --cor-lilas-escuro: #7154ba;
+  --cor-lilas-escuro: #7557c0;
 
-  --cor-verde: #92a17a;
+  --cor-verde: #8f9e76;
   --cor-verde-claro: #dcf2e1;
   --cor-verde-escuro: #6f7d55;
 

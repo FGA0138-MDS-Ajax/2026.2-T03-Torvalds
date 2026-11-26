@@ -1,7 +1,22 @@
 import { describe, expect, it } from 'vitest'
-import { agruparPorStatus, percentualConcluido } from './materiasUtils'
+import {
+  agruparPorStatus,
+  corDaMateria,
+  percentualConcluido,
+} from './materiasUtils'
 
 describe('materiasUtils', () => {
+  it('repete as cores do protótipo na ordem', () => {
+    expect([0, 1, 2, 3, 4, 5].map(corDaMateria)).toEqual([
+      'lilas',
+      'amarelo',
+      'verde',
+      'rosa',
+      'azul',
+      'lilas',
+    ])
+  })
+
   it('separa as atividades por status', () => {
     const grupos = agruparPorStatus([
       { id: 1, status: 'A_FAZER' },

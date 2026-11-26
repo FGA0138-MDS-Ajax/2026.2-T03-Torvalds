@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { Link } from 'react-router'
 import { formatarPrazoCurto } from '../inicio/inicioUtils'
 import { ErroCarregamento, Carregando } from '../../shared/components/Estados'
@@ -58,20 +58,8 @@ function Quadro({ atividades, disciplinaId, aoMudarProgresso }) {
   const [lista, setLista] = useState(atividades)
   const [erro, setErro] = useState(null)
   const [alvo, setAlvo] = useState(null)
-  const quadro = useRef(null)
-  const focoDepois = useRef(null)
   const grupos = agruparPorStatus(lista)
   const agora = new Date()
-
-  // Ao mover pelo teclado o cartão vai para outra coluna e perde o foco: devolve o foco a ele.
-  useEffect(() => {
-    if (focoDepois.current === null) return
-
-    quadro.current
-      ?.querySelector(`[data-atividade="${focoDepois.current}"]`)
-      ?.focus()
-    focoDepois.current = null
-  })
 
   async function mover(id, status) {
     const atual = lista.find((atividade) => atividade.id === id)
@@ -100,21 +88,6 @@ function Quadro({ atividades, disciplinaId, aoMudarProgresso }) {
     }
   }
 
-  // Setas ← e → movem o cartão focado para a coluna do lado, para quem não usa o mouse.
-  function aoTeclar(evento, atividade) {
-    const passo = { ArrowLeft: -1, ArrowRight: 1 }[evento.key]
-    const indice = COLUNAS.findIndex(
-      (coluna) => coluna.status === atividade.status,
-    )
-    const destino = COLUNAS[indice + passo]
-
-    if (!passo || !destino) return
-
-    evento.preventDefault()
-    focoDepois.current = atividade.id
-    mover(atividade.id, destino.status)
-  }
-
   function soltar(evento, status) {
     evento.preventDefault()
     setAlvo(null)
@@ -128,15 +101,14 @@ function Quadro({ atividades, disciplinaId, aoMudarProgresso }) {
         <Link to={`/disciplinas/${disciplinaId}`}>Ver todas as entregas →</Link>
       </div>
       <p className="materia-dica">
-        Arraste uma atividade para outra coluna. No teclado, foque o cartão e
-        use as setas ← e →.
+        Arraste uma atividade para outra coluna ou use o seletor “Mover para”.
       </p>
       {erro && (
         <p className="materia-erro" role="alert">
           Não foi possível mudar o status: {erro}
         </p>
       )}
-      <div className="materia-quadro" ref={quadro}>
+      <div className="materia-quadro">
         {COLUNAS.map((coluna) => (
           <div
             key={coluna.chave}
@@ -162,9 +134,6 @@ function Quadro({ atividades, disciplinaId, aoMudarProgresso }) {
                 return (
                   <li
                     key={atividade.id}
-                    data-atividade={atividade.id}
-                    tabIndex={0}
-                    onKeyDown={(evento) => aoTeclar(evento, atividade)}
                     draggable
                     onDragStart={(evento) => {
                       evento.dataTransfer.setData(
@@ -183,6 +152,19 @@ function Quadro({ atividades, disciplinaId, aoMudarProgresso }) {
                       {atrasada ? 'Atrasada · ' : ''}
                       {formatarPrazoCurto(atividade.prazo)}
                     </small>
+                    <select
+                      aria-label={`Mover ${atividade.titulo} para`}
+                      value={atividade.status}
+                      onChange={(evento) =>
+                        mover(atividade.id, evento.target.value)
+                      }
+                    >
+                      {COLUNAS.map((opcao) => (
+                        <option key={opcao.status} value={opcao.status}>
+                          {opcao.titulo}
+                        </option>
+                      ))}
+                    </select>
                   </li>
                 )
               })}
@@ -194,11 +176,7 @@ function Quadro({ atividades, disciplinaId, aoMudarProgresso }) {
   )
 }
 
-export default function DetalheMateria({
-  disciplina,
-  cor = 'lilas',
-  aoMudarProgresso,
-}) {
+export default function DetalheMateria({ disciplina, aoMudarProgresso }) {
   const carregar = useCallback(
     (signal) => carregarDetalhe(disciplina.id, signal),
     [disciplina.id],
@@ -206,7 +184,7 @@ export default function DetalheMateria({
   const { dados, erro, carregando, tentarNovamente } = useRequisicao(carregar)
 
   return (
-    <div className={`materia-detalhe materia-detalhe-${cor}`}>
+    <div className="materia-detalhe">
       <div className="materia-detalhe-topo">
         <h2>Tópicos do conteúdo</h2>
         <div className="materia-capitulos">

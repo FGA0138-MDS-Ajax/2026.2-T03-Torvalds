@@ -1,11 +1,12 @@
 import {
+  Link,
   NavLink,
   Outlet,
   useLocation,
   useNavigate,
   useSearchParams,
 } from 'react-router'
-import AcoesDoTopo from './AcoesDoTopo'
+import { useSessao } from '../../features/auth/useSessao'
 import Icone from './Icone'
 import './LayoutBase.css'
 
@@ -22,6 +23,8 @@ const itens = [
  * tela entra no lugar do <Outlet />.
  */
 export default function LayoutBase() {
+  const { perfil, sair } = useSessao()
+  const inicial = (perfil.nome ?? '?').trim().charAt(0).toUpperCase() || '?'
   const { pathname } = useLocation()
   const navegar = useNavigate()
   const [parametros] = useSearchParams()
@@ -78,7 +81,34 @@ export default function LayoutBase() {
             />
           </label>
 
-          <AcoesDoTopo />
+          <div className="layout-acoes">
+            <button
+              type="button"
+              disabled
+              title="Notificações: em breve"
+              aria-label="Notificações (em breve)"
+            >
+              <Icone nome="sino" />
+            </button>
+            <Link
+              className="layout-engrenagem"
+              to="/configuracoes"
+              title="Configurações"
+              aria-label="Configurações"
+            >
+              <Icone nome="engrenagem" />
+            </Link>
+            <span
+              className="layout-avatar"
+              title={perfil.nome}
+              aria-hidden="true"
+            >
+              {inicial}
+            </span>
+            <button type="button" className="layout-sair" onClick={sair}>
+              Sair
+            </button>
+          </div>
         </header>
 
         <main className="layout-conteudo">
