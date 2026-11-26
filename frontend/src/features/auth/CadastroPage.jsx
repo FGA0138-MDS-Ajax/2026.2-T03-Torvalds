@@ -5,7 +5,10 @@ import ilustracao from '../../assets/cadastro-ilustracao.png'
 import './LoginPage.css'
 import './CadastroPage.css'
 import { cadastrar } from './authApi'
-import { validarCadastro } from './validacaoCadastro'
+import {
+  mensagemDeCadastroDuplicado,
+  validarCadastro,
+} from './validacaoCadastro'
 import { marcarTutorialPendente } from '../../shared/layout/tutorialPassos'
 
 const DIFERENCIAIS = [
@@ -137,7 +140,7 @@ export default function CadastroPage() {
       if (falha.status === 404 || falha.status === 405) {
         setErro('O cadastro ainda não está disponível no servidor.')
       } else if (falha.status === 409) {
-        setErro('Este e-mail ou esta matrícula já está cadastrado.')
+        setErro(mensagemDeCadastroDuplicado(falha.message))
       } else {
         setErro(falha.message || 'Não foi possível cadastrar. Tente novamente.')
       }

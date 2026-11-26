@@ -10,7 +10,10 @@ import '@testing-library/jest-dom/vitest'
 import { MemoryRouter, Route, Routes } from 'react-router'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import CadastroPage from './CadastroPage'
-import { validarCadastro } from './validacaoCadastro'
+import {
+  mensagemDeCadastroDuplicado,
+  validarCadastro,
+} from './validacaoCadastro'
 
 function abrir(entrada = '/cadastro') {
   return render(
@@ -74,6 +77,28 @@ describe('validarCadastro', () => {
     expect(validarCadastro({ ...ok, matricula: '12345678a' })).toMatch(
       /9 dígitos/,
     )
+  })
+})
+
+describe('mensagemDeCadastroDuplicado', () => {
+  it('separa e-mail e matrícula pela mensagem do servidor', () => {
+    expect(mensagemDeCadastroDuplicado('E-mail já cadastrado.')).toBe(
+      'Este e-mail já está cadastrado.',
+    )
+    expect(mensagemDeCadastroDuplicado('Matrícula UnB já cadastrada.')).toBe(
+      'Esta matrícula UnB já está em uso.',
+    )
+  })
+
+  it('usa o aviso dos dois quando a mensagem cita os dois ou não ajuda', () => {
+    const geral = 'Este e-mail ou esta matrícula UnB já está cadastrado.'
+    expect(
+      mensagemDeCadastroDuplicado('E-mail ou matrícula UnB já cadastrados.'),
+    ).toBe(geral)
+    expect(mensagemDeCadastroDuplicado('Não foi possível concluir.')).toBe(
+      geral,
+    )
+    expect(mensagemDeCadastroDuplicado()).toBe(geral)
   })
 })
 
@@ -164,14 +189,45 @@ describe('CadastroPage', () => {
     )
   })
 
-  it('avisa e-mail já cadastrado', async () => {
+  function responder409(mensagem) {
+    fetch.mockResolvedValue(
+      new Response(JSON.stringify({ mensagem }), {
+        status: 409,
+        headers: { 'Content-Type': 'application/json' },
+      }),
+    )
+  }
+
+  it('avisa que o e-mail já está cadastrado', async () => {
+    responder409('E-mail já cadastrado.')
+    abrir()
+    preencher()
+    cadastrar()
+
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      'Este e-mail já está cadastrado.',
+    )
+  })
+
+  it('avisa que a matrícula já está em uso', async () => {
+    responder409('Matrícula UnB já cadastrada.')
+    abrir()
+    preencher({ matricula: '123456789' })
+    cadastrar()
+
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      'Esta matrícula UnB já está em uso.',
+    )
+  })
+
+  it('avisa os dois dados quando o servidor não diz qual repetiu', async () => {
     fetch.mockResolvedValue(new Response('', { status: 409 }))
     abrir()
     preencher()
     cadastrar()
 
     expect(await screen.findByRole('alert')).toHaveTextContent(
-      'e-mail ou esta matrícula já está cadastrado',
+      'Este e-mail ou esta matrícula UnB já está cadastrado.',
     )
   })
 
