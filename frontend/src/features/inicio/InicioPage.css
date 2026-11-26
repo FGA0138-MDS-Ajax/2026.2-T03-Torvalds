@@ -22,12 +22,6 @@
   line-height: normal;
 }
 
-.inicio-cabecalho h1 span {
-  text-decoration: underline wavy var(--cor-verde);
-  text-decoration-thickness: 2px;
-  text-underline-offset: 0.5rem;
-}
-
 .inicio-cabecalho p {
   display: flex;
   flex-wrap: wrap;
