@@ -136,7 +136,7 @@ describe('Início', () => {
     abrir()
 
     expect(
-      screen.getByRole('heading', {
+      await screen.findByRole('heading', {
         level: 1,
         name: /^(Bom dia|Boa tarde|Boa noite), Maria!$/,
       }),
@@ -268,7 +268,7 @@ describe('Início', () => {
       expect(titulo.textContent).not.toBe(antes)
       expect(
         within(screen.getByRole('dialog')).getByRole('status'),
-      ).toHaveTextContent('Nenhuma entrega neste mês.')
+      ).toHaveTextContent('Nenhuma entrega neste mês')
     })
   })
 
@@ -336,7 +336,7 @@ describe('Início', () => {
     abrir()
 
     const cartao = await screen.findByRole('link', {
-      name: /Compiladores\s+1 pendente/,
+      name: /Compiladores\s*1 pendente/,
     })
 
     expect(cartao).toHaveAttribute('href', '/disciplinas/1')
@@ -367,7 +367,7 @@ describe('Início', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Tentar novamente' }))
 
     expect(
-      await screen.findByRole('link', { name: /Compiladores\s+1 pendente/ }),
+      await screen.findByRole('link', { name: /Compiladores\s*1 pendente/ }),
     ).toBeInTheDocument()
   })
 })

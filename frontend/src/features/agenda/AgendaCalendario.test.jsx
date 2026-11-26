@@ -22,6 +22,27 @@ import {
   rotuloDoStatus,
 } from './agendaUtils'
 
+// Os post-its da lateral repetem títulos do calendário e mostram sempre a
+// semana de hoje; as buscas por texto olham só a região do Calendário.
+const calendario = new Proxy(
+  {},
+  {
+    get:
+      (_, nome) =>
+      (...args) => {
+        const regiao = () => screen.getByRole('region', { name: 'Calendário' })
+
+        if (nome.startsWith('find')) {
+          return screen
+            .findByRole('region', { name: 'Calendário' })
+            .then((alvo) => within(alvo)[nome](...args))
+        }
+
+        return within(regiao())[nome](...args)
+      },
+  },
+)
+
 const hoje = new Date()
 const NOME_DO_MES_ATUAL = nomeDoMes(hoje.getFullYear(), hoje.getMonth())
 
@@ -180,12 +201,14 @@ describe('Agenda: Mês, Semana e Lista', () => {
       screen.getByRole('columnheader', { name: 'SEG' }),
     ).toBeInTheDocument()
     expect(
-      screen.getByText(/Lista 2: análise léxica, Compiladores, a fazer/),
+      calendario.getByText(/Lista 2: análise léxica, Compiladores, a fazer/),
     ).toBeInTheDocument()
     expect(
-      screen.getByText(/Trabalho de PI, Projeto Integrador/),
+      calendario.getByText(/Trabalho de PI, Projeto Integrador/),
     ).toBeInTheDocument()
-    expect(screen.queryByText(/Prova do mês seguinte/)).not.toBeInTheDocument()
+    expect(
+      calendario.queryByText(/Prova do mês seguinte/),
+    ).not.toBeInTheDocument()
   })
 
   it('navega entre os meses', async () => {
@@ -199,12 +222,12 @@ describe('Agenda: Mês, Semana e Lista', () => {
         name: nomeDoMes(proximoMes.getFullYear(), proximoMes.getMonth()),
       }),
     ).toBeInTheDocument()
-    expect(screen.getByText(/Prova do mês seguinte/)).toBeInTheDocument()
-    expect(screen.queryByText(/Trabalho de PI/)).not.toBeInTheDocument()
+    expect(calendario.getByText(/Prova do mês seguinte/)).toBeInTheDocument()
+    expect(calendario.queryByText(/Trabalho de PI/)).not.toBeInTheDocument()
 
     fireEvent.click(screen.getByRole('button', { name: 'Mês anterior' }))
 
-    expect(screen.getByText(/Trabalho de PI/)).toBeInTheDocument()
+    expect(calendario.getByText(/Trabalho de PI/)).toBeInTheDocument()
   })
 
   it('destaca as atividades atrasadas e marca as concluídas', async () => {
@@ -221,66 +244,68 @@ describe('Agenda: Mês, Semana e Lista', () => {
     ])
     abrir()
 
-    const atrasada = (await screen.findByText(/Relatório atrasado/)).closest(
-      'li',
-    )
-    const concluida = screen.getByText(/Já entregue/).closest('li')
+    const atrasada = (
+      await calendario.findByText(/Relatório atrasado/)
+    ).closest('li')
+    const concluida = calendario.getByText(/Já entregue/).closest('li')
 
     expect(atrasada).toHaveClass('agenda-chip-atrasada')
     expect(concluida).toHaveClass('agenda-chip-concluida')
     expect(concluida).not.toHaveClass('agenda-chip-atrasada')
     expect(
-      screen.getByText(/Já entregue, Compiladores, concluída/),
+      calendario.getByText(/Já entregue, Compiladores, concluída/),
     ).toBeInTheDocument()
   })
 
   it('usa a mesma cor da matéria no calendário e no filtro', async () => {
     abrir()
 
-    const chip = (await screen.findByText(/Lista 2: análise léxica/)).closest(
-      'li',
-    )
+    const chip = (
+      await calendario.findByText(/Lista 2: análise léxica/)
+    ).closest('li')
 
     expect(chip).toHaveClass('agenda-chip-lilas')
-    expect(screen.getByText(/Trabalho de PI/).closest('li')).toHaveClass(
+    expect(calendario.getByText(/Trabalho de PI/).closest('li')).toHaveClass(
       'agenda-chip-verde',
     )
   })
 
   it('filtra as entregas pelas matérias marcadas', async () => {
     abrir()
-    await screen.findByText(/Lista 2: análise léxica/)
+    await calendario.findByText(/Lista 2: análise léxica/)
 
     fireEvent.click(screen.getByRole('checkbox', { name: 'Compiladores' }))
 
     expect(
-      screen.queryByText(/Lista 2: análise léxica/),
+      calendario.queryByText(/Lista 2: análise léxica/),
     ).not.toBeInTheDocument()
-    expect(screen.getByText(/Trabalho de PI/)).toBeInTheDocument()
+    expect(calendario.getByText(/Trabalho de PI/)).toBeInTheDocument()
 
     fireEvent.click(screen.getByRole('checkbox', { name: 'Compiladores' }))
 
-    expect(screen.getByText(/Lista 2: análise léxica/)).toBeInTheDocument()
+    expect(calendario.getByText(/Lista 2: análise léxica/)).toBeInTheDocument()
   })
 
   it('mostra as atividades do mês em lista com a data dd/mm', async () => {
     abrir()
-    await screen.findByText(/Lista 2: análise léxica/)
+    await calendario.findByText(/Lista 2: análise léxica/)
 
     fireEvent.click(screen.getByRole('button', { name: 'Lista' }))
 
-    expect(screen.getByText('Lista 2: análise léxica')).toBeInTheDocument()
-    expect(screen.getAllByText(formatarPrazoDdMm(iso(hoje))).length).toBe(3)
-    expect(screen.queryByText('Prova do mês seguinte')).not.toBeInTheDocument()
+    expect(calendario.getByText('Lista 2: análise léxica')).toBeInTheDocument()
+    expect(calendario.getAllByText(formatarPrazoDdMm(iso(hoje))).length).toBe(3)
+    expect(
+      calendario.queryByText('Prova do mês seguinte'),
+    ).not.toBeInTheDocument()
 
     fireEvent.click(screen.getByRole('button', { name: 'Próximo mês' }))
 
-    expect(screen.getByText('Prova do mês seguinte')).toBeInTheDocument()
+    expect(calendario.getByText('Prova do mês seguinte')).toBeInTheDocument()
   })
 
   it('mostra a semana com os detalhes de cada entrega', async () => {
     abrir()
-    await screen.findByText(/Lista 2: análise léxica/)
+    await calendario.findByText(/Lista 2: análise léxica/)
 
     fireEvent.click(screen.getByRole('button', { name: 'Semana' }))
 
@@ -289,29 +314,29 @@ describe('Agenda: Mês, Semana e Lista', () => {
         name: descreverSemana(inicioDaSemana(hoje)),
       }),
     ).toBeInTheDocument()
-    expect(screen.getByText('Lista 2: análise léxica')).toBeInTheDocument()
-    expect(screen.getAllByText('23:59')).toHaveLength(2)
-    expect(screen.getByText('Compiladores · Lista')).toBeInTheDocument()
-    expect(screen.getByText('Em andamento')).toBeInTheDocument()
-    expect(screen.getByText('Atrasada')).toBeInTheDocument()
-    expect(screen.getAllByText('Sem atividades')).toHaveLength(6)
+    expect(calendario.getByText('Lista 2: análise léxica')).toBeInTheDocument()
+    expect(calendario.getAllByText('23:59')).toHaveLength(2)
+    expect(calendario.getByText('Compiladores · Lista')).toBeInTheDocument()
+    expect(calendario.getByText('Em andamento')).toBeInTheDocument()
+    expect(calendario.getByText('Atrasada')).toBeInTheDocument()
+    expect(calendario.getAllByText('Sem atividades')).toHaveLength(6)
   })
 
   it('navega entre as semanas e volta para o mês certo', async () => {
     abrir()
-    await screen.findByText(/Lista 2: análise léxica/)
+    await calendario.findByText(/Lista 2: análise léxica/)
     fireEvent.click(screen.getByRole('button', { name: 'Semana' }))
 
     fireEvent.click(screen.getByRole('button', { name: 'Próxima semana' }))
 
     expect(
-      screen.queryByText('Lista 2: análise léxica'),
+      calendario.queryByText('Lista 2: análise léxica'),
     ).not.toBeInTheDocument()
-    expect(screen.getAllByText('Sem atividades')).toHaveLength(7)
+    expect(calendario.getAllByText('Sem atividades')).toHaveLength(7)
 
     fireEvent.click(screen.getByRole('button', { name: 'Semana anterior' }))
 
-    expect(screen.getByText('Lista 2: análise léxica')).toBeInTheDocument()
+    expect(calendario.getByText('Lista 2: análise léxica')).toBeInTheDocument()
 
     fireEvent.click(screen.getByRole('button', { name: 'Mês' }))
 
@@ -322,7 +347,7 @@ describe('Agenda: Mês, Semana e Lista', () => {
 
   it('não mostra mais o formulário de adicionar tarefa e sim os post-its da semana', async () => {
     abrir()
-    await screen.findByText(/Lista 2: análise léxica/)
+    await calendario.findByText(/Lista 2: análise léxica/)
 
     expect(
       screen.queryByRole('button', { name: 'Adicionar' }),

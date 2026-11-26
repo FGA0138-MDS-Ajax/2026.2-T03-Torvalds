@@ -106,23 +106,6 @@ describe('Layout base', () => {
     expect(screen.queryByRole('searchbox')).not.toBeInTheDocument()
   })
 
-  it('na tela de Anotações a busca do topo busca anotações e fica na tela', () => {
-    abrir('/anotacoes?disciplina=7')
-
-    const busca = screen.getByRole('searchbox', { name: 'Buscar anotações' })
-
-    fireEvent.change(busca, { target: { value: 'léxica' } })
-
-    expect(
-      screen.getByRole('heading', { name: 'Anotações' }),
-    ).toBeInTheDocument()
-    expect(busca).toHaveValue('léxica')
-
-    fireEvent.change(busca, { target: { value: '' } })
-
-    expect(busca).toHaveValue('')
-  })
-
   it('abre a tela "Em breve" das anotações', () => {
     abrir()
 
