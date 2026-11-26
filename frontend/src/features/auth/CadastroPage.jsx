@@ -6,6 +6,7 @@ import './LoginPage.css'
 import './CadastroPage.css'
 import { cadastrar } from './authApi'
 import { validarCadastro } from './validacaoCadastro'
+import { marcarTutorialPendente } from '../../shared/layout/tutorialPassos'
 
 const DIFERENCIAIS = [
   ['Avisos de prazo', 'Veja o que vence antes de virar urgência.'],
@@ -128,6 +129,7 @@ export default function CadastroPage() {
         valores.senha,
         valores.matricula,
       )
+      marcarTutorialPendente()
       navegar('/login', {
         state: { cadastrado: true, email: valores.email.trim() },
       })

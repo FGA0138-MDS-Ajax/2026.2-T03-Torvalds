@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router'
 import AcoesDoTopo from './AcoesDoTopo'
 import Icone from './Icone'
+import Tutorial from './Tutorial'
 import './LayoutBase.css'
 
 const itens = [
@@ -87,6 +88,8 @@ export default function LayoutBase() {
           </li>
         </ul>
       </nav>
+
+      <Tutorial />
 
       <div className="layout-coluna">
         <header className="layout-topo">
