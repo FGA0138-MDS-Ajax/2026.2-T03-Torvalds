@@ -85,6 +85,11 @@
 }
 .anot-nome {
   margin: 0;
+  padding: 0.5rem 1rem;
+  border-left: 0.375rem solid var(--anot-forte);
+  border-radius: 0.625rem;
+  background: var(--anot-claro);
+  color: var(--anot-escuro);
   font-family: var(--fonte-titulo);
   font-size: 1.5rem;
   font-weight: 400;
