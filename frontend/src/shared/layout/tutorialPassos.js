@@ -31,6 +31,12 @@ export const PASSOS = [
       'O resumo do dia: a próxima prova, as entregas da semana, as próximas tarefas e o seu progresso no semestre.',
   },
   {
+    alvo: '.inicio-semana',
+    titulo: 'Entregas da semana',
+    texto:
+      'Cada barra é um dia, na cor da matéria. Clique no cartão (ou no ⤢) para ver as entregas do mês inteiro.',
+  },
+  {
     alvo: '.layout-links a[href$="/materias"]',
     titulo: 'Matérias',
     texto:
@@ -42,12 +48,6 @@ export const PASSOS = [
     titulo: 'Suas matérias no Início',
     texto:
       'O Início também mostra as suas matérias, com o que falta entregar em cada uma. A cor é a mesma em todas as telas. Clique numa para abrir.',
-  },
-  {
-    alvo: '.inicio-semana',
-    titulo: 'Entregas da semana',
-    texto:
-      'Cada barra é um dia, na cor da matéria. Clique no cartão (ou no ⤢) para ver as entregas do mês inteiro.',
   },
   {
     alvo: '.layout-links a[href$="/anotacoes"]',
