@@ -4,6 +4,11 @@
   min-height: 100svh;
   background: var(--cor-fundo);
   color: var(--cor-texto);
+
+  /* Destaque do menu, no verde do tema (mesmo do Wolf Study) */
+  --tema: var(--cor-verde);
+  --tema-escuro: var(--cor-verde-escuro);
+  --sombra: 67 45 30;
 }
 
 /* Menu de caderno: painel na altura toda, com argolas na borda, como no protótipo */
@@ -13,9 +18,9 @@
   z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 18px;
   height: 100svh;
-  padding: 40px 24px;
+  padding: 40px 24px 16px;
   border-right: 1px solid var(--cor-borda-forte);
   background: var(--cor-menu);
 
@@ -51,34 +56,68 @@
 }
 
 .layout-links {
+  position: relative;
   display: grid;
-  gap: 14px;
+  gap: 2px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .layout-links a {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 16px 18px;
-  border: 1px solid var(--cor-borda-forte);
-  border-radius: 18px;
+  gap: 8px;
+  min-width: 0;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: 12px;
   color: inherit;
   font-family: var(--fonte-titulo);
+  font-size: 0.9rem;
   font-weight: 700;
+  white-space: nowrap;
   text-decoration: none;
 }
 
 .layout-links a:hover {
+  border-color: var(--cor-borda-forte);
   background: #f1e6d2;
 }
 
 .layout-links a.active {
-  border-color: var(--cor-verde);
-  background: var(--cor-verde);
+  border-color: transparent;
+  background: transparent;
   color: var(--cor-texto);
+}
+
+/* Destaque da tela atual: corre de um link para o outro (posição e tamanho
+   vêm do JavaScript, medindo o link ativo), como nas vistas da Agenda */
+.layout-links-marcador {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 12px;
+  background: var(--tema);
+  box-shadow: 0 2px 6px rgb(var(--sombra) / 0.18);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.layout-links.pronto .layout-links-marcador {
+  transition:
+    transform 0.4s cubic-bezier(0.3, 1.3, 0.5, 1),
+    width 0.4s cubic-bezier(0.3, 1.3, 0.5, 1),
+    height 0.4s cubic-bezier(0.3, 1.3, 0.5, 1),
+    opacity 0.2s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .layout-links.pronto .layout-links-marcador {
+    transition: none;
+  }
 }
 
 .layout-links a:focus-visible,
@@ -159,20 +198,26 @@
 @media (max-width: 760px) {
   .layout {
     grid-template-columns: 1fr;
-    padding-bottom: 76px;
+    padding-bottom: calc(96px + env(safe-area-inset-bottom));
   }
 
+  /* Barra flutuante em forma de pílula, solta das bordas, só com ícones */
   .layout-menu {
     position: fixed;
-    inset: auto 0 0 0;
+    inset: auto 14px calc(12px + env(safe-area-inset-bottom));
     flex-direction: row;
     gap: 0;
-    height: 68px;
+    height: 64px;
     margin-block: 0;
-    padding: 8px 12px;
-    border: 0;
-    border-top: 3px solid var(--cor-borda-forte);
-    border-radius: 0;
+    padding: 6px;
+    border: 1px solid var(--cor-borda);
+    border-radius: 999px;
+    background: rgb(250 238 219 / 0.88);
+    box-shadow:
+      0 10px 28px rgb(var(--sombra) / 0.18),
+      0 2px 6px rgb(var(--sombra) / 0.08);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    backdrop-filter: blur(14px) saturate(1.4);
   }
 
   .layout-menu::after,
@@ -184,7 +229,14 @@
   .layout-links {
     display: flex;
     flex: 1;
-    gap: 6px;
+    gap: 4px;
+  }
+
+  /* Destaque da tela atual: uma pílula clarinha atrás do ícone */
+  .layout-links-marcador {
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--tema) 20%, transparent);
+    box-shadow: none;
   }
 
   .layout-links li {
@@ -196,14 +248,39 @@
   }
 
   .layout-links a {
-    flex-direction: column;
     justify-content: center;
-    gap: 2px;
     height: 100%;
-    padding: 4px;
-    border-width: 1px;
-    border-radius: 12px;
-    font-size: 0.875rem;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+  }
+
+  .layout-links a:hover {
+    background: transparent;
+  }
+
+  .layout-links a:active svg {
+    scale: 0.88;
+  }
+
+  .layout-links a svg {
+    width: 27px;
+    height: 27px;
+    transition: scale 0.15s ease;
+  }
+
+  .layout-links a.active {
+    color: var(--tema-escuro);
+  }
+
+  /* Só os ícones aparecem; o nome continua lá para leitores de tela */
+  .layout-links a span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 
   .layout-coluna::before {
