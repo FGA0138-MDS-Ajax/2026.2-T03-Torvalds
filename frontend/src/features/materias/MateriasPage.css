@@ -69,8 +69,40 @@
   outline-offset: 0.1875rem;
 }
 
+/* Matéria escolhida: contorno escuro, sombra e um pequeno avanço para a direita;
+   as outras ficam um pouco mais suaves enquanto há uma escolhida */
+.materia-cartao {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
 .materia-cartao-ativo {
-  box-shadow: 0 0 0 2px var(--cor-borda-forte);
+  box-shadow:
+    0 0 0 3px var(--cor-texto),
+    0 8px 16px rgb(67 45 30 / 0.22);
+  transform: translateX(8px);
+}
+
+.materia-cartao-ativo strong::before {
+  content: '▸ ';
+}
+
+.materias-lista:has(.materia-cartao-ativo)
+  .materia-cartao:not(.materia-cartao-ativo) {
+  opacity: 0.72;
+}
+
+.materias-lista:has(.materia-cartao-ativo)
+  .materia-cartao:not(.materia-cartao-ativo):hover {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .materia-cartao {
+    transition: none;
+  }
 }
 
 .materia-cartao .barra-progresso-trilho {

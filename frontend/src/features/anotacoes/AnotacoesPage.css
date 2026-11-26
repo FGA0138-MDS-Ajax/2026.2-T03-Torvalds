@@ -122,8 +122,33 @@
 .anot-cartao:hover {
   filter: brightness(0.97);
 }
+.anot-cartao {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+/* Matéria escolhida: contorno escuro, sombra e um pequeno avanço para a direita;
+   as outras ficam um pouco mais suaves */
 .anot-cartao[aria-pressed='true'] {
-  box-shadow: 0 0 0 2px var(--cor-borda-forte);
+  box-shadow:
+    0 0 0 3px var(--cor-texto),
+    0 8px 16px rgb(67 45 30 / 0.22);
+  transform: translateX(8px);
+}
+.anot-cartao[aria-pressed='true']::before {
+  content: '▸ ';
+}
+.anot-cartao[aria-pressed='false'] {
+  opacity: 0.72;
+}
+.anot-cartao[aria-pressed='false']:hover {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .anot-cartao {
+    transition: none;
+  }
 }
 .anot-cartao-lilas {
   border-top-color: #b49bd6;
