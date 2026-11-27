@@ -117,6 +117,7 @@ export default function CadastroPage() {
         valores.nome.trim(),
         valores.email.trim(),
         valores.senha,
+        valores.confirmacao,
         valores.matricula,
       )
       navegar('/login', { state: { cadastrado: true } })

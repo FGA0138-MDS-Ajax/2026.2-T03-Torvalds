@@ -18,10 +18,16 @@ export function consultarPerfil(signal) {
   return requisicao('/me', { signal })
 }
 
-export function cadastrar(nome, email, senha, matriculaUnB) {
+export function cadastrar(nome, email, senha, confirmacaoSenha, matriculaUnB) {
   return requisicao('/auth/cadastro', {
     method: 'POST',
-    dados: { nome, email, senha, ...(matriculaUnB ? { matriculaUnB } : {}) },
+    dados: {
+      nome,
+      email,
+      senha,
+      confirmacaoSenha,
+      ...(matriculaUnB ? { matriculaUnB } : {}),
+    },
     autenticada: false,
   })
 }

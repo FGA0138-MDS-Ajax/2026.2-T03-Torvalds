@@ -41,6 +41,7 @@ class CadastroIntegracaoTest {
                       "nome": "Nova Aluna",
                       "email": "nova.aluna@cancha.test",
                       "senha": "senha-segura-123",
+                      "confirmacaoSenha": "senha-segura-123",
                       "matriculaUnB": "260000099"
                     }
                     """))
@@ -72,6 +73,7 @@ class CadastroIntegracaoTest {
                       "nome": "Aluno Sem Matrícula",
                       "email": "sem.matricula@cancha.test",
                       "senha": "senha-segura-123",
+                      "confirmacaoSenha": "senha-segura-123",
                       "matriculaUnB": ""
                     }
                     """))
@@ -86,7 +88,8 @@ class CadastroIntegracaoTest {
                     {
                       "nome": "Outro Aluno Sem Matrícula",
                       "email": "sem.matricula2@cancha.test",
-                      "senha": "senha-segura-123"
+                      "senha": "senha-segura-123",
+                      "confirmacaoSenha": "senha-segura-123"
                     }
                     """))
         .andExpect(status().isCreated());
@@ -158,6 +161,26 @@ class CadastroIntegracaoTest {
                         "matricula-curta",
                         "senha-segura-123")))
         .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  void cadastroComSenhaDiferenteDaConfirmacaoRetorna400ENaoCriaConta() throws Exception {
+    mockMvc
+        .perform(
+            post("/auth/cadastro")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(
+                    """
+                    {
+                      "nome": "Teste",
+                      "email": "novo@cancha.test",
+                      "senha": "senha-forte-123",
+                      "confirmacaoSenha": "senha-forte-999"
+                    }
+                    """))
+        .andExpect(status().isBadRequest());
+
+    assertThat(alunos.findByEmail("novo@cancha.test")).isEmpty();
   }
 
   @Test
@@ -247,9 +270,9 @@ class CadastroIntegracaoTest {
   private String cadastroJson(String nome, String email, String matriculaUnB, String senha) {
     String matricula = matriculaUnB == null ? "null" : "\"" + matriculaUnB + "\"";
     return """
-        {"nome": "%s", "email": "%s", "senha": "%s", "matriculaUnB": %s}
+        {"nome": "%s", "email": "%s", "senha": "%s", "confirmacaoSenha": "%s", "matriculaUnB": %s}
         """
-        .formatted(nome, email, senha, matricula);
+        .formatted(nome, email, senha, senha, matricula);
   }
 
   private String cadastroJson(String nome, String email, String matriculaUnB) {
