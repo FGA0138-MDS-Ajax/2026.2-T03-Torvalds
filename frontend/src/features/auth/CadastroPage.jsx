@@ -9,6 +9,7 @@ import {
   mensagemDeCadastroDuplicado,
   validarCadastro,
 } from './validacaoCadastro'
+import { capitalizarNome } from './nomeDoUsuario'
 import { marcarTutorialPendente } from '../../shared/layout/tutorialPassos'
 
 const DIFERENCIAIS = [
@@ -127,7 +128,7 @@ export default function CadastroPage() {
 
     try {
       await cadastrar(
-        valores.nome.trim(),
+        capitalizarNome(valores.nome),
         valores.email.trim().toLowerCase(),
         valores.senha,
         valores.matricula,
@@ -179,6 +180,10 @@ export default function CadastroPage() {
                   id="nome"
                   rotulo="Nome completo"
                   autoComplete="name"
+                  autoCapitalize="words"
+                  onBlur={(evento) => {
+                    evento.target.value = capitalizarNome(evento.target.value)
+                  }}
                   placeholder="Como você se chama"
                   autoFocus
                   icone={ICONE_PESSOA}

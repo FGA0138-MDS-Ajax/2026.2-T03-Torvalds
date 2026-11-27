@@ -155,6 +155,27 @@ describe('CadastroPage', () => {
     expect(fetch).not.toHaveBeenCalled()
   })
 
+  it('deixa a primeira letra de cada nome em maiúscula ao sair do campo e ao enviar', async () => {
+    fetch.mockResolvedValue(
+      new Response(JSON.stringify({ id: 1 }), {
+        status: 201,
+        headers: { 'Content-Type': 'application/json' },
+      }),
+    )
+    abrir()
+    preencher()
+    digitar('Nome completo', 'maria da silva')
+    fireEvent.blur(screen.getByLabelText('Nome completo'))
+
+    expect(screen.getByLabelText('Nome completo')).toHaveValue('Maria da Silva')
+
+    digitar('Nome completo', 'joão de souza')
+    cadastrar()
+
+    await waitFor(() => expect(fetch).toHaveBeenCalled())
+    expect(JSON.parse(fetch.mock.calls[0][1].body).nome).toBe('João de Souza')
+  })
+
   it('envia o cadastro e vai para o login', async () => {
     fetch.mockResolvedValue(
       new Response(JSON.stringify({ id: 1 }), {
