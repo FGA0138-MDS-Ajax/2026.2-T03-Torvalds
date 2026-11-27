@@ -210,7 +210,11 @@ PRs grandes demais para revisar com calma (algumas centenas de linhas ou mais) d
 | Branch de documentação → `docs` | **Squash and merge** | Mesmo motivo. |
 | `developer` → `main` (release) | **Create a merge commit** | Fazer squash de uma branch permanente faz a `developer` e a `main` se afastarem e gera conflitos repetidos. |
 
-Depois do merge: apague a branch pelo botão **Delete branch** do PR e rode os comandos de limpeza da seção 2.3.
+O método de merge deve seguir a branch de destino, conforme a tabela acima. Cabe ao responsável pela integração do PR verificar se o método selecionado está de acordo com este guia.
+
+A utilização de métodos diferentes em PRs anteriores não altera a política estabelecida. Eventuais exceções devem ser justificadas e registradas no próprio PR.
+
+Depois do merge de uma branch de trabalho, apague-a pelo botão **Delete branch** do PR e rode os comandos de limpeza da seção 2.3. As branches permanentes (`main`, `developer`, `docs` e `gh-pages`) não devem ser excluídas.
 
 ### 4.5 Nunca fazer
 
@@ -230,6 +234,18 @@ No fim de uma sprint, ou antes de uma entrega ou apresentação:
 2. Abra um pull request da `developer` para a `main`, com título como `release: v0.3.0`. Liste na descrição as HUs entregues.
 3. Consiga uma aprovação e faça o merge com **Create a merge commit**.
 4. Crie uma tag e uma GitHub Release na `main` (`v0.1.0`, `v0.2.0`, …). O GitHub consegue gerar as notas da release a partir dos PRs integrados.
+
+### 5.1 Exceções registradas
+
+Durante o desenvolvimento, ocorreram integrações na `main` fora do fluxo previsto neste guia:
+
+- Commit `46d3b03`: inclusão dos modelos de issue e PR diretamente na `main`, sem pull request.
+- PR #100: integração da release v0.1.0 por squash.
+- Commit `d5bd87b`: integração local da release v0.1.0, sem pull request.
+- PR #121: integração direta de uma branch de trabalho para atualização dos templates.
+- PR #190: integração direta de uma branch de correção por squash.
+
+Essas ocorrências não alteram o fluxo padrão de releases. A regra permanece sendo a integração da `developer` para a `main` por **Create a merge commit**.
 
 ---
 
@@ -369,7 +385,7 @@ As configurações em **Settings** e os **rulesets** dependem de permissão de a
 - Tarefa → `developer` e documentação → `docs`: **Squash and merge**, com o título do PR como mensagem.
 - Release `developer` → `main`: **Create a merge commit**.
 - Rebase merge não é usado.
-- Depois do merge, quem fez o merge apaga a branch pelo botão **Delete branch** do PR.
+- Depois do merge, quem realizou a integração apaga a branch de trabalho pelo botão **Delete branch** do PR. As branches permanentes devem ser preservadas.
 - Se a branch ficou para trás da base, quem abriu o PR traz a base para a branch (`git merge origin/developer`) e envia de novo. O push também faz o CI rodar outra vez.
 
 ### 10.2 Regras das branches
@@ -400,6 +416,32 @@ As configurações em **Settings** e os **rulesets** dependem de permissão de a
 | `.gitignore` | Pastas geradas, dependências, `.env` |
 
 Opcional: uma GitHub Action que verifica se o título do PR segue o Conventional Commits (por exemplo, `amannn/action-semantic-pull-request`). Combina bem com o squash merge, já que o título vira o commit.
+
+### 10.5 Itens de configuração
+
+Os itens de configuração são os artefatos do projeto submetidos ao controle de alterações e de versões.
+
+| Item de configuração | Identificação e controle |
+|---|---|
+| Documento de Visão | Número da versão, histórico de revisões e commits na `docs` |
+| Documento de Arquitetura | Número da versão, histórico de revisões e commits na `docs` |
+| Código-fonte do back-end e front-end | Commits e PRs na `developer` e tags de release na `main` |
+| Migrações do banco de dados | Arquivos numerados pelo Flyway e versionados pelo Git |
+| Protótipo de interface | Protótipo no Figma, mantido pelo Designer e vinculado às issues correspondentes |
+| Plano de testes | Seção 6 do Documento de Visão, seguindo seu versionamento |
+| Relatórios de testes e métricas | Identificação por sprint e versionamento na `docs` |
+| Atas de reunião | Identificação por número e data da reunião e versionamento na `docs` |
+| Arquivos de configuração e integração contínua | Histórico de alterações pelo Git |
+
+#### Linhas de base
+
+As linhas de base correspondem às versões aprovadas dos artefatos, utilizadas como referência para as próximas alterações.
+
+Para o código-fonte, são identificadas pelas tags das releases. Para os Documentos de Visão e de Arquitetura, são identificadas pelo número da versão aprovada e pelo respectivo commit na `docs`.
+
+Para os demais artefatos, a referência é o estado aprovado na revisão correspondente, identificado pelo commit ou pelo vínculo com a issue.
+
+As alterações posteriores devem seguir o processo de controle e revisão definido neste guia.
 
 ---
 
