@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router'
 import BarraProgresso from '../../shared/components/BarraProgresso'
 import Icone from '../../shared/layout/Icone'
@@ -30,6 +30,22 @@ const SITUACAO = {
 }
 
 const concluida = (entrega) => entrega.status === 'CONCLUIDA'
+
+// Depois de concluir (ou desfazer), a entrega fica no lugar por este tempo, com
+// um destaque, antes de a lista se reorganizar. Sem isso a próxima entrega
+// assumia o lugar na hora e o aluno não via o que tinha acontecido.
+const TEMPO_NO_LUGAR = 1600
+
+const listarVisiveis = (entregas, filtro, agora) =>
+  ordenarPorUrgencia(
+    entregas.filter(
+      (entrega) => filtro === 'todas' || categoriaDaEntrega(entrega) === filtro,
+    ),
+    agora,
+  )
+
+const semMovimento = () =>
+  window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
 /** "24/11 às 23:59", com o ano só quando não é o ano corrente. */
 const formatarData = (prazo, agora) => {
   const data = new Date(prazo)
@@ -53,7 +69,15 @@ const formatarDia = (data) => {
   return dia && mes && ano ? `${dia}/${mes}/${ano}` : ''
 }
 
-function Entrega({ entrega, agora, ordem, pendente, onAlternar }) {
+function Entrega({
+  entrega,
+  agora,
+  ordem,
+  pendente,
+  recente,
+  registrar,
+  onAlternar,
+}) {
   const categoria = categoriaDaEntrega(entrega)
   const atrasada = estaAtrasada(entrega, agora)
   const situacao = SITUACAO[categoria]
@@ -61,9 +85,10 @@ function Entrega({ entrega, agora, ordem, pendente, onAlternar }) {
 
   return (
     <li
+      ref={(elemento) => registrar(entrega.id, elemento)}
       className={`entrega entrega-${situacao.classe}${
         atrasada ? ' entrega-atrasada' : ''
-      }`}
+      }${recente ? ' entrega-recente' : ''}`}
       style={{ '--ordem': Math.min(ordem, 10) }}
     >
       <div className="entrega-conteudo">
@@ -108,6 +133,30 @@ function Entrega({ entrega, agora, ordem, pendente, onAlternar }) {
   )
 }
 
+/**
+ * Lista de entregas. A animação de entrada vale só quando a lista aparece:
+ * depois disso a classe "entrou" a desliga, para as entregas que mudam de
+ * lugar não "entrarem" de novo.
+ */
+function ListaDeEntregas({ children }) {
+  const lista = useRef(null)
+
+  useEffect(() => {
+    const espera = setTimeout(
+      () => lista.current?.classList.add('entrou'),
+      1300,
+    )
+
+    return () => clearTimeout(espera)
+  }, [])
+
+  return (
+    <ul className="disciplina-entregas" ref={lista}>
+      {children}
+    </ul>
+  )
+}
+
 function ConteudoDisciplina({ id }) {
   const [dados, setDados] = useState(null)
   const [erro, setErro] = useState(null)
@@ -115,6 +164,60 @@ function ConteudoDisciplina({ id }) {
   const [filtro, setFiltro] = useState('todas')
   const [pendente, setPendente] = useState(null)
   const [erroAcao, setErroAcao] = useState(null)
+  // Enquanto a entrega fica no lugar: a ordem de antes e quais acabaram de mudar.
+  const [segurando, setSegurando] = useState(null)
+  const itens = useRef(new Map())
+  const posicoes = useRef(null)
+  const espera = useRef(null)
+
+  useEffect(() => () => clearTimeout(espera.current), [])
+
+  // Quando a lista se reorganiza, cada entrega desliza do lugar antigo até o novo.
+  useLayoutEffect(() => {
+    const antes = posicoes.current
+
+    if (segurando !== null || !antes) return
+    posicoes.current = null
+    if (semMovimento()) return
+
+    for (const [entregaId, elemento] of itens.current) {
+      const deslocamento =
+        antes.get(entregaId) - elemento.getBoundingClientRect().top
+
+      if (Math.abs(deslocamento) > 1 && elemento.animate) {
+        elemento.animate(
+          [
+            { transform: `translateY(${deslocamento}px)` },
+            { transform: 'none' },
+          ],
+          { duration: 500, easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)' },
+        )
+      }
+    }
+  }, [segurando])
+
+  function registrar(entregaId, elemento) {
+    if (elemento) itens.current.set(entregaId, elemento)
+    else itens.current.delete(entregaId)
+  }
+
+  function soltar() {
+    posicoes.current = new Map(
+      [...itens.current].map(([entregaId, elemento]) => [
+        entregaId,
+        elemento.getBoundingClientRect().top,
+      ]),
+    )
+    setSegurando(null)
+  }
+
+  function escolherFiltro(chave) {
+    clearTimeout(espera.current)
+    posicoes.current = null
+    setSegurando(null)
+    setFiltro(chave)
+  }
+
   useEffect(() => {
     const controller = new AbortController()
     carregarDisciplina(id, controller.signal)
@@ -141,6 +244,17 @@ function ConteudoDisciplina({ id }) {
 
     setErroAcao(null)
     setPendente(entrega.id)
+    setSegurando((atual) => ({
+      ordem:
+        atual?.ordem ??
+        listarVisiveis(dados.entregas, filtro, new Date()).map(
+          (item) => item.id,
+        ),
+      recentes: new Set([...(atual?.recentes ?? []), entrega.id]),
+      ultima: { titulo: entrega.titulo, feita: novo === 'CONCLUIDA' },
+    }))
+    clearTimeout(espera.current)
+    espera.current = setTimeout(soltar, TEMPO_NO_LUGAR)
     trocar(novo)
     try {
       await alterarSituacaoEntrega(entrega.id, novo)
@@ -176,12 +290,13 @@ function ConteudoDisciplina({ id }) {
   const cor = corDaDisciplina(disciplina.nome, indice)
   const contagem = contarPorCategoria(entregas)
   const pendencias = resumirPendencias(entregas, agora)
-  const visiveis = ordenarPorUrgencia(
-    entregas.filter(
-      (entrega) => filtro === 'todas' || categoriaDaEntrega(entrega) === filtro,
-    ),
-    agora,
-  )
+  // No intervalo depois de concluir, mantém a ordem (e as entregas que o filtro
+  // esconderia) para a mudança ficar visível.
+  const visiveis = segurando
+    ? segurando.ordem
+        .map((entregaId) => entregas.find((item) => item.id === entregaId))
+        .filter(Boolean)
+    : listarVisiveis(entregas, filtro, agora)
 
   const pendentes = contagem.afazer + contagem.andamento
 
@@ -230,7 +345,7 @@ function ConteudoDisciplina({ id }) {
                     key={opcao.chave}
                     type="button"
                     aria-pressed={filtro === opcao.chave}
-                    onClick={() => setFiltro(opcao.chave)}
+                    onClick={() => escolherFiltro(opcao.chave)}
                   >
                     {opcao.titulo} ({contagem[opcao.chave]})
                   </button>
@@ -242,6 +357,13 @@ function ConteudoDisciplina({ id }) {
                 {erroAcao}
               </p>
             )}
+            {segurando && (
+              <p className="disciplina-so-leitor" role="status">
+                {`“${segurando.ultima.titulo}” ${
+                  segurando.ultima.feita ? 'concluída' : 'reaberta'
+                }.`}
+              </p>
+            )}
             {visiveis.length === 0 ? (
               <p className="disciplina-vazio">
                 {entregas.length === 0
@@ -249,7 +371,7 @@ function ConteudoDisciplina({ id }) {
                   : 'Nenhuma entrega neste filtro.'}
               </p>
             ) : (
-              <ul className="disciplina-entregas" key={filtro}>
+              <ListaDeEntregas key={filtro}>
                 {visiveis.map((entrega, posicao) => (
                   <Entrega
                     key={entrega.id}
@@ -257,10 +379,12 @@ function ConteudoDisciplina({ id }) {
                     ordem={posicao}
                     agora={agora}
                     pendente={pendente === entrega.id}
+                    recente={segurando?.recentes.has(entrega.id) ?? false}
+                    registrar={registrar}
                     onAlternar={alternarConclusao}
                   />
                 ))}
-              </ul>
+              </ListaDeEntregas>
             )}
           </section>
 
