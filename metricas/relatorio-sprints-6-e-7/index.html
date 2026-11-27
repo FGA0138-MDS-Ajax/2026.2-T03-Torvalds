@@ -1,0 +1,1403 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../testes/relatorio-sprint-9/">
+      
+      
+        <link rel="next" href="../relatorio-sprint-8/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Sprints 6 e 7 - Documentação</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#registro-de-metricas-sprints-6-e-7" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Documentação" class="md-header__button md-logo" aria-label="Documentação" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentação
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Sprints 6 e 7
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Documentação" class="md-nav__button md-logo" aria-label="Documentação" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Documentação
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Início
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Atas de Reunião
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Atas de Reunião
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../atas-reuniao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Índice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../atas-reuniao/template-ata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Template
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../atas-reuniao/ata-reuniao-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 1 — Definição inicial do produto e Documento de Visão
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../atas-reuniao/ata-reuniao-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 2 — Revisão do Documento de Visão e delimitação do escopo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../atas-reuniao/ata-reuniao-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 3 — Preparação da apresentação do Documento de Visão e GQM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../atas-reuniao/ata-reuniao-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 4 — Planejamento da Sprint 4, apresentação de arquitetura e identidade visual
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../atas-reuniao/ata-reuniao-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 5 — Estruturação do repositório e preparação da Sprint 6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../atas-reuniao/ata-reuniao-6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 6 — Planejamento e distribuição das tarefas da Sprint 6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../atas-reuniao/ata-reuniao-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 7 — Revisão da Sprint 6 e preparação da Sprint 7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../atas-reuniao/ata-reuniao-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 8 — Redistribuição da Sprint 7 e alinhamento das pendências
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../atas-reuniao/ata-reuniao-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 9 — Sprint Review da Sprint 8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../atas-reuniao/ata-reuniao-10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ata 10 — Sprint Planning da Sprint 8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documento-de-visao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documento de Visão
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../documento-de-arquitetura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documento de Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Testes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../testes/relatorio-sprint-7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Relatório de execução — Sprint 7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../testes/rodada-1-usabilidade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Materiais da rodada 1 de usabilidade
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../testes/relatorio-sprint-9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Relatório de execução — Sprint 9
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Métricas
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Métricas
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sprints 6 e 7
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sprints 6 e 7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-valores-coletados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Valores coletados
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-como-cada-valor-foi-obtido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Como cada valor foi obtido
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-analise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Análise
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-medicoes-complementares" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Medições complementares
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-limitacoes-da-coleta-e-acoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Limitações da coleta e ações
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referências
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../relatorio-sprint-8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sprint 8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-valores-coletados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Valores coletados
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-como-cada-valor-foi-obtido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Como cada valor foi obtido
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-analise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Análise
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-medicoes-complementares" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Medições complementares
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-limitacoes-da-coleta-e-acoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Limitações da coleta e ações
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referências
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="registro-de-metricas-sprints-6-e-7">Registro de métricas — Sprints 6 e 7</h1>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Período</strong></td>
+<td>Sprint 6 (29/10 a 04/11/2026) e Sprint 7 (05/11 a 11/11/2026)</td>
+</tr>
+<tr>
+<td><strong>Plano de referência</strong></td>
+<td><a href="../../documento-de-visao/">Documento de Visão</a>, seção 5.1 (GQM)</td>
+</tr>
+<tr>
+<td><strong>Fontes dos dados</strong></td>
+<td>Milestones, issues e execuções do GitHub Actions do repositório; <a href="../../testes/relatorio-sprint-7/">relatório de testes da Sprint 7</a></td>
+</tr>
+<tr>
+<td><strong>Data do registro</strong></td>
+<td>16/11/2026; meta da M4 alinhada à Visão v1.4 em 18/11/2026</td>
+</tr>
+</tbody>
+</table>
+<p>Este documento registra os valores das métricas do GQM (BASILI; CALDIERA; ROMBACH, 1994) definidas na seção 5.1 do Documento de Visão para as Sprints 6 e 7, compara cada valor com a meta e registra as ações decorrentes. As métricas de usabilidade (M6 a M11) dependem das sessões com estudantes, que começam na Sprint 9, e por isso não têm valores neste período.</p>
+<h2 id="1-valores-coletados">1. Valores coletados</h2>
+<p>O Quadro 1 resume os valores das métricas de progresso (objetivo O1) e de qualidade técnica (objetivo O2) nas duas sprints. Das cinco métricas desse grupo, quatro foram coletadas e uma (M2) não pôde ser calculada, como explica a seção 5.</p>
+<p><strong>Quadro 1 – Valores das métricas M1 a M5 nas Sprints 6 e 7</strong></p>
+<table>
+<thead>
+<tr>
+<th>Métrica</th>
+<th>Meta</th>
+<th>Sprint 6</th>
+<th>Sprint 7</th>
+<th>Situação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M1 – Histórias concluídas</td>
+<td>≥ 80%</td>
+<td>100% (1 de 1)</td>
+<td>100% (6 de 6)</td>
+<td>Meta atingida</td>
+</tr>
+<tr>
+<td>M2 – Velocidade</td>
+<td>variação ≤ 30%</td>
+<td>não coletada</td>
+<td>não coletada</td>
+<td>Sem estimativa em pontos (seção 5)</td>
+</tr>
+<tr>
+<td>M3 – Defeitos por sprint</td>
+<td>queda a partir da Sprint 9</td>
+<td>0</td>
+<td>2</td>
+<td>Linha de base registrada</td>
+</tr>
+<tr>
+<td>M4 – Aprovação dos testes na CI</td>
+<td>nenhum pull request integrado com a CI falhando</td>
+<td>91,7% (11 de 12)</td>
+<td>88,9% (32 de 36)</td>
+<td>Meta atingida: nenhuma falha chegou à <code>developer</code></td>
+</tr>
+<tr>
+<td>M5 – Correção de defeitos</td>
+<td>100% antes da Review</td>
+<td>sem defeitos</td>
+<td>100% (2 de 2)</td>
+<td>Meta atingida</td>
+</tr>
+</tbody>
+</table>
+<p><em>Fonte: elaborado pelo grupo (2026), com dados do GitHub consultados em 16/11/2026.</em></p>
+<h2 id="2-como-cada-valor-foi-obtido">2. Como cada valor foi obtido</h2>
+<p>O Quadro 2 indica, para cada métrica, de onde o dado foi tirado e como foi calculado, para que qualquer pessoa possa refazer a contagem.</p>
+<p><strong>Quadro 2 – Origem e cálculo de cada valor</strong></p>
+<table>
+<thead>
+<tr>
+<th>Métrica</th>
+<th>Origem do dado</th>
+<th>Cálculo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M1</td>
+<td>Issues com a label <code>historia</code> nos milestones <a href="https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/milestone/1?closed=1">Sprint 6</a> e <a href="https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/milestone/2?closed=1">Sprint 7</a>, aceitas na Sprint Review</td>
+<td>Sprint 6: US08 (#18). Sprint 7: US01 (#78), US02 (#79), US03a (#80), US03b (#30), US04a (#82) e US09 (#81). Histórias aceitas ÷ planejadas × 100</td>
+</tr>
+<tr>
+<td>M2</td>
+<td>Labels <code>pontos: N</code> nas histórias (CONTRIBUTING, seção 6.4)</td>
+<td>Nenhuma história recebeu pontos; sem eles, não há velocidade</td>
+</tr>
+<tr>
+<td>M3</td>
+<td>Issues com a label <code>bug</code> abertas no período de cada sprint (sem contar pull requests)</td>
+<td>Sprint 6: nenhuma. Sprint 7: #95 (Agenda em branco) e #96 (materiais não aparecem)</td>
+</tr>
+<tr>
+<td>M4</td>
+<td>Execuções do workflow <code>CI</code> nos pull requests para a <code>developer</code> (<a href="https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/actions">Actions</a>)</td>
+<td>Execuções sem falha ÷ total de execuções no período × 100</td>
+</tr>
+<tr>
+<td>M5</td>
+<td>Issues #95 e #96 e os PRs que as corrigiram (#101 e #102)</td>
+<td>Defeitos corrigidos antes da Review ÷ defeitos identificados × 100</td>
+</tr>
+</tbody>
+</table>
+<p><em>Fonte: elaborado pelo grupo (2026).</em></p>
+<h2 id="3-analise">3. Análise</h2>
+<p><strong>O1 – Progresso do desenvolvimento.</strong> As duas sprints entregaram tudo o que foi planejado: a Sprint 6 entregou a US08 (acesso ao sistema, parte do back-end), e a Sprint 7 entregou as seis histórias do seu milestone. Além disso, a US05a (concluir entrega) e a US05b (progresso por disciplina), planejadas para a Sprint 8, foram adiantadas e aceitas em 11/11. Com a M1 acima de 80%, o critério 3 de replanejamento (seção 2.6 da Visão) não foi acionado. A release v0.1.0 saiu em 11/11, dois dias depois da data prevista (09/11), desvio já registrado na Tabela 1 da Visão.</p>
+<p><strong>O2 – Qualidade técnica.</strong> A Sprint 7 foi a primeira com execução do roteiro de testes de sistema, o que explica a passagem de zero para dois defeitos: os dois foram encontrados pelo Analista de Qualidade nos casos CT-03 e CT-05 e eram de integração entre front-end e API. Os dois foram corrigidos no mesmo dia, antes da Review, e a M5 ficou em 100%. Esses dois defeitos passam a ser a linha de base da M3, que deve cair a partir da Sprint 9.</p>
+<p>A meta da M4, como definida na Visão v1.4, é que nenhum pull request seja integrado com a CI falhando, e ela foi atingida nas duas sprints. As cinco execuções com falha aconteceram em pull requests de três branches de trabalho, e todas foram seguidas de uma execução com sucesso na mesma branch antes do merge. A CI cumpriu o papel de barrar o código com erro: nenhuma falha chegou à <code>developer</code>. As taxas de 91,7% e 88,9% mostram com que frequência o código chegou ao pull request sem passar nos testes. A primeira versão deste registro usava a meta de 100%, anterior à v1.4; a seção 5 registra o ajuste.</p>
+<h2 id="4-medicoes-complementares">4. Medições complementares</h2>
+<p>O Quadro 3 reúne as metas não funcionais da estratégia de testes (Visão, seção 6.1) que já foram medidas.</p>
+<p><strong>Quadro 3 – Metas não funcionais medidas na Sprint 7</strong></p>
+<table>
+<thead>
+<tr>
+<th>Meta</th>
+<th>Valor esperado</th>
+<th>Valor medido</th>
+<th>Fonte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cobertura do back-end (JaCoCo)</td>
+<td>≥ 80%</td>
+<td>90,1% de linhas e 83,3% de ramos, com 109 testes</td>
+<td><a href="../../testes/relatorio-sprint-7/">Relatório de testes da Sprint 7</a>, seção 4</td>
+</tr>
+<tr>
+<td>Cobertura do front-end</td>
+<td>≥ 70%</td>
+<td>não medida</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Tempo de resposta (REQ-13)</td>
+<td>95% das consultas em até 2 s, com o serviço ativo</td>
+<td>100% abaixo de 2 s em <code>/disciplinas</code>, <code>/agenda</code> e <code>/progresso</code>: de 0,23 a 0,91 s em 20 chamadas por rota (issue #94) e de 1,2 a 1,8 s na execução do roteiro</td>
+<td><a href="https://github.com/FGA0138-MDS-Ajax/2026.2-T03-Torvalds/issues/94">Issue #94</a> e relatório de testes da Sprint 7</td>
+</tr>
+<tr>
+<td>Primeiro acesso com o serviço dormindo</td>
+<td>—</td>
+<td>175 s</td>
+<td>Relatório de testes da Sprint 7, seção 4 (confirma o risco R7)</td>
+</tr>
+</tbody>
+</table>
+<p><em>Fonte: elaborado pelo grupo (2026).</em></p>
+<h2 id="5-limitacoes-da-coleta-e-acoes">5. Limitações da coleta e ações</h2>
+<p>O Quadro 4 registra o que impediu ou limitou a coleta neste período e o que o grupo fará a respeito.</p>
+<p><strong>Quadro 4 – Limitações da coleta e ações</strong></p>
+<table>
+<thead>
+<tr>
+<th>Limitação</th>
+<th>Ação</th>
+<th>Responsável</th>
+<th>Quando</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>As labels <code>pontos: 1</code> a <code>pontos: 8</code> previstas no CONTRIBUTING não foram criadas no repositório, e nenhuma história foi estimada; por isso a M2 não pôde ser calculada</td>
+<td>Criar as labels e estimar as histórias com o jogo do planejamento, registrando os pontos na issue</td>
+<td>Scrum Master</td>
+<td>Planning da Sprint 9</td>
+</tr>
+<tr>
+<td>A M4 mede a CI nos pull requests, mas a meta foi escrita para a <code>developer</code></td>
+<td>Redefinir a M4 na Visão como "execuções da CI nos pull requests para a <code>developer</code>" e manter a meta de nenhuma falha integrada</td>
+<td>Analista de Qualidade</td>
+<td>Feito na Visão v1.4</td>
+</tr>
+<tr>
+<td>A cobertura do front-end não é medida</td>
+<td>Gerar a cobertura do Vitest na CI</td>
+<td>Desenvolvedores</td>
+<td>Sprint 9</td>
+</tr>
+<tr>
+<td>Cinco das seis issues de histórias da Sprint 7 (#78 a #82) foram criadas em 11/11, no fim da sprint; as tarefas existiam desde 05/11</td>
+<td>Abrir a issue da história na Planning, antes das tarefas</td>
+<td>PO</td>
+<td>A partir da Sprint 8</td>
+</tr>
+<tr>
+<td>M6 a M11 dependem das sessões de usabilidade</td>
+<td>Coletar nas rodadas com estudantes</td>
+<td>Analista de Qualidade</td>
+<td>Sprints 9 e 10</td>
+</tr>
+</tbody>
+</table>
+<p><em>Fonte: elaborado pelo grupo (2026).</em></p>
+<h2 id="referencias">Referências</h2>
+<p>BASILI, V. R.; CALDIERA, G.; ROMBACH, H. D. The Goal Question Metric approach. In: MARCINIAK, J. J. (ed.). <strong>Encyclopedia of Software Engineering</strong>. New York: John Wiley &amp; Sons, 1994. p. 528-532.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>
