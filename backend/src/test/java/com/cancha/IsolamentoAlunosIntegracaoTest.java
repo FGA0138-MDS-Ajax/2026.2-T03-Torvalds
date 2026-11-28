@@ -3,8 +3,11 @@ package com.cancha;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.not;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -238,6 +241,164 @@ class IsolamentoAlunosIntegracaoTest {
         .andExpect(jsonPath("$.EM_ANDAMENTO[*].titulo", not(hasItem(TITULO_ENTREGA))))
         .andExpect(jsonPath("$.CONCLUIDA[*].titulo", not(hasItem(TITULO_ENTREGA))));
     }
+
+  @Test
+  void anotacoesPermitemCrudSomenteAoAlunoProprietario() throws Exception {
+    String tituloOriginal = "Anotação privada de isolamento";
+
+    String respostaCriacao =
+        mockMvc
+            .perform(
+                post("/disciplinas/{id}/anotacoes", disciplinaId)
+                    .header("Authorization", "Bearer " + tokenAluno1)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(
+                        """
+                        {"titulo":"%s","texto":"Texto inicial"}
+                        """
+                            .formatted(tituloOriginal)))
+            .andExpect(status().isCreated())
+            .andExpect(jsonPath("$.titulo").value(tituloOriginal))
+            .andExpect(jsonPath("$.texto").value("Texto inicial"))
+            .andExpect(jsonPath("$.disciplinaId").value(disciplinaId))
+            .andExpect(jsonPath("$.dataCriacao").isNotEmpty())
+            .andReturn()
+            .getResponse()
+            .getContentAsString();
+    Long anotacaoId =
+        new com.fasterxml.jackson.databind.ObjectMapper()
+            .readTree(respostaCriacao)
+            .get("id")
+            .asLong();
+
+    mockMvc
+        .perform(
+            get("/disciplinas/{id}/anotacoes", disciplinaId)
+                .header("Authorization", "Bearer " + tokenAluno1))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$[*].titulo", hasItem(tituloOriginal)));
+
+    mockMvc
+        .perform(get("/anotacoes").header("Authorization", "Bearer " + tokenAluno1))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$[*].titulo", hasItem(tituloOriginal)));
+
+    mockMvc
+        .perform(get("/anotacoes").header("Authorization", "Bearer " + tokenAluno2))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$").isEmpty());
+
+    mockMvc
+        .perform(
+            put("/disciplinas/{disciplinaId}/anotacoes/{anotacaoId}", disciplinaId, anotacaoId)
+                .header("Authorization", "Bearer " + tokenAluno2)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                    {"titulo":"Alteração indevida","texto":"Não deve ser salva"}
+                    """))
+        .andExpect(status().isNotFound());
+
+    mockMvc
+        .perform(
+            delete(
+                    "/disciplinas/{disciplinaId}/anotacoes/{anotacaoId}",
+                    disciplinaId,
+                    anotacaoId)
+                .header("Authorization", "Bearer " + tokenAluno2))
+        .andExpect(status().isNotFound());
+
+    assertThat(
+            jdbc.queryForObject(
+                "select texto from anotacao where id = ?", String.class, anotacaoId))
+        .isEqualTo("Texto inicial");
+
+    mockMvc
+        .perform(
+            put("/disciplinas/{disciplinaId}/anotacoes/{anotacaoId}", disciplinaId, anotacaoId)
+                .header("Authorization", "Bearer " + tokenAluno1)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                    {"titulo":"Anotação atualizada","texto":"Texto atualizado"}
+                    """))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.titulo").value("Anotação atualizada"))
+        .andExpect(jsonPath("$.texto").value("Texto atualizado"));
+
+    mockMvc
+        .perform(
+            delete(
+                    "/disciplinas/{disciplinaId}/anotacoes/{anotacaoId}",
+                    disciplinaId,
+                    anotacaoId)
+                .header("Authorization", "Bearer " + tokenAluno1))
+        .andExpect(status().isNoContent());
+
+    mockMvc
+        .perform(get("/anotacoes").header("Authorization", "Bearer " + tokenAluno1))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$").isEmpty());
+
+    assertThat(
+            jdbc.queryForObject(
+                "select count(*) from anotacao where id = ?", Long.class, anotacaoId))
+        .isZero();
+  }
+
+  @Test
+  void anotacoesValidamMatriculaExistenciaDaDisciplinaETituloETexto() throws Exception {
+    mockMvc
+        .perform(
+            get("/disciplinas/{id}/anotacoes", disciplinaId)
+                .header("Authorization", "Bearer " + tokenAluno2))
+        .andExpect(status().isForbidden());
+
+    mockMvc
+        .perform(
+            post("/disciplinas/{id}/anotacoes", disciplinaId)
+                .header("Authorization", "Bearer " + tokenAluno2)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                    {"titulo":"Sem matrícula","texto":"Não deve ser criada"}
+                    """))
+        .andExpect(status().isForbidden());
+
+    Long disciplinaInexistente = Long.MAX_VALUE;
+    mockMvc
+        .perform(
+            get("/disciplinas/{id}/anotacoes", disciplinaInexistente)
+                .header("Authorization", "Bearer " + tokenAluno1))
+        .andExpect(status().isNotFound());
+
+    mockMvc
+        .perform(
+            post("/disciplinas/{id}/anotacoes", disciplinaInexistente)
+                .header("Authorization", "Bearer " + tokenAluno1)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                    {"titulo":"Disciplina ausente","texto":"Não deve ser criada"}
+                    """))
+        .andExpect(status().isNotFound());
+
+    mockMvc
+        .perform(
+            post("/disciplinas/{id}/anotacoes", disciplinaId)
+                .header("Authorization", "Bearer " + tokenAluno1)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                    {"titulo":"  ","texto":"Texto válido"}
+                    """))
+        .andExpect(status().isBadRequest());
+
+    mockMvc
+        .perform(
+            post("/disciplinas/{id}/anotacoes", disciplinaId)
+                .header("Authorization", "Bearer " + tokenAluno1)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                    {"titulo":"Título válido","texto":"  "}
+                    """))
+        .andExpect(status().isBadRequest());
+  }
 
     @Test
     void progressoDoSemestreConsideraSomenteConclusoesDoAlunoAutenticado()
