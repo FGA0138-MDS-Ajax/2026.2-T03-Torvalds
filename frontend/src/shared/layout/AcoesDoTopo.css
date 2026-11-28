@@ -2,7 +2,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
   margin-left: auto;
 }
 
@@ -10,8 +10,8 @@
   position: relative;
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  width: 2.75rem;
+  height: 2.75rem;
   padding: 0;
   border: 0;
   border-radius: 50%;
@@ -26,7 +26,7 @@
 }
 
 .layout-gatilho:focus-visible {
-  outline: 3px solid var(--cor-lilas-escuro);
+  outline: 0.1875rem solid var(--cor-lilas-escuro);
   outline-offset: 2px;
 }
 
@@ -34,16 +34,16 @@
   grid-auto-flow: column;
   gap: 2px;
   width: auto;
-  padding: 0 8px 0 2px;
-  border-radius: 999px;
+  padding: 0 0.5rem 0 2px;
+  border-radius: 62.4375rem;
 }
 
 .layout-avatar {
   display: grid;
-  flex: 0 0 40px;
+  flex: 0 0 2.5rem;
   place-items: center;
-  width: 40px;
-  height: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 50%;
   background: var(--cor-lilas-escuro);
   color: #fff;
@@ -54,48 +54,48 @@
   position: absolute;
   top: 0;
   right: -2px;
-  min-width: 20px;
-  height: 20px;
-  padding: 0 5px;
-  border-radius: 6px;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.3125rem;
+  border-radius: 0.375rem;
   background: var(--cor-alerta);
   color: #fff;
   font-size: 0.875rem;
   font-weight: 700;
-  line-height: 20px;
+  line-height: 1.25rem;
   text-align: center;
 }
 
 /* Painel que abre embaixo dos botões, preso à borda direita do topo */
 .layout-painel {
   position: absolute;
-  top: calc(100% + 10px);
+  top: calc(100% + 0.625rem);
   right: 0;
   z-index: 40;
-  width: min(400px, calc(100vw - 32px));
-  max-height: min(70vh, 560px);
+  width: min(25rem, calc(100vw - 2rem));
+  max-height: min(70vh, 35rem);
   overflow-y: auto;
   border: 1px solid var(--cor-borda-forte);
-  border-radius: 12px;
+  border-radius: 0.75rem;
   background: var(--cor-papel);
-  box-shadow: 0 8px 24px rgb(67 45 30 / 0.18);
+  box-shadow: 0 0.5rem 1.5rem rgb(67 45 30 / 0.18);
 }
 
 .layout-painel-estreito {
-  width: min(320px, calc(100vw - 32px));
+  width: min(20rem, calc(100vw - 2rem));
 }
 
 .layout-painel-titulo {
   margin: 0;
-  padding: 14px 18px;
+  padding: 0.875rem 1.125rem;
   border-bottom: 1px solid var(--cor-borda);
   font-size: 1.1rem;
 }
 
 .layout-painel-corpo {
   display: grid;
-  gap: 10px;
-  padding: 14px 18px;
+  gap: 0.625rem;
+  padding: 0.875rem 1.125rem;
 }
 
 .layout-painel-rotulo {
@@ -104,18 +104,37 @@
   font-weight: 700;
 }
 
+.layout-painel-botao {
+  justify-self: start;
+  min-height: 2.25rem;
+  padding: 0.25rem 1rem;
+  border: 1px solid var(--cor-verde);
+  border-radius: 999px;
+  background: var(--cor-verde);
+  color: var(--cor-texto);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.layout-painel-botao:hover {
+  background: var(--cor-verde-escuro);
+  color: #fff;
+}
+
 .layout-painel-aviso {
   margin: 0;
-  padding: 18px;
+  padding: 1.125rem;
   font-size: 0.875rem;
 }
 
 .layout-painel-aviso button {
-  min-height: 44px;
-  margin-top: 10px;
-  padding: 8px 16px;
+  min-height: 2.75rem;
+  margin-top: 0.625rem;
+  padding: 0.5rem 1rem;
   border: 1px solid #756184;
-  border-radius: 6px;
+  border-radius: 0.375rem;
   background: var(--cor-lilas);
   color: #302239;
   font: inherit;
@@ -125,7 +144,7 @@
 
 .layout-painel-rodape {
   display: block;
-  padding: 12px 18px;
+  padding: 0.75rem 1.125rem;
   border-top: 1px solid var(--cor-borda);
   color: var(--cor-lilas-escuro);
   font-size: 0.875rem;
@@ -147,7 +166,7 @@
 .layout-perfil-links a {
   display: grid;
   gap: 2px;
-  padding: 12px 18px;
+  padding: 0.75rem 1.125rem;
   color: inherit;
   font-size: 0.875rem;
   text-decoration: none;
@@ -161,8 +180,8 @@
 .layout-notificacoes a:focus-visible,
 .layout-perfil-links a:focus-visible,
 .layout-painel-rodape:focus-visible {
-  outline: 3px solid var(--cor-lilas-escuro);
-  outline-offset: -3px;
+  outline: 0.1875rem solid var(--cor-lilas-escuro);
+  outline-offset: -0.1875rem;
 }
 
 .layout-notificacao-atrasada {
@@ -174,8 +193,8 @@
 .layout-perfil-cabecalho {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 16px 18px;
+  gap: 0.75rem;
+  padding: 1rem 1.125rem;
   border-bottom: 1px solid var(--cor-borda);
 }
 
@@ -191,17 +210,17 @@
 
 .layout-perfil-links {
   margin: 0;
-  padding: 6px 0;
+  padding: 0.375rem 0;
   list-style: none;
 }
 
 .layout-sair {
   display: block;
-  width: calc(100% - 36px);
-  min-height: 44px;
-  margin: 4px 18px 16px;
+  width: calc(100% - 2.25rem);
+  min-height: 2.75rem;
+  margin: 0.25rem 1.125rem 1rem;
   border: 1px solid #756184;
-  border-radius: 6px;
+  border-radius: 0.375rem;
   background: var(--cor-lilas);
   color: #302239;
   font: inherit;
@@ -211,7 +230,7 @@
 }
 
 .layout-sair:focus-visible {
-  outline: 3px solid var(--cor-lilas-escuro);
+  outline: 0.1875rem solid var(--cor-lilas-escuro);
   outline-offset: 2px;
 }
 

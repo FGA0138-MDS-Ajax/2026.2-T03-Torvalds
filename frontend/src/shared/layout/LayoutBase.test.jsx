@@ -52,7 +52,7 @@ afterEach(() => {
   document.documentElement.style.fontSize = ''
 })
 
-function abrir() {
+function abrir(entrada = '/') {
   const sair = vi.fn()
 
   render(
@@ -63,7 +63,7 @@ function abrir() {
         sair,
       }}
     >
-      <MemoryRouter initialEntries={['/']}>
+      <MemoryRouter initialEntries={[entrada]}>
         <Routes>
           <Route element={<LayoutBase />}>
             <Route index element={<p>Conteúdo do início</p>} />
@@ -100,15 +100,10 @@ describe('Layout base', () => {
     expect(screen.getByText('Conteúdo do início')).toBeInTheDocument()
   })
 
-  it('leva a busca do topo para as matérias', () => {
+  it('não mostra mais a barra de busca no topo', () => {
     abrir()
 
-    const busca = screen.getByRole('searchbox', { name: /Buscar matéria/ })
-
-    fireEvent.change(busca, { target: { value: 'comp' } })
-
-    expect(screen.getByText('Tela de matérias')).toBeInTheDocument()
-    expect(busca).toHaveValue('comp')
+    expect(screen.queryByRole('searchbox')).not.toBeInTheDocument()
   })
 
   it('abre a tela "Em breve" das anotações', () => {
@@ -222,6 +217,20 @@ describe('Layout base', () => {
     expect(
       screen.queryByRole('region', { name: 'Configurações' }),
     ).not.toBeInTheDocument()
+  })
+
+  it('o botão Rever o tutorial, na engrenagem, abre o tutorial', () => {
+    abrir()
+
+    fireEvent.click(screen.getByRole('button', { name: 'Configurações' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Rever o tutorial' }))
+
+    expect(
+      screen.queryByRole('region', { name: 'Configurações' }),
+    ).not.toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', { name: 'Bem-vindo ao cAnCHA!' }),
+    ).toBeInTheDocument()
   })
 
   it('muda o tamanho do texto pelas configurações e lembra da escolha', () => {

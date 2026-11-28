@@ -1,0 +1,493 @@
+/* Cores da disciplina escolhida: claro (fundos), forte (bordas), escuro (destaques)
+   e as cinco abas, do tom mais claro ao mais forte. */
+.anot-pagina {
+  --anot-claro: var(--cor-lilas-claro);
+  --anot-forte: var(--cor-lilas);
+  --anot-escuro: var(--cor-lilas-escuro);
+}
+.anot-cor-amarelo {
+  --anot-claro: var(--cor-amarelo-claro);
+  --anot-forte: var(--cor-amarelo);
+  --anot-escuro: #8a5a00;
+}
+.anot-cor-verde {
+  --anot-claro: var(--cor-verde-claro);
+  --anot-forte: var(--cor-verde);
+  --anot-escuro: #4f5e3a;
+}
+.anot-cor-rosa {
+  --anot-claro: var(--cor-rosa-claro);
+  --anot-forte: #f0b8aa;
+  --anot-escuro: #a1402c;
+}
+.anot-cor-azul {
+  --anot-claro: var(--cor-azul-claro);
+  --anot-forte: #9fd3f2;
+  --anot-escuro: #1f5f8f;
+}
+
+/* Título no mesmo estilo e na mesma altura do nome "cAnCHA" do menu, como em Início e Matérias */
+.anot-h1 {
+  margin: 0 0 0.375rem;
+  font-size: 2rem;
+  line-height: normal;
+}
+.anot-subtitulo {
+  margin: 0 0 1.25rem;
+  color: var(--cor-texto-suave);
+}
+@media (min-width: 761px) {
+  .anot-h1 {
+    margin-top: -2.75rem;
+    padding-right: 11.25rem;
+  }
+}
+
+/* Nome da matéria e busca, em cima do caderno */
+.anot-principal {
+  display: grid;
+  gap: 0.875rem;
+  min-width: 0;
+}
+.anot-cabecalho {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+}
+.anot-nome {
+  margin: 0;
+  padding: 0.5rem 1rem;
+  border-left: 0.375rem solid var(--anot-forte);
+  border-radius: 0.625rem;
+  background: var(--anot-claro);
+  color: var(--anot-escuro);
+  font-family: var(--fonte-titulo);
+  font-size: 1.5rem;
+  font-weight: 400;
+  overflow-wrap: anywhere;
+}
+
+/* Coluna das matérias (cartões com a faixa na cor fixa da matéria) e caderno */
+.anot-corpo {
+  display: grid;
+  grid-template-columns: minmax(13.75rem, 17.5rem) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+.anot-disciplinas ul {
+  display: grid;
+  gap: 0.875rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.anot-cartao {
+  width: 100%;
+  padding: 1rem;
+  border: 0;
+  border-top: 0.3125rem solid transparent;
+  border-radius: 0.75rem;
+  color: var(--cor-texto);
+  font: inherit;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-align: left;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+.anot-cartao:hover {
+  filter: brightness(0.97);
+}
+.anot-cartao {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+/* Matéria escolhida: contorno escuro, sombra e um pequeno avanço para a direita;
+   as outras ficam um pouco mais suaves */
+.anot-cartao[aria-pressed='true'] {
+  box-shadow:
+    0 0 0 3px var(--cartao-forte),
+    0 8px 16px rgb(67 45 30 / 0.22);
+  transform: translateX(8px);
+}
+.anot-cartao[aria-pressed='true']::before {
+  content: '▸ ';
+}
+.anot-cartao[aria-pressed='false'] {
+  opacity: 0.72;
+}
+.anot-cartao[aria-pressed='false']:hover {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .anot-cartao {
+    transition: none;
+  }
+}
+.anot-cartao-lilas {
+  --cartao-forte: #b49bd6;
+  border-top-color: #b49bd6;
+  background: var(--cor-lilas-claro);
+}
+.anot-cartao-amarelo {
+  --cartao-forte: #f2c96b;
+  border-top-color: #f2c96b;
+  background: var(--cor-amarelo-claro);
+}
+.anot-cartao-verde {
+  --cartao-forte: #7fbf95;
+  border-top-color: #7fbf95;
+  background: var(--cor-verde-claro);
+}
+.anot-cartao-rosa {
+  --cartao-forte: #e8a597;
+  border-top-color: #e8a597;
+  background: var(--cor-rosa-claro);
+}
+.anot-cartao-azul {
+  --cartao-forte: #8fcdf2;
+  border-top-color: #8fcdf2;
+  background: var(--cor-azul-claro);
+}
+
+.anot-caderno {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+  border-top: 0.3125rem solid var(--anot-forte);
+  border-radius: 0.75rem;
+  background: var(--anot-claro);
+}
+.anot-nova {
+  justify-self: start;
+  min-height: 2.75rem;
+  padding: 0.5rem 1.125rem;
+  border: 2px solid var(--anot-escuro);
+  border-radius: 62.4375rem;
+  background: #fff;
+  color: var(--cor-texto);
+  font: inherit;
+  font-weight: bold;
+  cursor: pointer;
+}
+.anot-form h2 {
+  margin: 0 0 0.25rem;
+  font-family: var(--fonte-titulo);
+  font-size: 1.5rem;
+  overflow-wrap: anywhere;
+}
+.anot-vazio {
+  margin: 0;
+  color: var(--cor-texto-suave);
+}
+
+/* Lista no estilo Notion: setinha + título; clicar abre o conteúdo */
+.anot-lista {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.anot-item {
+  border-radius: 0.75rem;
+  background: rgb(255 255 255 / 0.65);
+}
+.anot-item-aberto {
+  background: #fff;
+  box-shadow: 0 2px 0.375rem rgb(67 45 30 / 0.12);
+}
+.anot-item-titulo {
+  margin: 0;
+  font-size: 1rem;
+}
+.anot-alternar {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.5rem 0.875rem;
+  border: 0;
+  border-radius: 0.75rem;
+  background: transparent;
+  color: inherit;
+  font-family: var(--fonte-titulo);
+  font-size: 1.25rem;
+  text-align: left;
+  cursor: pointer;
+}
+.anot-alternar:hover {
+  background: rgb(255 255 255 / 0.7);
+}
+.anot-seta {
+  flex: none;
+  color: var(--anot-escuro);
+  transition: transform 0.15s ease;
+}
+.anot-alternar[aria-expanded='true'] .anot-seta {
+  transform: rotate(90deg);
+}
+.anot-item-nome {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.anot-conteudo {
+  padding: 0 1.125rem 1.125rem 2.5rem;
+}
+.anot-conteudo time {
+  display: block;
+  margin-bottom: 0.75rem;
+  color: var(--cor-texto-suave);
+  font-size: 0.875rem;
+}
+.anot-texto {
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anot-seta {
+    transition: none;
+  }
+}
+
+/* Formulário de nova anotação */
+.anot-form {
+  display: grid;
+  gap: 0.75rem;
+}
+.anot-form label {
+  display: grid;
+  gap: 0.375rem;
+  font-weight: bold;
+}
+.anot-form input,
+.anot-form textarea {
+  padding: 0.625rem 0.75rem;
+  border: 1px solid var(--cor-borda-forte);
+  border-radius: 0.75rem;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+}
+.anot-form textarea {
+  resize: vertical;
+}
+.anot-form-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+}
+.anot-form-acoes button {
+  min-height: 2.75rem;
+  padding: 0.5rem 1.25rem;
+  border: 2px solid var(--anot-escuro);
+  border-radius: 62.4375rem;
+  background: var(--anot-claro);
+  color: var(--cor-texto);
+  font: inherit;
+  font-weight: bold;
+  cursor: pointer;
+}
+.anot-form-acoes button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.anot-erro {
+  margin: 0;
+  padding: 0.625rem 0.875rem;
+  border-radius: 0.75rem;
+  background: #f8ded5;
+  color: #882f20;
+}
+
+.anot-pagina button:focus-visible,
+.anot-pagina input:focus-visible,
+.anot-pagina textarea:focus-visible,
+.anot-pagina select:focus-visible,
+.anot-pagina a:focus-visible {
+  outline: 0.1875rem solid var(--anot-escuro);
+  outline-offset: 2px;
+}
+
+/* Celular: sem a coluna de disciplinas (vira um seletor) e abas no topo */
+@media (max-width: 760px) {
+  .anot-corpo {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  /* Celular: as matérias viram uma fileira de botões coloridos que rola de lado */
+  .anot-disciplinas ul {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.25rem 0.25rem 0.75rem;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+  .anot-disciplinas ul::-webkit-scrollbar {
+    display: none;
+  }
+  .anot-disciplinas li {
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+  }
+  .anot-cartao {
+    width: auto;
+    max-width: 16rem;
+    padding: 0.625rem 1rem;
+    border-top-width: 0;
+    border-radius: 999px;
+    box-shadow: inset 0 0 0 2px var(--cartao-forte);
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .anot-cartao[aria-pressed='true'] {
+    transform: none;
+  }
+  .anot-conteudo {
+    padding-left: 1.125rem;
+  }
+}
+
+/* Texto das anotações com negrito, marca-texto, títulos e listas */
+.texto-formatado > * {
+  margin: 0 0 0.75rem;
+}
+.texto-formatado > *:last-child {
+  margin-bottom: 0;
+}
+.texto-formatado h3 {
+  font-family: var(--fonte-titulo);
+  font-size: 1.25rem;
+}
+.texto-formatado h4 {
+  font-size: 1.0625rem;
+}
+.texto-formatado ul,
+.texto-formatado ol {
+  padding-left: 1.5rem;
+}
+.texto-formatado mark {
+  padding: 0 2px;
+  border-radius: 0.1875rem;
+  background: linear-gradient(transparent 15%, #ffe66d 15%);
+  color: inherit;
+}
+
+/* Barra de formatação do formulário */
+.anot-barra {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.anot-barra button {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--cor-borda-forte);
+  border-radius: 0.75rem;
+  background: #fff;
+  color: var(--cor-texto);
+  font: inherit;
+  cursor: pointer;
+}
+.anot-dica {
+  margin: 0;
+  color: var(--cor-texto-suave);
+  font-size: 0.875rem;
+}
+
+.anot-busca {
+  flex: 0 1 16.25rem;
+  margin-left: auto;
+}
+
+.anot-busca input {
+  width: 100%;
+  min-height: 2.375rem;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--anot-forte);
+  border-radius: 62.4375rem;
+  background: #fff;
+  color: var(--cor-texto);
+  font: inherit;
+  font-size: 0.875rem;
+}
+
+.anot-so-leitor {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+/* Editar e excluir uma anotação */
+.anot-acoes {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.anot-acoes button,
+.anot-confirmar .anot-form-acoes button {
+  padding: 0.375rem 0.875rem;
+  border: 1px solid var(--cor-borda-forte);
+  border-radius: 0.625rem;
+  background: var(--cor-papel);
+  color: var(--cor-texto);
+  font: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.anot-acoes button:hover,
+.anot-confirmar .anot-form-acoes button:hover {
+  background: var(--cor-lilas-claro);
+}
+
+.anot-acoes button:focus-visible,
+.anot-confirmar .anot-form-acoes button:focus-visible {
+  outline: 0.1875rem solid var(--cor-lilas-escuro);
+  outline-offset: 2px;
+}
+
+.anot-acoes .anot-perigo,
+.anot-confirmar .anot-perigo {
+  border-color: var(--cor-alerta);
+  color: var(--cor-alerta);
+}
+
+.anot-confirmar .anot-perigo {
+  background: var(--cor-alerta);
+  color: #fff;
+}
+
+.anot-confirmar .anot-perigo:hover {
+  background: #8f1f19;
+}
+
+.anot-confirmar {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: var(--cor-rosa-claro);
+}
+
+.anot-confirmar p {
+  margin: 0;
+}
+
+.anot-confirmar button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}

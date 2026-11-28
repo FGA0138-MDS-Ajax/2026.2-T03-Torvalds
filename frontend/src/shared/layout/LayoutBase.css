@@ -4,6 +4,11 @@
   min-height: 100svh;
   background: var(--cor-fundo);
   color: var(--cor-texto);
+
+  /* Destaque do menu, no verde do tema (mesmo do Wolf Study) */
+  --tema: var(--cor-verde);
+  --tema-escuro: var(--cor-verde-escuro);
+  --sombra: 67 45 30;
 }
 
 /* Menu de caderno: painel na altura toda, com argolas na borda, como no protótipo */
@@ -13,11 +18,15 @@
   z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 32px;
   height: 100svh;
-  padding: 40px 24px;
+  padding: 40px 20px 24px;
   border-right: 1px solid var(--cor-borda-forte);
-  background: var(--cor-menu);
+
+  /* As manchas coloridas do login, atrás do nome no alto do menu */
+  background:
+    url('../../assets/decoracao-superior.png') no-repeat top left / 250px auto,
+    var(--cor-menu);
 
   /* Largura de cada argola: mude só este número para aumentar ou diminuir */
   --argola-largura: 38px;
@@ -51,39 +60,74 @@
 }
 
 .layout-links {
+  position: relative;
   display: grid;
-  gap: 14px;
-  margin: 0;
-  padding: 0;
+  gap: 8px;
+  margin: auto 0;
+  padding: 0 0 24svh;
   list-style: none;
 }
 
 .layout-links a {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 16px 18px;
-  border: 1px solid var(--cor-borda-forte);
-  border-radius: 18px;
+  min-width: 0;
+  padding: 14px 16px;
+  border: 1px solid transparent;
+  border-radius: 12px;
   color: inherit;
   font-family: var(--fonte-titulo);
+  font-size: 1.05rem;
   font-weight: 700;
+  white-space: nowrap;
   text-decoration: none;
 }
 
 .layout-links a:hover {
+  border-color: var(--cor-borda-forte);
   background: #f1e6d2;
 }
 
 .layout-links a.active {
-  border-color: var(--cor-verde);
-  background: var(--cor-verde);
-  color: var(--cor-texto);
+  border-color: transparent;
+  background: transparent;
+  color: #fff;
+  transition: color 0.25s ease;
+}
+
+/* Destaque da tela atual: corre de um link para o outro (posição e tamanho
+   vêm do JavaScript, medindo o link ativo), como nas vistas da Agenda */
+.layout-links-marcador {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 12px;
+  background: var(--tema);
+  box-shadow: 0 2px 6px rgb(var(--sombra) / 0.18);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.layout-links.pronto .layout-links-marcador {
+  transition:
+    transform 0.4s cubic-bezier(0.3, 1.3, 0.5, 1),
+    width 0.4s cubic-bezier(0.3, 1.3, 0.5, 1),
+    height 0.4s cubic-bezier(0.3, 1.3, 0.5, 1),
+    opacity 0.2s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .layout-links.pronto .layout-links-marcador {
+    transition: none;
+  }
 }
 
 .layout-links a:focus-visible,
 .layout-acoes a:focus-visible {
-  outline: 3px solid var(--cor-lilas-escuro);
+  outline: 0.1875rem solid var(--cor-lilas-escuro);
   outline-offset: 2px;
 }
 
@@ -101,8 +145,7 @@
   background: var(--cor-fundo);
 }
 
-/* Manchas verdes do protótipo: uma grande atrás da busca e uma pequena no canto */
-.layout-coluna::before,
+/* Mancha verde do protótipo, só no canto de cima à direita */
 .layout-coluna::after {
   content: '';
   position: absolute;
@@ -113,16 +156,10 @@
   pointer-events: none;
 }
 
-.layout-coluna::before {
-  left: 0;
-  width: 300px;
-  height: 205px;
-}
-
 .layout-coluna::after {
   right: 0;
-  width: 130px;
-  height: 90px;
+  width: 8.125rem;
+  height: 5.625rem;
   transform: scaleX(-1);
 }
 
@@ -140,33 +177,15 @@
 .layout-topo {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 24px clamp(20px, 4vw, 48px) 8px;
-}
-
-.layout-busca {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  gap: 8px;
-  max-width: 640px;
-  padding: 8px 14px;
-  border: 1px solid var(--cor-borda);
-  border-radius: 8px;
-  background: #fff;
-}
-
-.layout-busca input {
-  flex: 1;
-  min-width: 0;
-  border: 0;
-  background: transparent;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1.5rem clamp(1.25rem, 4vw, 3rem) 0.5rem;
 }
 
 .layout-conteudo {
   flex: 1;
   min-width: 0;
-  padding: 8px clamp(20px, 4vw, 48px) 40px;
+  padding: 0.5rem clamp(1.25rem, 4vw, 3rem) 2.5rem;
 }
 
 .layout-conteudo h1 {
@@ -177,20 +196,26 @@
 @media (max-width: 760px) {
   .layout {
     grid-template-columns: 1fr;
-    padding-bottom: 76px;
+    padding-bottom: calc(6rem + env(safe-area-inset-bottom));
   }
 
+  /* Barra flutuante em forma de pílula, solta das bordas, só com ícones */
   .layout-menu {
     position: fixed;
-    inset: auto 0 0 0;
+    inset: auto 14px calc(12px + env(safe-area-inset-bottom));
     flex-direction: row;
     gap: 0;
-    height: 68px;
+    height: 64px;
     margin-block: 0;
-    padding: 8px 12px;
-    border: 0;
-    border-top: 3px solid var(--cor-borda-forte);
-    border-radius: 0;
+    padding: 6px;
+    border: 1px solid var(--cor-borda);
+    border-radius: 999px;
+    background: rgb(250 238 219 / 0.88);
+    box-shadow:
+      0 10px 28px rgb(var(--sombra) / 0.18),
+      0 2px 6px rgb(var(--sombra) / 0.08);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    backdrop-filter: blur(14px) saturate(1.4);
   }
 
   .layout-menu::after,
@@ -202,7 +227,16 @@
   .layout-links {
     display: flex;
     flex: 1;
-    gap: 6px;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Destaque da tela atual: uma pílula clarinha atrás do ícone */
+  .layout-links-marcador {
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--tema) 20%, transparent);
+    box-shadow: none;
   }
 
   .layout-links li {
@@ -214,27 +248,111 @@
   }
 
   .layout-links a {
-    flex-direction: column;
     justify-content: center;
-    gap: 2px;
     height: 100%;
-    padding: 4px;
-    border-width: 1px;
-    border-radius: 12px;
-    font-size: 0.875rem;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
   }
 
-  .layout-coluna::before {
-    width: 190px;
-    height: 130px;
+  .layout-links a:hover {
+    background: transparent;
+  }
+
+  .layout-links a:active svg {
+    scale: 0.88;
+  }
+
+  .layout-links a svg {
+    width: 27px;
+    height: 27px;
+    transition: scale 0.15s ease;
+  }
+
+  .layout-links a.active {
+    color: var(--tema-escuro);
+  }
+
+  /* Só os ícones aparecem; o nome continua lá para leitores de tela */
+  .layout-links a span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 
   .layout-coluna::after {
-    width: 90px;
-    height: 62px;
+    width: 5.625rem;
+    height: 3.875rem;
   }
 
   .layout-topo {
-    padding: 16px 16px 4px;
+    padding: 1rem 1rem 0.25rem;
+  }
+}
+
+/* Destaque nos títulos das telas: um sublinhado ondulado feito à mão, no verde do tema */
+.inicio-cabecalho h1,
+.materias > h1,
+.anot-h1,
+.agenda-pagina > .titulo-pagina,
+.configuracoes > h1,
+.perfil > h1 {
+  position: relative;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0 !important;
+}
+
+.inicio-cabecalho h1::after,
+.materias > h1::after,
+.anot-h1::after,
+.agenda-pagina > .titulo-pagina::after,
+.configuracoes > h1::after,
+.perfil > h1::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+}
+
+.inicio-cabecalho h1::after,
+.materias > h1::after,
+.anot-h1::after,
+.agenda-pagina > .titulo-pagina::after,
+.configuracoes > h1::after,
+.perfil > h1::after {
+  bottom: 0;
+  left: 0.125rem;
+  width: 9.375rem;
+  height: 0.75rem;
+  background: var(--tema-escuro, var(--cor-verde-escuro));
+  opacity: 0.55;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20150%2012'%3E%3Cpath%20d='M2%207c10-5%2018%204%2028%200s17-5%2027-1%2018%204%2028%200%2017-5%2027-1%2016%203%2022%201%209-3%2014-2'%20fill='none'%20stroke='%23000'%20stroke-width='2.6'%20stroke-linecap='round'/%3E%3C/svg%3E")
+    no-repeat left center / 100% 100%;
+  mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20150%2012'%3E%3Cpath%20d='M2%207c10-5%2018%204%2028%200s17-5%2027-1%2018%204%2028%200%2017-5%2027-1%2016%203%2022%201%209-3%2014-2'%20fill='none'%20stroke='%23000'%20stroke-width='2.6'%20stroke-linecap='round'/%3E%3C/svg%3E")
+    no-repeat left center / 100% 100%;
+}
+
+/* O perfil não tem descrição: deixa um respiro antes do cartão */
+.perfil > h1 {
+  margin-bottom: 0.75rem !important;
+}
+
+/* Ao escolher uma tela no menu, ela aparece subindo de leve (como no Wolf Study) */
+.layout-conteudo > * {
+  animation: layout-tela-entra 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+}
+
+@keyframes layout-tela-entra {
+  from {
+    opacity: 0;
+    transform: translateY(0.625rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .layout-conteudo > * {
+    animation: none;
   }
 }

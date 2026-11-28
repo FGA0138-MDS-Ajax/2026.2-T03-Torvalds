@@ -1,4 +1,12 @@
-import { useEffect, useState } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react'
+import { useLocation } from 'react-router'
+import MenuDeOpcoes from '../../shared/components/MenuDeOpcoes'
 import { corDaDisciplina } from '../../shared/utils/coresDisciplina'
 import { alterarSituacao, carregarAgenda } from './agendaApi'
 import {
@@ -65,7 +73,7 @@ function Chip({ item, cor }) {
   )
 }
 
-function Calendario({ ano, mes, porDia, corDe, hoje }) {
+function Calendario({ ano, mes, porDia, corDe, hoje, aoAbrirDia }) {
   const semanas = montarSemanas(ano, mes)
   const chaveDeHoje = chaveDoDia(hoje)
 
@@ -95,10 +103,36 @@ function Calendario({ ano, mes, porDia, corDe, hoje }) {
               if (dia.chave === chaveDeHoje) classes.push('agenda-dia-hoje')
 
               return (
-                <td key={dia.chave} className={classes.join(' ')}>
-                  <span className="agenda-dia-numero">
-                    {String(dia.data.getDate()).padStart(2, '0')}
-                  </span>
+                <td
+                  key={dia.chave}
+                  className={classes.join(' ')}
+                  onClick={
+                    dia.foraDoMes
+                      ? undefined
+                      : (evento) =>
+                          aoAbrirDia(
+                            dia,
+                            evento.currentTarget.getBoundingClientRect(),
+                          )
+                  }
+                >
+                  {dia.foraDoMes ? (
+                    <span className="agenda-dia-numero">
+                      {String(dia.data.getDate()).padStart(2, '0')}
+                    </span>
+                  ) : (
+                    <button
+                      type="button"
+                      className="agenda-dia-numero"
+                      aria-label={`Abrir ${formatarPrazoDdMm(dia.data)}, ${
+                        itens.length === 1
+                          ? '1 atividade'
+                          : `${itens.length} atividades`
+                      }`}
+                    >
+                      {String(dia.data.getDate()).padStart(2, '0')}
+                    </button>
+                  )}
                   {itens.length > 0 && (
                     <ul className="agenda-chips">
                       {itens.map((item) => (
@@ -117,6 +151,131 @@ function Calendario({ ano, mes, porDia, corDe, hoje }) {
         ))}
       </tbody>
     </table>
+  )
+}
+
+// Cartão com todos os detalhes de uma entrega (vista Semana e dia ampliado).
+function CartaoDeEntrega({ item, cor, ordem }) {
+  return (
+    <li
+      className={`agenda-cartao agenda-chip-${cor}${
+        ehConcluida(item.status) ? ' agenda-chip-concluida' : ''
+      }${ehAtrasada(item) ? ' agenda-chip-atrasada' : ''}`}
+      style={ordem === undefined ? undefined : { '--ordem': ordem }}
+    >
+      <span className="agenda-cartao-hora">{formatarHora(item.prazo)}</span>
+      <strong>{item.titulo}</strong>
+      {item.descricao && <p>{item.descricao}</p>}
+      <span className="agenda-cartao-meta">
+        {item.disciplina} · {item.tipo}
+      </span>
+      <span className="agenda-cartao-status">{rotuloDoStatus(item)}</span>
+    </li>
+  )
+}
+
+/**
+ * De onde a janela do dia nasce: o deslocamento do quadradinho clicado até
+ * o meio da tela e o tamanho dele perto da janela (ver agenda-dia-abre).
+ */
+function origemDaJanela(origem) {
+  if (!origem || typeof window === 'undefined') return undefined
+
+  const x = origem.left + origem.width / 2 - window.innerWidth / 2
+  const y = origem.top + origem.height / 2 - window.innerHeight / 2
+
+  return {
+    '--de-x': `${Math.round(x)}px`,
+    '--de-y': `${Math.round(y)}px`,
+    '--de-escala': Math.min(0.5, Math.max(0.12, origem.width / 480)),
+  }
+}
+
+/** Quanto dura a volta da janela do dia até o quadradinho (ver o CSS). */
+const FECHAR_DIA_MS = 260
+
+/** Animar só onde dá (nos testes não há matchMedia) e se a pessoa quiser. */
+function podeAnimar() {
+  return (
+    typeof window !== 'undefined' &&
+    Boolean(window.matchMedia) &&
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  )
+}
+
+// Um dia do mês ampliado, por cima da página: a janela sai do dia clicado
+// e, ao fechar (no ×, no Esc ou fora), volta encolhendo até ele.
+function DiaAmpliado({ dia, origem, itens, corDe, aoFechar }) {
+  const [fechando, setFechando] = useState(false)
+  const jaFechando = useRef(false)
+
+  const fechar = useCallback(() => {
+    if (jaFechando.current) return
+    jaFechando.current = true
+
+    if (!podeAnimar()) {
+      aoFechar()
+      return
+    }
+
+    setFechando(true)
+    setTimeout(aoFechar, FECHAR_DIA_MS)
+  }, [aoFechar])
+
+  useEffect(() => {
+    function tecla(evento) {
+      if (evento.key === 'Escape') fechar()
+    }
+
+    document.addEventListener('keydown', tecla)
+
+    return () => document.removeEventListener('keydown', tecla)
+  }, [fechar])
+
+  const titulo = `${DIAS_POR_EXTENSO[(dia.getDay() + 6) % 7]}, ${formatarPrazoDdMm(dia)}`
+
+  return (
+    <div
+      className={`agenda-dia-fundo${fechando ? ' fechando' : ''}`}
+      onClick={(evento) => {
+        if (evento.target === evento.currentTarget) fechar()
+      }}
+    >
+      <section
+        className="agenda-dia-janela"
+        style={origemDaJanela(origem)}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="agenda-dia-titulo"
+      >
+        <header className="agenda-dia-janela-topo">
+          <h3 id="agenda-dia-titulo">{titulo}</h3>
+          <button
+            type="button"
+            className="agenda-dia-fechar"
+            aria-label="Fechar"
+            onClick={fechar}
+            autoFocus
+          >
+            ×
+          </button>
+        </header>
+        {itens.length === 0 ? (
+          <p className="agenda-semana-vazio">Sem atividades</p>
+        ) : (
+          <ul className="agenda-semana-cartoes">
+            {itens.map((item, ordem) => (
+              <CartaoDeEntrega
+                key={item.id}
+                item={item}
+                cor={corDe(item.disciplina)}
+                ordem={Math.min(ordem, 8)}
+              />
+            ))}
+          </ul>
+        )}
+      </section>
+    </div>
   )
 }
 
@@ -147,26 +306,11 @@ function SemanaDetalhada({ inicio, porDia, corDe, hoje }) {
             ) : (
               <ul className="agenda-semana-cartoes">
                 {itens.map((item) => (
-                  <li
+                  <CartaoDeEntrega
                     key={item.id}
-                    className={`agenda-cartao agenda-chip-${corDe(
-                      item.disciplina,
-                    )}${ehConcluida(item.status) ? ' agenda-chip-concluida' : ''}${
-                      ehAtrasada(item) ? ' agenda-chip-atrasada' : ''
-                    }`}
-                  >
-                    <span className="agenda-cartao-hora">
-                      {formatarHora(item.prazo)}
-                    </span>
-                    <strong>{item.titulo}</strong>
-                    {item.descricao && <p>{item.descricao}</p>}
-                    <span className="agenda-cartao-meta">
-                      {item.disciplina} · {item.tipo}
-                    </span>
-                    <span className="agenda-cartao-status">
-                      {rotuloDoStatus(item)}
-                    </span>
-                  </li>
+                    item={item}
+                    cor={corDe(item.disciplina)}
+                  />
                 ))}
               </ul>
             )}
@@ -189,7 +333,7 @@ function ListaDoMes({ itens, corDe }) {
           key={item.id}
           className={`agenda-lista-item agenda-chip-${corDe(item.disciplina)}${
             ehAtrasada(item) ? ' agenda-chip-atrasada' : ''
-          }`}
+          }${ehConcluida(item.status) ? ' agenda-chip-concluida' : ''}`}
         >
           <strong>{formatarPrazoDdMm(item.prazo)}</strong>
           <span className="agenda-lista-titulo">{item.titulo}</span>
@@ -232,36 +376,46 @@ function Filtro({ disciplinas, ocultas, corDe, aoAlternar }) {
   )
 }
 
-// Sem backend para criar atividades ainda: o formulário do protótipo aparece desativado.
-function AdicionarTarefa() {
+// Post-its com as entregas pendentes da semana atual, na cor da matéria.
+// São só para olhar: não têm clique nem edição.
+function PostItsDaSemana({ itens, corDe, agora }) {
+  const inicio = inicioDaSemana(agora)
+  const fim = new Date(inicio)
+
+  fim.setDate(inicio.getDate() + 7)
+
+  const daSemana = itens
+    .filter((item) => {
+      if (!item.prazo || ehConcluida(item.status)) return false
+
+      const prazo = new Date(item.prazo)
+
+      return prazo >= inicio && prazo < fim
+    })
+    .sort(compararPrazo)
+
   return (
-    <section className="agenda-caixa agenda-adicionar">
-      <h2>Adicionar tarefas</h2>
-      <p className="agenda-nota">
-        <span className="agenda-em-breve">Em breve</span>
-        Você poderá cadastrar suas próprias tarefas aqui.
-      </p>
-      <fieldset disabled>
-        <label>
-          Matéria
-          <select>
-            <option>Escolha a matéria</option>
-          </select>
-        </label>
-        <label>
-          Tipo
-          <input type="text" placeholder="Entrega de trabalho" />
-        </label>
-        <label>
-          Data de entrega
-          <input type="text" placeholder="dd/mm/aaaa" />
-        </label>
-        <label>
-          Observação
-          <textarea rows="3" />
-        </label>
-        <button type="button">Adicionar</button>
-      </fieldset>
+    <section className="agenda-caixa agenda-postits">
+      <h2>Entregas da semana</h2>
+      {daSemana.length === 0 ? (
+        <p className="agenda-nota">Nada pendente esta semana 🎉</p>
+      ) : (
+        <ul className="agenda-postits-lista">
+          {daSemana.map((item) => (
+            <li
+              key={item.id ?? `${item.disciplina}-${item.titulo}`}
+              className={`agenda-postit agenda-postit-${corDe(item.disciplina)}`}
+            >
+              <span className="agenda-postit-data">
+                {DIAS_POR_EXTENSO[(new Date(item.prazo).getDay() + 6) % 7]},{' '}
+                {formatarPrazoDdMm(item.prazo)} · {formatarHora(item.prazo)}
+              </span>
+              <strong>{item.titulo}</strong>
+              <span>{item.disciplina}</span>
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   )
 }
@@ -271,8 +425,7 @@ function Quadro({ itens, alvo, setAlvo, soltar, mover, erroAcao, corDe }) {
   return (
     <>
       <p className="agenda-dica">
-        Arraste um cartão para outra coluna ou use o seletor “Mover para” para
-        mudar a situação da entrega.
+        Arraste um cartão para outra coluna, ou use o ícone ⇄ do cartão.
       </p>
       {erroAcao && (
         <p className="agenda-erro-acao" role="alert">
@@ -288,11 +441,9 @@ function Quadro({ itens, alvo, setAlvo, soltar, mover, erroAcao, corDe }) {
           return (
             <section
               key={coluna.chave}
-              className={
-                alvo === coluna.chave
-                  ? 'agenda-coluna agenda-coluna-alvo'
-                  : 'agenda-coluna'
-              }
+              className={`agenda-coluna agenda-coluna-${coluna.chave.toLowerCase()}${
+                alvo === coluna.chave ? ' agenda-coluna-alvo' : ''
+              }`}
               aria-labelledby={`coluna-titulo-${coluna.chave}`}
               onDragOver={(evento) => {
                 evento.preventDefault()
@@ -313,7 +464,7 @@ function Quadro({ itens, alvo, setAlvo, soltar, mover, erroAcao, corDe }) {
 
               {atividadesDaColuna.length === 0 ? (
                 <p className="agenda-coluna-vazio">
-                  Nenhuma atividade nesta coluna.
+                  Arraste um cartão para cá.
                 </p>
               ) : (
                 <ul className="agenda-coluna-lista">
@@ -331,25 +482,18 @@ function Quadro({ itens, alvo, setAlvo, soltar, mover, erroAcao, corDe }) {
                           evento.dataTransfer.effectAllowed = 'move'
                         }}
                         onDragEnd={() => setAlvo(null)}
-                        className={
-                          atrasada ? 'agenda-card atrasada' : 'agenda-card'
-                        }
+                        className={`agenda-card materia-cor-${corDe(
+                          item.disciplina,
+                        )}${atrasada ? ' atrasada' : ''}`}
                       >
                         <h3>{item.titulo}</h3>
+                        {item.disciplina && (
+                          <span className="agenda-card-materia">
+                            {item.disciplina}
+                          </span>
+                        )}
                         {item.descricao && <p>{item.descricao}</p>}
                         <div className="agenda-card-meta">
-                          {item.disciplina && (
-                            <span
-                              className={`agenda-badge-disciplina agenda-chip-${corDe(item.disciplina)}`}
-                            >
-                              {item.disciplina}
-                            </span>
-                          )}
-                          {item.tipo && (
-                            <span className="agenda-badge-tipo">
-                              {item.tipo}
-                            </span>
-                          )}
                           {item.prazo && (
                             <span className="agenda-prazo">
                               Prazo: {formatarPrazoDdMm(item.prazo)}
@@ -359,28 +503,29 @@ function Quadro({ itens, alvo, setAlvo, soltar, mover, erroAcao, corDe }) {
                                   role="status"
                                   aria-label="Atividade atrasada"
                                 >
+                                  {' '}
                                   (Atrasada)
                                 </span>
                               )}
                             </span>
                           )}
+                          {item.tipo && (
+                            <span className="agenda-badge-tipo">
+                              {item.tipo}
+                            </span>
+                          )}
                         </div>
-                        <label className="agenda-mover">
-                          <span aria-hidden="true">Mover para</span>
-                          <select
-                            aria-label={`Mover ${item.titulo} para`}
-                            value={coluna.status}
-                            onChange={(evento) =>
-                              mover(item.id, evento.target.value)
-                            }
-                          >
-                            {COLUNAS.map((opcao) => (
-                              <option key={opcao.status} value={opcao.status}>
-                                {opcao.titulo}
-                              </option>
-                            ))}
-                          </select>
-                        </label>
+                        <span className="agenda-mover">
+                          <MenuDeOpcoes
+                            rotulo={`Mover ${item.titulo} para`}
+                            valor={coluna.status}
+                            opcoes={COLUNAS.map((opcao) => ({
+                              valor: opcao.status,
+                              titulo: opcao.titulo,
+                            }))}
+                            aoMudar={(status) => mover(item.id, status)}
+                          />
+                        </span>
                       </li>
                     )
                   })}
@@ -408,6 +553,44 @@ export default function AgendaPage() {
   })
   const [semana, setSemana] = useState(() => inicioDaSemana(new Date()))
   const [ocultas, setOcultas] = useState(() => new Set())
+  const [diaAberto, setDiaAberto] = useState(null)
+  // Onde estava o dia clicado, para a janela nascer dali
+  const [origemDoDia, setOrigemDoDia] = useState(null)
+  // Vindo do "Ver tudo" do Início: a agenda abre com animação
+  const abrindo = Boolean(useLocation().state?.abrindo)
+  const vistasRef = useRef(null)
+  const mostrandoAgenda = !erro && Boolean(itens) && itens.length > 0
+
+  // O destaque das vistas corre até o botão escolhido (posicionado direto no
+  // elemento, medindo o botão; acompanha mudanças de tamanho)
+  useLayoutEffect(() => {
+    const grupo = vistasRef.current
+
+    if (!grupo) return undefined
+
+    function posicionar() {
+      const ativo = grupo.querySelector('button[aria-pressed="true"]')
+      const marcador = grupo.querySelector('.agenda-vistas-marcador')
+
+      if (!ativo || !marcador) return
+
+      marcador.style.transform = `translate(${ativo.offsetLeft}px, ${ativo.offsetTop}px)`
+      marcador.style.width = `${ativo.offsetWidth}px`
+      marcador.style.height = `${ativo.offsetHeight}px`
+      // Só anima depois de já estar no lugar (não corre ao abrir a tela)
+      requestAnimationFrame(() => grupo.classList.add('pronto'))
+    }
+
+    posicionar()
+
+    if (typeof ResizeObserver === 'undefined') return undefined
+
+    const observador = new ResizeObserver(posicionar)
+
+    observador.observe(grupo)
+
+    return () => observador.disconnect()
+  }, [vista, mostrandoAgenda])
 
   useEffect(() => {
     const controller = new AbortController()
@@ -585,7 +768,13 @@ export default function AgendaPage() {
       >
         <section className="agenda-calendario" aria-label="Calendário">
           <div className="agenda-barra">
-            <div className="agenda-vistas" role="group" aria-label="Vista">
+            <div
+              className="agenda-vistas"
+              role="group"
+              aria-label="Vista"
+              ref={vistasRef}
+            >
+              <span className="agenda-vistas-marcador" aria-hidden="true" />
               <button
                 type="button"
                 aria-pressed={vista === 'mes'}
@@ -643,42 +832,49 @@ export default function AgendaPage() {
               </div>
             )}
           </div>
-          {vista === 'quadro' ? (
-            <>
-              <Filtro
-                disciplinas={disciplinas}
-                ocultas={ocultas}
+          {/* A key faz a vista nova aparecer com animação a cada troca */}
+          <div key={vista} className="agenda-vista">
+            {vista === 'quadro' ? (
+              <>
+                <Filtro
+                  disciplinas={disciplinas}
+                  ocultas={ocultas}
+                  corDe={corDe}
+                  aoAlternar={alternarMateria}
+                />
+                <Quadro
+                  itens={visiveis}
+                  alvo={alvo}
+                  setAlvo={setAlvo}
+                  soltar={soltar}
+                  mover={mover}
+                  erroAcao={erroAcao}
+                  corDe={corDe}
+                />
+              </>
+            ) : vista === 'mes' ? (
+              <Calendario
+                ano={mostrado.ano}
+                mes={mostrado.mes}
+                porDia={porDia}
                 corDe={corDe}
-                aoAlternar={alternarMateria}
+                hoje={new Date()}
+                aoAbrirDia={(dia, origem) => {
+                  setOrigemDoDia(origem ?? null)
+                  setDiaAberto(dia.data)
+                }}
               />
-              <Quadro
-                itens={visiveis}
-                alvo={alvo}
-                setAlvo={setAlvo}
-                soltar={soltar}
-                mover={mover}
-                erroAcao={erroAcao}
+            ) : vista === 'semana' ? (
+              <SemanaDetalhada
+                inicio={semana}
+                porDia={porDia}
                 corDe={corDe}
+                hoje={new Date()}
               />
-            </>
-          ) : vista === 'mes' ? (
-            <Calendario
-              ano={mostrado.ano}
-              mes={mostrado.mes}
-              porDia={porDia}
-              corDe={corDe}
-              hoje={new Date()}
-            />
-          ) : vista === 'semana' ? (
-            <SemanaDetalhada
-              inicio={semana}
-              porDia={porDia}
-              corDe={corDe}
-              hoje={new Date()}
-            />
-          ) : (
-            <ListaDoMes itens={doMes} corDe={corDe} />
-          )}
+            ) : (
+              <ListaDoMes itens={doMes} corDe={corDe} />
+            )}
+          </div>
         </section>
         {vista !== 'quadro' && (
           <aside className="agenda-lateral">
@@ -688,17 +884,30 @@ export default function AgendaPage() {
               corDe={corDe}
               aoAlternar={alternarMateria}
             />
-            <AdicionarTarefa />
+            <PostItsDaSemana
+              itens={visiveis}
+              corDe={corDe}
+              agora={new Date()}
+            />
           </aside>
+        )}
+        {diaAberto && vista === 'mes' && (
+          <DiaAmpliado
+            dia={diaAberto}
+            origem={origemDoDia}
+            itens={porDia.get(chaveDoDia(diaAberto)) ?? []}
+            corDe={corDe}
+            aoFechar={() => setDiaAberto(null)}
+          />
         )}
       </div>
     )
   }
 
   return (
-    <div className="agenda-pagina">
-      <h1>Agenda</h1>
-      <p className="agenda-subtitulo">
+    <div className={`agenda-pagina${abrindo ? ' agenda-abrindo' : ''}`}>
+      <h1 className="titulo-pagina">Agenda</h1>
+      <p className="agenda-subtitulo subtitulo-pagina">
         Organize seus compromissos acadêmicos e nunca perca um prazo.
       </p>
       {conteudo}

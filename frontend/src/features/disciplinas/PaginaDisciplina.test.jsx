@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import {
+  act,
   cleanup,
   fireEvent,
   render,
@@ -48,6 +49,7 @@ function responder(
       if (opcoes.method === 'PATCH') return patch(url, opcoes)
       if (url.endsWith('/disciplinas'))
         return json([{ id: 7, nome: 'Compiladores', periodoLetivo: '2026.2' }])
+      if (url.endsWith('/anotacoes')) return json([])
       if (url.endsWith('/conteudos'))
         return materiais === null
           ? json({ mensagem: 'Falha nos materiais' }, 500)
@@ -348,5 +350,63 @@ describe('Concluir e desfazer uma entrega', () => {
       'aria-valuetext',
       '0 de 1 · 0%',
     )
+  })
+
+  describe('depois de concluir, a entrega fica no lugar antes de a lista mudar', () => {
+    const duas = [
+      { ...entrega, id: 1, titulo: 'Primeira', prazo: '2099-01-01T12:00:00' },
+      { ...entrega, id: 2, titulo: 'Segunda', prazo: '2099-02-01T12:00:00' },
+    ]
+    const titulos = () =>
+      screen
+        .getAllByRole('heading', { level: 3 })
+        .map((titulo) => titulo.textContent)
+
+    afterEach(() => vi.useRealTimers())
+
+    it('mantém a ordem e destaca a entrega, e só depois a manda para o fim', async () => {
+      responder(duas)
+      abrir()
+      await screen.findByRole('heading', { name: 'Primeira' })
+
+      vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] })
+      fireEvent.click(screen.getByRole('button', { name: 'Concluir Primeira' }))
+
+      // Logo depois de concluir: a Primeira continua no topo, em destaque.
+      expect(titulos()).toEqual(['Primeira', 'Segunda'])
+      expect(screen.getByText('Primeira').closest('li')).toHaveClass(
+        'entrega-recente',
+      )
+      expect(screen.getByRole('status')).toHaveTextContent(
+        '“Primeira” concluída.',
+      )
+
+      await act(async () => {
+        vi.advanceTimersByTime(2000)
+      })
+
+      // Passado o tempo, a concluída vai para o fim e o destaque sai.
+      expect(titulos()).toEqual(['Segunda', 'Primeira'])
+      expect(screen.getByText('Primeira').closest('li')).not.toHaveClass(
+        'entrega-recente',
+      )
+    })
+
+    it('no filtro A fazer, a concluída continua visível até o tempo passar', async () => {
+      responder(duas)
+      abrir()
+      fireEvent.click(await screen.findByRole('button', { name: /^A fazer/ }))
+
+      vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] })
+      fireEvent.click(screen.getByRole('button', { name: 'Concluir Primeira' }))
+
+      expect(titulos()).toEqual(['Primeira', 'Segunda'])
+
+      await act(async () => {
+        vi.advanceTimersByTime(2000)
+      })
+
+      expect(titulos()).toEqual(['Segunda'])
+    })
   })
 })

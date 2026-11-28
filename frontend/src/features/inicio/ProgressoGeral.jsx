@@ -29,7 +29,7 @@ export default function ProgressoGeral({ percentual }) {
       </svg>
       <p className="progresso-geral-centro">
         <strong>{valor}%</strong>
-        <span>do semestre concluído</span>
+        <span>concluído</span>
       </p>
     </div>
   )

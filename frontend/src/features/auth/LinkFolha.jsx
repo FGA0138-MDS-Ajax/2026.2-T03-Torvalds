@@ -46,7 +46,7 @@ function face(classe, copia) {
  * atual gira em torno da lombada e, no verso, aparece a tela de destino.
  * Sem suporte a animação, ou com "reduzir movimento" ligado, navega normalmente.
  */
-export default function LinkFolha({ to, onClick, ...resto }) {
+export default function LinkFolha({ to, state, onClick, ...resto }) {
   const navegar = useNavigate()
 
   function aoClicar(event) {
@@ -102,7 +102,7 @@ export default function LinkFolha({ to, onClick, ...resto }) {
 
     // 2) Troca a rota por baixo do palco, espera a tela nova aparecer
     //    e usa uma foto dela como verso da folha.
-    navegar(to)
+    navegar(to, { state })
     esperarTelaNova(raiz, telaAntiga).then(() => {
       folha.appendChild(
         face('folha-verso', copiarTela(raiz, larguraFolha - x, largura)),
@@ -116,5 +116,5 @@ export default function LinkFolha({ to, onClick, ...resto }) {
     })
   }
 
-  return <Link to={to} onClick={aoClicar} {...resto} />
+  return <Link to={to} state={state} onClick={aoClicar} {...resto} />
 }

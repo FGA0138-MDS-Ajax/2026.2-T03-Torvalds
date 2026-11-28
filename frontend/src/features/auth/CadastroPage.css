@@ -1,25 +1,25 @@
 .cadastro-book {
-  grid-template-columns: minmax(0, 1fr) 38px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) 2.375rem minmax(0, 1fr);
 }
 
 .cadastro-esquerda {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 1rem;
   min-width: 0;
-  padding: 16px 28px 16px 0;
+  padding: 1rem 1.75rem 1rem 0;
 }
 
 .cadastro-ilustracao {
-  width: min(100%, 680px, calc((100svh - 48px) * 0.9));
+  width: min(100%, 42.5rem, calc((100svh - 3rem) * 0.9));
   height: auto;
-  filter: drop-shadow(0 10px 18px #5d46301f);
+  filter: drop-shadow(0 0.625rem 1.125rem #5d46301f);
 }
 
 .cadastro-card {
-  max-width: 680px;
-  padding: 32px;
+  max-width: 42.5rem;
+  padding: 2rem;
 }
 
 .cadastro-card .login-heading p {
@@ -29,8 +29,8 @@
 .cadastro-form {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-  margin-top: 28px;
+  gap: 0.875rem;
+  margin-top: 1.75rem;
 }
 
 .cadastro-linha-cheia {
@@ -40,13 +40,43 @@
 .cadastro-enviar {
   grid-column: 1 / -1;
   justify-self: center;
-  width: min(100%, 320px);
+  width: min(100%, 22rem);
+  min-height: 3.25rem;
+  background: #72528e;
+  box-shadow: 0 0.375rem 0.875rem #72528e4d;
+  color: #fff;
+  font-size: 1.1875rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.cadastro-enviar:hover:not(:disabled) {
+  background: #5f4278;
+  box-shadow: 0 0.5rem 1.125rem #72528e66;
+  transform: translateY(-2px);
+}
+
+.cadastro-enviar:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.cadastro-enviar:focus-visible {
+  outline: 3px solid #302239;
+  outline-offset: 3px;
+}
+
+.cadastro-enviar:disabled {
+  opacity: 0.7;
 }
 
 .cadastro-entrar {
   margin: 0;
   text-align: center;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .cadastro-entrar a {
@@ -57,25 +87,25 @@
 .cadastro-info {
   grid-column: 3;
   min-width: 0;
-  padding: 24px 24px 24px 48px;
-  max-width: 560px;
+  padding: 1.5rem 1.5rem 1.5rem 3rem;
+  max-width: 35rem;
 }
 
 .cadastro-info h2 {
-  margin: 0 0 10px;
-  font-size: 28px;
+  margin: 0 0 0.625rem;
+  font-size: 1.75rem;
 }
 
 .cadastro-info p {
-  margin: 0 0 28px;
-  font-size: 17px;
+  margin: 0 0 1.75rem;
+  font-size: 1.0625rem;
   line-height: 1.5;
 }
 
 .cadastro-info ul {
   display: grid;
-  gap: 12px;
-  margin: 0 0 28px;
+  gap: 0.75rem;
+  margin: 0 0 1.75rem;
   padding: 0;
   list-style: none;
 }
@@ -84,19 +114,80 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
-  padding: 10px 14px;
+  padding: 0.625rem 0.875rem;
   border: 1px solid #e5dacb;
-  border-radius: 10px;
+  border-radius: 0.625rem;
   background: #fcf6ec;
-  font-size: 15px;
+  font-size: 0.9375rem;
 }
 
 .cadastro-info li strong {
-  font-size: 17px;
+  font-size: 1.0625rem;
 }
 
 .cadastro-info .cadastro-chamada {
   margin: 0;
+}
+
+/* Computador: a tela de cadastro cabe na janela, sem barra de rolagem da página.
+   A ilustração encolhe para dar lugar ao formulário (e some em janela baixa). */
+@media (min-width: 1024px) {
+  .cadastro-page {
+    height: 100svh;
+    overflow: hidden;
+  }
+
+  .cadastro-book {
+    height: 100svh;
+    min-height: 0;
+    padding-block: 1rem;
+  }
+
+  .cadastro-esquerda {
+    justify-content: center;
+    height: 100%;
+    gap: 0.75rem;
+    padding-block: 0.5rem;
+    overflow-y: auto;
+  }
+
+  .cadastro-ilustracao {
+    flex: 1 1 0;
+    width: auto;
+    max-width: 100%;
+    min-height: 0;
+    object-fit: contain;
+  }
+
+  .cadastro-card {
+    flex: none;
+    padding: 1.25rem 1.75rem;
+  }
+
+  .cadastro-card .login-heading h1 {
+    margin-bottom: 0.25rem;
+    font-size: 1.875rem;
+  }
+
+  .cadastro-card .login-heading p {
+    font-size: 1.0625rem;
+  }
+
+  .cadastro-form {
+    gap: 0.625rem 0.875rem;
+    margin-top: 1rem;
+  }
+
+  .cadastro-info {
+    max-height: 100%;
+    overflow-y: auto;
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 820px) {
+  .cadastro-ilustracao {
+    display: none;
+  }
 }
 
 @media (max-width: 1023px) {
@@ -110,12 +201,12 @@
   }
 
   .cadastro-card {
-    padding: 24px 18px;
+    padding: 1.5rem 1.125rem;
   }
 
   .cadastro-esquerda {
     width: 100%;
-    max-width: 420px;
+    max-width: 26.25rem;
     padding: 0;
   }
 
@@ -124,7 +215,7 @@
   }
 
   .cadastro-info {
-    max-width: 420px;
-    padding: 8px 0 0;
+    max-width: 26.25rem;
+    padding: 0.5rem 0 0;
   }
 }

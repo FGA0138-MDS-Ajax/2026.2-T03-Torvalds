@@ -1,0 +1,193 @@
+/* Tutorial do primeiro acesso (ver Tutorial.jsx). Fica direto no body, fora do
+   layout, então as cores têm valor de reserva aqui mesmo. */
+.tutorial {
+  --tutorial-verde: var(--cor-verde, #92a17a);
+
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+}
+
+/* Destaque: um recorte na tela escurecida (a sombra enorme escurece o resto)
+   que desliza de um passo para o outro */
+.tutorial-foco {
+  position: fixed;
+  border-radius: 0.875rem;
+  box-shadow:
+    0 0 0 3px var(--tutorial-verde),
+    0 0 0 9999px rgb(30 20 14 / 0.62);
+  pointer-events: none;
+  transition:
+    top 0.45s cubic-bezier(0.3, 1.1, 0.4, 1),
+    left 0.45s cubic-bezier(0.3, 1.1, 0.4, 1),
+    width 0.45s cubic-bezier(0.3, 1.1, 0.4, 1),
+    height 0.45s cubic-bezier(0.3, 1.1, 0.4, 1);
+  animation: tutorial-pulsa 1.8s ease-in-out infinite;
+}
+
+/* Destaque de um ícone do menu no celular: pílula */
+.tutorial-foco.redondo {
+  border-radius: 999px;
+}
+
+/* Sem alvo (boas-vindas e final): a tela toda escurecida */
+.tutorial-foco.sem-alvo {
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  box-shadow: 0 0 0 9999px rgb(30 20 14 / 0.62);
+  animation: none;
+}
+
+@keyframes tutorial-pulsa {
+  50% {
+    box-shadow:
+      0 0 0 6px color-mix(in srgb, var(--tutorial-verde) 60%, transparent),
+      0 0 0 9999px rgb(30 20 14 / 0.62);
+  }
+}
+
+.tutorial-pular {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem 0.875rem;
+  border: 1px solid rgb(255 255 255 / 0.5);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.12);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  backdrop-filter: blur(2px);
+}
+
+.tutorial-pular:hover {
+  background: rgb(255 255 255 / 0.25);
+}
+
+/* Balão do passo */
+.tutorial-cartao {
+  position: fixed;
+  display: grid;
+  gap: 0.5rem;
+  width: min(20rem, calc(100vw - 2rem));
+  padding: 1.125rem 1.125rem 1rem;
+  border-radius: 1rem;
+  background: var(--cor-papel, #fbf8f1);
+  box-shadow: 0 1rem 2.5rem rgb(0 0 0 / 0.3);
+  color: var(--cor-texto, #30251e);
+  animation: tutorial-cartao-entra 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.1) both;
+}
+
+.tutorial-cartao.no-meio {
+  top: 50%;
+  left: 50%;
+  justify-items: center;
+  text-align: center;
+  translate: -50% -50%;
+}
+
+.tutorial-cartao h2 {
+  margin: 0;
+  font-family: var(--fonte-titulo);
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+
+.tutorial-cartao p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.tutorial-contador {
+  color: var(--cor-texto-suave, #6b5a4c);
+  font-size: 0.72rem !important;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.tutorial-pontos {
+  display: flex;
+  gap: 0.3125rem;
+  margin-top: 0.25rem;
+}
+
+.tutorial-pontos span {
+  width: 0.4375rem;
+  height: 0.4375rem;
+  border-radius: 50%;
+  background: var(--cor-borda-forte, #cdbc9f);
+  transition:
+    width 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.tutorial-pontos span.atual {
+  width: 1.25rem;
+  border-radius: 0.25rem;
+  background: var(--tutorial-verde);
+}
+
+.tutorial-acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.375rem;
+}
+
+.tutorial-cartao.no-meio .tutorial-acoes {
+  justify-content: center;
+}
+
+.tutorial-acoes button {
+  padding: 0.4375rem 0.875rem;
+  border: 1px solid var(--cor-borda-forte, #cdbc9f);
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tutorial-acoes .tutorial-principal {
+  border-color: var(--tutorial-verde);
+  background: var(--tutorial-verde);
+  color: var(--cor-texto, #30251e);
+}
+
+.tutorial button:focus-visible {
+  outline: 3px solid var(--cor-lilas-escuro, #7154ba);
+  outline-offset: 2px;
+}
+
+/* Celular: o balão nunca passa da tela; se o texto for grande, rola dentro dele */
+@media (max-width: 760px) {
+  .tutorial-cartao {
+    max-height: calc(100svh - 10rem);
+    overflow-y: auto;
+  }
+
+  .tutorial-pular {
+    top: 0.75rem;
+    right: 0.75rem;
+  }
+}
+
+@keyframes tutorial-cartao-entra {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem) scale(0.96);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tutorial-foco,
+  .tutorial-cartao {
+    transition: none;
+    animation: none;
+  }
+}

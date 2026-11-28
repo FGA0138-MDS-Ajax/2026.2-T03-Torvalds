@@ -1,9 +1,22 @@
 // @vitest-environment jsdom
-import { cleanup, render, screen } from '@testing-library/react'
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
 import { MemoryRouter } from 'react-router'
-import { afterEach, describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import LoginPage from './LoginPage'
+import { consultarPerfil, entrar } from './authApi'
+
+vi.mock('./authApi', () => ({
+  entrar: vi.fn(),
+  consultarPerfil: vi.fn(),
+}))
 
 function abrir(entrada = '/login') {
   return render(
@@ -35,9 +48,70 @@ describe('LoginPage', () => {
     expect(screen.getByRole('status')).toHaveTextContent('Conta criada!')
   })
 
+  it('mostra os campos com rótulo visível e sem botão de senha desativado', () => {
+    abrir()
+
+    expect(screen.getByLabelText('E-mail')).toBeInTheDocument()
+    expect(screen.getByLabelText('Senha')).toBeInTheDocument()
+    expect(
+      screen.queryByRole('button', { name: 'Esqueceu a senha?' }),
+    ).not.toBeInTheDocument()
+  })
+
+  it('preenche o e-mail cadastrado e leva o foco para a senha', () => {
+    abrir({
+      pathname: '/login',
+      state: { cadastrado: true, email: 'ana@exemplo.com' },
+    })
+
+    expect(screen.getByLabelText('E-mail')).toHaveValue('ana@exemplo.com')
+    expect(screen.getByLabelText('Senha')).toHaveFocus()
+  })
+
   it('não mostra "Conta criada!" num acesso comum ao login', () => {
     abrir()
 
     expect(screen.queryByText(/Conta criada!/)).not.toBeInTheDocument()
+  })
+
+  it('aceita o e-mail com maiúsculas e entra com ele em minúsculas', async () => {
+    entrar.mockResolvedValue('token')
+    consultarPerfil.mockResolvedValue({ nome: 'Jefferson' })
+    abrir()
+
+    fireEvent.change(screen.getByLabelText('E-mail'), {
+      target: { value: ' Jefferson@Exemplo.com ' },
+    })
+    fireEvent.change(screen.getByLabelText('Senha'), {
+      target: { value: 'segredo123' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: /Entrar/ }))
+
+    await waitFor(() =>
+      expect(entrar).toHaveBeenCalledWith(
+        'jefferson@exemplo.com',
+        'segredo123',
+      ),
+    )
+  })
+
+  it('quando o login é recusado, oferece o cadastro com o mesmo e-mail', async () => {
+    entrar.mockRejectedValue(Object.assign(new Error('x'), { status: 401 }))
+    abrir()
+
+    fireEvent.change(screen.getByLabelText('E-mail'), {
+      target: { value: 'nova@exemplo.com' },
+    })
+    fireEvent.change(screen.getByLabelText('Senha'), {
+      target: { value: 'segredo123' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: /Entrar/ }))
+
+    const alerta = await screen.findByRole('alert')
+
+    expect(alerta).toHaveTextContent('E-mail ou senha inválidos')
+    expect(
+      within(alerta).getByRole('link', { name: /Cadastre-se com este e-mail/ }),
+    ).toHaveAttribute('href', '/cadastro')
   })
 })

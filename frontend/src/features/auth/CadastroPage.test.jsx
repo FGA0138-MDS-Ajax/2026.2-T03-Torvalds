@@ -15,9 +15,9 @@ import {
   validarCadastro,
 } from './validacaoCadastro'
 
-function abrir() {
+function abrir(entrada = '/cadastro') {
   return render(
-    <MemoryRouter initialEntries={['/cadastro']}>
+    <MemoryRouter initialEntries={[entrada]}>
       <Routes>
         <Route path="/cadastro" element={<CadastroPage />} />
         <Route path="/login" element={<p>Tela de login</p>} />
@@ -111,6 +111,26 @@ describe('CadastroPage', () => {
     vi.unstubAllGlobals()
   })
 
+  it('vem com o e-mail preenchido quando a pessoa chega do login', () => {
+    abrir({ pathname: '/cadastro', state: { email: 'ana@exemplo.com' } })
+
+    expect(screen.getByLabelText('E-mail')).toHaveValue('ana@exemplo.com')
+  })
+
+  it('mostra e esconde as senhas com o botão do olho', () => {
+    abrir()
+
+    expect(screen.getByLabelText('Senha')).toHaveAttribute('type', 'password')
+
+    fireEvent.click(screen.getByRole('button', { name: 'Mostrar senhas' }))
+
+    expect(screen.getByLabelText('Senha')).toHaveAttribute('type', 'text')
+    expect(screen.getByLabelText('Confirmar senha')).toHaveAttribute(
+      'type',
+      'text',
+    )
+  })
+
   it('mostra o formulário, o painel informativo e o link para entrar', () => {
     abrir()
     expect(
@@ -133,6 +153,27 @@ describe('CadastroPage', () => {
       'As senhas não conferem.',
     )
     expect(fetch).not.toHaveBeenCalled()
+  })
+
+  it('deixa a primeira letra de cada nome em maiúscula ao sair do campo e ao enviar', async () => {
+    fetch.mockResolvedValue(
+      new Response(JSON.stringify({ id: 1 }), {
+        status: 201,
+        headers: { 'Content-Type': 'application/json' },
+      }),
+    )
+    abrir()
+    preencher()
+    digitar('Nome completo', 'maria da silva')
+    fireEvent.blur(screen.getByLabelText('Nome completo'))
+
+    expect(screen.getByLabelText('Nome completo')).toHaveValue('Maria da Silva')
+
+    digitar('Nome completo', 'joão de souza')
+    cadastrar()
+
+    await waitFor(() => expect(fetch).toHaveBeenCalled())
+    expect(JSON.parse(fetch.mock.calls[0][1].body).nome).toBe('João de Souza')
   })
 
   it('envia o cadastro e vai para o login', async () => {

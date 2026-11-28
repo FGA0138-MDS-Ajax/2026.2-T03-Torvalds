@@ -10,6 +10,8 @@ export default function LoginPage({ onEntrar }) {
   const [mostrarSenha, setMostrarSenha] = useState(false)
   const [carregando, setCarregando] = useState(false)
   const [erro, setErro] = useState('')
+  // E-mail da última tentativa recusada: vai junto se a pessoa decidir se cadastrar
+  const [emailRecusado, setEmailRecusado] = useState('')
   const { state } = useLocation()
 
   async function enviarLogin(event) {
@@ -18,11 +20,14 @@ export default function LoginPage({ onEntrar }) {
     if (carregando) return
 
     const formulario = new FormData(event.currentTarget)
-    const email = String(formulario.get('email')).trim()
+    // O cadastro guarda o e-mail em minúsculas, então "Jefferson@..." e
+    // "jefferson@..." entram na mesma conta.
+    const email = String(formulario.get('email')).trim().toLowerCase()
     const senha = String(formulario.get('senha'))
     const lembrar = formulario.get('lembrar') === 'on'
 
     setErro('')
+    setEmailRecusado('')
     setCarregando(true)
 
     try {
@@ -33,6 +38,8 @@ export default function LoginPage({ onEntrar }) {
       onEntrar(perfil)
     } catch (falha) {
       removerToken()
+
+      if (falha.status === 401) setEmailRecusado(email)
 
       setErro(
         falha.status === 401
@@ -71,66 +78,86 @@ export default function LoginPage({ onEntrar }) {
               onSubmit={enviarLogin}
               aria-busy={carregando}
             >
-              <div className="login-field">
-                <label className="visually-hidden" htmlFor="email">
+              <div className="login-campo">
+                <label className="login-rotulo" htmlFor="email">
                   E-mail
                 </label>
-                <span className="login-field-icon" aria-hidden="true">
-                  @
-                </span>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="E-mail"
-                  autoComplete="username"
-                  required
-                />
+                <div className="login-field">
+                  <span className="login-field-icon" aria-hidden="true">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    >
+                      <rect x="3" y="5" width="18" height="14" rx="2" />
+                      <path d="m3 7 9 6 9-6" />
+                    </svg>
+                  </span>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="nome@email.com"
+                    autoComplete="username"
+                    autoCapitalize="none"
+                    autoCorrect="off"
+                    spellCheck={false}
+                    defaultValue={state?.email ?? ''}
+                    autoFocus={!state?.email}
+                    required
+                  />
+                </div>
               </div>
 
-              <div className="login-field">
-                <label className="visually-hidden" htmlFor="senha">
+              <div className="login-campo">
+                <label className="login-rotulo" htmlFor="senha">
                   Senha
                 </label>
-                <svg
-                  className="login-field-icon"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  aria-hidden="true"
-                >
-                  <rect x="5" y="10" width="14" height="11" rx="2" />
-                  <path d="M8 10V7a4 4 0 0 1 8 0v3" />
-                  <path d="M12 14v3" />
-                </svg>
-                <input
-                  id="senha"
-                  name="senha"
-                  type={mostrarSenha ? 'text' : 'password'}
-                  placeholder="Senha"
-                  autoComplete="current-password"
-                  required
-                />
-                <button
-                  className="login-password-toggle"
-                  type="button"
-                  aria-label={mostrarSenha ? 'Ocultar senha' : 'Mostrar senha'}
-                  aria-pressed={mostrarSenha}
-                  onClick={() => setMostrarSenha(!mostrarSenha)}
-                >
+                <div className="login-field">
                   <svg
+                    className="login-field-icon"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="1.5"
                     aria-hidden="true"
                   >
-                    <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z" />
-                    <circle cx="12" cy="12" r="3" />
-                    {!mostrarSenha && <path d="m3 21 18-18" />}
+                    <rect x="5" y="10" width="14" height="11" rx="2" />
+                    <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+                    <path d="M12 14v3" />
                   </svg>
-                </button>
+                  <input
+                    id="senha"
+                    name="senha"
+                    type={mostrarSenha ? 'text' : 'password'}
+                    placeholder="Digite sua senha"
+                    autoComplete="current-password"
+                    autoFocus={Boolean(state?.email)}
+                    required
+                  />
+                  <button
+                    className="login-password-toggle"
+                    type="button"
+                    aria-label={
+                      mostrarSenha ? 'Ocultar senha' : 'Mostrar senha'
+                    }
+                    aria-pressed={mostrarSenha}
+                    onClick={() => setMostrarSenha(!mostrarSenha)}
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      aria-hidden="true"
+                    >
+                      <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z" />
+                      <circle cx="12" cy="12" r="3" />
+                      {!mostrarSenha && <path d="m3 21 18-18" />}
+                    </svg>
+                  </button>
+                </div>
               </div>
 
               <div className="login-options">
@@ -138,15 +165,6 @@ export default function LoginPage({ onEntrar }) {
                   <input type="checkbox" name="lembrar" />
                   <span>Lembrar de mim</span>
                 </label>
-
-                <button
-                  className="login-forgot"
-                  type="button"
-                  disabled
-                  aria-describedby="login-unavailable"
-                >
-                  Esqueceu a senha?
-                </button>
               </div>
 
               {state?.cadastrado && !erro && (
@@ -156,9 +174,20 @@ export default function LoginPage({ onEntrar }) {
               )}
 
               {erro && (
-                <p className="login-error" role="alert">
-                  {erro}
-                </p>
+                <div className="login-error" role="alert">
+                  <p>{erro}</p>
+                  {emailRecusado && (
+                    <p className="login-sem-conta">
+                      Ainda não tem conta?{' '}
+                      <LinkFolha
+                        to="/cadastro"
+                        state={{ email: emailRecusado }}
+                      >
+                        Cadastre-se com este e-mail
+                      </LinkFolha>
+                    </p>
+                  )}
+                </div>
               )}
 
               <button
@@ -178,7 +207,7 @@ export default function LoginPage({ onEntrar }) {
                 Cadastre-se <span aria-hidden="true">→</span>
               </LinkFolha>
 
-              <p id="login-unavailable" className="login-unavailable">
+              <p className="login-unavailable">
                 Recuperação de senha indisponível no momento.
               </p>
             </form>

@@ -1,14 +1,14 @@
 .ajuste-texto {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .ajuste-texto button {
-  min-height: 44px;
-  padding: 6px 14px;
+  min-height: 2.75rem;
+  padding: 0.375rem 0.875rem;
   border: 1px solid var(--cor-borda-forte);
-  border-radius: 999px;
+  border-radius: 62.4375rem;
   background: var(--cor-papel);
   color: var(--cor-texto);
   font: inherit;
@@ -23,6 +23,6 @@
 }
 
 .ajuste-texto button:focus-visible {
-  outline: 3px solid var(--cor-lilas-escuro);
+  outline: 0.1875rem solid var(--cor-lilas-escuro);
   outline-offset: 2px;
 }

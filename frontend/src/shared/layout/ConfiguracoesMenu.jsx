@@ -1,6 +1,7 @@
 import { Link } from 'react-router'
 import AjusteTamanhoTexto from '../../features/configuracoes/AjusteTamanhoTexto'
 import Icone from './Icone'
+import { EVENTO_TUTORIAL } from './tutorialPassos'
 
 /** Engrenagem do topo: ajustes rápidos e o caminho para a tela de configurações. */
 export default function ConfiguracoesMenu({ aberto, aoAlternar, aoFechar }) {
@@ -30,6 +31,17 @@ export default function ConfiguracoesMenu({ aberto, aoAlternar, aoFechar }) {
           <div className="layout-painel-corpo">
             <p className="layout-painel-rotulo">Tamanho do texto</p>
             <AjusteTamanhoTexto />
+            <p className="layout-painel-rotulo">Tutorial</p>
+            <button
+              type="button"
+              className="layout-painel-botao"
+              onClick={() => {
+                aoFechar()
+                window.dispatchEvent(new Event(EVENTO_TUTORIAL))
+              }}
+            >
+              Rever o tutorial
+            </button>
           </div>
           <Link
             className="layout-painel-rodape"
