@@ -26,3 +26,27 @@ export function criarAnotacao(disciplinaId, { titulo, texto }) {
     dados: { titulo, texto },
   }).then(daApi)
 }
+
+/**
+ * Atualiza uma anotação do aluno (PUT /disciplinas/{id}/anotacoes/{anotacaoId}).
+ * A API devolve a anotação atualizada.
+ */
+export function atualizarAnotacao(disciplinaId, anotacaoId, { titulo, texto }) {
+  return requisicao(
+    `${caminho(disciplinaId)}/${encodeURIComponent(anotacaoId)}`,
+    {
+      method: 'PUT',
+      dados: { titulo, texto },
+    },
+  ).then(daApi)
+}
+
+/** Exclui uma anotação do aluno (DELETE /disciplinas/{id}/anotacoes/{anotacaoId}). */
+export function excluirAnotacao(disciplinaId, anotacaoId) {
+  return requisicao(
+    `${caminho(disciplinaId)}/${encodeURIComponent(anotacaoId)}`,
+    {
+      method: 'DELETE',
+    },
+  )
+}

@@ -1,6 +1,6 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { Carregando, ErroCarregamento } from '../../shared/components/Estados'
-import { envolver, prefixarLinhas } from './formatacao'
+import FormularioAnotacao from './FormularioAnotacao'
 import TextoFormatado from './TextoFormatado'
 import { useAnotacoes } from './useAnotacoes'
 
@@ -28,28 +28,22 @@ const contem = (anotacao, busca) =>
  * abertas ao mesmo tempo.
  */
 export default function CadernoDaDisciplina({ disciplinaId, busca }) {
-  const { anotacoes, erro, carregando, tentarNovamente, criar } =
-    useAnotacoes(disciplinaId)
+  const {
+    anotacoes,
+    erro,
+    carregando,
+    tentarNovamente,
+    criar,
+    atualizar,
+    excluir,
+  } = useAnotacoes(disciplinaId)
   // null = ainda no padrão (só a primeira anotação aberta).
   const [abertasIds, setAbertasIds] = useState(null)
   const [criando, setCriando] = useState(false)
-  const [titulo, setTitulo] = useState('')
-  const [texto, setTexto] = useState('')
-  const [enviando, setEnviando] = useState(false)
-  const [erroForm, setErroForm] = useState(null)
-  const campoTexto = useRef(null)
-  const selecaoPendente = useRef(null)
-
-  // Depois de aplicar uma marcação, devolve o foco ao campo com o trecho selecionado.
-  useLayoutEffect(() => {
-    const selecao = selecaoPendente.current
-
-    if (selecao && campoTexto.current) {
-      campoTexto.current.focus()
-      campoTexto.current.setSelectionRange(selecao.inicio, selecao.fim)
-      selecaoPendente.current = null
-    }
-  }, [texto])
+  const [editandoId, setEditandoId] = useState(null)
+  const [confirmandoId, setConfirmandoId] = useState(null)
+  const [excluindo, setExcluindo] = useState(false)
+  const [erroExcluir, setErroExcluir] = useState(null)
 
   if (carregando) return <Carregando mensagem="Carregando anotações…" />
 
@@ -77,131 +71,52 @@ export default function CadernoDaDisciplina({ disciplinaId, busca }) {
     setAbertasIds(novas)
   }
 
-  function formatar(aplicar) {
-    const campo = campoTexto.current
-    const resultado = aplicar(texto, campo.selectionStart, campo.selectionEnd)
-
-    selecaoPendente.current = { inicio: resultado.inicio, fim: resultado.fim }
-    setTexto(resultado.texto)
-  }
-
   function abrirFormulario() {
-    setErroForm(null)
+    setEditandoId(null)
+    setConfirmandoId(null)
     setCriando(true)
   }
 
-  function cancelar() {
-    setErroForm(null)
+  async function salvarNova(dados) {
+    const nova = await criar(dados)
+
+    setAbertasIds(new Set([...abertas, nova.id]))
     setCriando(false)
   }
 
-  async function salvar(evento) {
-    evento.preventDefault()
-
-    const tituloLimpo = titulo.trim()
-    const textoLimpo = texto.trim()
-
-    if (!tituloLimpo || !textoLimpo) {
-      setErroForm('Preencha o título e o texto da anotação.')
-      return
-    }
-
-    setErroForm(null)
-    setEnviando(true)
-
-    try {
-      const nova = await criar({ titulo: tituloLimpo, texto: textoLimpo })
-
-      setAbertasIds(new Set([...abertas, nova.id]))
-      setTitulo('')
-      setTexto('')
-      setCriando(false)
-    } catch (falha) {
-      // Mantém o que foi digitado para o aluno tentar de novo.
-      setErroForm(`Não foi possível salvar a anotação: ${falha.message}`)
-    } finally {
-      setEnviando(false)
-    }
+  async function salvarEdicao(id, dados) {
+    await atualizar(id, dados)
+    setEditandoId(null)
   }
 
-  const formulario = criando && (
-    <form className="anot-form" onSubmit={salvar} noValidate>
-      <h2>Nova anotação</h2>
-      <label>
-        Título
-        <input
-          type="text"
-          value={titulo}
-          maxLength={120}
-          onChange={(evento) => setTitulo(evento.target.value)}
-        />
-      </label>
-      <label>
-        Texto
-        <textarea
-          ref={campoTexto}
-          rows="10"
-          value={texto}
-          onChange={(evento) => setTexto(evento.target.value)}
-        />
-      </label>
-      <div className="anot-barra" role="toolbar" aria-label="Formatação">
-        <button
-          type="button"
-          aria-label="Negrito"
-          title="Negrito"
-          onClick={() => formatar((t, i, f) => envolver(t, i, f, '**'))}
-        >
-          <strong>B</strong>
-        </button>
-        <button
-          type="button"
-          aria-label="Marca-texto"
-          title="Marca-texto"
-          onClick={() => formatar((t, i, f) => envolver(t, i, f, '=='))}
-        >
-          <mark>ab</mark>
-        </button>
-        <button
-          type="button"
-          aria-label="Transformar em título"
-          title="Transformar em título"
-          onClick={() => formatar((t, i, f) => prefixarLinhas(t, i, f, '# '))}
-        >
-          T
-        </button>
-        <button
-          type="button"
-          aria-label="Transformar em lista"
-          title="Transformar em lista"
-          onClick={() => formatar((t, i, f) => prefixarLinhas(t, i, f, '- '))}
-        >
-          •
-        </button>
-      </div>
-      <p className="anot-dica">
-        Dica: **negrito**, ==marca-texto==, # título e - lista.
-      </p>
-      {erroForm && (
-        <p className="anot-erro" role="alert">
-          {erroForm}
-        </p>
-      )}
-      <div className="anot-form-acoes">
-        <button type="submit" disabled={enviando}>
-          {enviando ? 'Salvando…' : 'Salvar anotação'}
-        </button>
-        <button type="button" onClick={cancelar} disabled={enviando}>
-          Cancelar
-        </button>
-      </div>
-    </form>
-  )
+  function pedirConfirmacao(id) {
+    setErroExcluir(null)
+    setConfirmandoId(id)
+  }
+
+  async function confirmarExclusao(id) {
+    setExcluindo(true)
+    setErroExcluir(null)
+
+    try {
+      await excluir(id)
+      setConfirmandoId(null)
+    } catch (falha) {
+      setErroExcluir(`Não foi possível excluir a anotação: ${falha.message}`)
+    } finally {
+      setExcluindo(false)
+    }
+  }
 
   return (
     <div className="anot-caderno">
       {criando ? (
-        formulario
+        <FormularioAnotacao
+          cabecalho="Nova anotação"
+          rotuloSalvar="Salvar anotação"
+          aoSalvar={salvarNova}
+          aoCancelar={() => setCriando(false)}
+        />
       ) : (
         <button type="button" className="anot-nova" onClick={abrirFormulario}>
           <span aria-hidden="true">+</span> Nova anotação
@@ -239,17 +154,83 @@ export default function CadernoDaDisciplina({ disciplinaId, busca }) {
                     <span className="anot-item-nome">{anotacao.titulo}</span>
                   </button>
                 </h3>
-                {aberta && (
-                  <div
-                    id={`anot-conteudo-${anotacao.id}`}
-                    className="anot-conteudo"
-                  >
-                    {data && <time dateTime={anotacao.criadaEm}>{data}</time>}
-                    <div className="anot-texto">
-                      <TextoFormatado texto={anotacao.texto} />
+                {aberta &&
+                  (editandoId === anotacao.id ? (
+                    <FormularioAnotacao
+                      titulo={anotacao.titulo}
+                      texto={anotacao.texto}
+                      cabecalho="Editar anotação"
+                      rotuloSalvar="Salvar alterações"
+                      aoSalvar={(dados) => salvarEdicao(anotacao.id, dados)}
+                      aoCancelar={() => setEditandoId(null)}
+                    />
+                  ) : (
+                    <div
+                      id={`anot-conteudo-${anotacao.id}`}
+                      className="anot-conteudo"
+                    >
+                      {data && <time dateTime={anotacao.criadaEm}>{data}</time>}
+                      <div className="anot-texto">
+                        <TextoFormatado texto={anotacao.texto} />
+                      </div>
+                      {confirmandoId === anotacao.id ? (
+                        <div
+                          className="anot-confirmar"
+                          role="group"
+                          aria-label={`Excluir ${anotacao.titulo}`}
+                        >
+                          <p>
+                            Excluir a anotação “{anotacao.titulo}”? Isso não
+                            pode ser desfeito.
+                          </p>
+                          {erroExcluir && (
+                            <p className="anot-erro" role="alert">
+                              {erroExcluir}
+                            </p>
+                          )}
+                          <div className="anot-form-acoes">
+                            <button
+                              type="button"
+                              className="anot-perigo"
+                              disabled={excluindo}
+                              onClick={() => confirmarExclusao(anotacao.id)}
+                            >
+                              {excluindo ? 'Excluindo…' : 'Sim, excluir'}
+                            </button>
+                            <button
+                              type="button"
+                              disabled={excluindo}
+                              onClick={() => setConfirmandoId(null)}
+                            >
+                              Cancelar
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="anot-acoes">
+                          <button
+                            type="button"
+                            aria-label={`Editar ${anotacao.titulo}`}
+                            onClick={() => {
+                              setCriando(false)
+                              setConfirmandoId(null)
+                              setEditandoId(anotacao.id)
+                            }}
+                          >
+                            Editar
+                          </button>
+                          <button
+                            type="button"
+                            className="anot-perigo"
+                            aria-label={`Excluir ${anotacao.titulo}`}
+                            onClick={() => pedirConfirmacao(anotacao.id)}
+                          >
+                            Excluir
+                          </button>
+                        </div>
+                      )}
                     </div>
-                  </div>
-                )}
+                  ))}
               </li>
             )
           })}

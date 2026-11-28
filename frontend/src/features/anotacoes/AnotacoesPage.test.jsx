@@ -38,6 +38,8 @@ function responder({
   anotacoes = [resumo, etapas],
   falhaNasAnotacoes = false,
   post,
+  put,
+  apagar,
 } = {}) {
   vi.stubGlobal(
     'fetch',
@@ -46,6 +48,20 @@ function responder({
         return post
           ? post(url, opcoes)
           : json({ id: 50, ...JSON.parse(opcoes.body) }, 201)
+      }
+      if (opcoes.method === 'PUT') {
+        return put
+          ? put(url, opcoes)
+          : json({
+              id: 1,
+              criadaEm: resumo.criadaEm,
+              ...JSON.parse(opcoes.body),
+            })
+      }
+      if (opcoes.method === 'DELETE') {
+        return apagar
+          ? apagar(url, opcoes)
+          : new Response(null, { status: 204 })
       }
       if (url.endsWith('/disciplinas')) {
         return listaDeDisciplinas === null
@@ -79,6 +95,9 @@ function abrir(entrada = '/anotacoes') {
     </MemoryRouter>,
   )
 }
+
+const chamadasCom = (metodo) =>
+  fetch.mock.calls.filter(([, opcoes]) => opcoes?.method === metodo)
 
 const posts = () =>
   fetch.mock.calls.filter(([, opcoes]) => opcoes?.method === 'POST')
@@ -403,5 +422,124 @@ describe('Tela de Anotações', () => {
         screen.getByRole('heading', { name: 'Compiladores', level: 2 }),
       ).toBeInTheDocument(),
     )
+  })
+
+  it('edita uma anotação: abre o formulário preenchido e troca o título na lista', async () => {
+    responder()
+    abrir()
+    await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 3 })
+
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Editar Resumo - CAP 01' }),
+    )
+
+    expect(
+      screen.getByRole('heading', { name: 'Editar anotação' }),
+    ).toBeInTheDocument()
+    expect(screen.getByLabelText('Título')).toHaveValue('Resumo - CAP 01')
+
+    fireEvent.change(screen.getByLabelText('Título'), {
+      target: { value: '  Resumo revisado ' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: 'Salvar alterações' }))
+
+    expect(
+      await screen.findByRole('heading', { name: 'Resumo revisado', level: 3 }),
+    ).toBeInTheDocument()
+
+    const [url, opcoes] = chamadasCom('PUT')[0]
+
+    expect(url).toContain('/disciplinas/7/anotacoes/1')
+    expect(JSON.parse(opcoes.body)).toEqual({
+      titulo: 'Resumo revisado',
+      texto: 'Um compilador traduz o código-fonte.',
+    })
+    expect(
+      screen.queryByRole('heading', { name: 'Editar anotação' }),
+    ).not.toBeInTheDocument()
+  })
+
+  it('mantém o formulário e avisa quando a edição é recusada', async () => {
+    responder({
+      put: () => json({ mensagem: 'Anotação não encontrada.' }, 404),
+    })
+    abrir()
+    await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 3 })
+
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Editar Resumo - CAP 01' }),
+    )
+    fireEvent.click(screen.getByRole('button', { name: 'Salvar alterações' }))
+
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      'Anotação não encontrada.',
+    )
+    expect(screen.getByLabelText('Título')).toHaveValue('Resumo - CAP 01')
+  })
+
+  it('cancela a edição sem chamar a API', async () => {
+    responder()
+    abrir()
+    await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 3 })
+
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Editar Resumo - CAP 01' }),
+    )
+    fireEvent.click(screen.getByRole('button', { name: 'Cancelar' }))
+
+    expect(chamadasCom('PUT')).toHaveLength(0)
+    expect(
+      screen.getByText('Um compilador traduz o código-fonte.'),
+    ).toBeInTheDocument()
+  })
+
+  it('pede confirmação antes de excluir e só exclui ao confirmar', async () => {
+    responder()
+    abrir()
+    await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 3 })
+
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Excluir Resumo - CAP 01' }),
+    )
+
+    expect(screen.getByText(/Isso não pode ser desfeito/)).toBeInTheDocument()
+    expect(chamadasCom('DELETE')).toHaveLength(0)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Cancelar' }))
+    expect(
+      screen.queryByText(/Isso não pode ser desfeito/),
+    ).not.toBeInTheDocument()
+    expect(chamadasCom('DELETE')).toHaveLength(0)
+
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Excluir Resumo - CAP 01' }),
+    )
+    fireEvent.click(screen.getByRole('button', { name: 'Sim, excluir' }))
+
+    await waitFor(() =>
+      expect(
+        screen.queryByRole('heading', { name: 'Resumo - CAP 01', level: 3 }),
+      ).not.toBeInTheDocument(),
+    )
+    expect(chamadasCom('DELETE')[0][0]).toContain('/disciplinas/7/anotacoes/1')
+    expect(
+      screen.getByRole('heading', { name: 'Etapas da compilação', level: 3 }),
+    ).toBeInTheDocument()
+  })
+
+  it('mantém a anotação e avisa quando a exclusão falha', async () => {
+    responder({ apagar: () => json({ mensagem: 'Acesso negado.' }, 403) })
+    abrir()
+    await screen.findByRole('heading', { name: 'Resumo - CAP 01', level: 3 })
+
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Excluir Resumo - CAP 01' }),
+    )
+    fireEvent.click(screen.getByRole('button', { name: 'Sim, excluir' }))
+
+    expect(await screen.findByRole('alert')).toHaveTextContent('Acesso negado.')
+    expect(
+      screen.getByRole('heading', { name: 'Resumo - CAP 01', level: 3 }),
+    ).toBeInTheDocument()
   })
 })

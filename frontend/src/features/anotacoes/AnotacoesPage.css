@@ -428,3 +428,66 @@
   overflow: hidden;
   clip-path: inset(50%);
 }
+
+/* Editar e excluir uma anotação */
+.anot-acoes {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.anot-acoes button,
+.anot-confirmar .anot-form-acoes button {
+  padding: 0.375rem 0.875rem;
+  border: 1px solid var(--cor-borda-forte);
+  border-radius: 0.625rem;
+  background: var(--cor-papel);
+  color: var(--cor-texto);
+  font: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.anot-acoes button:hover,
+.anot-confirmar .anot-form-acoes button:hover {
+  background: var(--cor-lilas-claro);
+}
+
+.anot-acoes button:focus-visible,
+.anot-confirmar .anot-form-acoes button:focus-visible {
+  outline: 0.1875rem solid var(--cor-lilas-escuro);
+  outline-offset: 2px;
+}
+
+.anot-acoes .anot-perigo,
+.anot-confirmar .anot-perigo {
+  border-color: var(--cor-alerta);
+  color: var(--cor-alerta);
+}
+
+.anot-confirmar .anot-perigo {
+  background: var(--cor-alerta);
+  color: #fff;
+}
+
+.anot-confirmar .anot-perigo:hover {
+  background: #8f1f19;
+}
+
+.anot-confirmar {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: var(--cor-rosa-claro);
+}
+
+.anot-confirmar p {
+  margin: 0;
+}
+
+.anot-confirmar button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
