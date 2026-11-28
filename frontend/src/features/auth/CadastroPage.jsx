@@ -131,6 +131,7 @@ export default function CadastroPage() {
         capitalizarNome(valores.nome),
         valores.email.trim().toLowerCase(),
         valores.senha,
+        valores.confirmacao,
         valores.matricula,
       )
       marcarTutorialPendente()
