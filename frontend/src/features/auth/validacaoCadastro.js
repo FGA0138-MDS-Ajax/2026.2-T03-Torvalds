@@ -1,6 +1,12 @@
 const TAMANHO_MINIMO_SENHA = 8
 const TAMANHO_MATRICULA = 9
 
+// Exige o domínio completo (nome@servidor.com): o campo do navegador e o back
+// aceitam "nome@servidor", sem o ponto, que não é um e-mail de verdade.
+const EMAIL_COMPLETO = /^[^\s@]+@[^\s@.]+(?:\.[^\s@.]+)*\.[^\s@.]{2,}$/
+
+export const emailEhValido = (email) => EMAIL_COMPLETO.test(email.trim())
+
 export function validarCadastro({
   nome,
   email,
@@ -10,6 +16,9 @@ export function validarCadastro({
 }) {
   if (!nome.trim() || !email.trim() || !senha || !confirmacao) {
     return 'Preencha todos os campos.'
+  }
+  if (!emailEhValido(email)) {
+    return 'Informe um e-mail completo, como nome@email.com.'
   }
   if (matricula && !/^\d{9}$/.test(matricula)) {
     return `A matrícula UnB precisa ter ${TAMANHO_MATRICULA} dígitos.`
